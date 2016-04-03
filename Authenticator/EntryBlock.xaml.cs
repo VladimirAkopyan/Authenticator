@@ -59,11 +59,6 @@ namespace Authenticator
             FadeOut.Completed += FadeOut_Completed;
         }
 
-        private void FadeIn_Completed(object sender, object e)
-        {
-            throw new NotImplementedException();
-        }
-
         private void DisplayCodeFormatted()
         {
             string firstPart = otp.Code.Substring(0, 3);
