@@ -17,6 +17,7 @@ namespace Authenticator
     public class OTP : INotifyPropertyChanged
     {
         private DispatcherTimer timer;
+        private CryptographicKey cKey;
 
         public OTP(string key)
         {
@@ -27,7 +28,7 @@ namespace Authenticator
 
             timer = new DispatcherTimer();
             timer.Tick += DispatcherTimerEventHandler;
-            timer.Interval = new TimeSpan(0, 0, 0, RemainingSeconds);
+            timer.Interval = new TimeSpan(0, 0, 0, TOTPUtilities.RemainingSeconds);
             timer.Start();
         }
 
@@ -48,14 +49,7 @@ namespace Authenticator
             }
         }
 
-        private CryptographicKey cKey;
-
-        private long TimeSource
-        {
-            get { return (DateTime.UtcNow.Ticks - EPOCH) / TimeSpan.TicksPerMillisecond; }
-        }
-
-        private byte[] HmacSha1(byte[] value)
+        private byte[] HMACSHA1(byte[] value)
         {
             byte[] hash;
 
@@ -68,44 +62,34 @@ namespace Authenticator
             return hash;
         }
 
-        private byte[] Revers(byte[] src)
+        private byte[] Reverse(byte[] source)
         {
-            Array.Reverse(src);
-            return src;
+            Array.Reverse(source);
+
+            return source;
         }
 
-        public string TOTP { get { return Generate(); } }
-
-        public bool IsValid(string totp)
-        {
-            return (totp.Equals(Generate()));
-        }              
-        
-        public int RemainingSeconds
+        public string Code
         {
             get
             {
-                var epoch = Math.Round(TimeSource / 1000.0);
-                var countDown = 30 - (epoch % 30);
-
-                return (int)countDown;
+                return Generate();
             }
         }
 
-        private const byte DIGITS = 6;
-
-        private const long EPOCH = 621355968000000000;
-
-        private const int INTERVAL = 30000;
+        public bool IsValid(string totp)
+        {
+            return totp.Equals(Generate());
+        }
 
         private string Generate()
         {
-            byte[] code = BitConverter.GetBytes(TimeSource / INTERVAL);
+            byte[] code = BitConverter.GetBytes(TOTPUtilities.TimeSource / TOTPUtilities.INTERVAL);
 
             if (BitConverter.IsLittleEndian)
-                code = Revers(code);
+                code = Reverse(code);
 
-            byte[] hash = HmacSha1(code);
+            byte[] hash = HMACSHA1(code);
 
             // the last 4 bits of the mac say where the code starts (e.g. if last 4 bit are 1100, we start at byte 12)
             int start = hash[19] & 0x0f;
@@ -115,17 +99,17 @@ namespace Authenticator
             Array.Copy(hash, start, bytes, 0, 4);
 
             if (BitConverter.IsLittleEndian)
-                bytes = Revers(bytes);
+                bytes = Reverse(bytes);
 
             uint fullcode = BitConverter.ToUInt32(bytes, 0) & 0x7fffffff;
 
             // we use the last x DIGITS of this code in radix 10
-            uint codemask = (uint)Math.Pow(10, DIGITS);
+            uint codemask = (uint)Math.Pow(10, TOTPUtilities.DIGITS);
 
             string totp = (fullcode % codemask).ToString();
 
             // .NETmf has no required format string
-            while (totp.Length != DIGITS)
+            while (totp.Length != TOTPUtilities.DIGITS)
                 totp = "0" + totp;
 
             return totp;

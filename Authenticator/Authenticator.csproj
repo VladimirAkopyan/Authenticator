@@ -118,6 +118,7 @@
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utilities\Base32.cs" />
+    <Compile Include="Utilities\TOTPUtilities.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">

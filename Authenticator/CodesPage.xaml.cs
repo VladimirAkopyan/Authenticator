@@ -1,4 +1,5 @@
 ﻿using Authenticator.Storage;
+using Authenticator.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -27,7 +28,6 @@ namespace Authenticator
     public sealed partial class CodesPage : Page
     {
         private EntryStorage entryStorage;
-        private List<EntryBlock> codes;
         private Dictionary<Entry, EntryBlock> mappings;
 
         public CodesPage()
@@ -35,26 +35,22 @@ namespace Authenticator
             InitializeComponent();
 
             entryStorage = new EntryStorage();
-            codes = new List<EntryBlock>();
             mappings = new Dictionary<Entry, EntryBlock>();
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            OTP otp = new OTP("JBSWY3DPEHPK3PXP");
-
             foreach (Entry entry in entryStorage.Entries)
             {
                 EntryBlock code = new EntryBlock(entry);
                 code.DeleteRequested += Code_DeleteRequested;
 
                 Codes.Children.Add(code);
-                codes.Add(code);
                 mappings.Add(entry, code);
             }
 
             StrechProgress.Begin();
-            StrechProgress.Seek(new TimeSpan(0, 0, 30 - otp.RemainingSeconds));
+            StrechProgress.Seek(new TimeSpan(0, 0, 30 - TOTPUtilities.RemainingSeconds));
         }
 
         private void Code_DeleteRequested(object sender, DeleteRequestEventArgs e)
@@ -65,7 +61,7 @@ namespace Authenticator
 
         private void Edit_Click(object sender, RoutedEventArgs e)
         {
-            foreach (EntryBlock code in codes)
+            foreach (EntryBlock code in Codes.Children.Where(c => c.GetType() == typeof(EntryBlock)))
             {
                 code.InEditMode = !code.InEditMode;
             }

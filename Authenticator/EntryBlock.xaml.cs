@@ -60,8 +60,8 @@ namespace Authenticator
 
         private void DisplayCodeFormatted()
         {
-            string firstPart = otp.TOTP.Substring(0, 3);
-            string secondPart = otp.TOTP.Substring(3, 3);
+            string firstPart = otp.Code.Substring(0, 3);
+            string secondPart = otp.Code.Substring(3, 3);
 
             CurrentCode.Text = string.Format("{0} {1}", firstPart, secondPart);
         }
