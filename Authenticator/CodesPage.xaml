@@ -5,10 +5,22 @@
     xmlns:local="using:Authenticator"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d" Loaded="Page_Loaded">    
-    <ScrollViewer Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <StackPanel Name="Codes">
-            
-        </StackPanel>
-    </ScrollViewer>
+    mc:Ignorable="d" Loaded="Page_Loaded">
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton Icon="Edit" Label="Bewerken" />
+        </CommandBar>
+    </Page.BottomAppBar>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Rectangle Height="5" Fill="#1abc9c" Grid.Row="0" />
+        <ScrollViewer Grid.Row="1">
+            <StackPanel VerticalAlignment="Stretch" Name="Codes">
+
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
 </Page>
