@@ -27,7 +27,7 @@ namespace Authenticator
 
             timer = new DispatcherTimer();
             timer.Tick += DispatcherTimerEventHandler;
-            timer.Interval = new TimeSpan(0, 0, 0, RemainingSeconds + 1);
+            timer.Interval = new TimeSpan(0, 0, 0, RemainingSeconds);
             timer.Start();
         }
 

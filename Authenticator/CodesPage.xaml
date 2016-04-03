@@ -6,6 +6,18 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" Loaded="Page_Loaded">
+    <Page.Resources>
+
+        <Storyboard x:Name="StrechProgress" RepeatBehavior="Forever">
+            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)" Storyboard.TargetName="Progress">
+                <EasingColorKeyFrame KeyTime="0:0:20" Value="#1abc9c"/>
+                <EasingColorKeyFrame KeyTime="0:0:25" Value="#FFF39C12"/>
+                <EasingColorKeyFrame KeyTime="0:0:30" Value="#FFE74C3C"/>
+            </ColorAnimationUsingKeyFrames>
+
+        </Storyboard>
+
+    </Page.Resources>
     <Page.BottomAppBar>
         <CommandBar>
             <AppBarButton Icon="Edit" Label="Bewerken" />
@@ -16,7 +28,7 @@
             <RowDefinition Height="5" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Rectangle Height="5" Fill="#1abc9c" Grid.Row="0" />
+        <Rectangle Name="Progress" Height="5" HorizontalAlignment="Stretch" Fill="#1abc9c" Grid.Row="0" />
         <ScrollViewer Grid.Row="1">
             <StackPanel VerticalAlignment="Stretch" Name="Codes">
 

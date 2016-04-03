@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
@@ -33,14 +34,18 @@ namespace Authenticator
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            codes = new List<OTP>();
+            OTP otp = null;
 
             for (int i = 0; i < 10; i++)
             {
-                Code code = new Code(new OTP("JBSWY3DPEHPK3PXP"));
+                otp = new OTP("JBSWY3DPEHPK3PXP");
+                Code code = new Code(otp);
 
                 Codes.Children.Add(code);
             }
+
+            StrechProgress.Begin();
+            StrechProgress.Seek(new TimeSpan(0, 0, 30 - otp.RemainingSeconds));
         }
     }
 }
