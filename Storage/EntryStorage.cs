@@ -77,5 +77,12 @@ namespace Authenticator.Storage
 
             Persist();
         }
+
+        public void Remove(Entry entry)
+        {
+            entries.Remove(entry);
+
+            Persist();
+        }
     }
 }

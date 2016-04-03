@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Authenticator.Storage;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -17,8 +18,9 @@ using Windows.UI.Xaml.Navigation;
 
 namespace Authenticator
 {
-    public sealed partial class Code : UserControl
+    public sealed partial class EntryBlock : UserControl
     {
+        private Entry entry;
         private OTP otp;
         private bool _inEditMode;
 
@@ -43,16 +45,17 @@ namespace Authenticator
             }
         }
 
-        public Code(OTP otp)
+        public EntryBlock(Entry entry)
         {
             InitializeComponent();
 
-            this.otp = otp;
+            this.entry = entry;
+            otp = new OTP(entry.Secret);
 
             otp.PropertyChanged += Otp_PropertyChanged;
 
             DisplayCodeFormatted();
-            Name.Text = "test@test.nl";
+            EntryName.Text = entry.Name;
         }
 
         private void DisplayCodeFormatted()
@@ -66,6 +69,21 @@ namespace Authenticator
         private void Otp_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             DisplayCodeFormatted();
+        }
+
+        private void Delete_Click(object sender, RoutedEventArgs e)
+        {
+            NotifyDeleteRequested();
+        }
+
+        public event EventHandler<DeleteRequestEventArgs> DeleteRequested;
+
+        private void NotifyDeleteRequested()
+        {
+            if (DeleteRequested != null)
+            {
+                DeleteRequested(this, new DeleteRequestEventArgs(entry));
+            }
         }
     }
 }

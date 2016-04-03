@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Authenticator.Storage;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -22,12 +23,15 @@ namespace Authenticator
     /// </summary>
     public sealed partial class AddPage : Page
     {
+        private EntryStorage entryStorage;
         private MainPage mainPage;
         private Frame contentFrame;
 
         public AddPage()
         {
             InitializeComponent();
+
+            entryStorage = new EntryStorage();
 
             CheckForCamera();
         }
@@ -51,6 +55,15 @@ namespace Authenticator
         private void Scan_Click(object sender, RoutedEventArgs e)
         {
             mainPage.Navigate(typeof(ScanPage), contentFrame);
+        }
+
+        private void Save_Click(object sender, RoutedEventArgs e)
+        {
+            entryStorage.Save(new Entry()
+            {
+                Name = EntryName.Text,
+                Secret = EntryCode.Text
+            });
         }
     }
 }

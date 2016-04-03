@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="Authenticator.Code"
+    x:Class="Authenticator.EntryBlock"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Authenticator"
@@ -26,10 +26,10 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
-        <Button x:Name="Delete" Background="#e74c3c" Foreground="White" HorizontalAlignment="Stretch" Width="0" VerticalAlignment="Stretch" Content="&#xE107;" FontSize="30" Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" FontFamily="Segoe MDL2 Assets" />
+        <Button x:Name="Delete" Background="#e74c3c" Foreground="White" HorizontalAlignment="Stretch" Width="0" VerticalAlignment="Stretch" Content="&#xE107;" FontSize="30" Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" FontFamily="Segoe MDL2 Assets" Click="Delete_Click" />
         <TextBlock Padding="5 0" x:Name="CurrentCode" HorizontalAlignment="Stretch" Text="123 456" FontSize="48" Grid.Row="0" Grid.Column="0" />
         <Viewbox Margin="5 0" VerticalAlignment="Bottom" d:LayoutOverrides="LeftPosition, RightPosition" Stretch="Uniform" MaxHeight="30" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0">
-            <TextBlock x:Name="Name" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="Google:hoithebest@gmail.com" />
+            <TextBlock x:Name="EntryName" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="Google:example@example.com" />
         </Viewbox>
     </Grid>
 </UserControl>

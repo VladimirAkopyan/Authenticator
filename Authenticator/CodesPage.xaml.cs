@@ -27,37 +27,45 @@ namespace Authenticator
     public sealed partial class CodesPage : Page
     {
         private EntryStorage entryStorage;
-        private List<Code> codes;
+        private List<EntryBlock> codes;
+        private Dictionary<Entry, EntryBlock> mappings;
 
         public CodesPage()
         {
             InitializeComponent();
 
             entryStorage = new EntryStorage();
-
-            codes = new List<Code>();
+            codes = new List<EntryBlock>();
+            mappings = new Dictionary<Entry, EntryBlock>();
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            OTP otp = null;
+            OTP otp = new OTP("JBSWY3DPEHPK3PXP");
 
-            for (int i = 0; i < 10; i++)
+            foreach (Entry entry in entryStorage.Entries)
             {
-                otp = new OTP("JBSWY3DPEHPK3PXP");
-                Code code = new Code(otp);
+                EntryBlock code = new EntryBlock(entry);
+                code.DeleteRequested += Code_DeleteRequested;
 
                 Codes.Children.Add(code);
                 codes.Add(code);
+                mappings.Add(entry, code);
             }
 
             StrechProgress.Begin();
             StrechProgress.Seek(new TimeSpan(0, 0, 30 - otp.RemainingSeconds));
         }
 
+        private void Code_DeleteRequested(object sender, DeleteRequestEventArgs e)
+        {
+            entryStorage.Remove(e.Entry);
+            Codes.Children.Remove(mappings.FirstOrDefault(m => m.Key == e.Entry).Value);
+        }
+
         private void Edit_Click(object sender, RoutedEventArgs e)
         {
-            foreach (Code code in codes)
+            foreach (EntryBlock code in codes)
             {
                 code.InEditMode = !code.InEditMode;
             }
