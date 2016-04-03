@@ -25,11 +25,13 @@ namespace Authenticator
     /// </summary>
     public sealed partial class CodesPage : Page
     {
-        private List<OTP> codes;
+        private List<Code> codes;
 
         public CodesPage()
         {
             InitializeComponent();
+
+            codes = new List<Code>();
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -42,10 +44,19 @@ namespace Authenticator
                 Code code = new Code(otp);
 
                 Codes.Children.Add(code);
+                codes.Add(code);
             }
 
             StrechProgress.Begin();
             StrechProgress.Seek(new TimeSpan(0, 0, 30 - otp.RemainingSeconds));
+        }
+
+        private void Edit_Click(object sender, RoutedEventArgs e)
+        {
+            foreach (Code code in codes)
+            {
+                code.InEditMode = !code.InEditMode;
+            }
         }
     }
 }

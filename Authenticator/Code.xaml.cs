@@ -20,6 +20,28 @@ namespace Authenticator
     public sealed partial class Code : UserControl
     {
         private OTP otp;
+        private bool _inEditMode;
+
+        public bool InEditMode
+        {
+            get
+            {
+                return _inEditMode;
+            }
+            set
+            {
+                _inEditMode = value;
+
+                if (value)
+                {
+                    Open.Begin();
+                }
+                else
+                {
+                    Close.Begin();
+                }
+            }
+        }
 
         public Code(OTP otp)
         {

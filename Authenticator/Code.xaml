@@ -6,13 +6,30 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
+    Height="110"
     d:DesignHeight="300"
     d:DesignWidth="400">
-
-    <StackPanel Background="#FFF1F1F1" Margin="10" Padding="10">
-        <TextBlock Name="CurrentCode" HorizontalAlignment="Stretch" Text="123 456" FontSize="48" />
-        <Viewbox VerticalAlignment="Bottom" d:LayoutOverrides="LeftPosition, RightPosition" Stretch="Uniform" MaxHeight="30" HorizontalAlignment="Left">
-            <TextBlock Name="Name" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="Google:hoithebest@gmail.com" />
+    <UserControl.Resources>
+        <Storyboard x:Name="Open">
+            <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="Delete">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="100"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Name="Close">
+            <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="Delete">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </UserControl.Resources>
+    <Grid Background="#FFF1F1F1" Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Button x:Name="Delete" Background="#e74c3c" Foreground="White" HorizontalAlignment="Stretch" Width="0" VerticalAlignment="Stretch" Content="&#xE107;" FontSize="30" Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" FontFamily="Segoe MDL2 Assets" />
+        <TextBlock Padding="5 0" x:Name="CurrentCode" HorizontalAlignment="Stretch" Text="123 456" FontSize="48" Grid.Row="0" Grid.Column="0" />
+        <Viewbox Margin="5 0" VerticalAlignment="Bottom" d:LayoutOverrides="LeftPosition, RightPosition" Stretch="Uniform" MaxHeight="30" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0">
+            <TextBlock x:Name="Name" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="Google:hoithebest@gmail.com" />
         </Viewbox>
-    </StackPanel>
+    </Grid>
 </UserControl>
