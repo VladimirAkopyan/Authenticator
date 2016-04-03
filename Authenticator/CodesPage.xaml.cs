@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Authenticator.Storage;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -25,11 +26,14 @@ namespace Authenticator
     /// </summary>
     public sealed partial class CodesPage : Page
     {
+        private EntryStorage entryStorage;
         private List<Code> codes;
 
         public CodesPage()
         {
             InitializeComponent();
+
+            entryStorage = new EntryStorage();
 
             codes = new List<Code>();
         }
