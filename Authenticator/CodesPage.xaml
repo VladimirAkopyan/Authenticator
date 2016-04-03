@@ -9,30 +9,33 @@
     <Page.Resources>
 
         <Storyboard x:Name="StrechProgress" RepeatBehavior="Forever">
-            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)" Storyboard.TargetName="Progress">
-                <EasingColorKeyFrame KeyTime="0:0:20" Value="#1abc9c"/>
-                <EasingColorKeyFrame KeyTime="0:0:25" Value="#FFF39C12"/>
-                <EasingColorKeyFrame KeyTime="0:0:30" Value="#FFE74C3C"/>
+            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Control.Foreground).(SolidColorBrush.Color)" Storyboard.TargetName="ProgressBar">
+                <EasingColorKeyFrame KeyTime="0:0:20" Value="#FF1ABC9C"/>
+                <EasingColorKeyFrame KeyTime="0:0:25" Value="#f39c12"/>
+                <EasingColorKeyFrame KeyTime="0:0:30" Value="#e74c3c"/>
             </ColorAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(RangeBase.Value)" Storyboard.TargetName="ProgressBar">
+                <EasingDoubleKeyFrame KeyTime="0:0:0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:30" Value="30"/>
+            </DoubleAnimationUsingKeyFrames>
 
         </Storyboard>
 
     </Page.Resources>
-    <Page.BottomAppBar>
-        <CommandBar>
-            <AppBarButton Icon="Edit" Label="Bewerken" />
-        </CommandBar>
-    </Page.BottomAppBar>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="5" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <Rectangle Name="Progress" Height="5" HorizontalAlignment="Stretch" Fill="#1abc9c" Grid.Row="0" />
+        <ProgressBar Name="ProgressBar" Height="5" Grid.Row="0" Background="White" Maximum="30" Minimum="0" Value="0" Foreground="#FF1ABC9C" />
         <ScrollViewer Grid.Row="1">
             <StackPanel VerticalAlignment="Stretch" Name="Codes">
 
             </StackPanel>
         </ScrollViewer>
+        <CommandBar Grid.Row="2">
+            <AppBarButton Icon="Edit" Label="Bewerken" />
+        </CommandBar>
     </Grid>
 </Page>
