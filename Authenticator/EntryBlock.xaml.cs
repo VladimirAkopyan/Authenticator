@@ -56,6 +56,12 @@ namespace Authenticator
 
             DisplayCodeFormatted();
             EntryName.Text = entry.Name;
+            FadeOut.Completed += FadeOut_Completed;
+        }
+
+        private void FadeIn_Completed(object sender, object e)
+        {
+            throw new NotImplementedException();
         }
 
         private void DisplayCodeFormatted()
@@ -68,7 +74,14 @@ namespace Authenticator
 
         private void Otp_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
+            FadeOut.Begin();
+        }
+
+        private void FadeOut_Completed(object sender, object e)
+        {
             DisplayCodeFormatted();
+
+            FadeIn.Begin();
         }
 
         private void Delete_Click(object sender, RoutedEventArgs e)
