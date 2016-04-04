@@ -102,8 +102,8 @@
       <DependentUpon>Banner.xaml</DependentUpon>
     </Compile>
     <Compile Include="BannerType.cs" />
-    <Compile Include="CodesPage.xaml.cs">
-      <DependentUpon>CodesPage.xaml</DependentUpon>
+    <Compile Include="AccountsPage.xaml.cs">
+      <DependentUpon>AccountsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="DeleteRequestedEventHandler.cs" />
     <Compile Include="DeleteRequestEventArgs.cs" />
@@ -157,7 +157,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="CodesPage.xaml">
+    <Page Include="AccountsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

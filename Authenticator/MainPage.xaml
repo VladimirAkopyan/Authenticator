@@ -63,7 +63,7 @@
                     </Grid.RowDefinitions>
                     <ScrollViewer Grid.Row="0" VerticalAlignment="Top" HorizontalScrollMode="Disabled" VerticalScrollBarVisibility="Hidden">
                         <StackPanel>
-                            <RadioButton Tag="&#57633;" Name="CodesMenuItem" Content="Codes" Style="{StaticResource SplitViewNavButtonStyle}" IsChecked="True" Click="CodesMenuItem_Click" />
+                            <RadioButton Tag="&#57633;" x:Name="AccountsMenuItem" Content="Accounts" Style="{StaticResource SplitViewNavButtonStyle}" IsChecked="True" Click="AccountsMenuItem_Click" />
                             <RadioButton Tag="&#xe109;" Name="AddMenuItem" Content="Toevoegen" Style="{StaticResource SplitViewNavButtonStyle}" Click="AddMenuItem_Click" />
                         </StackPanel>
                     </ScrollViewer>

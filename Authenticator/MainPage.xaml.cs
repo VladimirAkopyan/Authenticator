@@ -25,7 +25,7 @@ namespace Authenticator
             instance = this;
 
             // Navigate to the first page
-            Navigate(typeof(CodesPage));
+            Navigate(typeof(AccountsPage));
 
             SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
         }
@@ -40,9 +40,9 @@ namespace Authenticator
 
                 backButtonTapped = true;
 
-                if (Contentframe.Content.GetType() == typeof(CodesPage))
+                if (Contentframe.Content.GetType() == typeof(AccountsPage))
                 {
-                    CodesMenuItem.IsChecked = true;
+                    AccountsMenuItem.IsChecked = true;
                 }
                 else if (Contentframe.Content.GetType() == typeof(AddPage))
                 {
@@ -81,11 +81,11 @@ namespace Authenticator
             }
         }
 
-        private void CodesMenuItem_Click(object sender, RoutedEventArgs e)
+        private void AccountsMenuItem_Click(object sender, RoutedEventArgs e)
         {
             if (!backButtonTapped)
             {
-                Navigate(typeof(CodesPage));
+                Navigate(typeof(AccountsPage));
             }
         }
 

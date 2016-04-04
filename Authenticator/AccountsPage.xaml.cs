@@ -25,12 +25,12 @@ namespace Authenticator
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class CodesPage : Page
+    public sealed partial class AccountsPage : Page
     {
         private EntryStorage entryStorage;
         private Dictionary<Entry, EntryBlock> mappings;
 
-        public CodesPage()
+        public AccountsPage()
         {
             InitializeComponent();
 
@@ -57,8 +57,8 @@ namespace Authenticator
         {
             ContentDialog dialog = new ContentDialog()
             {
-                Title = "Code verwijderen",
-                Content = "Weet u zeker dat u deze code wilt verwijderen?\nLet op: Het verwijderen van deze code deactiveert tweestapsauthenticatie op uw account niet!",
+                Title = "Account verwijderen",
+                Content = "Weet u zeker dat u dit accoubt wilt verwijderen?\nLet op: Het verwijderen van dit account deactiveert tweestapsauthenticatie op uw account niet!",
                 PrimaryButtonText = "Verwijderen",
                 SecondaryButtonText = "Annuleren"
             };
