@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
+using System.Linq;
 using Windows.Storage;
 
 namespace Authenticator.Storage
@@ -55,6 +55,13 @@ namespace Authenticator.Storage
             string content = await FileIO.ReadTextAsync(file);
 
             entries = JsonConvert.DeserializeObject<List<Entry>>(content);
+
+            Clean();
+        }
+
+        private void Clean()
+        {
+            entries.RemoveAll(e => !e.Secret.All(char.IsLetterOrDigit));
         }
 
         private async void Persist()
