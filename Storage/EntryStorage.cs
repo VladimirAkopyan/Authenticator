@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Windows.Storage;
 
 namespace Authenticator_for_Windows.Storage
@@ -11,25 +12,24 @@ namespace Authenticator_for_Windows.Storage
         private StorageFolder applicationData;
         private List<Entry> entries;
 
-        public IReadOnlyList<Entry> Entries
-        {
-            get
-            {
-                return entries;
-            }
-        }
-
         private const string ENTRIES_FILENAME = "Entries.json";
 
         public EntryStorage()
         {
-            entries = new List<Entry>();
             applicationData = ApplicationData.Current.LocalFolder;
-
-            LoadStorage();
         }
 
-        private async void LoadStorage()
+        public async Task<IReadOnlyList<Entry>> GetEntriesAsync()
+        {
+            if (entries == null)
+            {
+                await LoadStorage();
+            }
+
+            return entries;
+        }
+
+        private async Task LoadStorage()
         {
             StorageFile file = null;
 
@@ -67,7 +67,7 @@ namespace Authenticator_for_Windows.Storage
         private async void Persist()
         {
             StorageFile file = await applicationData.CreateFileAsync(ENTRIES_FILENAME, CreationCollisionOption.ReplaceExisting);
-            
+
             try
             {
                 await FileIO.WriteTextAsync(file, JsonConvert.SerializeObject(entries));

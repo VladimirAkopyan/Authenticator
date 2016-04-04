@@ -38,9 +38,11 @@ namespace Authenticator_for_Windows
             mappings = new Dictionary<Entry, EntryBlock>();
         }
 
-        private void Page_Loaded(object sender, RoutedEventArgs e)
+        private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            foreach (Entry entry in entryStorage.Entries)
+            IReadOnlyList<Entry> entries = await entryStorage.GetEntriesAsync();
+
+            foreach (Entry entry in entries)
             {
                 EntryBlock code = new EntryBlock(entry);
                 code.DeleteRequested += Code_DeleteRequested;
