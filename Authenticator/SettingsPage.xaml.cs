@@ -23,6 +23,8 @@ namespace Authenticator
     /// </summary>
     public sealed partial class SettingsPage : Page
     {
+        private MainPage mainPage;
+
         public SettingsPage()
         {
             InitializeComponent();
@@ -42,7 +44,12 @@ namespace Authenticator
 
         private void PrivacyDeclaration_Click(object sender, RoutedEventArgs e)
         {
+            mainPage.Navigate(typeof(PrivacyDeclaration));
+        }
 
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            mainPage = (MainPage)e.Parameter;
         }
     }
 }

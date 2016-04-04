@@ -101,7 +101,7 @@ namespace Authenticator
         {
             if (!backButtonTapped)
             {
-                Navigate(typeof(SettingsPage));
+                Navigate(typeof(SettingsPage), this);
             }
         }
     }
