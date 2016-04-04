@@ -7,7 +7,7 @@ using Windows.Security.Cryptography;
 using Windows.Security.Cryptography.Core;
 using Windows.Storage.Streams;
 
-namespace Authenticator.Utilities
+namespace Authenticator_for_Windows.Utilities
 {
     class TOTPUtilities
     {

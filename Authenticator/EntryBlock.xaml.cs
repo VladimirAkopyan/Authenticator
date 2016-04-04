@@ -1,11 +1,11 @@
-﻿using Authenticator.Storage;
+﻿using Authenticator_for_Windows.Storage;
 using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 // The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
 
-namespace Authenticator
+namespace Authenticator_for_Windows
 {
     public sealed partial class EntryBlock : UserControl
     {

@@ -7,12 +7,12 @@ using Windows.Security.Cryptography;
 using Windows.Security.Cryptography.Core;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml.Media.Imaging;
-using Authenticator.Utilities;
+using Authenticator_for_Windows.Utilities;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Windows.UI.Xaml;
 
-namespace Authenticator
+namespace Authenticator_for_Windows
 {
     public class OTP : INotifyPropertyChanged
     {

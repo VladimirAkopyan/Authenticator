@@ -7,8 +7,8 @@
     <ProjectGuid>{E2E4118A-F1F0-46F0-8CF2-303F1343B48E}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Authenticator</RootNamespace>
-    <AssemblyName>Authenticator</AssemblyName>
+    <RootNamespace>Authenticator_for_Windows</RootNamespace>
+    <AssemblyName>Authenticator for Windows</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.10586.0</TargetPlatformVersion>

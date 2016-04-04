@@ -5,7 +5,7 @@ using Windows.UI.Xaml.Media;
 
 // The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
 
-namespace Authenticator
+namespace Authenticator_for_Windows
 {
     public sealed partial class Banner : UserControl
     {

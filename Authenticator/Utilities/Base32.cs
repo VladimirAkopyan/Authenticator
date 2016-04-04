@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Authenticator.Utilities
+namespace Authenticator_for_Windows.Utilities
 {
     public static class Base32
     {

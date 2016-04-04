@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Windows.Storage;
 
-namespace Authenticator.Storage
+namespace Authenticator_for_Windows.Storage
 {
     public class EntryStorage
     {
