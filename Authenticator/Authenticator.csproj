@@ -179,11 +179,18 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <SDKReference Include="MSAdvertisingXaml, Version=8.1">
+      <Name>MSAdvertisingXaml</Name>
+    </SDKReference>
     <SDKReference Include="WindowsMobile, Version=10.0.10240.0">
       <Name>Windows Mobile Extensions for the UWP</Name>
     </SDKReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Settings\Settings.csproj">
+      <Project>{d00c51ea-b212-4269-b3b5-a0297fb64d75}</Project>
+      <Name>Settings</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Storage\Storage.csproj">
       <Project>{7629a322-667c-4595-9ae2-90e6017fc4f3}</Project>
       <Name>Storage</Name>

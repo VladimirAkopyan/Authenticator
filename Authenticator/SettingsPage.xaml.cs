@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Settings;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -24,7 +25,24 @@ namespace Authenticator
     {
         public SettingsPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
+
+            int rememberTime = SettingsManager.Get<int>(Setting.ClipBoardRememberType);
+
+            if (rememberTime <= ClipboardTime.Items.Count)
+            {
+                ClipboardTime.SelectedIndex = rememberTime;
+            }
+        }
+
+        private void ClipboardTime_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            SettingsManager.Save(Setting.ClipBoardRememberType, ClipboardTime.SelectedIndex);
+        }
+
+        private void PrivacyDeclaration_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
