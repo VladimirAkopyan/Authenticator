@@ -53,10 +53,23 @@ namespace Authenticator
             StrechProgress.Seek(new TimeSpan(0, 0, 30 - TOTPUtilities.RemainingSeconds));
         }
 
-        private void Code_DeleteRequested(object sender, DeleteRequestEventArgs e)
+        private async void Code_DeleteRequested(object sender, DeleteRequestEventArgs e)
         {
-            entryStorage.Remove(e.Entry);
-            Codes.Children.Remove(mappings.FirstOrDefault(m => m.Key == e.Entry).Value);
+            ContentDialog dialog = new ContentDialog()
+            {
+                Title = "Code verwijderen",
+                Content = "Weet u zeker dat u deze code wilt verwijderen?\nLet op: Het verwijderen van deze code deactiveert tweestapsauthenticatie op uw account niet!",
+                PrimaryButtonText = "Afmelden",
+                SecondaryButtonText = "Annuleren"
+            };
+
+            dialog.PrimaryButtonClick += delegate
+            {
+                entryStorage.Remove(e.Entry);
+                Codes.Children.Remove(mappings.FirstOrDefault(m => m.Key == e.Entry).Value);
+            };
+
+            await dialog.ShowAsync();
         }
 
         private void Edit_Click(object sender, RoutedEventArgs e)
