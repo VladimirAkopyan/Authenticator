@@ -59,7 +59,7 @@ namespace Authenticator
             {
                 Title = "Code verwijderen",
                 Content = "Weet u zeker dat u deze code wilt verwijderen?\nLet op: Het verwijderen van deze code deactiveert tweestapsauthenticatie op uw account niet!",
-                PrimaryButtonText = "Afmelden",
+                PrimaryButtonText = "Verwijderen",
                 SecondaryButtonText = "Annuleren"
             };
 

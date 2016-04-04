@@ -59,6 +59,8 @@ namespace Authenticator
 
         private void Save_Click(object sender, RoutedEventArgs e)
         {
+            EntryBlockPanel.Visibility = Visibility.Collapsed;
+
             bool valid = true;
 
             if (string.IsNullOrWhiteSpace(EntryName.Text) || string.IsNullOrWhiteSpace(EntryCode.Text))
@@ -79,11 +81,18 @@ namespace Authenticator
 
                 if (valid)
                 {
-                    entryStorage.Save(new Entry()
+                    Entry entry = new Entry()
                     {
                         Name = EntryName.Text,
                         Secret = EntryCode.Text
-                    });
+                    };
+
+                    entryStorage.Save(entry);
+
+                    MainPage.AddBanner(new Banner(BannerType.Success, "Uw code is opgeslagen. De huidige code wordt nu weergegeven.", true));
+                    EntryBlockPanel.Children.Add(new EntryBlock(entry));
+
+                    EntryBlockPanel.Visibility = Visibility.Visible;
                 }
             }
         }

@@ -29,8 +29,12 @@
         </Grid.RowDefinitions>
         <ProgressBar Name="ProgressBar" Height="5" Grid.Row="0" Background="White" Maximum="30" Minimum="0" Value="0" Foreground="#FF1ABC9C" />
         <ScrollViewer Grid.Row="1">
-            <StackPanel VerticalAlignment="Stretch" Name="Codes">
-
+            <StackPanel VerticalAlignment="Stretch" Name="Codes" Padding="0 10">
+                <StackPanel.Resources>
+                    <Style TargetType="local:EntryBlock">
+                        <Setter Property="Margin" Value="10 2"/>
+                    </Style>
+                </StackPanel.Resources>
             </StackPanel>
         </ScrollViewer>
         <CommandBar Grid.Row="2">
