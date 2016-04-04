@@ -15,11 +15,14 @@ namespace Authenticator
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        private static MainPage instance;
         private bool backButtonTapped;
 
         public MainPage()
         {
             InitializeComponent();
+
+            instance = this;
 
             // Navigate to the first page
             Navigate(typeof(CodesPage));
@@ -59,6 +62,11 @@ namespace Authenticator
         private void OnMenuButtonClicked(object sender, RoutedEventArgs e)
         {
             Navbar.IsPaneOpen = !Navbar.IsPaneOpen;
+        }
+
+        public static void AddBanner(Banner banner)
+        {
+            instance.Bannerbar.Children.Add(banner);
         }
 
         public void Navigate(Type navigatepage, object parameter = null)

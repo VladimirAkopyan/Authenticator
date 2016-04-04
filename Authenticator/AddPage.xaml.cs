@@ -59,11 +59,33 @@ namespace Authenticator
 
         private void Save_Click(object sender, RoutedEventArgs e)
         {
-            entryStorage.Save(new Entry()
+            bool valid = true;
+
+            if (string.IsNullOrWhiteSpace(EntryName.Text) || string.IsNullOrWhiteSpace(EntryCode.Text))
             {
-                Name = EntryName.Text,
-                Secret = EntryCode.Text
-            });
+                MainPage.AddBanner(new Banner(BannerType.Danger, "U heeft niet alle velden ingevuld.", true));
+
+                valid = false;
+            }
+
+            if (valid)
+            {
+                if (!EntryCode.Text.All(char.IsLetterOrDigit))
+                {
+                    MainPage.AddBanner(new Banner(BannerType.Danger, "De code bevat ongeldige karaketers.", true));
+
+                    valid = false;
+                }
+
+                if (valid)
+                {
+                    entryStorage.Save(new Entry()
+                    {
+                        Name = EntryName.Text,
+                        Secret = EntryCode.Text
+                    });
+                }
+            }
         }
     }
 }

@@ -98,6 +98,10 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Banner.xaml.cs">
+      <DependentUpon>Banner.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="BannerType.cs" />
     <Compile Include="CodesPage.xaml.cs">
       <DependentUpon>CodesPage.xaml</DependentUpon>
     </Compile>
@@ -142,6 +146,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="AddPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Banner.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
