@@ -78,15 +78,25 @@ namespace Authenticator_for_Windows.Storage
             }
         }
 
-        public void Save(Entry entry)
+        public async Task SaveAsync(Entry entry)
         {
+            if (entries == null)
+            {
+                await LoadStorage();
+            }
+
             entries.Add(entry);
 
             Persist();
         }
 
-        public void Remove(Entry entry)
+        public async Task RemoveAsync(Entry entry)
         {
+            if (entries == null)
+            {
+                await LoadStorage();
+            }
+
             entries.Remove(entry);
 
             Persist();

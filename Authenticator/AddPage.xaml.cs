@@ -52,14 +52,22 @@ namespace Authenticator_for_Windows
             contentFrame = (Frame)((object[])e.Parameter)[1];
         }
 
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            MainPage.ClearBanners();
+        }
+
         private void Scan_Click(object sender, RoutedEventArgs e)
         {
             mainPage.Navigate(typeof(ScanPage), contentFrame);
         }
 
-        private void Save_Click(object sender, RoutedEventArgs e)
+        private async void Save_Click(object sender, RoutedEventArgs e)
         {
             EntryBlockPanel.Visibility = Visibility.Collapsed;
+
+            MainPage.ClearBanners();
+            EntryBlockPanel.Children.Clear();
 
             bool valid = true;
 
@@ -87,12 +95,19 @@ namespace Authenticator_for_Windows
                         Secret = EntryCode.Text
                     };
 
-                    entryStorage.Save(entry);
+                    await entryStorage.SaveAsync(entry);
+
+                    EntryBlock entryBlock = new EntryBlock(entry);
 
                     MainPage.AddBanner(new Banner(BannerType.Success, "Uw code is opgeslagen. De huidige code wordt nu weergegeven.", true));
-                    EntryBlockPanel.Children.Add(new EntryBlock(entry));
+                    EntryBlockPanel.Children.Add(entryBlock);
+
+                    entryBlock.FlashBlock();
 
                     EntryBlockPanel.Visibility = Visibility.Visible;
+
+                    EntryName.Text = "";
+                    EntryCode.Text = "";
                 }
             }
         }

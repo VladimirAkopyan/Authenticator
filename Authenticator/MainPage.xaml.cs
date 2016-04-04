@@ -61,6 +61,11 @@ namespace Authenticator_for_Windows
             }
         }
 
+        internal static void ClearBanners()
+        {
+            instance.Bannerbar.Children.Clear();
+        }
+
         private void OnMenuButtonClicked(object sender, RoutedEventArgs e)
         {
             Navbar.IsPaneOpen = !Navbar.IsPaneOpen;

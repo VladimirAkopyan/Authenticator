@@ -29,8 +29,11 @@
                 <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1"/>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
+        <Storyboard x:Name="Flash" AutoReverse="True">
+            <ColorAnimation Duration="0:0:0.3" To="#FFF4AC45" Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" Storyboard.TargetName="grid" d:IsOptimized="True"/>
+        </Storyboard>
     </UserControl.Resources>
-    <Grid Background="#FFF1F1F1">
+    <Grid x:Name="grid" Background="#FFF1F1F1">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="Auto"/>

@@ -65,9 +65,9 @@ namespace Authenticator_for_Windows
                 SecondaryButtonText = "Annuleren"
             };
 
-            dialog.PrimaryButtonClick += delegate
+            dialog.PrimaryButtonClick += async delegate
             {
-                entryStorage.Remove(e.Entry);
+                await entryStorage.RemoveAsync(e.Entry);
                 Codes.Children.Remove(mappings.FirstOrDefault(m => m.Key == e.Entry).Value);
             };
 

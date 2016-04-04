@@ -39,6 +39,11 @@ namespace Authenticator_for_Windows
 
         }
 
+        public void FlashBlock()
+        {
+            Flash.Begin();
+        }
+
         public EntryBlock(Entry entry)
         {
             InitializeComponent();
