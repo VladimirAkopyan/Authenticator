@@ -2,6 +2,7 @@
 using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media.Animation;
 
 // The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -12,6 +13,22 @@ namespace Authenticator_for_Windows
         private Entry entry;
         private OTP otp;
         private bool _inEditMode;
+
+        public Storyboard FlashAnimation
+        {
+            get
+            {
+                return Flash;
+            }
+        }
+
+        public Storyboard SlideUpAnimation
+        {
+            get
+            {
+                return SlideUp;
+            }
+        }
 
         public bool InEditMode
         {
@@ -37,11 +54,6 @@ namespace Authenticator_for_Windows
         public EntryBlock()
         {
 
-        }
-
-        public void FlashBlock()
-        {
-            Flash.Begin();
         }
 
         public EntryBlock(Entry entry)

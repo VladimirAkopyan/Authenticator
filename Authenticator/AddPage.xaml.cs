@@ -102,7 +102,7 @@ namespace Authenticator_for_Windows
                     MainPage.AddBanner(new Banner(BannerType.Success, "Uw code is opgeslagen. De huidige code wordt nu weergegeven.", true));
                     EntryBlockPanel.Children.Add(entryBlock);
 
-                    entryBlock.FlashBlock();
+                    entryBlock.FlashAnimation.Begin();
 
                     EntryBlockPanel.Visibility = Visibility.Visible;
 

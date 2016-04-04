@@ -67,8 +67,11 @@ namespace Authenticator_for_Windows
 
             dialog.PrimaryButtonClick += async delegate
             {
-                await entryStorage.RemoveAsync(e.Entry);
-                Codes.Children.Remove(mappings.FirstOrDefault(m => m.Key == e.Entry).Value);
+                KeyValuePair<Entry, EntryBlock> entry = mappings.FirstOrDefault(m => m.Key == e.Entry);
+
+                await entryStorage.RemoveAsync(entry.Key);
+
+                entry.Value.SlideUpAnimation.Begin();
             };
 
             await dialog.ShowAsync();
