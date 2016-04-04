@@ -38,6 +38,8 @@ namespace Authenticator
 
                 Contentframe.GoBack();
 
+                SetTitle();
+
                 backButtonTapped = true;
 
                 if (Contentframe.Content.GetType() == typeof(AccountsPage))
@@ -77,7 +79,22 @@ namespace Authenticator
             {
                 Contentframe.Navigate(navigatepage, parameter);
 
+                SetTitle();
+
                 SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = Contentframe.CanGoBack ? AppViewBackButtonVisibility.Visible : AppViewBackButtonVisibility.Collapsed;
+            }
+        }
+
+        private void SetTitle()
+        {
+            if (Contentframe.Content is Page)
+            {
+                Page page = (Page)Contentframe.Content;
+
+                if (page.Tag != null && page.Tag.GetType() == typeof(string))
+                {
+                    TextHeader.Text = page.Tag.ToString();
+                }
             }
         }
 
