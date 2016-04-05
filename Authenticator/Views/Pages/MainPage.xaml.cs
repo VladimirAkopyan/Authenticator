@@ -1,8 +1,5 @@
-﻿using System.Diagnostics;
-using Windows.Devices.PointOfService;
-using Windows.UI.Xaml.Controls;
+﻿using Windows.UI.Xaml.Controls;
 using System;
-using ZXing.Mobile;
 using Windows.UI.Xaml;
 using Windows.UI.Core;
 using Authenticator_for_Windows.Views.UserControls;
