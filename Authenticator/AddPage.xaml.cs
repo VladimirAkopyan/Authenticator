@@ -97,12 +97,10 @@ namespace Authenticator_for_Windows
 
                     await entryStorage.SaveAsync(entry);
 
-                    EntryBlock entryBlock = new EntryBlock(entry);
+                    EntryBlock entryBlock = new EntryBlock(entry, true);
 
                     MainPage.AddBanner(new Banner(BannerType.Success, "Uw code is opgeslagen. De huidige code wordt nu weergegeven.", true));
                     EntryBlockPanel.Children.Add(entryBlock);
-
-                    entryBlock.FlashAnimation.Begin();
 
                     EntryBlockPanel.Visibility = Visibility.Visible;
 

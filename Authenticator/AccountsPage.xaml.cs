@@ -71,7 +71,7 @@ namespace Authenticator_for_Windows
 
                 await entryStorage.RemoveAsync(entry.Key);
 
-                entry.Value.SlideUpAnimation.Begin();
+                entry.Value.Remove();
             };
 
             await dialog.ShowAsync();

@@ -14,22 +14,6 @@ namespace Authenticator_for_Windows
         private OTP otp;
         private bool _inEditMode;
 
-        public Storyboard FlashAnimation
-        {
-            get
-            {
-                return Flash;
-            }
-        }
-
-        public Storyboard SlideUpAnimation
-        {
-            get
-            {
-                return SlideUp;
-            }
-        }
-
         public bool InEditMode
         {
             get
@@ -56,11 +40,19 @@ namespace Authenticator_for_Windows
 
         }
 
+        public EntryBlock(Entry entry, bool flash)
+        {
+            Initialize(entry, flash);
+        }
+
         public EntryBlock(Entry entry)
         {
-            InitializeComponent();
+            Initialize(entry, false);
+        }
 
-            DefaultStyleKey = typeof(EntryBlock);
+        private void Initialize(Entry entry, bool flash)
+        {
+            InitializeComponent();
 
             this.entry = entry;
             otp = new OTP(entry.Secret);
@@ -70,6 +62,19 @@ namespace Authenticator_for_Windows
             DisplayCodeFormatted();
             EntryName.Text = entry.Name;
             FadeOut.Completed += FadeOut_Completed;
+            SlideUp.Completed += SlideUp_Completed;
+
+            if (flash)
+            {
+                Flash.Begin();
+            }
+        }
+
+        private void SlideUp_Completed(object sender, object e)
+        {
+            StackPanel stackPanel = (StackPanel)Parent;
+
+            stackPanel.Children.Remove(stackPanel);
         }
 
         private void DisplayCodeFormatted()
@@ -78,6 +83,11 @@ namespace Authenticator_for_Windows
             string secondPart = otp.Code.Substring(3, 3);
 
             CurrentCode.Text = string.Format("{0} {1}", firstPart, secondPart);
+        }
+
+        public void Remove()
+        {
+            SlideUp.Begin();
         }
 
         private void Otp_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
