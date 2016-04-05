@@ -18,6 +18,10 @@ namespace Authenticator_for_Windows.Views.Pages
     public sealed partial class ScanPage : Page
     {
         private Frame contentFrame;
+        private MainPage mainPage;
+        private static bool waitingForReturn;
+        private static bool didScan;
+        private static Entry entry;
 
         public ScanPage()
         {
@@ -36,39 +40,49 @@ namespace Authenticator_for_Windows.Views.Pages
 
             scanner.Scan().ContinueWith(t =>
             {
+                didScan = true;
+
                 if (t.Result != null)
+                {
                     HandleScanResult(t.Result);
+                }
             });
         }
 
         private void HandleScanResult(ZXing.Result result)
         {
-            string msg = "";
-
-            if (result != null && !string.IsNullOrEmpty(result.Text))
-                msg = "Found Barcode: " + result.Text;
-            else
-                msg = "Scanning Canceled!";
-
-            Entry entry = TOTPUtilities.UriToEntry(result.Text);
-
-            Debug.WriteLine(msg);
-        }
-
-        async Task MessageBox(string text)
-        {
-            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
-            {
-                var dialog = new MessageDialog(text);
-                await dialog.ShowAsync();
-            });
+            entry = TOTPUtilities.UriToEntry(result.Text);
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            contentFrame = (Frame)e.Parameter;
+            base.OnNavigatedTo(e);
 
-            Scan();
+            object[] parameters = (object[])e.Parameter;
+            
+            contentFrame = (Frame)parameters[0];
+
+            if (!waitingForReturn && !didScan)
+            {
+                waitingForReturn = true;
+
+                Scan();
+            }
+            else
+            {
+                // We're redirected from the scan page
+                contentFrame = (Frame)parameters[0];
+                mainPage = (MainPage)parameters[1];
+
+                mainPage.Navigate(typeof(AddPage), new object[] { contentFrame, mainPage, entry });
+            }
+        }
+
+        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        {
+            base.OnNavigatingFrom(e);
+
+            waitingForReturn = e.SourcePageType == typeof(ZXing.Mobile.ScanPage);
         }
     }
 }

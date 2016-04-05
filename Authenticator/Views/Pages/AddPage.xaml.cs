@@ -40,8 +40,16 @@ namespace Authenticator_for_Windows.Views.Pages
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            mainPage = (MainPage)((object[])e.Parameter)[0];
-            contentFrame = (Frame)((object[])e.Parameter)[1];
+            object[] parameters = (object[])e.Parameter;
+            mainPage = (MainPage)parameters[0];
+            contentFrame = (Frame)parameters[1];
+
+            if (parameters.Length >= 3)
+            {
+                Entry entry = (Entry)parameters[3];
+
+                System.Diagnostics.Debug.WriteLine(entry);
+            }
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
@@ -51,7 +59,7 @@ namespace Authenticator_for_Windows.Views.Pages
 
         private void Scan_Click(object sender, RoutedEventArgs e)
         {
-            mainPage.Navigate(typeof(ScanPage), contentFrame);
+            mainPage.Navigate(typeof(ScanPage), new object[] { contentFrame, mainPage });
         }
 
         private async void Save_Click(object sender, RoutedEventArgs e)
