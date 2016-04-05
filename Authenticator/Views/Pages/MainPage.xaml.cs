@@ -5,10 +5,11 @@ using System;
 using ZXing.Mobile;
 using Windows.UI.Xaml;
 using Windows.UI.Core;
+using Authenticator_for_Windows.Views.UserControls;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
-namespace Authenticator_for_Windows
+namespace Authenticator_for_Windows.Views.Pages
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.

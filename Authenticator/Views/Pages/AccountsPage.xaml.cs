@@ -1,5 +1,7 @@
-﻿using Authenticator_for_Windows.Storage;
+﻿using Authenticator_for_Windows.Events;
+using Authenticator_for_Windows.Storage;
 using Authenticator_for_Windows.Utilities;
+using Authenticator_for_Windows.Views.UserControls;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -20,7 +22,7 @@ using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace Authenticator_for_Windows
+namespace Authenticator_for_Windows.Views.Pages
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.

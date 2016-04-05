@@ -12,7 +12,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Windows.UI.Xaml;
 
-namespace Authenticator_for_Windows
+namespace Authenticator_for_Windows.Utilities
 {
     public class OTP : INotifyPropertyChanged
     {

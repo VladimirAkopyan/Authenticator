@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Authenticator_for_Windows.Views.Pages;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;

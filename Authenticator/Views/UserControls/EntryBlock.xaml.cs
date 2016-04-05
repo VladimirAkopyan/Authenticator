@@ -1,4 +1,6 @@
-﻿using Authenticator_for_Windows.Storage;
+﻿using Authenticator_for_Windows.Events;
+using Authenticator_for_Windows.Storage;
+using Authenticator_for_Windows.Utilities;
 using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -6,7 +8,7 @@ using Windows.UI.Xaml.Media.Animation;
 
 // The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
 
-namespace Authenticator_for_Windows
+namespace Authenticator_for_Windows.Views.UserControls
 {
     public sealed partial class EntryBlock : UserControl
     {
