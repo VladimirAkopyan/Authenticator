@@ -54,7 +54,14 @@ namespace Authenticator_for_Windows.Storage
 
             string content = await FileIO.ReadTextAsync(file);
 
-            entries = JsonConvert.DeserializeObject<List<Entry>>(content);
+            if (string.IsNullOrWhiteSpace(content) || content == "null")
+            {
+                entries = new List<Entry>();
+            }
+            else
+            {
+                entries = JsonConvert.DeserializeObject<List<Entry>>(content);
+            }
 
             Clean();
         }
