@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Authenticator_for_Windows.Storage;
+using System;
 
 namespace Authenticator_for_Windows.Utilities
 {
@@ -7,6 +8,8 @@ namespace Authenticator_for_Windows.Utilities
         public const byte DIGITS = 6;
         public const long EPOCH = 621355968000000000;
         public const int INTERVAL = 30000;
+        private const string PREFIX = "otpauth://totp/";
+        private const string SPLITTER = "?secret=";
 
         public static int RemainingSeconds
         {
@@ -25,6 +28,35 @@ namespace Authenticator_for_Windows.Utilities
             {
                 return (DateTime.UtcNow.Ticks - EPOCH) / TimeSpan.TicksPerMillisecond;
             }
+        }
+
+        public static Entry UriToEntry(string input)
+        {
+            Entry entry = null;
+
+            if (input.Length >= PREFIX.Length && input.Substring(0, PREFIX.Length) == PREFIX)
+            {
+                input = input.Substring(PREFIX.Length);
+
+                if (input.Length > 0)
+                {
+                    string[] parts = input.Split(new string[] { SPLITTER }, StringSplitOptions.None);
+
+                    if (parts.Length == 2)
+                    {
+                        string name = parts[0];
+                        string secret = parts[parts.Length - 1];
+
+                        entry = new Entry()
+                        {
+                            Name = name,
+                            Secret = secret
+                        };
+                    }
+                }
+            }
+
+            return entry;
         }
     }
 }

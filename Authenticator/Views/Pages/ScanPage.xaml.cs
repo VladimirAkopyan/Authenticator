@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Authenticator_for_Windows.Storage;
+using Authenticator_for_Windows.Utilities;
+using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
@@ -48,8 +50,9 @@ namespace Authenticator_for_Windows.Views.Pages
             else
                 msg = "Scanning Canceled!";
 
-            Debug.WriteLine(msg);
+            Entry entry = TOTPUtilities.UriToEntry(result.Text);
 
+            Debug.WriteLine(msg);
         }
 
         async Task MessageBox(string text)
