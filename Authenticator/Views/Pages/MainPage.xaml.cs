@@ -126,7 +126,7 @@ namespace Authenticator_for_Windows.Views.Pages
         {
             if (!backButtonTapped)
             {
-                Navigate(typeof(AddPage), new object[] { this, Contentframe });
+                Navigate(typeof(AddPage), new object[] { this });
             }
         }
 
