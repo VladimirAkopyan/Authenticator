@@ -1,7 +1,9 @@
 ﻿using Authenticator_for_Windows.Events;
 using Authenticator_for_Windows.Storage;
 using Authenticator_for_Windows.Utilities;
+using Settings;
 using System;
+using Windows.ApplicationModel.DataTransfer;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -109,6 +111,7 @@ namespace Authenticator_for_Windows.Views.UserControls
         }
 
         public event EventHandler<DeleteRequestEventArgs> DeleteRequested;
+        public event EventHandler<CopyRequestEventArgs> CopyRequested;
 
         private void NotifyDeleteRequested()
         {
@@ -116,6 +119,21 @@ namespace Authenticator_for_Windows.Views.UserControls
             {
                 DeleteRequested(this, new DeleteRequestEventArgs(entry));
             }
+        }
+
+        private void NotifyCopyRequested()
+        {
+            if (CopyRequested != null)
+            {
+                CopyRequested(this, new CopyRequestEventArgs(otp.Code));
+            }
+        }
+
+        private void Grid_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+            Flash.Begin();
+
+            NotifyCopyRequested();
         }
     }
 }

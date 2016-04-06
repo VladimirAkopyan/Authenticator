@@ -30,7 +30,7 @@
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
         <Storyboard x:Name="Flash" AutoReverse="True">
-            <ColorAnimation Duration="0:0:0.3" To="#FFF4AC45" Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" Storyboard.TargetName="grid" d:IsOptimized="True"/>
+            <ColorAnimation Duration="0:0:0.3" To="#FFF4AC45" Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" Storyboard.TargetName="Grid" d:IsOptimized="True"/>
         </Storyboard>
         <Storyboard x:Name="SlideUp">
             <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="userControl">
@@ -38,7 +38,7 @@
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
     </UserControl.Resources>
-    <Grid x:Name="grid" Background="#FFF1F1F1" Height="90">
+    <Grid x:Name="Grid" Background="#FFF1F1F1" Height="90" Tapped="Grid_Tapped">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="Auto"/>

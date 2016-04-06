@@ -92,6 +92,8 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Events\CopyRequestedEventHandler.cs" />
+    <Compile Include="Events\CopyRequestEventArgs.cs" />
     <Compile Include="Views\Pages\AddPage.xaml.cs">
       <DependentUpon>AddPage.xaml</DependentUpon>
     </Compile>

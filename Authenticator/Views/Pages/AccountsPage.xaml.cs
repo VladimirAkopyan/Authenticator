@@ -2,9 +2,11 @@
 using Authenticator_for_Windows.Storage;
 using Authenticator_for_Windows.Utilities;
 using Authenticator_for_Windows.Views.UserControls;
+using Settings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Windows.ApplicationModel.DataTransfer;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -19,6 +21,7 @@ namespace Authenticator_for_Windows.Views.Pages
     {
         private EntryStorage entryStorage;
         private Dictionary<Entry, EntryBlock> mappings;
+        private DispatcherTimer timer;
 
         public AccountsPage()
         {
@@ -36,6 +39,7 @@ namespace Authenticator_for_Windows.Views.Pages
             {
                 EntryBlock code = new EntryBlock(entry);
                 code.DeleteRequested += Code_DeleteRequested;
+                code.CopyRequested += Code_CopyRequested;
 
                 Codes.Children.Add(code);
                 mappings.Add(entry, code);
@@ -43,6 +47,51 @@ namespace Authenticator_for_Windows.Views.Pages
 
             StrechProgress.Begin();
             StrechProgress.Seek(new TimeSpan(0, 0, 30 - TOTPUtilities.RemainingSeconds));
+        }
+
+        private void Code_CopyRequested(object sender, CopyRequestEventArgs e)
+        {
+            int clipboardType = SettingsManager.Get<int>(Setting.ClipBoardRememberType);
+
+            DataPackage dataPackage = new DataPackage();
+            dataPackage.SetText(e.Code);
+            Clipboard.SetContent(dataPackage);
+
+            // Type 1 = dynamic, type 2 = forever
+
+            if (clipboardType == 0)
+            {
+                if (timer != null)
+                {
+                    timer.Stop();
+                    timer.Interval = new TimeSpan(0, 0, TOTPUtilities.RemainingSeconds);
+                }
+                else
+                {
+                    timer = new DispatcherTimer()
+                    {
+                        Interval = new TimeSpan(0, 0, TOTPUtilities.RemainingSeconds)
+                    };
+
+                    timer.Tick += Timer_Tick;
+                }
+
+                timer.Start();
+            }
+        }
+
+        private void Timer_Tick(object sender, object e)
+        {
+            try
+            {
+                Clipboard.Clear();
+            }
+            catch (Exception)
+            {
+                // Cannot clear the clipboard (perhaps it's in use)
+            }
+
+            timer.Stop();
         }
 
         private async void Code_DeleteRequested(object sender, DeleteRequestEventArgs e)
