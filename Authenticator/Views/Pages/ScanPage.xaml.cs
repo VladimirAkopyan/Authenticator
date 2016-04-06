@@ -17,8 +17,6 @@ namespace Authenticator_for_Windows.Views.Pages
     /// </summary>
     public sealed partial class ScanPage : Page
     {
-        private Frame contentFrame;
-        private MainPage mainPage;
         private static bool waitingForReturn;
 
         public static bool IsAllowedToScan { get; set; }
@@ -36,8 +34,7 @@ namespace Authenticator_for_Windows.Views.Pages
             {
                 UseCustomOverlay = false,
                 TopText = "Positioneer de QR-code tussen de strepen",
-                BottomText = "De QR-code wordt auomatisch gescand.\n\r\n\rTik of klik op de terugknop om te annuleren.",
-                //RootFrame = contentFrame
+                BottomText = "De QR-code wordt auomatisch gescand.\n\r\n\rTik of klik op de terugknop om te annuleren."
             };
 
             scanner.Scan().ContinueWith(t =>
@@ -57,10 +54,6 @@ namespace Authenticator_for_Windows.Views.Pages
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-
-            object[] parameters = (object[])e.Parameter;
-            
-            contentFrame = (Frame)parameters[0];
 
             if (!waitingForReturn && IsAllowedToScan)
             {

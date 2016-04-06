@@ -23,12 +23,13 @@ namespace Authenticator_for_Windows.Utilities
             timer = new DispatcherTimer();
             timer.Tick += DispatcherTimerEventHandler;
             timer.Interval = new TimeSpan(0, 0, 0, TOTPUtilities.RemainingSeconds);
+
             timer.Start();
         }
 
         private void DispatcherTimerEventHandler(object sender, object e)
         {
-            timer.Interval = new TimeSpan(0, 0, 0, 30);
+            timer.Interval = new TimeSpan(0, 0, 0, TOTPUtilities.INTERVAL / 1000);
 
             NotifyPropertyChanged();
         }

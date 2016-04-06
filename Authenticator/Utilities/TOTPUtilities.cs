@@ -16,9 +16,20 @@ namespace Authenticator_for_Windows.Utilities
             get
             {
                 var epoch = Math.Round(TimeSource / 1000.0);
-                var countDown = 30 - (epoch % 30);
+                var countDown = (INTERVAL / 1000) - (epoch % 30);
 
                 return (int)countDown;
+            }
+        }
+
+        public static long RemainingTicks
+        {
+            get
+            {
+                var ticks = DateTime.UtcNow.Second;
+                var remaining = (ticks - EPOCH);
+
+                return remaining;
             }
         }
 

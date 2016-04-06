@@ -17,7 +17,6 @@ namespace Authenticator_for_Windows.Views.Pages
     {
         private EntryStorage entryStorage;
         private MainPage mainPage;
-        private Frame contentFrame;
 
         public AddPage()
         {
@@ -42,11 +41,10 @@ namespace Authenticator_for_Windows.Views.Pages
         {
             object[] parameters = (object[])e.Parameter;
             mainPage = (MainPage)parameters[0];
-            contentFrame = (Frame)parameters[1];
 
-            if (parameters.Length >= 3)
+            if (parameters.Length >= 2)
             {
-                Entry entry = (Entry)parameters[2];
+                Entry entry = (Entry)parameters[1];
 
                 EntryName.Text = entry.Name;
                 EntryCode.Text = entry.Secret;
@@ -64,7 +62,7 @@ namespace Authenticator_for_Windows.Views.Pages
         {
             ScanPage.IsAllowedToScan = true;
 
-            mainPage.Navigate(typeof(ScanPage), new object[] { contentFrame, mainPage });
+            mainPage.Navigate(typeof(ScanPage));
         }
 
         private async void Save_Click(object sender, RoutedEventArgs e)
