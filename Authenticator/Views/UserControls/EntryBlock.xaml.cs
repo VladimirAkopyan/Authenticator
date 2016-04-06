@@ -132,14 +132,17 @@ namespace Authenticator_for_Windows.Views.UserControls
 
         private void Grid_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
-            if (Flash.GetCurrentState() != ClockState.Stopped)
+            if (!InEditMode)
             {
-                Flash.Stop();
+                if (Flash.GetCurrentState() != ClockState.Stopped)
+                {
+                    Flash.Stop();
+                }
+
+                Flash.Begin();
+
+                NotifyCopyRequested();
             }
-
-            Flash.Begin();
-
-            NotifyCopyRequested();
         }
     }
 }
