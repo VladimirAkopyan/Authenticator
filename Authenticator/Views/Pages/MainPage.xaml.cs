@@ -92,7 +92,7 @@ namespace Authenticator_for_Windows.Views.Pages
 
                 if (!addToBackStack)
                 {
-                    //Contentframe.BackStack.RemoveAt(Contentframe.BackStackDepth - 1);
+                    Contentframe.BackStack.RemoveAt(Contentframe.BackStackDepth - 1);
                 }
 
                 SetTitle();
