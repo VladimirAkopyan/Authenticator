@@ -20,18 +20,29 @@
                 <EasingDoubleKeyFrame KeyTime="0:0:0" Value="0"/>
                 <EasingDoubleKeyFrame KeyTime="0:0:30" Value="30"/>
             </DoubleAnimationUsingKeyFrames>
-
+        </Storyboard>
+        <Storyboard x:Name="Copied">
+            <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="stackPanel">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="50"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:2.5" Value="50"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:3" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
         </Storyboard>
     </Page.Resources>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="5" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="5"/>
+            <RowDefinition x:Name="Test" Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <ProgressBar Name="ProgressBar" Height="5" Grid.Row="0" Background="White" Maximum="30" Minimum="0" Value="0" Foreground="#FF1ABC9C" />
-        <ScrollViewer Grid.Row="1">
-            <StackPanel VerticalAlignment="Stretch" Name="Codes" Padding="0 10">
+        <ProgressBar x:Name="ProgressBar" Height="5" Grid.Row="0" Background="White" Maximum="30" Minimum="0" Value="0" Foreground="#FF1ABC9C" />
+        <StackPanel x:Name="stackPanel" Grid.Row="1" Background="#34495e" Orientation="Horizontal" Padding="10" Height="0">
+            <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE16F;" Foreground="White" FontSize="16" VerticalAlignment="Center" />
+            <TextBlock Margin="5 0 0 0" Text="Code gekopieerd naar het klembord" Foreground="White" FontSize="16" VerticalAlignment="Center" />
+        </StackPanel>
+        <ScrollViewer Grid.Row="2">
+            <StackPanel VerticalAlignment="Stretch" x:Name="Codes" Padding="0 10">
                 <StackPanel.Resources>
                     <Style TargetType="controls:EntryBlock">
                         <Setter Property="Margin" Value="10 2"/>
@@ -39,8 +50,8 @@
                 </StackPanel.Resources>
             </StackPanel>
         </ScrollViewer>
-        <CommandBar Grid.Row="2">
-            <AppBarButton Icon="Edit" Name="Edit" Label="Bewerken" Click="Edit_Click" />
+        <CommandBar Grid.Row="3">
+            <AppBarButton Icon="Edit" x:Name="Edit" Label="Bewerken" Click="Edit_Click" />
         </CommandBar>
     </Grid>
 </Page>

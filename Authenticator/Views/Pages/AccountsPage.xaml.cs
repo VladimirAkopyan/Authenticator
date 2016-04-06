@@ -78,6 +78,8 @@ namespace Authenticator_for_Windows.Views.Pages
 
                 timer.Start();
             }
+
+            Copied.Begin();
         }
 
         private void Timer_Tick(object sender, object e)
