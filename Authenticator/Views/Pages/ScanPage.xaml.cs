@@ -20,8 +20,10 @@ namespace Authenticator_for_Windows.Views.Pages
         private Frame contentFrame;
         private MainPage mainPage;
         private static bool waitingForReturn;
-        private static bool didScan;
-        private static Entry entry;
+
+        public static bool IsAllowedToScan { get; set; }
+
+        public static Entry Entry { get; set; }
 
         public ScanPage()
         {
@@ -35,13 +37,11 @@ namespace Authenticator_for_Windows.Views.Pages
                 UseCustomOverlay = false,
                 TopText = "Positioneer de QR-code tussen de strepen",
                 BottomText = "De QR-code wordt auomatisch gescand.\n\r\n\rTik of klik op de terugknop om te annuleren.",
-                RootFrame = contentFrame
+                //RootFrame = contentFrame
             };
 
             scanner.Scan().ContinueWith(t =>
             {
-                didScan = true;
-
                 if (t.Result != null)
                 {
                     HandleScanResult(t.Result);
@@ -51,7 +51,7 @@ namespace Authenticator_for_Windows.Views.Pages
 
         private void HandleScanResult(ZXing.Result result)
         {
-            entry = TOTPUtilities.UriToEntry(result.Text);
+            Entry = TOTPUtilities.UriToEntry(result.Text);
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -62,19 +62,12 @@ namespace Authenticator_for_Windows.Views.Pages
             
             contentFrame = (Frame)parameters[0];
 
-            if (!waitingForReturn && !didScan)
+            if (!waitingForReturn && IsAllowedToScan)
             {
+                IsAllowedToScan = false;
                 waitingForReturn = true;
 
                 Scan();
-            }
-            else
-            {
-                // We're redirected from the scan page
-                contentFrame = (Frame)parameters[0];
-                mainPage = (MainPage)parameters[1];
-
-                mainPage.Navigate(typeof(AddPage), new object[] { contentFrame, mainPage, entry });
             }
         }
 

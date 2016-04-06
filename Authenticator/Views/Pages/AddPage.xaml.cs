@@ -46,9 +46,12 @@ namespace Authenticator_for_Windows.Views.Pages
 
             if (parameters.Length >= 3)
             {
-                Entry entry = (Entry)parameters[3];
+                Entry entry = (Entry)parameters[2];
 
-                System.Diagnostics.Debug.WriteLine(entry);
+                EntryName.Text = entry.Name;
+                EntryCode.Text = entry.Secret;
+
+                Save_Click(null, null);
             }
         }
 
@@ -59,6 +62,8 @@ namespace Authenticator_for_Windows.Views.Pages
 
         private void Scan_Click(object sender, RoutedEventArgs e)
         {
+            ScanPage.IsAllowedToScan = true;
+
             mainPage.Navigate(typeof(ScanPage), new object[] { contentFrame, mainPage });
         }
 
