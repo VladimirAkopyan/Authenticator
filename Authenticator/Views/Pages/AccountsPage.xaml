@@ -51,7 +51,7 @@
             </StackPanel>
         </ScrollViewer>
         <CommandBar Grid.Row="3">
-            <AppBarButton Icon="Edit" x:Name="Edit" Label="Bewerken" Click="Edit_Click" />
+            <AppBarToggleButton Icon="Edit" x:Name="Edit" Label="Bewerken" Click="Edit_Click" />
         </CommandBar>
     </Grid>
 </Page>
