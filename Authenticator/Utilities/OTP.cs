@@ -22,7 +22,7 @@ namespace Authenticator_for_Windows.Utilities
 
             timer = new DispatcherTimer();
             timer.Tick += DispatcherTimerEventHandler;
-            timer.Interval = new TimeSpan(0, 0, 0, TOTPUtilities.RemainingSeconds);
+            timer.Interval = new TimeSpan(TOTPUtilities.RemainingTicks);
 
             timer.Start();
         }

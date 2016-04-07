@@ -46,7 +46,7 @@ namespace Authenticator_for_Windows.Views.Pages
             }
 
             StrechProgress.Begin();
-            StrechProgress.Seek(new TimeSpan(0, 0, 30 - TOTPUtilities.RemainingSeconds));
+            StrechProgress.Seek(new TimeSpan((30 * TimeSpan.TicksPerSecond) - TOTPUtilities.RemainingTicks));
         }
 
         private void Code_CopyRequested(object sender, CopyRequestEventArgs e)

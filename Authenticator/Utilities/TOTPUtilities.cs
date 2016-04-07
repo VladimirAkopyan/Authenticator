@@ -26,10 +26,16 @@ namespace Authenticator_for_Windows.Utilities
         {
             get
             {
-                var ticks = DateTime.UtcNow.Second;
-                var remaining = (ticks - EPOCH);
+                var epoch = TimeSource / 1000.0;
+                var countDown = (INTERVAL / 1000) - (epoch % 30);
 
-                return remaining;
+                int seconds = (int)countDown;
+                var decimals = countDown - seconds;
+
+                var secondTicks = seconds * TimeSpan.TicksPerSecond;
+                var decimalTicks = Math.Round(decimals * TimeSpan.TicksPerSecond);
+
+                return (long)(secondTicks + decimalTicks);
             }
         }
 
