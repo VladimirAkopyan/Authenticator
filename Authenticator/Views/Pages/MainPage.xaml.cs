@@ -28,7 +28,7 @@ namespace Authenticator_for_Windows.Views.Pages
             if (ScanPage.Entry != null)
             {
                 // The QR code reader redirects to this page for a strange reason. Here we can catch the scanned entry and redirect the user to the add page.
-                Navigate(typeof(AddPage), new object[] { this, Contentframe, ScanPage.Entry }, false);
+                Navigate(typeof(AddPage), new object[] { this, ScanPage.Entry }, false);
 
                 ScanPage.Entry = null;
             }

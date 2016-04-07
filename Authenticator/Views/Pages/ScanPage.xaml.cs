@@ -3,6 +3,7 @@ using Authenticator_for_Windows.Utilities;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using Windows.Devices.Geolocation;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -34,7 +35,7 @@ namespace Authenticator_for_Windows.Views.Pages
             {
                 UseCustomOverlay = false,
                 TopText = "Positioneer de QR-code tussen de strepen",
-                BottomText = "De QR-code wordt auomatisch gescand.\n\r\n\rTik of klik op de terugknop om te annuleren."
+                BottomText = "De QR-code wordt auomatisch gescand.\n\r\n\rTik of klik op de terugknop om te annuleren.",
             };
 
             scanner.Scan().ContinueWith(t =>
