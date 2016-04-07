@@ -11,10 +11,31 @@ namespace Authenticator_for_Windows.Storage
     {
         private StorageFolder applicationData;
         private List<Entry> entries;
+        private static EntryStorage instance;
+        private static object syncRoot = new object();
 
         private const string ENTRIES_FILENAME = "Entries.json";
 
-        public EntryStorage()
+        public static EntryStorage Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    lock (syncRoot)
+                    {
+                        if (instance == null)
+                        {
+                            instance = new EntryStorage();
+                        }
+                    }
+                }
+
+                return instance;
+            }
+        }
+
+        private EntryStorage()
         {
             applicationData = ApplicationData.Current.LocalFolder;
         }

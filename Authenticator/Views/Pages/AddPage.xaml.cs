@@ -15,14 +15,11 @@ namespace Authenticator_for_Windows.Views.Pages
     /// </summary>
     public sealed partial class AddPage : Page
     {
-        private EntryStorage entryStorage;
         private MainPage mainPage;
 
         public AddPage()
         {
             InitializeComponent();
-
-            entryStorage = new EntryStorage();
 
             CheckForCamera();
         }
@@ -98,7 +95,7 @@ namespace Authenticator_for_Windows.Views.Pages
                         Secret = EntryCode.Text
                     };
 
-                    await entryStorage.SaveAsync(entry);
+                    await EntryStorage.Instance.SaveAsync(entry);
 
                     EntryBlock entryBlock = new EntryBlock(entry, true);
 

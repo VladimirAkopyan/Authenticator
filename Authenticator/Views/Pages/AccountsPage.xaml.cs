@@ -19,7 +19,6 @@ namespace Authenticator_for_Windows.Views.Pages
     /// </summary>
     public sealed partial class AccountsPage : Page
     {
-        private EntryStorage entryStorage;
         private Dictionary<Entry, EntryBlock> mappings;
         private DispatcherTimer timer;
 
@@ -27,13 +26,12 @@ namespace Authenticator_for_Windows.Views.Pages
         {
             InitializeComponent();
 
-            entryStorage = new EntryStorage();
             mappings = new Dictionary<Entry, EntryBlock>();
         }
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            IReadOnlyList<Entry> entries = await entryStorage.GetEntriesAsync();
+            IReadOnlyList<Entry> entries = await EntryStorage.Instance.GetEntriesAsync();
 
             foreach (Entry entry in entries)
             {
@@ -110,7 +108,7 @@ namespace Authenticator_for_Windows.Views.Pages
             {
                 KeyValuePair<Entry, EntryBlock> entry = mappings.FirstOrDefault(m => m.Key == e.Entry);
 
-                await entryStorage.RemoveAsync(entry.Key);
+                await EntryStorage.Instance.RemoveAsync(entry.Key);
 
                 entry.Value.Remove();
             };
