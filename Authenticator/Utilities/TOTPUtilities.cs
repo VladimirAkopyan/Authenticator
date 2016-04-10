@@ -43,7 +43,7 @@ namespace Authenticator_for_Windows.Utilities
         {
             get
             {
-                return (DateTime.UtcNow.Ticks - EPOCH) / TimeSpan.TicksPerMillisecond;
+                return (TimeHelper.Instance.DateTime.Ticks - EPOCH) / TimeSpan.TicksPerMillisecond;
             }
         }
 

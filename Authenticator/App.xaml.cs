@@ -1,4 +1,5 @@
-﻿using Authenticator_for_Windows.Views.Pages;
+﻿using Authenticator_for_Windows.Utilities;
+using Authenticator_for_Windows.Views.Pages;
 using System;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
@@ -39,6 +40,8 @@ namespace Authenticator_for_Windows
             //    this.DebugSettings.EnableFrameRateCounter = true;
             //}
 #endif
+
+            TimeHelper.Instance.InitializeTime();
 
             Frame rootFrame = Window.Current.Content as Frame;
 

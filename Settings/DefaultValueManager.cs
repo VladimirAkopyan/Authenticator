@@ -14,6 +14,12 @@ namespace Settings
                 case Setting.ClipBoardRememberType:
                     defaultValue = 0;
                     break;
+                case Setting.UseNTP:
+                    defaultValue = true;
+                    break;
+                case Setting.NTPTimeout:
+                    defaultValue = new TimeSpan(0, 0, 2);
+                    break;
             }
 
             return defaultValue;
