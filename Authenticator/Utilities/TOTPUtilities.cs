@@ -50,6 +50,7 @@ namespace Authenticator_for_Windows.Utilities
 
         public static Entry UriToEntry(string input)
         {
+            input = Uri.UnescapeDataString(input);
             Entry entry = null;
 
             if (input.Length >= PREFIX.Length && input.Substring(0, PREFIX.Length) == PREFIX)
@@ -72,6 +73,12 @@ namespace Authenticator_for_Windows.Utilities
 
                             service = nameParts[0];
                             name = nameParts[1];
+                        }
+
+                        // Remove possible issuer parameter
+                        if (secret.Contains("&issuer="))
+                        {
+                            secret = secret.Substring(0, secret.IndexOf("&issuer"));
                         }
 
                         entry = new Entry()
