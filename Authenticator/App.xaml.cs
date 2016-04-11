@@ -75,9 +75,9 @@ namespace Authenticator_for_Windows
 
             ApplicationView applicationview = ApplicationView.GetForCurrentView();
             applicationview.TitleBar.ForegroundColor = Colors.White;
-            applicationview.TitleBar.BackgroundColor = Color.FromArgb(0, 52, 152, 219);
+            applicationview.TitleBar.BackgroundColor = Color.FromArgb(0, 41, 128, 185);
             applicationview.TitleBar.ButtonForegroundColor = Colors.White;
-            applicationview.TitleBar.ButtonBackgroundColor = Color.FromArgb(0, 52, 152, 219);
+            applicationview.TitleBar.ButtonBackgroundColor = Color.FromArgb(0, 41, 128, 185);
             applicationview.TitleBar.ButtonHoverBackgroundColor = Color.FromArgb(0, 84, 183, 249);
             applicationview.TitleBar.ButtonHoverForegroundColor = Colors.White;
             applicationview.TitleBar.ButtonPressedBackgroundColor = Color.FromArgb(0, 41, 128, 185);
