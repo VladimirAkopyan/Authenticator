@@ -8,7 +8,7 @@ using Windows.UI.Xaml;
 
 namespace Authenticator_for_Windows.Utilities
 {
-    public class OTP : INotifyPropertyChanged
+    public class OTP
     {
         private DispatcherTimer timer;
         private CryptographicKey cKey;
@@ -19,29 +19,6 @@ namespace Authenticator_for_Windows.Utilities
 
             IBuffer keyMaterial = CryptographicBuffer.CreateFromByteArray(key.ToBytesBase32());
             cKey = provider.CreateKey(keyMaterial);
-
-            timer = new DispatcherTimer();
-            timer.Tick += DispatcherTimerEventHandler;
-            timer.Interval = new TimeSpan(TOTPUtilities.RemainingTicks);
-
-            timer.Start();
-        }
-
-        private void DispatcherTimerEventHandler(object sender, object e)
-        {
-            timer.Interval = new TimeSpan(0, 0, 0, TOTPUtilities.INTERVAL / 1000);
-
-            NotifyPropertyChanged();
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
         }
 
         private byte[] HMACSHA1(byte[] value)

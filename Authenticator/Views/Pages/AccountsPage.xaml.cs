@@ -33,6 +33,9 @@ namespace Authenticator_for_Windows.Views.Pages
         {
             IReadOnlyList<Entry> entries = await EntryStorage.Instance.GetEntriesAsync();
 
+            long currentTicks = TOTPUtilities.RemainingTicks;
+            TimeSpan remainingTime = new TimeSpan(TOTPUtilities.RemainingTicks);
+
             foreach (Entry entry in entries)
             {
                 EntryBlock code = new EntryBlock(entry);
@@ -43,6 +46,20 @@ namespace Authenticator_for_Windows.Views.Pages
                 mappings.Add(entry, code);
             }
 
+            StrechProgress.Completed += StrechProgress_Completed;
+
+            StrechProgress.Begin();
+            StrechProgress.Seek(new TimeSpan((30 * TimeSpan.TicksPerSecond) - TOTPUtilities.RemainingTicks));
+        }
+
+        private void StrechProgress_Completed(object sender, object e)
+        {
+            foreach (EntryBlock entryBlock in Codes.Children.Where(c => c.GetType() == typeof(EntryBlock)))
+            {
+                entryBlock.Update();
+            }
+
+            StrechProgress.Stop();
             StrechProgress.Begin();
             StrechProgress.Seek(new TimeSpan((30 * TimeSpan.TicksPerSecond) - TOTPUtilities.RemainingTicks));
         }
@@ -118,9 +135,9 @@ namespace Authenticator_for_Windows.Views.Pages
 
         private void Edit_Click(object sender, RoutedEventArgs e)
         {
-            foreach (EntryBlock code in Codes.Children.Where(c => c.GetType() == typeof(EntryBlock)))
+            foreach (EntryBlock entryBlock in Codes.Children.Where(c => c.GetType() == typeof(EntryBlock)))
             {
-                code.InEditMode = !code.InEditMode;
+                entryBlock.InEditMode = !entryBlock.InEditMode;
             }
         }
     }

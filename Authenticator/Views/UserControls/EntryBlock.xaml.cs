@@ -54,14 +54,17 @@ namespace Authenticator_for_Windows.Views.UserControls
             Initialize(entry, false);
         }
 
+        public void Update()
+        {
+            FadeOut.Begin();
+        }
+
         private void Initialize(Entry entry, bool flash)
         {
             InitializeComponent();
 
             this.entry = entry;
             otp = new OTP(entry.Secret);
-
-            otp.PropertyChanged += Otp_PropertyChanged;
 
             DisplayCodeFormatted();
             EntryUsername.Text = entry.Username;
@@ -74,6 +77,7 @@ namespace Authenticator_for_Windows.Views.UserControls
                 Flash.Begin();
             }
         }
+
 
         private void SlideUp_Completed(object sender, object e)
         {
@@ -93,11 +97,6 @@ namespace Authenticator_for_Windows.Views.UserControls
         public void Remove()
         {
             SlideUp.Begin();
-        }
-
-        private void Otp_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            FadeOut.Begin();
         }
 
         private void FadeOut_Completed(object sender, object e)

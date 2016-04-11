@@ -10,7 +10,7 @@
     Tag="Accounts">
     <Page.Resources>
 
-        <Storyboard x:Name="StrechProgress" RepeatBehavior="Forever">
+        <Storyboard x:Name="StrechProgress">
             <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Control.Foreground).(SolidColorBrush.Color)" Storyboard.TargetName="ProgressBar">
                 <EasingColorKeyFrame KeyTime="0:0:20" Value="#FF1ABC9C"/>
                 <EasingColorKeyFrame KeyTime="0:0:25" Value="#f39c12"/>
