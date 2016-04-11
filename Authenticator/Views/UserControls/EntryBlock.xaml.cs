@@ -64,7 +64,8 @@ namespace Authenticator_for_Windows.Views.UserControls
             otp.PropertyChanged += Otp_PropertyChanged;
 
             DisplayCodeFormatted();
-            EntryName.Text = entry.Name;
+            EntryUsername.Text = entry.Username;
+            EntryService.Text = entry.Service;
             FadeOut.Completed += FadeOut_Completed;
             SlideUp.Completed += SlideUp_Completed;
 

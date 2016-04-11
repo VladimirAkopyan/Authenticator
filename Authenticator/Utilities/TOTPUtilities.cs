@@ -9,7 +9,8 @@ namespace Authenticator_for_Windows.Utilities
         public const long EPOCH = 621355968000000000;
         public const int INTERVAL = 30000;
         private const string PREFIX = "otpauth://totp/";
-        private const string SPLITTER = "?secret=";
+        private const string SECRET_SPLITTER = "?secret=";
+        private const string SERVICE_SPLITTER = ":";
 
         public static int RemainingSeconds
         {
@@ -57,17 +58,27 @@ namespace Authenticator_for_Windows.Utilities
 
                 if (input.Length > 0)
                 {
-                    string[] parts = input.Split(new string[] { SPLITTER }, StringSplitOptions.None);
+                    string[] parts = input.Split(new string[] { SECRET_SPLITTER }, StringSplitOptions.None);
 
                     if (parts.Length == 2)
                     {
                         string name = parts[0];
                         string secret = parts[parts.Length - 1];
+                        string service = "";
+
+                        if (name.Contains(SERVICE_SPLITTER))
+                        {
+                            string[] nameParts = name.Split(new string[] { SERVICE_SPLITTER }, StringSplitOptions.None);
+
+                            service = nameParts[0];
+                            name = nameParts[1];
+                        }
 
                         entry = new Entry()
                         {
-                            Name = name,
-                            Secret = secret
+                            Username = name,
+                            Secret = secret,
+                            Service = service
                         };
                     }
                 }

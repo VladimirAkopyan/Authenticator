@@ -43,10 +43,14 @@ namespace Authenticator_for_Windows.Views.Pages
             {
                 Entry entry = (Entry)parameters[1];
 
-                EntryName.Text = entry.Name;
+                EntryUsername.Text = entry.Username;
                 EntryCode.Text = entry.Secret;
+                EntryService.Text = entry.Service;
 
-                Save_Click(null, null);
+                if (!string.IsNullOrWhiteSpace(EntryService.Text))
+                {
+                    Save_Click(null, null);
+                }
             }
         }
 
@@ -71,7 +75,7 @@ namespace Authenticator_for_Windows.Views.Pages
 
             bool valid = true;
 
-            if (string.IsNullOrWhiteSpace(EntryName.Text) || string.IsNullOrWhiteSpace(EntryCode.Text))
+            if (string.IsNullOrWhiteSpace(EntryService.Text) || string.IsNullOrWhiteSpace(EntryUsername.Text) || string.IsNullOrWhiteSpace(EntryCode.Text))
             {
                 MainPage.AddBanner(new Banner(BannerType.Danger, "U heeft niet alle velden ingevuld.", true));
 
@@ -91,8 +95,9 @@ namespace Authenticator_for_Windows.Views.Pages
                 {
                     Entry entry = new Entry()
                     {
-                        Name = EntryName.Text,
-                        Secret = EntryCode.Text
+                        Username = EntryUsername.Text,
+                        Secret = EntryCode.Text,
+                        Service = EntryService.Text
                     };
 
                     await EntryStorage.Instance.SaveAsync(entry);
@@ -104,7 +109,8 @@ namespace Authenticator_for_Windows.Views.Pages
 
                     EntryBlockPanel.Visibility = Visibility.Visible;
 
-                    EntryName.Text = "";
+                    EntryService.Text = "";
+                    EntryUsername.Text = "";
                     EntryCode.Text = "";
                 }
             }

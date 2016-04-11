@@ -5,7 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Height="90"
+    Height="100"
     d:DesignHeight="300"
     d:DesignWidth="400">
     <UserControl.Resources>
@@ -38,16 +38,19 @@
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
     </UserControl.Resources>
-    <Grid x:Name="Grid" Background="#FFF1F1F1" Height="90" Tapped="Grid_Tapped">
+    <Grid x:Name="Grid" Background="#FFF1F1F1" Height="100" Tapped="Grid_Tapped">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <Rectangle HorizontalAlignment="Left" VerticalAlignment="Stretch" Width="5" Fill="#C6002A" />
         <Button x:Name="Delete" Background="#e74c3c" Foreground="White" HorizontalAlignment="Stretch" Width="0" VerticalAlignment="Stretch" Content="&#xE107;" FontSize="30" Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" FontFamily="Segoe MDL2 Assets" Click="Delete_Click" />
-        <TextBlock Padding="15 0" x:Name="CurrentCode" HorizontalAlignment="Stretch" Text="123 456" FontSize="48" Grid.Row="0" Grid.Column="0" />
+        <Viewbox Margin="15 0" VerticalAlignment="Top" d:LayoutOverrides="LeftPosition, RightPosition" Stretch="Uniform" MaxHeight="30" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0">
+            <TextBlock x:Name="EntryService" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="Microsoft" />
+        </Viewbox>
+        <TextBlock Padding="15 20 0 0" x:Name="CurrentCode" HorizontalAlignment="Stretch" Text="123 456" FontSize="48" Grid.Row="0" Grid.Column="0" />
         <Viewbox Margin="15 0" VerticalAlignment="Bottom" d:LayoutOverrides="LeftPosition, RightPosition" Stretch="Uniform" MaxHeight="30" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0">
-            <TextBlock x:Name="EntryName" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="Google:example@example.com" />
+            <TextBlock x:Name="EntryUsername" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="example@example.com" />
         </Viewbox>
     </Grid>
 </UserControl>
