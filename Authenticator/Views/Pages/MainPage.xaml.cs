@@ -26,14 +26,6 @@ namespace Authenticator_for_Windows.Views.Pages
             // Navigate to the first page
             Navigate(typeof(AccountsPage));
 
-            if (ScanPage.Entry != null)
-            {
-                // The QR code reader redirects to this page for a strange reason. Here we can catch the scanned entry and redirect the user to the add page.
-                Navigate(typeof(AddPage), new object[] { this, ScanPage.Entry }, false);
-
-                ScanPage.Entry = null;
-            }
-
             SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
         }
 

@@ -5,9 +5,13 @@
     xmlns:local="using:Authenticator_for_Windows"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:zxing="using:ZXing.Mobile"
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+        
+        <zxing:ZXingScannerControl x:Name="scannerControl" VerticalAlignment="Stretch" Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch">
+            
+        </zxing:ZXingScannerControl>
     </Grid>
 </Page>

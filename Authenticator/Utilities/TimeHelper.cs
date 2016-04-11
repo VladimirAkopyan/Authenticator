@@ -12,7 +12,6 @@ namespace Authenticator_for_Windows.Utilities
     {
         private static TimeHelper instance;
         private static object syncRoot = new object();
-        private bool addTime;
         private TimeSpan difference;
 
         private const string NTP_SERVER = "0.pool.ntp.org";
@@ -44,14 +43,7 @@ namespace Authenticator_for_Windows.Utilities
 
                 if (difference != null)
                 {
-                    if (addTime)
-                    {
-                        dateTime.Add(difference);
-                    }
-                    else
-                    {
-                        dateTime.Subtract(difference);
-                    }
+                    dateTime.Add(difference);
                 }
 
                 return dateTime;
@@ -95,15 +87,11 @@ namespace Authenticator_for_Windows.Utilities
                     {
                         // NTP time is later
                         diff = dt - local;
-                        
-                        addTime = true;
                     }
                     else
                     {
                         // Local time is later
                         diff = local - dt;
-
-                        addTime = false;
                     }
 
                     if (difference != null)

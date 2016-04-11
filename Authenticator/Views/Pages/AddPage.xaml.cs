@@ -1,4 +1,5 @@
 ﻿using Authenticator_for_Windows.Storage;
+using Authenticator_for_Windows.Utilities;
 using Authenticator_for_Windows.Views.UserControls;
 using System;
 using System.Linq;
@@ -39,17 +40,20 @@ namespace Authenticator_for_Windows.Views.Pages
             object[] parameters = (object[])e.Parameter;
             mainPage = (MainPage)parameters[0];
 
-            if (parameters.Length >= 2)
+            if (ScanPage.LastScanResult != null)
             {
-                Entry entry = (Entry)parameters[1];
+                Entry entry = TOTPUtilities.UriToEntry(ScanPage.LastScanResult.Text);
 
-                EntryUsername.Text = entry.Username;
-                EntryCode.Text = entry.Secret;
-                EntryService.Text = entry.Service;
-
-                if (!string.IsNullOrWhiteSpace(EntryService.Text))
+                if (entry != null)
                 {
-                    Save_Click(null, null);
+                    EntryUsername.Text = entry.Username;
+                    EntryCode.Text = entry.Secret;
+                    EntryService.Text = entry.Service;
+
+                    if (!string.IsNullOrWhiteSpace(EntryService.Text))
+                    {
+                        Save_Click(null, null);
+                    }
                 }
             }
         }
@@ -61,7 +65,9 @@ namespace Authenticator_for_Windows.Views.Pages
 
         private void Scan_Click(object sender, RoutedEventArgs e)
         {
-            ScanPage.IsAllowedToScan = true;
+            ScanPage.UseCustomOverlay = true;
+            ScanPage.CustomOverlay = new CustomOverlay();
+            ScanPage.RequestAutoFocus();
 
             mainPage.Navigate(typeof(ScanPage));
         }

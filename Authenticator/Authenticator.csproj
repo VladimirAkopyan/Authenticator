@@ -112,6 +112,9 @@
     </Compile>
     <Compile Include="Events\DeleteRequestedEventHandler.cs" />
     <Compile Include="Events\DeleteRequestEventArgs.cs" />
+    <Compile Include="Views\UserControls\CustomOverlay.xaml.cs">
+      <DependentUpon>CustomOverlay.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\UserControls\EntryBlock.xaml.cs">
       <DependentUpon>EntryBlock.xaml</DependentUpon>
     </Compile>
@@ -164,6 +167,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Pages\AccountsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\CustomOverlay.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
