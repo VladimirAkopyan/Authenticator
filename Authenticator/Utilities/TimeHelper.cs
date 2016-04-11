@@ -43,7 +43,7 @@ namespace Authenticator_for_Windows.Utilities
 
                 if (difference != null)
                 {
-                    dateTime.Add(difference);
+                    dateTime = dateTime.Add(difference);
                 }
 
                 return dateTime;
