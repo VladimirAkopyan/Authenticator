@@ -33,7 +33,7 @@ namespace Authenticator_for_Windows.Utilities
                 var decimals = countDown - seconds;
 
                 var secondTicks = seconds * TimeSpan.TicksPerSecond;
-                var decimalTicks = Math.Round(decimals * TimeSpan.TicksPerSecond);
+                var decimalTicks = decimals * TimeSpan.TicksPerSecond;
 
                 return (long)(secondTicks + decimalTicks);
             }
