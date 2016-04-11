@@ -363,6 +363,8 @@
       <ReservedName>Authenticator for Windows</ReservedName>
     </ReservedNames>
   </ProductReservedInfo>
-  <AccountPackageIdentityNames />
+  <AccountPackageIdentityNames>
+    <MainPackageIdentityName>56672RoelvandeWater.AvansforWindows</MainPackageIdentityName>
+  </AccountPackageIdentityNames>
   <PackageInfoList LandingUrl="https://dev.windows.com/dashboard/Application?appId=9NBLGGH4N8MX" />
 </StoreAssociation>

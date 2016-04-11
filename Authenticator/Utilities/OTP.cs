@@ -10,7 +10,6 @@ namespace Authenticator_for_Windows.Utilities
 {
     public class OTP
     {
-        private DispatcherTimer timer;
         private CryptographicKey cKey;
 
         public OTP(string key)
