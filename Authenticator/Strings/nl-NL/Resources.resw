@@ -123,6 +123,15 @@
   <data name="AddPage.Tag" xml:space="preserve">
     <value>Account toevoegen</value>
   </data>
+  <data name="BannerEmptyFields.BannerText" xml:space="preserve">
+    <value>U heeft niet alle velden ingevuld.</value>
+  </data>
+  <data name="BannerInvalidCharacters.BannerText" xml:space="preserve">
+    <value>De code bevat ongeldige karakters.</value>
+  </data>
+  <data name="BannerSaved.BannerText" xml:space="preserve">
+    <value>Uw account is opgeslagen. De huidige code wordt nu weergegeven.</value>
+  </data>
   <data name="Code.Text" xml:space="preserve">
     <value>Code</value>
   </data>

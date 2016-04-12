@@ -85,7 +85,7 @@ namespace Authenticator_for_Windows.Views.Pages
 
             if (string.IsNullOrWhiteSpace(EntryService.Text) || string.IsNullOrWhiteSpace(EntryUsername.Text) || string.IsNullOrWhiteSpace(EntryCode.Text))
             {
-                MainPage.AddBanner(new Banner(BannerType.Danger, "U heeft niet alle velden ingevuld.", true));
+                MainPage.AddBanner(new Banner(BannerEmptyFields.BannerType, BannerEmptyFields.BannerText, BannerEmptyFields.Dismissable));
 
                 valid = false;
             }
@@ -94,7 +94,7 @@ namespace Authenticator_for_Windows.Views.Pages
             {
                 if (!EntryCode.Text.All(char.IsLetterOrDigit))
                 {
-                    MainPage.AddBanner(new Banner(BannerType.Danger, "De code bevat ongeldige karaketers.", true));
+                    MainPage.AddBanner(new Banner(BannerInvalidCharacters.BannerType, BannerInvalidCharacters.BannerText, BannerInvalidCharacters.Dismissable));
 
                     valid = false;
                 }
@@ -112,7 +112,7 @@ namespace Authenticator_for_Windows.Views.Pages
 
                     EntryBlock entryBlock = new EntryBlock(entry, true);
 
-                    MainPage.AddBanner(new Banner(BannerType.Success, "Uw code is opgeslagen. De huidige code wordt nu weergegeven.", true));
+                    MainPage.AddBanner(new Banner(BannerSaved.BannerType, BannerSaved.BannerText, BannerSaved.Dismissable));
                     EntryBlockPanel.Children.Add(entryBlock);
 
                     EntryBlockPanel.Visibility = Visibility.Visible;
