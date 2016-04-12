@@ -196,10 +196,10 @@ Wij zullen u nooit storen met vervelende vragen om onze app te beoordelen. Als u
   <data name="PositionQRCode.Text" xml:space="preserve">
     <value>Positioneer de QR-code in beeld</value>
   </data>
-  <data name="PrivacyDeclaration.Tag" xml:space="preserve">
+  <data name="PrivacyDeclarationLink.Text" xml:space="preserve">
     <value>Privacyverklaring</value>
   </data>
-  <data name="PrivacyDeclarationLink.Text" xml:space="preserve">
+  <data name="PrivacyDeclarationPage.Tag" xml:space="preserve">
     <value>Privacyverklaring</value>
   </data>
   <data name="Save.Content" xml:space="preserve">
@@ -207,6 +207,9 @@ Wij zullen u nooit storen met vervelende vragen om onze app te beoordelen. Als u
   </data>
   <data name="Scan.Label" xml:space="preserve">
     <value>Scannen</value>
+  </data>
+  <data name="ScanPage.Tag" xml:space="preserve">
+    <value>QR-code scannen</value>
   </data>
   <data name="Service.Text" xml:space="preserve">
     <value>Dienst</value>
@@ -218,6 +221,9 @@ Wij zullen u nooit storen met vervelende vragen om onze app te beoordelen. Als u
     <value>Algemeen</value>
   </data>
   <data name="SettingsMenuItem.Content" xml:space="preserve">
+    <value>Instellingen</value>
+  </data>
+  <data name="SettingsPage.Tag" xml:space="preserve">
     <value>Instellingen</value>
   </data>
   <data name="ThreeSeconds.Content" xml:space="preserve">
