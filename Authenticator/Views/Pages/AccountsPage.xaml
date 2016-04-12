@@ -10,7 +10,6 @@
     Tag="Accounts"
     x:Uid="AccountsPage">
     <Page.Resources>
-
         <Storyboard x:Name="StrechProgress">
             <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Control.Foreground).(SolidColorBrush.Color)" Storyboard.TargetName="ProgressBar">
                 <EasingColorKeyFrame KeyTime="0:0:20" Value="#FF1ABC9C"/>
@@ -33,7 +32,7 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="5"/>
-            <RowDefinition x:Name="Test" Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
