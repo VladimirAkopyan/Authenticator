@@ -38,7 +38,7 @@
             </PivotItem>
             <PivotItem Header="Over">
                 <TextBlock TextWrapping="WrapWholeWords">
-                    Authenticator is dé app voor het universele Windows-platform om al uw codes voor tweestapsauthenticatie te bewaren. De ontwikkelaar van deze app tracht een zo gebruiksvriendelijke en gemakkelijke manier om codes aan te bieden aan gebruikers.<LineBreak /><LineBreak />Wij nodigen u graag uit al uw suggesties en opmerkingen met ons te delen zodat wij uw ervaring nog verder kunnen verbeteren.<LineBreak /><LineBreak />Wij zullen u nooit storen met vervelende vragen om onze app te beoordelen. Als u tijd heeft, neemt u dan alstublieft de moeite om onze app te beoordelen in de Windows Store. Al uw suggesties en opmerkingen zijn van harte welkom!
+                    Authenticator for Windows is dé app voor het universele Windows-platform om al uw codes voor tweestapsauthenticatie te bewaren. De ontwikkelaar van deze app tracht een zo gebruiksvriendelijke en gemakkelijke manier om codes aan te bieden aan gebruikers.<LineBreak /><LineBreak />Wij nodigen u graag uit al uw suggesties en opmerkingen met ons te delen zodat wij uw ervaring nog verder kunnen verbeteren.<LineBreak /><LineBreak />Wij zullen u nooit storen met vervelende vragen om onze app te beoordelen. Als u tijd heeft, neemt u dan alstublieft de moeite om onze app te beoordelen in de Windows Store. Al uw suggesties en opmerkingen zijn van harte welkom!
                 </TextBlock>
             </PivotItem>
         </Pivot>
