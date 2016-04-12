@@ -120,6 +120,24 @@
   <data name="AccountsPage.Tag" xml:space="preserve">
     <value>Accounts</value>
   </data>
+  <data name="CodeCopied.Text" xml:space="preserve">
+    <value>Code copied to clipboard</value>
+  </data>
+  <data name="ConfirmDialog.PrimaryButtonText" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="ConfirmDialog.SecondaryButtonText" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="ConfirmDialog.Title" xml:space="preserve">
+    <value>Delete account</value>
+  </data>
+  <data name="ConfirmDialogConfirmation.Text" xml:space="preserve">
+    <value>Are you sure you want to delete this account?</value>
+  </data>
+  <data name="ConfirmDialogWarning.Text" xml:space="preserve">
+    <value>Caution: deleting this account does not deactivate two step authentication on your account!</value>
+  </data>
   <data name="Edit.Label" xml:space="preserve">
     <value>Edit</value>
   </data>

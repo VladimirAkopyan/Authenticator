@@ -39,7 +39,7 @@
         <ProgressBar x:Name="ProgressBar" Height="5" Grid.Row="0" Background="White" Maximum="30" Minimum="0" Value="0" Foreground="#FF1ABC9C" />
         <StackPanel x:Name="stackPanel" Grid.Row="1" Background="#34495e" Orientation="Horizontal" Padding="10" Height="0">
             <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE16F;" Foreground="White" FontSize="16" VerticalAlignment="Center" />
-            <TextBlock Margin="5 0 0 0" Text="Code gekopieerd naar het klembord" Foreground="White" FontSize="16" VerticalAlignment="Center" />
+            <TextBlock x:Uid="CodeCopied" Margin="5 0 0 0" Text="Code gekopieerd naar het klembord" Foreground="White" FontSize="16" VerticalAlignment="Center" />
         </StackPanel>
         <ScrollViewer Grid.Row="2">
             <StackPanel VerticalAlignment="Stretch" x:Name="Codes" Padding="0 10">
@@ -53,10 +53,10 @@
         <CommandBar Grid.Row="3">
             <AppBarToggleButton x:Uid="Edit" Icon="Edit" x:Name="Edit" Label="Bewerken" Click="Edit_Click" />
         </CommandBar>
-        <ContentDialog Name="ConfirmDialog" PrimaryButtonText="Verwijderen" SecondaryButtonText="Annuleren" Title="Account verwijderen" PrimaryButtonClick="ConfirmDialog_PrimaryButtonClick">
+        <ContentDialog x:Uid="ConfirmDialog" Name="ConfirmDialog" PrimaryButtonText="Verwijderen" SecondaryButtonText="Annuleren" Title="Account verwijderen" PrimaryButtonClick="ConfirmDialog_PrimaryButtonClick">
             <StackPanel>
-                <TextBlock Text="Weet u zeker dat u dit account wilt verwijderen?" TextWrapping="Wrap" />
-                <TextBlock Text="Let op: Het verwijderen van dit account deactiveert tweestapsauthenticatie op uw account niet!" TextWrapping="Wrap" />
+                <TextBlock x:Uid="ConfirmDialogConfirmation" Text="Weet u zeker dat u dit account wilt verwijderen?" TextWrapping="Wrap" />
+                <TextBlock x:Uid="ConfirmDialogWarning" Text="Let op: Het verwijderen van dit account deactiveert tweestapsauthenticatie op uw account niet!" TextWrapping="Wrap" />
             </StackPanel>
         </ContentDialog>
     </Grid>

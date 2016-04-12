@@ -120,6 +120,24 @@
   <data name="AccountsPage.Tag" xml:space="preserve">
     <value>Accounts</value>
   </data>
+  <data name="CodeCopied.Text" xml:space="preserve">
+    <value>Code gekopieerd naar het klembord</value>
+  </data>
+  <data name="ConfirmDialog.PrimaryButtonText" xml:space="preserve">
+    <value>Verwijderen</value>
+  </data>
+  <data name="ConfirmDialog.SecondaryButtonText" xml:space="preserve">
+    <value>Annuleren</value>
+  </data>
+  <data name="ConfirmDialog.Title" xml:space="preserve">
+    <value>Account verwijderen</value>
+  </data>
+  <data name="ConfirmDialogConfirmation.Text" xml:space="preserve">
+    <value>Weet u zeker dat u dit account wilt verwijderen?</value>
+  </data>
+  <data name="ConfirmDialogWarning.Text" xml:space="preserve">
+    <value>Let op: Het verwijderen van dit account deactiveert tweestapsauthenticatie op uw account niet!</value>
+  </data>
   <data name="Edit.Label" xml:space="preserve">
     <value>Bewerken</value>
   </data>
