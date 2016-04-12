@@ -7,7 +7,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" Loaded="Page_Loaded"
-    Tag="Accounts">
+    Tag="Accounts"
+    x:Uid="AccountsPage">
     <Page.Resources>
 
         <Storyboard x:Name="StrechProgress">
@@ -51,7 +52,7 @@
             </StackPanel>
         </ScrollViewer>
         <CommandBar Grid.Row="3">
-            <AppBarToggleButton Icon="Edit" x:Name="Edit" Label="Bewerken" Click="Edit_Click" />
+            <AppBarToggleButton x:Uid="Edit" Icon="Edit" x:Name="Edit" Label="Bewerken" Click="Edit_Click" />
         </CommandBar>
     </Grid>
 </Page>

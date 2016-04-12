@@ -95,6 +95,8 @@
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
     <None Include="Authenticator for Windows.pfx" />
     <None Include="project.json" />
+    <PRIResource Include="Strings\en-US\Resources.resw" />
+    <PRIResource Include="Strings\nl-NL\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Events\CopyRequestedEventHandler.cs" />
