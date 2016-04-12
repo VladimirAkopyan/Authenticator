@@ -5,6 +5,7 @@ using Authenticator_for_Windows.Views.UserControls;
 using Settings;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.UI.Xaml;

@@ -69,19 +69,20 @@ namespace Authenticator_for_Windows.Storage
 
                 Persist();
 
-                // After creating it, retrieve it
-                file = await applicationData.GetFileAsync(ENTRIES_FILENAME);
-            }
-
-            string content = await FileIO.ReadTextAsync(file);
-
-            if (string.IsNullOrWhiteSpace(content) || content == "null")
-            {
                 entries = new List<Entry>();
             }
             else
             {
-                entries = JsonConvert.DeserializeObject<List<Entry>>(content);
+                string content = await FileIO.ReadTextAsync(file);
+
+                if (string.IsNullOrWhiteSpace(content) || content == "null")
+                {
+                    entries = new List<Entry>();
+                }
+                else
+                {
+                    entries = JsonConvert.DeserializeObject<List<Entry>>(content);
+                }
             }
 
             Clean();
@@ -94,6 +95,11 @@ namespace Authenticator_for_Windows.Storage
 
         private async void Persist()
         {
+            if (entries == null)
+            {
+                entries = new List<Entry>();
+            }
+
             StorageFile file = await applicationData.CreateFileAsync(ENTRIES_FILENAME, CreationCollisionOption.ReplaceExisting);
 
             try

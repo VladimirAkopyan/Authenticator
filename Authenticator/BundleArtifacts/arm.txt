@@ -1,0 +1,2 @@
+MainPackage=D:\Documenten\Visual Studio 2015\Projects\Authenticator for Windows\Authenticator\bin\ARM\Release\Authenticator_1.1.3.0_ARM.appx
+SymbolPackage=D:\Documenten\Visual Studio 2015\Projects\Authenticator for Windows\Authenticator\AppPackages\Authenticator_1.1.3.0_Test\Authenticator_1.1.3.0_ARM.appxsym
