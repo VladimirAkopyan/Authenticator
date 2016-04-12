@@ -196,7 +196,10 @@ Wij zullen u nooit storen met vervelende vragen om onze app te beoordelen. Als u
   <data name="PositionQRCode.Text" xml:space="preserve">
     <value>Positioneer de QR-code in beeld</value>
   </data>
-  <data name="PrivacyDeclaration.Text" xml:space="preserve">
+  <data name="PrivacyDeclaration.Tag" xml:space="preserve">
+    <value>Privacyverklaring</value>
+  </data>
+  <data name="PrivacyDeclarationLink.Text" xml:space="preserve">
     <value>Privacyverklaring</value>
   </data>
   <data name="Save.Content" xml:space="preserve">

@@ -31,7 +31,7 @@
                         <HyperlinkButton.Content>
                             <TextBlock TextWrapping="WrapWholeWords">
                                 <Underline>
-                                    <Run x:Uid="PrivacyDeclaration">Privacyverklaring</Run>
+                                    <Run x:Uid="PrivacyDeclarationLink">Privacyverklaring</Run>
                                 </Underline>
                             </TextBlock>
                         </HyperlinkButton.Content>
