@@ -120,6 +120,12 @@
   <data name="AccountsPage.Tag" xml:space="preserve">
     <value>Accounts</value>
   </data>
+  <data name="AddPage.Tag" xml:space="preserve">
+    <value>Account toevoegen</value>
+  </data>
+  <data name="Code.Text" xml:space="preserve">
+    <value>Code</value>
+  </data>
   <data name="CodeCopied.Text" xml:space="preserve">
     <value>Code gekopieerd naar het klembord</value>
   </data>
@@ -140,5 +146,17 @@
   </data>
   <data name="Edit.Label" xml:space="preserve">
     <value>Bewerken</value>
+  </data>
+  <data name="Save.Content" xml:space="preserve">
+    <value>Opslaan</value>
+  </data>
+  <data name="Scan.Label" xml:space="preserve">
+    <value>Scannen</value>
+  </data>
+  <data name="Service.Text" xml:space="preserve">
+    <value>Dienst</value>
+  </data>
+  <data name="Username.Text" xml:space="preserve">
+    <value>Gebruikersnaam</value>
   </data>
 </root>
