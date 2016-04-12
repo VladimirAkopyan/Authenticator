@@ -117,8 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AccountsMenuItem.Content" xml:space="preserve">
+    <value>Accounts</value>
+  </data>
   <data name="AccountsPage.Tag" xml:space="preserve">
     <value>Accounts</value>
+  </data>
+  <data name="AddMenuItem.Content" xml:space="preserve">
+    <value>Account toevoegen</value>
   </data>
   <data name="AddPage.Tag" xml:space="preserve">
     <value>Account toevoegen</value>
@@ -164,6 +170,9 @@
   </data>
   <data name="Service.Text" xml:space="preserve">
     <value>Dienst</value>
+  </data>
+  <data name="SettingsMenuItem.Content" xml:space="preserve">
+    <value>Instellingen</value>
   </data>
   <data name="Username.Text" xml:space="preserve">
     <value>Gebruikersnaam</value>
