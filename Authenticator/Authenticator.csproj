@@ -127,8 +127,8 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utilities\OTP.cs" />
-    <Compile Include="Views\Pages\PrivacyDeclaration.xaml.cs">
-      <DependentUpon>PrivacyDeclaration.xaml</DependentUpon>
+    <Compile Include="Views\Pages\PrivacyDeclarationPage.xaml.cs">
+      <DependentUpon>PrivacyDeclarationPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\Pages\ScanPage.xaml.cs">
@@ -187,7 +187,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Pages\PrivacyDeclaration.xaml">
+    <Page Include="Views\Pages\PrivacyDeclarationPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
