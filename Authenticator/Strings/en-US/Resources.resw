@@ -175,6 +175,9 @@ We will never interrupt you with annoying questions to rate our app. If you have
   <data name="FiveSeconds.Content" xml:space="preserve">
     <value>5 seconds</value>
   </data>
+  <data name="Focus.Text" xml:space="preserve">
+    <value>Tap or click to focus</value>
+  </data>
   <data name="Forever.Content" xml:space="preserve">
     <value>Forever</value>
   </data>
@@ -189,6 +192,9 @@ We will never interrupt you with annoying questions to rate our app. If you have
   </data>
   <data name="OneSecond.Content" xml:space="preserve">
     <value>1 second</value>
+  </data>
+  <data name="PositionQRCode.Text" xml:space="preserve">
+    <value>Position the QR code in the screen</value>
   </data>
   <data name="PrivacyDeclaration.Text" xml:space="preserve">
     <value>Privacy declaration</value>

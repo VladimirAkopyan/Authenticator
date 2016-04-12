@@ -175,6 +175,9 @@ Wij zullen u nooit storen met vervelende vragen om onze app te beoordelen. Als u
   <data name="FiveSeconds.Content" xml:space="preserve">
     <value>5 seconde</value>
   </data>
+  <data name="Focus.Text" xml:space="preserve">
+    <value>Tik of klik om te focussen</value>
+  </data>
   <data name="Forever.Content" xml:space="preserve">
     <value>Altijd</value>
   </data>
@@ -189,6 +192,9 @@ Wij zullen u nooit storen met vervelende vragen om onze app te beoordelen. Als u
   </data>
   <data name="OneSecond.Content" xml:space="preserve">
     <value>1 seconde</value>
+  </data>
+  <data name="PositionQRCode.Text" xml:space="preserve">
+    <value>Positioneer de QR-code in beeld</value>
   </data>
   <data name="PrivacyDeclaration.Text" xml:space="preserve">
     <value>Privacyverklaring</value>

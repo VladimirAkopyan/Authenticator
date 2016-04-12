@@ -16,10 +16,10 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <StackPanel Background="#7F000000" Grid.Row="0" Padding="10" VerticalAlignment="Top">
-            <TextBlock Text="Positioneer de QR-code in beeld" Foreground="White" TextAlignment="Center" />
+            <TextBlock x:Uid="PositionQRCode" Text="Positioneer de QR-code in beeld" Foreground="White" TextAlignment="Center" />
         </StackPanel>
         <StackPanel Background="#7F000000" Grid.Row="2" Padding="10" VerticalAlignment="Bottom">
-            <TextBlock Text="Tik of klik om te focussen" Foreground="White" TextAlignment="Center" />
+            <TextBlock x:Uid="Focus" Text="Tik of klik om te focussen" Foreground="White" TextAlignment="Center" />
         </StackPanel>
     </Grid>
 </UserControl>
