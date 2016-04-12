@@ -53,5 +53,11 @@
         <CommandBar Grid.Row="3">
             <AppBarToggleButton x:Uid="Edit" Icon="Edit" x:Name="Edit" Label="Bewerken" Click="Edit_Click" />
         </CommandBar>
+        <ContentDialog Name="ConfirmDialog" PrimaryButtonText="Verwijderen" SecondaryButtonText="Annuleren" Title="Account verwijderen" PrimaryButtonClick="ConfirmDialog_PrimaryButtonClick">
+            <StackPanel>
+                <TextBlock Text="Weet u zeker dat u dit account wilt verwijderen?" TextWrapping="Wrap" />
+                <TextBlock Text="Let op: Het verwijderen van dit account deactiveert tweestapsauthenticatie op uw account niet!" TextWrapping="Wrap" />
+            </StackPanel>
+        </ContentDialog>
     </Grid>
 </Page>

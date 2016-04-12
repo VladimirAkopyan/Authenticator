@@ -22,6 +22,7 @@ namespace Authenticator_for_Windows.Views.Pages
     {
         private Dictionary<Entry, EntryBlock> mappings;
         private DispatcherTimer timer;
+        private Entry selectedEntry;
 
         public AccountsPage()
         {
@@ -114,24 +115,9 @@ namespace Authenticator_for_Windows.Views.Pages
 
         private async void Code_DeleteRequested(object sender, DeleteRequestEventArgs e)
         {
-            ContentDialog dialog = new ContentDialog()
-            {
-                Title = "Account verwijderen",
-                Content = "Weet u zeker dat u dit accoubt wilt verwijderen?\nLet op: Het verwijderen van dit account deactiveert tweestapsauthenticatie op uw account niet!",
-                PrimaryButtonText = "Verwijderen",
-                SecondaryButtonText = "Annuleren"
-            };
+            selectedEntry = e.Entry;
 
-            dialog.PrimaryButtonClick += async delegate
-            {
-                KeyValuePair<Entry, EntryBlock> entry = mappings.FirstOrDefault(m => m.Key == e.Entry);
-
-                await EntryStorage.Instance.RemoveAsync(entry.Key);
-
-                entry.Value.Remove();
-            };
-
-            await dialog.ShowAsync();
+            await ConfirmDialog.ShowAsync();
         }
 
         private void Edit_Click(object sender, RoutedEventArgs e)
@@ -140,6 +126,15 @@ namespace Authenticator_for_Windows.Views.Pages
             {
                 entryBlock.InEditMode = !entryBlock.InEditMode;
             }
+        }
+
+        private async void ConfirmDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        {
+            KeyValuePair<Entry, EntryBlock> entry = mappings.FirstOrDefault(m => m.Key == selectedEntry);
+
+            await EntryStorage.Instance.RemoveAsync(entry.Key);
+
+            entry.Value.Remove();
         }
     }
 }
