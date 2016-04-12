@@ -44,6 +44,8 @@ namespace Authenticator_for_Windows.Views.Pages
             {
                 Entry entry = TOTPUtilities.UriToEntry(ScanPage.LastScanResult.Text);
 
+                ScanPage.LastScanResult = null;
+
                 if (entry != null)
                 {
                     EntryUsername.Text = entry.Username;
