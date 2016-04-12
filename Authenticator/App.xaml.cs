@@ -86,7 +86,7 @@ namespace Authenticator_for_Windows
             if (Windows.Foundation.Metadata.ApiInformation.IsTypePresent("Windows.UI.ViewManagement.StatusBar"))
             {
                 StatusBar statusBar = StatusBar.GetForCurrentView();
-                statusBar.BackgroundColor = Color.FromArgb(0, 52, 152, 219);
+                statusBar.BackgroundColor = Color.FromArgb(0, 41, 128, 185);
                 statusBar.BackgroundOpacity = 1;
                 statusBar.ForegroundColor = Colors.White;
             }
