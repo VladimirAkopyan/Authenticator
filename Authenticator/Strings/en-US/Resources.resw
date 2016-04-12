@@ -117,6 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AboutText.Text" xml:space="preserve">
+    <value>Authenticator for Windows is the app for the universal Windows platform to store all your account with two step authenticatie. The developer of this app tries to create the most user friendly and easy way the offer codes to his users.
+
+We kindly invite you to share all your suggestions and comments with us so we can further improve your experience.
+
+We will never interrupt you with annoying questions to rate our app. If you have time, please review our app in the Windows Store. All your suggestions and comments are welcome!</value>
+  </data>
   <data name="AccountsMenuItem.Content" xml:space="preserve">
     <value>Accounts</value>
   </data>
@@ -159,8 +166,32 @@
   <data name="ConfirmDialogWarning.Text" xml:space="preserve">
     <value>Caution: deleting this account does not deactivate two step authentication on your account!</value>
   </data>
+  <data name="Duration.Text" xml:space="preserve">
+    <value>How long must a copied code be stored on the clipboard?</value>
+  </data>
   <data name="Edit.Label" xml:space="preserve">
     <value>Edit</value>
+  </data>
+  <data name="FiveSeconds.Content" xml:space="preserve">
+    <value>5 seconds</value>
+  </data>
+  <data name="Forever.Content" xml:space="preserve">
+    <value>Forever</value>
+  </data>
+  <data name="FourSeconds.Content" xml:space="preserve">
+    <value>4 seconds</value>
+  </data>
+  <data name="Never.Content" xml:space="preserve">
+    <value>Never</value>
+  </data>
+  <data name="NTPTimeout.Text" xml:space="preserve">
+    <value>Timeout time for retrieving the time via NTP</value>
+  </data>
+  <data name="OneSecond.Content" xml:space="preserve">
+    <value>1 second</value>
+  </data>
+  <data name="PrivacyDeclaration.Text" xml:space="preserve">
+    <value>Privacy declaration</value>
   </data>
   <data name="Save.Content" xml:space="preserve">
     <value>Save</value>
@@ -171,8 +202,29 @@
   <data name="Service.Text" xml:space="preserve">
     <value>Service</value>
   </data>
-  <data name="SettingsMenuItem.Content" xml:space="preserve">
-    <value>Settings</value>
+  <data name="SettingsAbout.Header" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="SettingsGeneral.Header" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="ThreeSeconds.Content" xml:space="preserve">
+    <value>3 seconds</value>
+  </data>
+  <data name="TwoSeconds.Content" xml:space="preserve">
+    <value>2 seconds</value>
+  </data>
+  <data name="UntilCodeExpires.Content" xml:space="preserve">
+    <value>Until the code expires</value>
+  </data>
+  <data name="UseNTP.Header" xml:space="preserve">
+    <value>Use NTP the retrieve the correct time</value>
+  </data>
+  <data name="UseNTP.OffContent" xml:space="preserve">
+    <value>Off</value>
+  </data>
+  <data name="UseNTP.OnContent" xml:space="preserve">
+    <value>On</value>
   </data>
   <data name="Username.Text" xml:space="preserve">
     <value>Username</value>

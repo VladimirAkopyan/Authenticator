@@ -10,35 +10,37 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Pivot>
-            <PivotItem Header="Algemeen">
+            <PivotItem x:Uid="SettingsGeneral" Header="Algemeen">
                 <StackPanel>
-                    <TextBlock Text="Hoe lang moet een gekopieerde code bewaard blijven op het klembord?" TextWrapping="WrapWholeWords" />
+                    <TextBlock x:Uid="Duration" Text="Hoe lang moet een gekopieerde code bewaard blijven op het klembord?" TextWrapping="WrapWholeWords" />
                     <ComboBox Name="ClipboardTime" SelectionChanged="ClipboardTime_SelectionChanged">
-                        <ComboBoxItem Content="Tot de code verloopt" />
-                        <ComboBoxItem Content="Altijd" />
+                        <ComboBoxItem x:Uid="UntilCodeExpires" Content="Tot de code verloopt" />
+                        <ComboBoxItem x:Uid="Forever" Content="Altijd" />
                     </ComboBox>
-                    <ToggleSwitch Name="UseNTP" OnContent="Aan" OffContent="Uit" Toggled="UseNTP_Toggled">Gebruik NTP om de correcte tijd op te halen</ToggleSwitch>
-                    <TextBlock Text="Timeout-tijd voor het ophalen van de tijd via NTP" TextWrapping="WrapWholeWords" />
+                    <ToggleSwitch x:Uid="UseNTP" x:Name="UseNTP" OnContent="Aan" OffContent="Uit" Toggled="UseNTP_Toggled" Header="Gebruik NTP om de correcte tijd op te halen" />
+                    <TextBlock x:Uid="NTPTimeout" Text="Timeout-tijd voor het ophalen van de tijd via NTP" TextWrapping="WrapWholeWords" />
                     <ComboBox Name="NTPTimeout" SelectionChanged="NTPTimeout_SelectionChanged">
-                        <ComboBoxItem Content="Nooit" />
-                        <ComboBoxItem Content="1 seconde" />
-                        <ComboBoxItem Content="2 seconde" />
-                        <ComboBoxItem Content="3 seconde" />
-                        <ComboBoxItem Content="4 seconde" />
-                        <ComboBoxItem Content="5 seconde" />
+                        <ComboBoxItem x:Uid="Never" Content="Nooit" />
+                        <ComboBoxItem x:Uid="OneSecond" Content="1 seconde" />
+                        <ComboBoxItem x:Uid="TwoSeconds" Content="2 seconde" />
+                        <ComboBoxItem x:Uid="ThreeSeconds" Content="3 seconde" />
+                        <ComboBoxItem x:Uid="FourSeconds" Content="4 seconde" />
+                        <ComboBoxItem x:Uid="FiveSeconds" Content="5 seconde" />
                     </ComboBox>
                     <HyperlinkButton Name="PrivacyDeclaration" Click="PrivacyDeclaration_Click">
                         <HyperlinkButton.Content>
                             <TextBlock TextWrapping="WrapWholeWords">
-                                <Underline>Privacyverklaring</Underline>
+                                <Underline>
+                                    <Run x:Uid="PrivacyDeclaration">Privacyverklaring</Run>
+                                </Underline>
                             </TextBlock>
                         </HyperlinkButton.Content>
                     </HyperlinkButton>
                 </StackPanel>
             </PivotItem>
-            <PivotItem Header="Over">
+            <PivotItem x:Uid="SettingsAbout" Header="Over">
                 <TextBlock TextWrapping="WrapWholeWords">
-                    Authenticator for Windows is dé app voor het universele Windows-platform om al uw codes voor tweestapsauthenticatie te bewaren. De ontwikkelaar van deze app tracht een zo gebruiksvriendelijke en gemakkelijke manier om codes aan te bieden aan gebruikers.<LineBreak /><LineBreak />Wij nodigen u graag uit al uw suggesties en opmerkingen met ons te delen zodat wij uw ervaring nog verder kunnen verbeteren.<LineBreak /><LineBreak />Wij zullen u nooit storen met vervelende vragen om onze app te beoordelen. Als u tijd heeft, neemt u dan alstublieft de moeite om onze app te beoordelen in de Windows Store. Al uw suggesties en opmerkingen zijn van harte welkom!
+                    <Run x:Uid="AboutText" Text="Authenticator for Windows is dé app voor het universele Windows-platform om al uw codes voor tweestapsauthenticatie te bewaren. De ontwikkelaa van deze app tracht een zo gebruiksvriendelijke en gemakkelijke manier om codes aan te bieden aan gebruikers. Wij nodigen u graag uit al uw suggesties en opmerkingen met ons te delen zodat wij uw ervaring nog verder kunnen verbeteren. Wij zullen u nooit storen met vervelende vragen om onze app te beoordelen. Als u tijd heeft, neemt u dan alstublieft de moeite om onze app te beoordelen in de Windows Store. Al uw suggesties en opmerkingen zijn van harte welkom!" />
                 </TextBlock>
             </PivotItem>
         </Pivot>

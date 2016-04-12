@@ -117,6 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AboutText.Text" xml:space="preserve">
+    <value>Authenticator for Windows is dé app voor het universele Windows-platform om al uw accounts voor tweestapsauthenticatie te bewaren. De ontwikkelaar van deze app tracht een zo gebruiksvriendelijke en gemakkelijke manier om codes aan te bieden aan gebruikers.
+
+Wij nodigen u graag uit al uw suggesties en opmerkingen met ons te delen zodat wij uw ervaring nog verder kunnen verbeteren.
+
+Wij zullen u nooit storen met vervelende vragen om onze app te beoordelen. Als u tijd heeft, neemt u dan alstublieft de moeite om onze app te beoordelen in de Windows Store. Al uw suggesties en opmerkingen zijn van harte welkom!</value>
+  </data>
   <data name="AccountsMenuItem.Content" xml:space="preserve">
     <value>Accounts</value>
   </data>
@@ -159,8 +166,32 @@
   <data name="ConfirmDialogWarning.Text" xml:space="preserve">
     <value>Let op: Het verwijderen van dit account deactiveert tweestapsauthenticatie op uw account niet!</value>
   </data>
+  <data name="Duration.Text" xml:space="preserve">
+    <value>Hoe lang moet een gekopieerde code bewaard blijven op het klembord?</value>
+  </data>
   <data name="Edit.Label" xml:space="preserve">
     <value>Bewerken</value>
+  </data>
+  <data name="FiveSeconds.Content" xml:space="preserve">
+    <value>5 seconde</value>
+  </data>
+  <data name="Forever.Content" xml:space="preserve">
+    <value>Altijd</value>
+  </data>
+  <data name="FourSeconds.Content" xml:space="preserve">
+    <value>4 seconde</value>
+  </data>
+  <data name="Never.Content" xml:space="preserve">
+    <value>Nooit</value>
+  </data>
+  <data name="NTPTimeout.Text" xml:space="preserve">
+    <value>Timeout-tijd voor het ophalen van de tijd via NTP</value>
+  </data>
+  <data name="OneSecond.Content" xml:space="preserve">
+    <value>1 seconde</value>
+  </data>
+  <data name="PrivacyDeclaration.Text" xml:space="preserve">
+    <value>Privacyverklaring</value>
   </data>
   <data name="Save.Content" xml:space="preserve">
     <value>Opslaan</value>
@@ -171,8 +202,32 @@
   <data name="Service.Text" xml:space="preserve">
     <value>Dienst</value>
   </data>
+  <data name="SettingsAbout.Header" xml:space="preserve">
+    <value>Over</value>
+  </data>
+  <data name="SettingsGeneral.Header" xml:space="preserve">
+    <value>Algemeen</value>
+  </data>
   <data name="SettingsMenuItem.Content" xml:space="preserve">
     <value>Instellingen</value>
+  </data>
+  <data name="ThreeSeconds.Content" xml:space="preserve">
+    <value>3 seconde</value>
+  </data>
+  <data name="TwoSeconds.Content" xml:space="preserve">
+    <value>2 seconde</value>
+  </data>
+  <data name="UntilCodeExpires.Content" xml:space="preserve">
+    <value>Tot de code verloopt</value>
+  </data>
+  <data name="UseNTP.Header" xml:space="preserve">
+    <value>Gebruik NTP om de correcte tijd op te halen</value>
+  </data>
+  <data name="UseNTP.OffContent" xml:space="preserve">
+    <value>Uit</value>
+  </data>
+  <data name="UseNTP.OnContent" xml:space="preserve">
+    <value>Aan</value>
   </data>
   <data name="Username.Text" xml:space="preserve">
     <value>Gebruikersnaam</value>
