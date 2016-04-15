@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="56672RoelvandeWater.AuthenticatorforWindows" Publisher="CN=FE268E0D-F5D1-4900-9C83-60A34BEB0C47" Version="1.1.8.0" />
+  <Identity Name="56672RoelvandeWater.AuthenticatorforWindows" Publisher="CN=FE268E0D-F5D1-4900-9C83-60A34BEB0C47" Version="1.1.13.0" />
   <mp:PhoneIdentity PhoneProductId="76e37290-545c-4221-9029-8c168495e754" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>Authenticator for Windows</DisplayName>
@@ -24,6 +24,5 @@
   </Applications>
   <Capabilities>
     <Capability Name="internetClient" />
-    <DeviceCapability Name="webcam" />
   </Capabilities>
 </Package>
