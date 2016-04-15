@@ -53,6 +53,10 @@ namespace Authenticator_for_Windows.Views.Pages
                 {
                     SettingsMenuItem.IsChecked = true;
                 }
+                else if (Contentframe.Content.GetType() == typeof(PrivacyDeclaration))
+                {
+                    SettingsMenuItem.IsChecked = true;
+                }
 
                 backButtonTapped = false;
 
