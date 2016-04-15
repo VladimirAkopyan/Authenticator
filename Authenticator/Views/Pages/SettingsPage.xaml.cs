@@ -1,5 +1,8 @@
 ﻿using Settings;
 using System;
+using Windows.ApplicationModel;
+using Windows.ApplicationModel.Store;
+using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -110,6 +113,13 @@ namespace Authenticator_for_Windows.Views.Pages
             {
                 SettingsManager.Save(Setting.NTPTimeout, GetTimeSpanOfIndex(NTPTimeout.SelectedIndex));
             }
+        }
+
+        private async void OpenWindowsStore_Click(object sender, RoutedEventArgs e)
+        {
+            var uri = new Uri("ms-windows-store://review/?PFN=" + Package.Current.Id.FamilyName);
+
+            var success = await Launcher.LaunchUriAsync(uri);
         }
     }
 }

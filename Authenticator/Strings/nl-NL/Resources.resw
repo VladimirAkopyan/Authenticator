@@ -247,4 +247,13 @@ Wij zullen u nooit storen met vervelende vragen om onze app te beoordelen. Als u
   <data name="Username.Text" xml:space="preserve">
     <value>Gebruikersnaam</value>
   </data>
+  <data name="GiveFeedback.Text" xml:space="preserve">
+    <value>Geef feedback</value>
+  </data>
+  <data name="GiveFeedbackDescription.Text" xml:space="preserve">
+    <value>U kunt feedback geven op deze app via de Windows Store.</value>
+  </data>
+  <data name="OpenWindowsStore.Content" xml:space="preserve">
+    <value>Open Windows Store</value>
+  </data>
 </root>

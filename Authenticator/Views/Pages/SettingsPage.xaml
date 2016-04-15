@@ -40,9 +40,16 @@
                 </StackPanel>
             </PivotItem>
             <PivotItem x:Uid="SettingsAbout" Header="Over">
-                <TextBlock TextWrapping="WrapWholeWords">
-                    <Run x:Uid="AboutText" Text="Authenticator for Windows is dé app voor het universele Windows-platform om al uw codes voor tweestapsauthenticatie te bewaren. De ontwikkelaa van deze app tracht een zo gebruiksvriendelijke en gemakkelijke manier om codes aan te bieden aan gebruikers. Wij nodigen u graag uit al uw suggesties en opmerkingen met ons te delen zodat wij uw ervaring nog verder kunnen verbeteren. Wij zullen u nooit storen met vervelende vragen om onze app te beoordelen. Als u tijd heeft, neemt u dan alstublieft de moeite om onze app te beoordelen in de Windows Store. Al uw suggesties en opmerkingen zijn van harte welkom!" />
-                </TextBlock>
+                <StackPanel>
+                    <TextBlock TextWrapping="WrapWholeWords">
+                        <Run x:Uid="AboutText" Text="Authenticator for Windows is dé app voor het universele Windows-platform om al uw codes voor tweestapsauthenticatie te bewaren. De ontwikkelaa van deze app tracht een zo gebruiksvriendelijke en gemakkelijke manier om codes aan te bieden aan gebruikers. Wij nodigen u graag uit al uw suggesties en opmerkingen met ons te delen zodat wij uw ervaring nog verder kunnen verbeteren. Wij zullen u nooit storen met vervelende vragen om onze app te beoordelen. Als u tijd heeft, neemt u dan alstublieft de moeite om onze app te beoordelen in de Windows Store. Al uw suggesties en opmerkingen zijn van harte welkom!" />
+                    </TextBlock>
+                    <StackPanel Margin="0, 10, 0, 0">
+                        <TextBlock x:Uid="GiveFeedback" FontWeight="Bold" Text="Feedback geven" TextWrapping="Wrap" />
+                        <TextBlock x:Uid="GiveFeedbackDescription" Text="U kunt feedback geven op deze app via de Windows Store." TextWrapping="Wrap" />
+                        <Button x:Uid="OpenWindowsStore" Name="OpenWindowsStore" Content="Open Windows Store" Margin="0,10,0,0" Click="OpenWindowsStore_Click" />
+                    </StackPanel>
+                </StackPanel>
             </PivotItem>
         </Pivot>
     </Grid>
