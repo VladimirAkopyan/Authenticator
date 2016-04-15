@@ -63,12 +63,12 @@
                     </Grid.RowDefinitions>
                     <ScrollViewer Grid.Row="0" VerticalAlignment="Top" HorizontalScrollMode="Disabled" VerticalScrollBarVisibility="Hidden">
                         <StackPanel>
-                            <RadioButton Tag="&#57633;" x:Uid="AccountsMenuItem" x:Name="AccountsMenuItem" Content="Accounts" Style="{StaticResource SplitViewNavButtonStyle}" IsChecked="True" Click="AccountsMenuItem_Click" />
-                            <RadioButton Tag="&#xe109;" x:Uid="AddMenuItem" Name="AddMenuItem" Content="Account toevoegen" Style="{StaticResource SplitViewNavButtonStyle}" Click="AddMenuItem_Click" />
+                            <RadioButton Tag="&#57633;" x:Uid="AccountsMenuItem" x:Name="AccountsMenuItem" Content="Accounts" Style="{StaticResource SplitViewNavButtonStyle}" IsChecked="True" Checked="AccountsMenuItem_Checked" />
+                            <RadioButton Tag="&#xe109;" x:Uid="AddMenuItem" Name="AddMenuItem" Content="Account toevoegen" Style="{StaticResource SplitViewNavButtonStyle}" Checked="AddMenuItem_Checked" />
                         </StackPanel>
                     </ScrollViewer>
                     <StackPanel Grid.Row="1" VerticalAlignment="Bottom" Margin="0, 5, 0, 0">
-                        <RadioButton Tag="&#xE713;" x:Uid="SettingsMenuItem" Name="SettingsMenuItem" Content="Instellingen" Style="{StaticResource SplitViewNavButtonStyle}" Click="SettingsMenuItem_Click" />
+                        <RadioButton Tag="&#xE713;" x:Uid="SettingsMenuItem" Name="SettingsMenuItem" Content="Instellingen" Style="{StaticResource SplitViewNavButtonStyle}" Checked="SettingsMenuItem_Checked" />
                     </StackPanel>
                 </Grid>
             </SplitView.Pane>

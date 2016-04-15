@@ -111,7 +111,7 @@ namespace Authenticator_for_Windows.Views.Pages
             }
         }
 
-        private void AccountsMenuItem_Click(object sender, RoutedEventArgs e)
+        private void AccountsMenuItem_Checked(object sender, RoutedEventArgs e)
         {
             if (!backButtonTapped)
             {
@@ -119,7 +119,7 @@ namespace Authenticator_for_Windows.Views.Pages
             }
         }
 
-        private void AddMenuItem_Click(object sender, RoutedEventArgs e)
+        private void AddMenuItem_Checked(object sender, RoutedEventArgs e)
         {
             if (!backButtonTapped)
             {
@@ -127,7 +127,7 @@ namespace Authenticator_for_Windows.Views.Pages
             }
         }
 
-        private void SettingsMenuItem_Click(object sender, RoutedEventArgs e)
+        private void SettingsMenuItem_Checked(object sender, RoutedEventArgs e)
         {
             if (!backButtonTapped)
             {
