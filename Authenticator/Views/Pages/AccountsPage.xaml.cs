@@ -10,6 +10,7 @@ using System.Linq;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -24,12 +25,18 @@ namespace Authenticator_for_Windows.Views.Pages
         private DispatcherTimer timer;
         private Entry selectedEntry;
         private IReadOnlyList<Entry> entries;
+        private MainPage mainPage;
 
         public AccountsPage()
         {
             InitializeComponent();
 
             mappings = new Dictionary<Entry, EntryBlock>();
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            mainPage = (MainPage)e.Parameter;
         }
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
@@ -71,11 +78,15 @@ namespace Authenticator_for_Windows.Views.Pages
                 {
                     NoAccountsPanel.Visibility = Visibility.Visible;
                     CommandBar.Visibility = Visibility.Collapsed;
+
+                    mainPage.BeginAnimateAddAccount();
                 }
                 else
                 {
                     NoAccountsPanel.Visibility = Visibility.Collapsed;
                     CommandBar.Visibility = Visibility.Visible;
+
+                    mainPage.EndAnimateAddAccount();
                 }
             }
         }

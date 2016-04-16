@@ -24,7 +24,7 @@ namespace Authenticator_for_Windows.Views.Pages
             instance = this;
 
             // Navigate to the first page
-            Navigate(typeof(AccountsPage));
+            Navigate(typeof(AccountsPage), this);
 
             SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
         }
@@ -115,7 +115,7 @@ namespace Authenticator_for_Windows.Views.Pages
         {
             if (!backButtonTapped)
             {
-                Navigate(typeof(AccountsPage));
+                Navigate(typeof(AccountsPage), this);
             }
         }
 
@@ -133,6 +133,16 @@ namespace Authenticator_for_Windows.Views.Pages
             {
                 Navigate(typeof(SettingsPage), this);
             }
+        }
+
+        public void BeginAnimateAddAccount()
+        {
+            AddAccountFlash.Begin();
+        }
+
+        public void EndAnimateAddAccount()
+        {
+            AddAccountFlash.Stop();
         }
     }
 }
