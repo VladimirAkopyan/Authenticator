@@ -76,14 +76,14 @@ namespace Authenticator_for_Windows.Views.Pages
             {
                 if (entries.Count == 0)
                 {
-                    NoAccountsPanel.Visibility = Visibility.Visible;
+                    NoAccountsGrid.Visibility = Visibility.Visible;
                     CommandBar.Visibility = Visibility.Collapsed;
 
                     mainPage.BeginAnimateAddAccount();
                 }
                 else
                 {
-                    NoAccountsPanel.Visibility = Visibility.Collapsed;
+                    NoAccountsGrid.Visibility = Visibility.Collapsed;
                     CommandBar.Visibility = Visibility.Visible;
 
                     mainPage.EndAnimateAddAccount();

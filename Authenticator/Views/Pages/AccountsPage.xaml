@@ -36,16 +36,26 @@
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowWidth="320" />
                     </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="Image.Height" Value="71" />
+                        <Setter Target="Image.(Grid.Column)" Value="0" />
+                        <Setter Target="AddAccountTextBlock.(Grid.Column)" Value="1" />
+                        <Setter Target="LeftColumn.Width" Value="71" />
+                        <Setter Target="Image.(Grid.Row)" Value="0" />
+                        <Setter Target="AddAccountTextBlock.(Grid.Row)" Value="1" />
+                        <Setter Target="Image.(Grid.ColumnSpan)" Value="1" />
+                        <Setter Target="AddAccountTextBlock.(Grid.ColumnSpan)" Value="1" />
+                        <Setter Target="Image.Margin" Value="0,0,0,0" />
+                        <Setter Target="AddAccountTextBlock.Margin" Value="0,-35,0,0" />
+                        <Setter Target="Rotation.Rotation" Value="0" />
+                    </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="Medium">
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowWidth="720" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="AddAccountTextBlock.Margin" Value="30,0,0,0" />
-                        <Setter Target="Image.Margin" Value="10,-10,0,0" />
-                        <Setter Target="Image.Height" Value="51" />
-                        <Setter Target="Rotation.Rotation" Value="300" />
+                        
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -57,16 +67,24 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <ProgressBar x:Name="ProgressBar" Height="5" Grid.Row="0" Background="White" Maximum="30" Minimum="0" Value="0" Foreground="#FF1ABC9C" />
-        <StackPanel Name="NoAccountsPanel" Visibility="Collapsed" Margin="10" Grid.Row="1" Orientation="Vertical">
-            <TextBlock Name="AddAccountTextBlock" Grid.Row="1" HorizontalAlignment="Left" TextWrapping="WrapWholeWords" Margin="60,40,0,0" TextAlignment="Center">
+        <Grid Name="NoAccountsGrid" Visibility="Collapsed" Margin="10" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition x:Name="LeftColumn" Width="51" />
+                <ColumnDefinition x:Name="RightColumn" Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <TextBlock Name="AddAccountTextBlock" Grid.ColumnSpan="2" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" TextWrapping="WrapWholeWords" Margin="40,0,0,0" TextAlignment="Center">
                 <Run x:Uid="AddAccount" Text="Je hebt nog geen accounts toegevoegd. Voeg een account toe via 'Account toevoegen'." FontFamily="Comic Sans MS" />
             </TextBlock>
-            <Image x:Name="Image" HorizontalAlignment="Left" Source="ms-appx:///Assets/Arrow.png" Width="50" Height="71" Margin="0,-100,0,0" RenderTransformOrigin="0.5,0.5" >
+            <Image x:Name="Image" Grid.ColumnSpan="2" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Source="ms-appx:///Assets/Arrow.png" Width="50" Height="51" Margin="10,-10,0,0" RenderTransformOrigin="0.5,0.5" >
                 <Image.RenderTransform>
-                    <CompositeTransform x:Name="Rotation" Rotation="0"/>
+                    <CompositeTransform x:Name="Rotation" Rotation="285"/>
                 </Image.RenderTransform>
             </Image>
-        </StackPanel>
+        </Grid>
         <StackPanel x:Name="stackPanel" Grid.Row="1" Background="#34495e" Orientation="Horizontal" Padding="10" Height="0">
             <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE16F;" Foreground="White" FontSize="16" VerticalAlignment="Center" />
             <TextBlock x:Uid="CodeCopied" Margin="5 0 0 0" Text="Code gekopieerd naar het klembord" Foreground="White" FontSize="16" VerticalAlignment="Center" />
