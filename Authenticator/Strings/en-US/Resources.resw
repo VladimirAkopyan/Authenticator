@@ -253,4 +253,11 @@ We will never interrupt you with annoying questions to rate our app. If you have
   <data name="OpenWindowsStore.Content" xml:space="preserve">
     <value>Open Windows Store</value>
   </data>
+  <data name="AddAccount.Text" xml:space="preserve">
+    <value>You have not added any accounts yet.
+Add an account via 'Add account'.</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value />
+  </data>
 </root>
