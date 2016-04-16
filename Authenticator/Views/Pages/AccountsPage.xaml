@@ -37,8 +37,11 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <ProgressBar x:Name="ProgressBar" Height="5" Grid.Row="0" Background="White" Maximum="30" Minimum="0" Value="0" Foreground="#FF1ABC9C" />
-        <StackPanel Grid.Row="1">
-            <TextBlock x:Uid="AddAccount" TextWrapping="Wrap" Text="Je hebt nog geen accounts toegevoegd. Voeg een account toe via 'Account toevoegen'." FontFamily="Comic Sans MS" />
+        <StackPanel Name="NoAccountsPanel" Visibility="Collapsed" Margin="10" Grid.Row="1" Orientation="Vertical">
+            <TextBlock Grid.Row="1" HorizontalAlignment="Left" TextWrapping="WrapWholeWords" Margin="40,0,0,0" TextAlignment="Center">
+                <Run x:Uid="AddAccount" Text="Je hebt nog geen accounts toegevoegd. Voeg een account toe via 'Account toevoegen'." FontFamily="Comic Sans MS" />
+            </TextBlock>
+            <Image x:Name="image" HorizontalAlignment="Left" Source="ms-appx:///Assets/Arrow.png" Width="64" Height="37" />
         </StackPanel>
         <StackPanel x:Name="stackPanel" Grid.Row="1" Background="#34495e" Orientation="Horizontal" Padding="10" Height="0">
             <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE16F;" Foreground="White" FontSize="16" VerticalAlignment="Center" />
@@ -53,7 +56,7 @@
                 </StackPanel.Resources>
             </StackPanel>
         </ScrollViewer>
-        <CommandBar Grid.Row="3">
+        <CommandBar Name="CommandBar" Grid.Row="3">
             <AppBarToggleButton x:Uid="Edit" Icon="Edit" x:Name="Edit" Label="Bewerken" Click="Edit_Click" />
         </CommandBar>
         <ContentDialog x:Uid="ConfirmDialog" Name="ConfirmDialog" PrimaryButtonText="Verwijderen" SecondaryButtonText="Annuleren" Title="Account verwijderen" PrimaryButtonClick="ConfirmDialog_PrimaryButtonClick">

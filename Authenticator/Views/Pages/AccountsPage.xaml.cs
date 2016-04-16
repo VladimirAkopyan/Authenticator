@@ -23,6 +23,7 @@ namespace Authenticator_for_Windows.Views.Pages
         private Dictionary<Entry, EntryBlock> mappings;
         private DispatcherTimer timer;
         private Entry selectedEntry;
+        private IReadOnlyList<Entry> entries;
 
         public AccountsPage()
         {
@@ -33,7 +34,7 @@ namespace Authenticator_for_Windows.Views.Pages
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            IReadOnlyList<Entry> entries = await EntryStorage.Instance.GetEntriesAsync();
+            entries = await EntryStorage.Instance.GetEntriesAsync();
 
             long currentTicks = TOTPUtilities.RemainingTicks;
             TimeSpan remainingTime = new TimeSpan(TOTPUtilities.RemainingTicks);
@@ -43,15 +44,40 @@ namespace Authenticator_for_Windows.Views.Pages
                 EntryBlock code = new EntryBlock(entry);
                 code.DeleteRequested += Code_DeleteRequested;
                 code.CopyRequested += Code_CopyRequested;
+                code.Removed += Code_Removed;
 
                 Codes.Children.Add(code);
                 mappings.Add(entry, code);
             }
 
+            CheckEntries();
+
             StrechProgress.Completed += StrechProgress_Completed;
 
             StrechProgress.Begin();
             StrechProgress.Seek(new TimeSpan((30 * TimeSpan.TicksPerSecond) - TOTPUtilities.RemainingTicks));
+        }
+
+        private void Code_Removed(object sender, EventArgs e)
+        {
+            CheckEntries();
+        }
+
+        private void CheckEntries()
+        {
+            if (entries != null)
+            {
+                if (entries.Count == 0)
+                {
+                    NoAccountsPanel.Visibility = Visibility.Visible;
+                    CommandBar.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    NoAccountsPanel.Visibility = Visibility.Collapsed;
+                    CommandBar.Visibility = Visibility.Visible;
+                }
+            }
         }
 
         private void StrechProgress_Completed(object sender, object e)

@@ -257,6 +257,7 @@ Wij zullen u nooit storen met vervelende vragen om onze app te beoordelen. Als u
     <value>Open Windows Store</value>
   </data>
   <data name="AddAccount.Text" xml:space="preserve">
-    <value>Je hebt nog geen accounts toegevoegd.\r\nVoeg een account toe via ‘Account toevoegen’.</value>
+    <value>Je hebt nog geen accounts toegevoegd.
+Voeg een account toe via 'Account toevoegen'.</value>
   </data>
 </root>

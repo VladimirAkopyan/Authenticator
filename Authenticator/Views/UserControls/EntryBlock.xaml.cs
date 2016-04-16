@@ -84,6 +84,8 @@ namespace Authenticator_for_Windows.Views.UserControls
             StackPanel stackPanel = (StackPanel)Parent;
 
             stackPanel.Children.Remove(stackPanel);
+
+            NotifyRemoved();
         }
 
         private void DisplayCodeFormatted()
@@ -112,6 +114,7 @@ namespace Authenticator_for_Windows.Views.UserControls
         }
 
         public event EventHandler<DeleteRequestEventArgs> DeleteRequested;
+        public event EventHandler<EventArgs> Removed;
         public event EventHandler<CopyRequestEventArgs> CopyRequested;
 
         private void NotifyDeleteRequested()
@@ -119,6 +122,14 @@ namespace Authenticator_for_Windows.Views.UserControls
             if (DeleteRequested != null)
             {
                 DeleteRequested(this, new DeleteRequestEventArgs(entry));
+            }
+        }
+
+        private void NotifyRemoved()
+        {
+            if (Removed != null)
+            {
+                Removed(this, new EventArgs());
             }
         }
 
