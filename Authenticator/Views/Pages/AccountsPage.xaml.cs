@@ -43,6 +43,8 @@ namespace Authenticator_for_Windows.Views.Pages
         {
             entries = await EntryStorage.Instance.GetEntriesAsync();
 
+            PageGrid.Children.Remove(LoaderProgressBar);
+
             long currentTicks = TOTPUtilities.RemainingTicks;
             TimeSpan remainingTime = new TimeSpan(TOTPUtilities.RemainingTicks);
 

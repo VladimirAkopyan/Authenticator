@@ -29,7 +29,7 @@
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
     </Page.Resources>
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Name="PageGrid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
                 <VisualState x:Name="Small">
@@ -67,6 +67,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <ProgressBar x:Name="ProgressBar" Height="5" Grid.Row="0" Background="White" Maximum="30" Minimum="0" Value="0" Foreground="#FF1ABC9C" />
+        <ProgressBar Name="LoaderProgressBar" Grid.Row="1" IsIndeterminate="True" Height="10" HorizontalAlignment="Stretch" />
         <Grid Name="NoAccountsGrid" Visibility="Collapsed" Margin="10" Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition x:Name="LeftColumn" Width="51" />
