@@ -25,14 +25,6 @@ namespace Authenticator_for_Windows.Views.Pages
             this.InitializeComponent();
         }
 
-        private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
-        {
-        }
-
-        private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
-        {
-        }
-
         private async void CameraSettings_Tapped(object sender, TappedRoutedEventArgs e)
         {
             bool result = await Launcher.LaunchUriAsync(new Uri("ms-settings:privacy-webcam"));

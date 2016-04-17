@@ -6,12 +6,12 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
+    x:Uid="AccessDeniedDialog"
     Title="Geen toegang tot camera"
-    PrimaryButtonText="OK"
-    PrimaryButtonClick="ContentDialog_PrimaryButtonClick">
+    PrimaryButtonText="OK">
 
     <StackPanel>
-        <TextBlock HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="Authenticator for Windows heeft geen toestemming om je camera te gebruiken. Ga naar de privacyinstellingen van je apparaat om Authenticator for Windows toegang te geven tot je camera." />
+        <TextBlock x:Uid="AccessDeniedDescription" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="Authenticator for Windows heeft geen toestemming om je camera te gebruiken. Ga naar de privacyinstellingen van je apparaat om Authenticator for Windows toestemming te geven om je camera te gebruiken." />
         <HyperlinkButton Name="CameraSettings" Tapped="CameraSettings_Tapped">
             <HyperlinkButton.Content>
                 <TextBlock TextWrapping="WrapWholeWords">

@@ -260,4 +260,16 @@ Add an account via 'Add account'.</value>
   <data name="SettingsMenuItem.Content" xml:space="preserve">
     <value>Settings</value>
   </data>
+  <data name="AccessDeniedDescription.Text" xml:space="preserve">
+    <value>Authenticator for Windows has no permission to use your camera. Go to the privacy settings of your device to grant Authenticator for Windows access to use your camera.</value>
+  </data>
+  <data name="AccessDeniedDialog.PrimaryButtonText" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="AccessDeniedDialog.Title" xml:space="preserve">
+    <value>No access to camera</value>
+  </data>
+  <data name="CameraSettingsLink.Text" xml:space="preserve">
+    <value>Camera settings</value>
+  </data>
 </root>
