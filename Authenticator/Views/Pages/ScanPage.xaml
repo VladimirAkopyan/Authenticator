@@ -11,7 +11,6 @@
     Tag="QR-code scannen">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        
         <zxing:ZXingScannerControl x:Name="scannerControl" VerticalAlignment="Stretch" Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Stretch">
             
         </zxing:ZXingScannerControl>

@@ -1,0 +1,25 @@
+﻿<ContentDialog
+    x:Class="Authenticator_for_Windows.Views.Pages.AccessDeniedDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Authenticator_for_Windows.Views.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="Geen toegang tot camera"
+    PrimaryButtonText="OK"
+    PrimaryButtonClick="ContentDialog_PrimaryButtonClick">
+
+    <StackPanel>
+        <TextBlock HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="Authenticator for Windows heeft geen toestemming om je camera te gebruiken. Ga naar de privacyinstellingen van je apparaat om Authenticator for Windows toegang te geven tot je camera." />
+        <HyperlinkButton Name="CameraSettings" Tapped="CameraSettings_Tapped">
+            <HyperlinkButton.Content>
+                <TextBlock TextWrapping="WrapWholeWords">
+                    <Underline>
+                        <Run x:Uid="CameraSettingsLink">Camera-instellingen</Run>
+                    </Underline>
+                </TextBlock>
+            </HyperlinkButton.Content>
+        </HyperlinkButton>
+    </StackPanel>
+</ContentDialog>

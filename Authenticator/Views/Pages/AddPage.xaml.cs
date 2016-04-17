@@ -35,26 +35,34 @@ namespace Authenticator_for_Windows.Views.Pages
             }
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
-            object[] parameters = (object[])e.Parameter;
-            mainPage = (MainPage)parameters[0];
-
-            if (ScanPage.LastScanResult != null)
+            if (ScanPage.AccessDenied)
             {
-                Entry entry = TOTPUtilities.UriToEntry(ScanPage.LastScanResult.Text);
+                AccessDeniedDialog dialog = new AccessDeniedDialog();
+                await dialog.ShowAsync();
+            }
+            else
+            {
+                object[] parameters = (object[])e.Parameter;
+                mainPage = (MainPage)parameters[0];
 
-                ScanPage.LastScanResult = null;
-
-                if (entry != null)
+                if (ScanPage.LastScanResult != null)
                 {
-                    EntryUsername.Text = entry.Username;
-                    EntryCode.Text = entry.Secret;
-                    EntryService.Text = entry.Service;
+                    Entry entry = TOTPUtilities.UriToEntry(ScanPage.LastScanResult.Text);
 
-                    if (!string.IsNullOrWhiteSpace(EntryService.Text))
+                    ScanPage.LastScanResult = null;
+
+                    if (entry != null)
                     {
-                        Save_Click(null, null);
+                        EntryUsername.Text = entry.Username;
+                        EntryCode.Text = entry.Secret;
+                        EntryService.Text = entry.Service;
+
+                        if (!string.IsNullOrWhiteSpace(EntryService.Text))
+                        {
+                            Save_Click(null, null);
+                        }
                     }
                 }
             }

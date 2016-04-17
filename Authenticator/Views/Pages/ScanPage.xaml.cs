@@ -36,6 +36,7 @@ namespace Authenticator_for_Windows.Views.Pages
         public static string BottomText { get; set; }
         public static bool UseCustomOverlay { get; set; }
         public static bool ContinuousScanning { get; set; }
+        public static bool AccessDenied { get; private set; }
 
         public static Result LastScanResult { get; set; }
 
@@ -162,17 +163,25 @@ namespace Authenticator_for_Windows.Views.Pages
 
             try
             {
+                AccessDenied = false;
+
                 await scannerControl.StartScanningAsync(HandleResult, ScanningOptions);
+                
+                if (!isNewInstance && Frame.CanGoBack)
+                    Frame.GoBack();
+
+                isNewInstance = false;
+            }
+            catch (UnauthorizedAccessException)
+            {
+                AccessDenied = true;
+
+                Frame.GoBack();
             }
             catch (Exception ex)
             {
                 // No camera access. Handle it.
             }
-
-            if (!isNewInstance && Frame.CanGoBack)
-                Frame.GoBack();
-
-            isNewInstance = false;
 
             base.OnNavigatedTo(e);
         }

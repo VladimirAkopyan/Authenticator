@@ -102,6 +102,9 @@
     <Compile Include="Events\CopyRequestedEventHandler.cs" />
     <Compile Include="Events\CopyRequestEventArgs.cs" />
     <Compile Include="Utilities\TimeHelper.cs" />
+    <Compile Include="Views\Pages\AccessDeniedDialog.xaml.cs">
+      <DependentUpon>AccessDeniedDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Pages\AddPage.xaml.cs">
       <DependentUpon>AddPage.xaml</DependentUpon>
     </Compile>
@@ -164,6 +167,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Views\Pages\AccessDeniedDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Pages\AddPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
