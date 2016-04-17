@@ -16,7 +16,7 @@ namespace Authenticator_for_Windows.Views.Pages
     /// </summary>
     public sealed partial class AddPage : Page
     {
-        private MainPage mainPage;
+        private static MainPage mainPage;
 
         public AddPage()
         {
