@@ -106,34 +106,47 @@ namespace Authenticator_for_Windows.Views.Pages
 
             if (valid)
             {
-                if (!EntryCode.Text.All(char.IsLetterOrDigit))
+                try
+                {
+                    if (!EntryCode.Text.All(char.IsLetterOrDigit))
+                    {
+                        MainPage.AddBanner(new Banner(BannerInvalidCharacters.BannerType, BannerInvalidCharacters.BannerText, BannerInvalidCharacters.Dismissable));
+
+                        valid = false;
+                    }
+
+                    if (valid)
+                    {
+                        OTP otp = new OTP(EntryCode.Text);
+                        
+                        Entry entry = new Entry()
+                        {
+                            Username = EntryUsername.Text,
+                            Secret = EntryCode.Text,
+                            Service = EntryService.Text
+                        };
+
+                        await EntryStorage.Instance.SaveAsync(entry);
+
+                        EntryBlock entryBlock = new EntryBlock(entry, true);
+
+                        MainPage.AddBanner(new Banner(BannerSaved.BannerType, BannerSaved.BannerText, BannerSaved.Dismissable));
+                        EntryBlockPanel.Children.Add(entryBlock);
+
+                        EntryBlockPanel.Visibility = Visibility.Visible;
+
+                        EntryService.Text = "";
+                        EntryUsername.Text = "";
+                        EntryCode.Text = "";
+                    }
+                }
+                catch (ArgumentException)
                 {
                     MainPage.AddBanner(new Banner(BannerInvalidCharacters.BannerType, BannerInvalidCharacters.BannerText, BannerInvalidCharacters.Dismissable));
-
-                    valid = false;
                 }
-
-                if (valid)
+                catch (Exception)
                 {
-                    Entry entry = new Entry()
-                    {
-                        Username = EntryUsername.Text,
-                        Secret = EntryCode.Text,
-                        Service = EntryService.Text
-                    };
-
-                    await EntryStorage.Instance.SaveAsync(entry);
-
-                    EntryBlock entryBlock = new EntryBlock(entry, true);
-
-                    MainPage.AddBanner(new Banner(BannerSaved.BannerType, BannerSaved.BannerText, BannerSaved.Dismissable));
-                    EntryBlockPanel.Children.Add(entryBlock);
-
-                    EntryBlockPanel.Visibility = Visibility.Visible;
-
-                    EntryService.Text = "";
-                    EntryUsername.Text = "";
-                    EntryCode.Text = "";
+                    MainPage.AddBanner(new Banner(BannerUnknownError.BannerType, BannerUnknownError.BannerText, BannerUnknownError.Dismissable));
                 }
             }
         }

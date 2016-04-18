@@ -13,7 +13,9 @@
         <controls:Banner x:Uid="BannerEmptyFields" x:Name="BannerEmptyFields" BannerText="U heeft niet alle velden ingevuld." BannerType="Danger" Dismissable="True" Visibility="Collapsed" />
         <controls:Banner x:Uid="BannerInvalidCharacters" x:Name="BannerInvalidCharacters" BannerText="De code bevat ongeldige karakters." BannerType="Danger" Dismissable="True" Visibility="Collapsed" />
         <controls:Banner x:Uid="BannerSaved" x:Name="BannerSaved" BannerText="Uw code is opgeslagen. De huidige code wordt nu weergegeven." BannerType="Success" Dismissable="True" Visibility="Collapsed" />
-        <controls:Banner x:Uid="BannerInvalidCode" x:Name="BannerInvalidCode" BannerText="De gescande QR-code bevat geen geldige gegevens voor tweestapsauthenticatie." BannerType="Danger" Dismissable="True" Visibility="Collapsed" />
+        <controls:Banner x:Uid="BannerInvalidScannedCode" x:Name="BannerInvalidScannedCode" BannerText="De gescande QR-code bevat geen geldige gegevens voor tweestapsauthenticatie." BannerType="Danger" Dismissable="True" Visibility="Collapsed" />
+        <controls:Banner x:Uid="BannerInvalidCode" x:Name="BannerInvalidCode" BannerText="De ingevulde code is ongeldig." BannerType="Danger" Dismissable="True" Visibility="Collapsed" />
+        <controls:Banner x:Uid="BannerUnknownError" x:Name="BannerUnknownError" BannerText="Er is een fout opgetreden. Controleer uw ingevulde gegevens." BannerType="Danger" Dismissable="True" Visibility="Collapsed" />
         <StackPanel Padding="20" Grid.Row="0">
             <StackPanel Name="EntryBlockPanel" Padding="0 0 0 10" Visibility="Collapsed">
 

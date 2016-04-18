@@ -272,7 +272,13 @@ Voeg een account toe via 'Account toevoegen'.</value>
   <data name="CameraSettingsLink.Text" xml:space="preserve">
     <value>Camera-instellingen</value>
   </data>
-  <data name="BannerInvalidCode.BannerText" xml:space="preserve">
+  <data name="BannerInvalidScannedCode.BannerText" xml:space="preserve">
     <value>De gescande QR-code bevat geen geldige gegevens voor tweestapsauthenticatie.</value>
+  </data>
+  <data name="BannerInvalidCode.BannerText" xml:space="preserve">
+    <value>De ingevulde code is ongeldig.</value>
+  </data>
+  <data name="BannerUnknownError.BannerText" xml:space="preserve">
+    <value>Er is een fout opgetreden. Controleer uw ingevulde gegevens.</value>
   </data>
 </root>
