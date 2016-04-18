@@ -273,6 +273,6 @@ Add an account via 'Add account'.</value>
     <value>Camera settings</value>
   </data>
   <data name="BannerInvalidCode.BannerText" xml:space="preserve">
-    <value>The scanned QRcode does not contain valid data for two step authentication.</value>
+    <value>The scanned QR code does not contain valid data for two step authentication.</value>
   </data>
 </root>
