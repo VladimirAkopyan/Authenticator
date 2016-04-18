@@ -14,9 +14,9 @@
             </ResourceDictionary.MergedDictionaries>
             <Storyboard x:Name="AddAccountFlash" RepeatBehavior="Forever">
                 <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)" Storyboard.TargetName="AddMenuItem">
-                    <EasingColorKeyFrame KeyTime="0" Value="#FFF4AC45"/>
+                    <EasingColorKeyFrame KeyTime="0" Value="#FFFFA524"/>
                     <EasingColorKeyFrame KeyTime="0:0:1" Value="#FFFFBA58"/>
-                    <EasingColorKeyFrame KeyTime="0:0:2" Value="#FFF4AC45"/>
+                    <EasingColorKeyFrame KeyTime="0:0:2" Value="#FFFFA524"/>
                 </ColorAnimationUsingKeyFrames>
             </Storyboard>
         </ResourceDictionary>
