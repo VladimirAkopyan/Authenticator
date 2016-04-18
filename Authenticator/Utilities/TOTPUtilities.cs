@@ -57,28 +57,20 @@ namespace Authenticator_for_Windows.Utilities
             {
                 input = input.Substring(PREFIX.Length);
 
-                if (input.Length > 0)
+                if (input.Length > 0 && input.Contains("?"))
                 {
-                    string[] parts = input.Split(new string[] { SECRET_SPLITTER }, StringSplitOptions.None);
+                    string[] parts = input.Split('?');
 
                     if (parts.Length == 2)
                     {
                         string name = parts[0];
-                        string secret = parts[parts.Length - 1];
-                        string service = "";
+                        string secret = GetValue("secret", parts[1]);
+                        string service = GetValue("issuer", parts[1]);
 
-                        if (name.Contains(SERVICE_SPLITTER))
+                        // Remove possibly prepended service (issuer) name
+                        if (name.StartsWith(service + ":"))
                         {
-                            string[] nameParts = name.Split(new string[] { SERVICE_SPLITTER }, StringSplitOptions.None);
-
-                            service = nameParts[0];
-                            name = nameParts[1];
-                        }
-
-                        // Remove possible issuer parameter
-                        if (secret.Contains("&issuer="))
-                        {
-                            secret = secret.Substring(0, secret.IndexOf("&issuer"));
+                            name = name.Substring(service.Length + 1);
                         }
 
                         entry = new Entry()
@@ -92,6 +84,33 @@ namespace Authenticator_for_Windows.Utilities
             }
 
             return entry;
+        }
+
+        private static string GetValue(string key, string input)
+        {
+            string value = null;
+
+            string[] parts = input.Split('&');
+            int index = 0;
+
+            while (value == null && index < parts.Length)
+            {
+                string part = parts[index];
+
+                if (part.Contains("="))
+                {
+                    string[] keyValue = part.Split('=');
+
+                    if (keyValue.Length == 2 && keyValue[0] == key)
+                    {
+                        value = keyValue[1];
+                    }
+                }
+
+                index++;
+            }
+
+            return value;
         }
     }
 }
