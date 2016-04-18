@@ -64,8 +64,14 @@ namespace Authenticator_for_Windows.Views.Pages
                             Save_Click(null, null);
                         }
                     }
+                    else
+                    {
+                        MainPage.AddBanner(new Banner(BannerInvalidCode.BannerType, BannerInvalidCode.BannerText, BannerInvalidCode.Dismissable));
+                    }
                 }
             }
+
+            mainPage.SetTitle();
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)

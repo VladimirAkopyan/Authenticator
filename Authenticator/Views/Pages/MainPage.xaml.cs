@@ -98,7 +98,7 @@ namespace Authenticator_for_Windows.Views.Pages
             }
         }
 
-        private void SetTitle()
+        public void SetTitle()
         {
             if (Contentframe.Content is Page)
             {

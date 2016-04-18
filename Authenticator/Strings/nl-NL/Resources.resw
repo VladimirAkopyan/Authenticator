@@ -272,4 +272,7 @@ Voeg een account toe via 'Account toevoegen'.</value>
   <data name="CameraSettingsLink.Text" xml:space="preserve">
     <value>Camera-instellingen</value>
   </data>
+  <data name="BannerInvalidCode.BannerText" xml:space="preserve">
+    <value>De gescande QR-code bevat geen geldige gegevens voor tweestapsauthenticatie.</value>
+  </data>
 </root>
