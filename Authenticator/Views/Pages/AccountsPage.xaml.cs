@@ -43,10 +43,32 @@ namespace Authenticator_for_Windows.Views.Pages
         {
             entries = await EntryStorage.Instance.GetEntriesAsync();
 
-            PageGrid.Children.Remove(LoaderProgressBar);
-
             long currentTicks = TOTPUtilities.RemainingTicks;
             TimeSpan remainingTime = new TimeSpan(TOTPUtilities.RemainingTicks);
+
+            List<Entry> invalidEntries = new List<Entry>();
+
+            foreach (Entry entry in entries)
+            {
+                try
+                {
+                    OTP otp = new OTP(entry.Secret);
+                }
+                catch
+                {
+                    invalidEntries.Add(entry);
+                }
+            }
+
+            if (invalidEntries.Count > 0)
+            {
+                foreach (Entry invalidEntry in invalidEntries)
+                {
+                    await EntryStorage.Instance.RemoveAsync(invalidEntry);
+                }
+            }
+
+            PageGrid.Children.Remove(LoaderProgressBar);
 
             foreach (Entry entry in entries)
             {
