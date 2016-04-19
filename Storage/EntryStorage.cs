@@ -3,7 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Windows.Security.Cryptography;
+using Windows.Security.Cryptography.DataProtection;
 using Windows.Storage;
+using Windows.Storage.Streams;
 
 namespace Authenticator_for_Windows.Storage
 {
@@ -15,6 +18,7 @@ namespace Authenticator_for_Windows.Storage
         private static object syncRoot = new object();
 
         private const string ENTRIES_FILENAME = "Entries.json";
+        private const string DESCRIPTOR = "LOCAL=user";
 
         public static EntryStorage Instance
         {
@@ -73,7 +77,11 @@ namespace Authenticator_for_Windows.Storage
             }
             else
             {
-                string content = await FileIO.ReadTextAsync(file);
+                DataProtectionProvider provider = new DataProtectionProvider(DESCRIPTOR);
+                IBuffer buffer = await FileIO.ReadBufferAsync(file);
+
+                IBuffer bufferContent = await provider.UnprotectAsync(buffer);
+                string content = CryptographicBuffer.ConvertBinaryToString(BinaryStringEncoding.Utf8, bufferContent);
 
                 if (string.IsNullOrWhiteSpace(content) || content == "null")
                 {
@@ -104,7 +112,14 @@ namespace Authenticator_for_Windows.Storage
 
             try
             {
-                await FileIO.WriteTextAsync(file, JsonConvert.SerializeObject(entries));
+                DataProtectionProvider provider = new DataProtectionProvider(DESCRIPTOR);
+
+                string data = JsonConvert.SerializeObject(entries);
+
+                IBuffer buffMsg = CryptographicBuffer.ConvertStringToBinary(data, BinaryStringEncoding.Utf8);
+                IBuffer buffProtected = await provider.ProtectAsync(buffMsg);
+
+                await FileIO.WriteBufferAsync(file, buffProtected);
             }
             catch
             {
