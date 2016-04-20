@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Authenticator_for_Windows.Events
+namespace Domain.Events
 {
     public class CopyRequestEventArgs : EventArgs
     {

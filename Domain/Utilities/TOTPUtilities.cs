@@ -1,13 +1,10 @@
-﻿using Authenticator_for_Windows.Storage;
+﻿using Domain.Protocols;
 using System;
 
-namespace Authenticator_for_Windows.Utilities
+namespace Domain.Utilities
 {
-    class TOTPUtilities
+    public class TOTPUtilities
     {
-        public const byte DIGITS = 6;
-        public const long EPOCH = 621355968000000000;
-        public const int INTERVAL = 30000;
         private const string PREFIX = "otpauth://totp/";
         private const string SECRET_SPLITTER = "?secret=";
         private const string SERVICE_SPLITTER = ":";
@@ -17,7 +14,7 @@ namespace Authenticator_for_Windows.Utilities
             get
             {
                 var epoch = Math.Round(TimeSource / 1000.0);
-                var countDown = (INTERVAL / 1000) - (epoch % 30);
+                var countDown = (TOTP.INTERVAL / 1000) - (epoch % 30);
 
                 return (int)countDown;
             }
@@ -28,7 +25,7 @@ namespace Authenticator_for_Windows.Utilities
             get
             {
                 var epoch = TimeSource / 1000.0;
-                var countDown = (INTERVAL / 1000) - (epoch % 30);
+                var countDown = (TOTP.INTERVAL / 1000) - (epoch % 30);
 
                 int seconds = (int)countDown;
                 var decimals = countDown - seconds;
@@ -44,14 +41,14 @@ namespace Authenticator_for_Windows.Utilities
         {
             get
             {
-                return (TimeHelper.Instance.DateTime.Ticks - EPOCH) / TimeSpan.TicksPerMillisecond;
+                return (TimeHelper.Instance.DateTime.Ticks - TOTP.EPOCH) / TimeSpan.TicksPerMillisecond;
             }
         }
 
-        public static Entry UriToEntry(string input)
+        public static Account UriToAccount(string input)
         {
             input = Uri.UnescapeDataString(input);
-            Entry entry = null;
+            Account account = null;
 
             if (input.Length >= PREFIX.Length && input.Substring(0, PREFIX.Length) == PREFIX)
             {
@@ -73,7 +70,7 @@ namespace Authenticator_for_Windows.Utilities
                             name = name.Substring(service.Length + 1);
                         }
 
-                        entry = new Entry()
+                        account = new Account()
                         {
                             Username = name,
                             Secret = secret,
@@ -83,7 +80,7 @@ namespace Authenticator_for_Windows.Utilities
                 }
             }
 
-            return entry;
+            return account;
         }
 
         private static string GetValue(string key, string input)

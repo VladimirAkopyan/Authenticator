@@ -101,7 +101,6 @@
   <ItemGroup>
     <Compile Include="Events\CopyRequestedEventHandler.cs" />
     <Compile Include="Events\CopyRequestEventArgs.cs" />
-    <Compile Include="Utilities\TimeHelper.cs" />
     <Compile Include="Views\Pages\AccessDeniedDialog.xaml.cs">
       <DependentUpon>AccessDeniedDialog.xaml</DependentUpon>
     </Compile>
@@ -123,13 +122,12 @@
     <Compile Include="Views\UserControls\CustomOverlay.xaml.cs">
       <DependentUpon>CustomOverlay.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserControls\EntryBlock.xaml.cs">
-      <DependentUpon>EntryBlock.xaml</DependentUpon>
+    <Compile Include="Views\UserControls\AccountBlock.xaml.cs">
+      <DependentUpon>AccountBlock.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Pages\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Utilities\OTP.cs" />
     <Compile Include="Views\Pages\PrivacyDeclarationPage.xaml.cs">
       <DependentUpon>PrivacyDeclarationPage.xaml</DependentUpon>
     </Compile>
@@ -140,8 +138,6 @@
     <Compile Include="Views\Pages\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Utilities\Base32.cs" />
-    <Compile Include="Utilities\TOTPUtilities.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -187,7 +183,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\UserControls\EntryBlock.xaml">
+    <Page Include="Views\UserControls\AccountBlock.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -224,6 +220,10 @@
     </SDKReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Domain\Domain.csproj">
+      <Project>{DB694060-DEC8-4E03-A467-CE2E9E0E8502}</Project>
+      <Name>Domain</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Settings\Settings.csproj">
       <Project>{d00c51ea-b212-4269-b3b5-a0297fb64d75}</Project>
       <Name>Settings</Name>

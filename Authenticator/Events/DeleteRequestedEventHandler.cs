@@ -1,4 +1,4 @@
-﻿namespace Authenticator_for_Windows.Events
+﻿namespace Domain.Events
 {
     class DeleteRequestedEventHandler
     {

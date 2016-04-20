@@ -1,6 +1,6 @@
-﻿namespace Authenticator_for_Windows.Storage
+﻿namespace Domain
 {
-    public class Entry
+    public class Account
     {
         public string Secret { get; set; }
         public string Username { get; set; }

@@ -1,4 +1,4 @@
-﻿namespace Authenticator_for_Windows.Views.UserControls
+﻿namespace Domain.Views.UserControls
 {
     public enum BannerType
     {

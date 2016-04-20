@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Domain;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,19 +9,19 @@ using Windows.Security.Cryptography.DataProtection;
 using Windows.Storage;
 using Windows.Storage.Streams;
 
-namespace Authenticator_for_Windows.Storage
+namespace Domain.Storage
 {
-    public class EntryStorage
+    public class AccountStorage
     {
         private StorageFolder applicationData;
-        private List<Entry> entries;
-        private static EntryStorage instance;
+        private List<Account> accounts;
+        private static AccountStorage instance;
         private static object syncRoot = new object();
 
-        private const string ENTRIES_FILENAME = "Entries.json";
+        private const string ACCOUNTS_FILENAME = "Entries.json";
         private const string DESCRIPTOR = "LOCAL=user";
 
-        public static EntryStorage Instance
+        public static AccountStorage Instance
         {
             get
             {
@@ -30,7 +31,7 @@ namespace Authenticator_for_Windows.Storage
                     {
                         if (instance == null)
                         {
-                            instance = new EntryStorage();
+                            instance = new AccountStorage();
                         }
                     }
                 }
@@ -39,19 +40,19 @@ namespace Authenticator_for_Windows.Storage
             }
         }
 
-        private EntryStorage()
+        private AccountStorage()
         {
             applicationData = ApplicationData.Current.LocalFolder;
         }
 
-        public async Task<IReadOnlyList<Entry>> GetEntriesAsync()
+        public async Task<IReadOnlyList<Account>> GetAllAsync()
         {
-            if (entries == null)
+            if (accounts == null)
             {
                 await LoadStorage();
             }
 
-            return entries;
+            return accounts;
         }
 
         private async Task LoadStorage()
@@ -60,7 +61,7 @@ namespace Authenticator_for_Windows.Storage
 
             try
             {
-                file = await applicationData.GetFileAsync(ENTRIES_FILENAME);
+                file = await applicationData.GetFileAsync(ACCOUNTS_FILENAME);
             }
             catch
             {
@@ -73,7 +74,7 @@ namespace Authenticator_for_Windows.Storage
 
                 Persist();
 
-                entries = new List<Entry>();
+                accounts = new List<Account>();
             }
             else
             {
@@ -85,11 +86,11 @@ namespace Authenticator_for_Windows.Storage
 
                 if (string.IsNullOrWhiteSpace(content) || content == "null")
                 {
-                    entries = new List<Entry>();
+                    accounts = new List<Account>();
                 }
                 else
                 {
-                    entries = JsonConvert.DeserializeObject<List<Entry>>(content);
+                    accounts = JsonConvert.DeserializeObject<List<Account>>(content);
                 }
             }
 
@@ -98,23 +99,23 @@ namespace Authenticator_for_Windows.Storage
 
         private void Clean()
         {
-            entries.RemoveAll(e => !e.Secret.All(char.IsLetterOrDigit));
+            accounts.RemoveAll(e => !e.Secret.All(char.IsLetterOrDigit));
         }
 
         private async void Persist()
         {
-            if (entries == null)
+            if (accounts == null)
             {
-                entries = new List<Entry>();
+                accounts = new List<Account>();
             }
 
-            StorageFile file = await applicationData.CreateFileAsync(ENTRIES_FILENAME, CreationCollisionOption.ReplaceExisting);
+            StorageFile file = await applicationData.CreateFileAsync(ACCOUNTS_FILENAME, CreationCollisionOption.ReplaceExisting);
 
             try
             {
                 DataProtectionProvider provider = new DataProtectionProvider(DESCRIPTOR);
 
-                string data = JsonConvert.SerializeObject(entries);
+                string data = JsonConvert.SerializeObject(accounts);
 
                 IBuffer buffMsg = CryptographicBuffer.ConvertStringToBinary(data, BinaryStringEncoding.Utf8);
                 IBuffer buffProtected = await provider.ProtectAsync(buffMsg);
@@ -127,26 +128,26 @@ namespace Authenticator_for_Windows.Storage
             }
         }
 
-        public async Task SaveAsync(Entry entry)
+        public async Task SaveAsync(Account account)
         {
-            if (entries == null)
+            if (accounts == null)
             {
                 await LoadStorage();
             }
 
-            entries.Add(entry);
+            accounts.Add(account);
 
             Persist();
         }
 
-        public async Task RemoveAsync(Entry entry)
+        public async Task RemoveAsync(Account account)
         {
-            if (entries == null)
+            if (accounts == null)
             {
                 await LoadStorage();
             }
 
-            entries.Remove(entry);
+            accounts.Remove(account);
 
             Persist();
         }

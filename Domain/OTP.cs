@@ -2,11 +2,11 @@
 using Windows.Security.Cryptography;
 using Windows.Security.Cryptography.Core;
 using Windows.Storage.Streams;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using Windows.UI.Xaml;
+using Domain.Extensions;
+using Domain.Utilities;
+using Domain.Protocols;
 
-namespace Authenticator_for_Windows.Utilities
+namespace Domain
 {
     public class OTP
     {
@@ -55,7 +55,7 @@ namespace Authenticator_for_Windows.Utilities
 
         private string Generate()
         {
-            byte[] code = BitConverter.GetBytes(TOTPUtilities.TimeSource / TOTPUtilities.INTERVAL);
+            byte[] code = BitConverter.GetBytes(TOTPUtilities.TimeSource / TOTP.INTERVAL);
 
             if (BitConverter.IsLittleEndian)
                 code = Reverse(code);
@@ -75,12 +75,12 @@ namespace Authenticator_for_Windows.Utilities
             uint fullcode = BitConverter.ToUInt32(bytes, 0) & 0x7fffffff;
 
             // we use the last x DIGITS of this code in radix 10
-            uint codemask = (uint)Math.Pow(10, TOTPUtilities.DIGITS);
+            uint codemask = (uint)Math.Pow(10, TOTP.DIGITS);
 
             string totp = (fullcode % codemask).ToString();
 
             // .NETmf has no required format string
-            while (totp.Length != TOTPUtilities.DIGITS)
+            while (totp.Length != TOTP.DIGITS)
                 totp = "0" + totp;
 
             return totp;

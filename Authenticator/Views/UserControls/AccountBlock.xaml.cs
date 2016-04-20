@@ -1,6 +1,6 @@
-﻿using Authenticator_for_Windows.Events;
-using Authenticator_for_Windows.Storage;
-using Authenticator_for_Windows.Utilities;
+﻿using Domain.Events;
+using Domain.Storage;
+using Domain.Extensions;
 using Settings;
 using System;
 using Windows.ApplicationModel.DataTransfer;
@@ -10,11 +10,11 @@ using Windows.UI.Xaml.Media.Animation;
 
 // The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
 
-namespace Authenticator_for_Windows.Views.UserControls
+namespace Domain.Views.UserControls
 {
-    public sealed partial class EntryBlock : UserControl
+    public sealed partial class AccountBlock : UserControl
     {
-        private Entry entry;
+        private Account account;
         private OTP otp;
         private bool _inEditMode;
 
@@ -39,19 +39,19 @@ namespace Authenticator_for_Windows.Views.UserControls
             }
         }
 
-        public EntryBlock()
+        public AccountBlock()
         {
 
         }
 
-        public EntryBlock(Entry entry, bool flash)
+        public AccountBlock(Account account, bool flash)
         {
-            Initialize(entry, flash);
+            Initialize(account, flash);
         }
 
-        public EntryBlock(Entry entry)
+        public AccountBlock(Account account)
         {
-            Initialize(entry, false);
+            Initialize(account, false);
         }
 
         public void Update()
@@ -59,16 +59,16 @@ namespace Authenticator_for_Windows.Views.UserControls
             FadeOut.Begin();
         }
 
-        private void Initialize(Entry entry, bool flash)
+        private void Initialize(Account account, bool flash)
         {
             InitializeComponent();
 
-            this.entry = entry;
-            otp = new OTP(entry.Secret);
+            this.account = account;
+            otp = new OTP(account.Secret);
 
             DisplayCodeFormatted();
-            EntryUsername.Text = entry.Username;
-            EntryService.Text = entry.Service;
+            EntryUsername.Text = account.Username;
+            EntryService.Text = account.Service;
             FadeOut.Completed += FadeOut_Completed;
             SlideUp.Completed += SlideUp_Completed;
 
@@ -121,7 +121,7 @@ namespace Authenticator_for_Windows.Views.UserControls
         {
             if (DeleteRequested != null)
             {
-                DeleteRequested(this, new DeleteRequestEventArgs(entry));
+                DeleteRequested(this, new DeleteRequestEventArgs(account));
             }
         }
 

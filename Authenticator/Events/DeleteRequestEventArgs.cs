@@ -1,15 +1,15 @@
-﻿using Authenticator_for_Windows.Storage;
+﻿using Domain.Storage;
 using System;
 
-namespace Authenticator_for_Windows.Events
+namespace Domain.Events
 {
     public class DeleteRequestEventArgs : EventArgs
     {
-        public Entry Entry { get; }
+        public Account Account { get; }
 
-        public DeleteRequestEventArgs(Entry entry)
+        public DeleteRequestEventArgs(Account account)
         {
-            Entry = entry;
+            Account = account;
         }
     }
 }

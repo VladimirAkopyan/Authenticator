@@ -1,15 +1,16 @@
-﻿using Authenticator_for_Windows.Storage;
-using Authenticator_for_Windows.Utilities;
-using Authenticator_for_Windows.Views.UserControls;
+﻿using Domain.Storage;
+using Domain.Extensions;
+using Domain.Views.UserControls;
 using System;
 using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using Domain.Utilities;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace Authenticator_for_Windows.Views.Pages
+namespace Domain.Views.Pages
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
@@ -49,15 +50,15 @@ namespace Authenticator_for_Windows.Views.Pages
 
                 if (ScanPage.LastScanResult != null)
                 {
-                    Entry entry = TOTPUtilities.UriToEntry(ScanPage.LastScanResult.Text);
+                    Account account = TOTPUtilities.UriToAccount(ScanPage.LastScanResult.Text);
 
                     ScanPage.LastScanResult = null;
 
-                    if (entry != null)
+                    if (account != null)
                     {
-                        EntryUsername.Text = entry.Username;
-                        EntryCode.Text = entry.Secret;
-                        EntryService.Text = entry.Service;
+                        EntryUsername.Text = account.Username;
+                        EntryCode.Text = account.Secret;
+                        EntryService.Text = account.Service;
 
                         if (!string.IsNullOrWhiteSpace(EntryService.Text))
                         {
@@ -119,16 +120,16 @@ namespace Authenticator_for_Windows.Views.Pages
                     {
                         OTP otp = new OTP(EntryCode.Text);
                         
-                        Entry entry = new Entry()
+                        Account account = new Account()
                         {
                             Username = EntryUsername.Text,
                             Secret = EntryCode.Text,
                             Service = EntryService.Text
                         };
 
-                        await EntryStorage.Instance.SaveAsync(entry);
+                        await AccountStorage.Instance.SaveAsync(account);
 
-                        EntryBlock entryBlock = new EntryBlock(entry, true);
+                        AccountBlock entryBlock = new AccountBlock(account, true);
 
                         MainPage.AddBanner(new Banner(BannerSaved.BannerType, BannerSaved.BannerText, BannerSaved.Dismissable));
                         EntryBlockPanel.Children.Add(entryBlock);

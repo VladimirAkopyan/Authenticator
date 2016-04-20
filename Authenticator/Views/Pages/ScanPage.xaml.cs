@@ -1,6 +1,6 @@
-﻿using Authenticator_for_Windows.Storage;
-using Authenticator_for_Windows.Utilities;
-using Authenticator_for_Windows.Views.UserControls;
+﻿using Domain.Storage;
+using Domain.Extensions;
+using Domain.Views.UserControls;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -14,7 +14,7 @@ using ZXing.Mobile;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace Authenticator_for_Windows.Views.Pages
+namespace Domain.Views.Pages
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.

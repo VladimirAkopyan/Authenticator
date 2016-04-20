@@ -1,7 +1,7 @@
-﻿using Authenticator_for_Windows.Events;
-using Authenticator_for_Windows.Storage;
-using Authenticator_for_Windows.Utilities;
-using Authenticator_for_Windows.Views.UserControls;
+﻿using Domain.Events;
+using Domain.Storage;
+using Domain.Extensions;
+using Domain.Views.UserControls;
 using Settings;
 using System;
 using System.Collections.Generic;
@@ -11,27 +11,28 @@ using Windows.ApplicationModel.DataTransfer;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using Domain.Utilities;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace Authenticator_for_Windows.Views.Pages
+namespace Domain.Views.Pages
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
     public sealed partial class AccountsPage : Page
     {
-        private Dictionary<Entry, EntryBlock> mappings;
+        private Dictionary<Account, AccountBlock> mappings;
         private DispatcherTimer timer;
-        private Entry selectedEntry;
-        private IReadOnlyList<Entry> entries;
+        private Account selectedAccount;
+        private IReadOnlyList<Account> accounts;
         private MainPage mainPage;
 
         public AccountsPage()
         {
             InitializeComponent();
 
-            mappings = new Dictionary<Entry, EntryBlock>();
+            mappings = new Dictionary<Account, AccountBlock>();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -41,44 +42,44 @@ namespace Authenticator_for_Windows.Views.Pages
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            entries = await EntryStorage.Instance.GetEntriesAsync();
+            accounts = await AccountStorage.Instance.GetAllAsync();
 
             long currentTicks = TOTPUtilities.RemainingTicks;
             TimeSpan remainingTime = new TimeSpan(TOTPUtilities.RemainingTicks);
 
-            List<Entry> invalidEntries = new List<Entry>();
+            List<Account> invalidAccounts = new List<Account>();
 
-            foreach (Entry entry in entries)
+            foreach (Account account in accounts)
             {
                 try
                 {
-                    OTP otp = new OTP(entry.Secret);
+                    OTP otp = new OTP(account.Secret);
                 }
                 catch
                 {
-                    invalidEntries.Add(entry);
+                    invalidAccounts.Add(account);
                 }
             }
 
-            if (invalidEntries.Count > 0)
+            if (invalidAccounts.Count > 0)
             {
-                foreach (Entry invalidEntry in invalidEntries)
+                foreach (Account invalidAccount in invalidAccounts)
                 {
-                    await EntryStorage.Instance.RemoveAsync(invalidEntry);
+                    await AccountStorage.Instance.RemoveAsync(invalidAccount);
                 }
             }
 
             PageGrid.Children.Remove(LoaderProgressBar);
 
-            foreach (Entry entry in entries)
+            foreach (Account account in accounts)
             {
-                EntryBlock code = new EntryBlock(entry);
+                AccountBlock code = new AccountBlock(account);
                 code.DeleteRequested += Code_DeleteRequested;
                 code.CopyRequested += Code_CopyRequested;
                 code.Removed += Code_Removed;
 
                 Codes.Children.Add(code);
-                mappings.Add(entry, code);
+                mappings.Add(account, code);
             }
 
             CheckEntries();
@@ -96,9 +97,9 @@ namespace Authenticator_for_Windows.Views.Pages
 
         private void CheckEntries()
         {
-            if (entries != null)
+            if (accounts != null)
             {
-                if (entries.Count == 0)
+                if (accounts.Count == 0)
                 {
                     NoAccountsGrid.Visibility = Visibility.Visible;
                     CommandBar.Visibility = Visibility.Collapsed;
@@ -117,7 +118,7 @@ namespace Authenticator_for_Windows.Views.Pages
 
         private void StrechProgress_Completed(object sender, object e)
         {
-            foreach (EntryBlock entryBlock in Codes.Children.Where(c => c.GetType() == typeof(EntryBlock)))
+            foreach (AccountBlock entryBlock in Codes.Children.Where(c => c.GetType() == typeof(AccountBlock)))
             {
                 entryBlock.Update();
             }
@@ -176,14 +177,14 @@ namespace Authenticator_for_Windows.Views.Pages
 
         private async void Code_DeleteRequested(object sender, DeleteRequestEventArgs e)
         {
-            selectedEntry = e.Entry;
+            selectedAccount = e.Account;
 
             await ConfirmDialog.ShowAsync();
         }
 
         private void Edit_Click(object sender, RoutedEventArgs e)
         {
-            foreach (EntryBlock entryBlock in Codes.Children.Where(c => c.GetType() == typeof(EntryBlock)))
+            foreach (AccountBlock entryBlock in Codes.Children.Where(c => c.GetType() == typeof(AccountBlock)))
             {
                 entryBlock.InEditMode = !entryBlock.InEditMode;
             }
@@ -191,11 +192,11 @@ namespace Authenticator_for_Windows.Views.Pages
 
         private async void ConfirmDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            KeyValuePair<Entry, EntryBlock> entry = mappings.FirstOrDefault(m => m.Key == selectedEntry);
+            KeyValuePair<Account, AccountBlock> account = mappings.FirstOrDefault(m => m.Key == selectedAccount);
 
-            await EntryStorage.Instance.RemoveAsync(entry.Key);
+            await AccountStorage.Instance.RemoveAsync(account.Key);
 
-            entry.Value.Remove();
+            account.Value.Remove();
         }
     }
 }

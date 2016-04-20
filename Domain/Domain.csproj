@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7629A322-667C-4595-9AE2-90E6017FC4F3}</ProjectGuid>
+    <ProjectGuid>{DB694060-DEC8-4E03-A467-CE2E9E0E8502}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Storage</RootNamespace>
-    <AssemblyName>Storage</AssemblyName>
+    <RootNamespace>Domain</RootNamespace>
+    <AssemblyName>Domain</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.10586.0</TargetPlatformVersion>
@@ -107,15 +107,14 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AccountStorage.cs" />
+    <Compile Include="Account.cs" />
+    <Compile Include="Extensions\Base32.cs" />
+    <Compile Include="OTP.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Properties\Storage.rd.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Domain\Domain.csproj">
-      <Project>{DB694060-DEC8-4E03-A467-CE2E9E0E8502}</Project>
-      <Name>Domain</Name>
-    </ProjectReference>
+    <Compile Include="Protocols\TOTP.cs" />
+    <Compile Include="Utilities\TimeHelper.cs" />
+    <Compile Include="Utilities\TOTPUtilities.cs" />
+    <EmbeddedResource Include="Properties\Domain.rd.xml" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

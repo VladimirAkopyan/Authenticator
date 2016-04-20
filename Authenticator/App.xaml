@@ -1,8 +1,8 @@
 ﻿<Application
-    x:Class="Authenticator_for_Windows.App"
+    x:Class="Domain.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Authenticator_for_Windows"
+    xmlns:local="using:Domain"
     RequestedTheme="Light">
 
 </Application>
