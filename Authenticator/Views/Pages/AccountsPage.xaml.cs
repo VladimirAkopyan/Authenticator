@@ -47,28 +47,6 @@ namespace Domain.Views.Pages
             long currentTicks = TOTPUtilities.RemainingTicks;
             TimeSpan remainingTime = new TimeSpan(TOTPUtilities.RemainingTicks);
 
-            List<Account> invalidAccounts = new List<Account>();
-
-            foreach (Account account in accounts)
-            {
-                try
-                {
-                    OTP otp = new OTP(account.Secret);
-                }
-                catch
-                {
-                    invalidAccounts.Add(account);
-                }
-            }
-
-            if (invalidAccounts.Count > 0)
-            {
-                foreach (Account invalidAccount in invalidAccounts)
-                {
-                    await AccountStorage.Instance.RemoveAsync(invalidAccount);
-                }
-            }
-
             PageGrid.Children.Remove(LoaderProgressBar);
 
             foreach (Account account in accounts)

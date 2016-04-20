@@ -97,9 +97,29 @@ namespace Domain.Storage
             Clean();
         }
 
-        private void Clean()
+        private async void Clean()
         {
-            accounts.RemoveAll(e => !e.Secret.All(char.IsLetterOrDigit));
+            List<Account> invalidAccounts = new List<Account>();
+
+            foreach (Account account in accounts)
+            {
+                try
+                {
+                    OTP otp = new OTP(account.Secret);
+                }
+                catch
+                {
+                    invalidAccounts.Add(account);
+                }
+            }
+
+            if (invalidAccounts.Count > 0)
+            {
+                foreach (Account invalidAccount in invalidAccounts)
+                {
+                    await RemoveAsync(invalidAccount);
+                }
+            }
         }
 
         private async void Persist()
