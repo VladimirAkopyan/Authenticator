@@ -67,8 +67,8 @@ namespace Domain.Views.UserControls
             otp = new OTP(account.Secret);
 
             DisplayCodeFormatted();
-            EntryUsername.Text = account.Username;
-            EntryService.Text = account.Service;
+            AccountUsername.Text = account.Username;
+            AccountService.Text = account.Service;
             FadeOut.Completed += FadeOut_Completed;
             SlideUp.Completed += SlideUp_Completed;
 

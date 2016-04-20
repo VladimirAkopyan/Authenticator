@@ -46,11 +46,11 @@
         <Rectangle HorizontalAlignment="Left" VerticalAlignment="Stretch" Width="5" Fill="#C6002A" />
         <Button x:Name="Delete" Background="#e74c3c" Foreground="White" HorizontalAlignment="Stretch" Width="0" VerticalAlignment="Stretch" Content="&#xE107;" FontSize="30" Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" FontFamily="Segoe MDL2 Assets" Click="Delete_Click" />
         <Viewbox Margin="15 0" VerticalAlignment="Top" d:LayoutOverrides="LeftPosition, RightPosition" Stretch="Uniform" MaxHeight="30" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0">
-            <TextBlock x:Name="EntryService" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="Microsoft" />
+            <TextBlock x:Name="AccountService" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="Microsoft" />
         </Viewbox>
         <TextBlock Padding="15 20 0 0" x:Name="CurrentCode" HorizontalAlignment="Stretch" Text="123 456" FontSize="48" Grid.Row="0" Grid.Column="0" />
         <Viewbox Margin="15 0" VerticalAlignment="Bottom" d:LayoutOverrides="LeftPosition, RightPosition" Stretch="Uniform" MaxHeight="30" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0">
-            <TextBlock x:Name="EntryUsername" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="example@example.com" />
+            <TextBlock x:Name="AccountUsername" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="example@example.com" />
         </Viewbox>
     </Grid>
 </UserControl>

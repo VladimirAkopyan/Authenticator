@@ -56,11 +56,11 @@ namespace Domain.Views.Pages
 
                     if (account != null)
                     {
-                        EntryUsername.Text = account.Username;
-                        EntryCode.Text = account.Secret;
-                        EntryService.Text = account.Service;
+                        AccountUsername.Text = account.Username;
+                        AccountCode.Text = account.Secret;
+                        AccountService.Text = account.Service;
 
-                        if (!string.IsNullOrWhiteSpace(EntryService.Text))
+                        if (!string.IsNullOrWhiteSpace(AccountService.Text))
                         {
                             Save_Click(null, null);
                         }
@@ -91,14 +91,14 @@ namespace Domain.Views.Pages
 
         private async void Save_Click(object sender, RoutedEventArgs e)
         {
-            EntryBlockPanel.Visibility = Visibility.Collapsed;
+            AccountBlockPanel.Visibility = Visibility.Collapsed;
 
             MainPage.ClearBanners();
-            EntryBlockPanel.Children.Clear();
+            AccountBlockPanel.Children.Clear();
 
             bool valid = true;
 
-            if (string.IsNullOrWhiteSpace(EntryService.Text) || string.IsNullOrWhiteSpace(EntryUsername.Text) || string.IsNullOrWhiteSpace(EntryCode.Text))
+            if (string.IsNullOrWhiteSpace(AccountService.Text) || string.IsNullOrWhiteSpace(AccountUsername.Text) || string.IsNullOrWhiteSpace(AccountCode.Text))
             {
                 MainPage.AddBanner(new Banner(BannerEmptyFields.BannerType, BannerEmptyFields.BannerText, BannerEmptyFields.Dismissable));
 
@@ -109,7 +109,7 @@ namespace Domain.Views.Pages
             {
                 try
                 {
-                    if (!EntryCode.Text.All(char.IsLetterOrDigit))
+                    if (!AccountCode.Text.All(char.IsLetterOrDigit))
                     {
                         MainPage.AddBanner(new Banner(BannerInvalidCharacters.BannerType, BannerInvalidCharacters.BannerText, BannerInvalidCharacters.Dismissable));
 
@@ -118,27 +118,27 @@ namespace Domain.Views.Pages
 
                     if (valid)
                     {
-                        OTP otp = new OTP(EntryCode.Text);
+                        OTP otp = new OTP(AccountCode.Text);
                         
                         Account account = new Account()
                         {
-                            Username = EntryUsername.Text,
-                            Secret = EntryCode.Text,
-                            Service = EntryService.Text
+                            Username = AccountUsername.Text,
+                            Secret = AccountCode.Text,
+                            Service = AccountService.Text
                         };
 
                         await AccountStorage.Instance.SaveAsync(account);
 
-                        AccountBlock entryBlock = new AccountBlock(account, true);
+                        AccountBlock accountBlock = new AccountBlock(account, true);
 
                         MainPage.AddBanner(new Banner(BannerSaved.BannerType, BannerSaved.BannerText, BannerSaved.Dismissable));
-                        EntryBlockPanel.Children.Add(entryBlock);
+                        AccountBlockPanel.Children.Add(accountBlock);
 
-                        EntryBlockPanel.Visibility = Visibility.Visible;
+                        AccountBlockPanel.Visibility = Visibility.Visible;
 
-                        EntryService.Text = "";
-                        EntryUsername.Text = "";
-                        EntryCode.Text = "";
+                        AccountService.Text = "";
+                        AccountUsername.Text = "";
+                        AccountCode.Text = "";
                     }
                 }
                 catch (ArgumentException)

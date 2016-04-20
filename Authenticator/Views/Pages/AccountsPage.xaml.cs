@@ -118,9 +118,9 @@ namespace Domain.Views.Pages
 
         private void StrechProgress_Completed(object sender, object e)
         {
-            foreach (AccountBlock entryBlock in Codes.Children.Where(c => c.GetType() == typeof(AccountBlock)))
+            foreach (AccountBlock accountBlock in Codes.Children.Where(c => c.GetType() == typeof(AccountBlock)))
             {
-                entryBlock.Update();
+                accountBlock.Update();
             }
 
             StrechProgress.Stop();
@@ -184,9 +184,9 @@ namespace Domain.Views.Pages
 
         private void Edit_Click(object sender, RoutedEventArgs e)
         {
-            foreach (AccountBlock entryBlock in Codes.Children.Where(c => c.GetType() == typeof(AccountBlock)))
+            foreach (AccountBlock accountBlock in Codes.Children.Where(c => c.GetType() == typeof(AccountBlock)))
             {
-                entryBlock.InEditMode = !entryBlock.InEditMode;
+                accountBlock.InEditMode = !accountBlock.InEditMode;
             }
         }
 
