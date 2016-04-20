@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Porrey.Uwp.Ntp;
+using System;
 
 namespace Domain.Utilities
 {
@@ -49,51 +50,49 @@ namespace Domain.Utilities
 
         }
 
-        public async void InitializeTime()
+        public async void InitializeTime(bool useNTP, TimeSpan ntpTimeout)
         {
-            //if (SettingsManager.Get<bool>(Setting.UseNTP))
-            //{
-            //    NtpClient client = new NtpClient();
+            if (useNTP)
+            {
+                NtpClient client = new NtpClient();
 
-            //    TimeSpan timeOut = SettingsManager.Get<TimeSpan>(Setting.NTPTimeout);
+                if (ntpTimeout.Seconds > 0)
+                {
+                    client.Timeout = ntpTimeout;
+                }
 
-            //    if (timeOut.Seconds > 0)
-            //    {
-            //        client.Timeout = timeOut;
-            //    }
+                DateTime? dt = null;
 
-            //    DateTime? dt = null;
+                try
+                {
+                    dt = await client.GetAsync(NTP_SERVER);
+                }
+                catch (Exception) { }
 
-            //    try
-            //    {
-            //        dt = await client.GetAsync(NTP_SERVER);
-            //    }
-            //    catch (Exception) { }
+                DateTime local = DateTime.Now;
 
-            //    DateTime local = DateTime.Now;
+                if (dt != null)
+                {
+                    int diffType = local.CompareTo((DateTime)dt);
+                    TimeSpan? diff;
 
-            //    if (dt != null)
-            //    {
-            //        int diffType = local.CompareTo((DateTime)dt);
-            //        TimeSpan? diff;
+                    if (diffType > 0)
+                    {
+                        // NTP time is later
+                        diff = dt - local;
+                    }
+                    else
+                    {
+                        // Local time is later
+                        diff = local - dt;
+                    }
 
-            //        if (diffType > 0)
-            //        {
-            //            // NTP time is later
-            //            diff = dt - local;
-            //        }
-            //        else
-            //        {
-            //            // Local time is later
-            //            diff = local - dt;
-            //        }
-
-            //        if (difference != null)
-            //        {
-            //            difference = (TimeSpan)diff;
-            //        }
-            //    }
-            //}
+                    if (difference != null)
+                    {
+                        difference = (TimeSpan)diff;
+                    }
+                }
+            }
         }
     }
 }
