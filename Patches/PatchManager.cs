@@ -33,35 +33,46 @@ namespace Patches
                 ApplicationData.Current.LocalSettings.Values[VERSION_KEY] = currentVersion;
             }
 
-            while (!failed && index < types.Count())
+            Type lastPatch = types.OrderByDescending(t => t.Name).FirstOrDefault();
+
+            if (lastPatch != null)
             {
-                Type type = types.ElementAt(index);
+                string[] parts = lastPatch.Name.Split('_');
+                int lastVersion = int.Parse(parts[parts.Length - 2]);
 
-                string[] parts = type.Name.Split('_');
-                int version = int.Parse(parts[parts.Length - 2]);
-
-                if (version > currentVersion)
+                if (lastVersion > currentVersion)
                 {
-                    IPatch patch = (IPatch)Activator.CreateInstance(type);
-
-                    failed = await patch.Apply();
-
-                    failed = !failed;
-
-                    if (!failed)
+                    while (!failed && index < types.Count())
                     {
-                        currentVersion = version;
+                        Type type = types.ElementAt(index);
 
-                        ApplicationData.Current.LocalSettings.Values[VERSION_KEY] = currentVersion;
+                        parts = type.Name.Split('_');
+                        int version = int.Parse(parts[parts.Length - 2]);
+
+                        if (version > currentVersion)
+                        {
+                            IPatch patch = (IPatch)Activator.CreateInstance(type);
+
+                            failed = await patch.Apply();
+
+                            failed = !failed;
+
+                            if (!failed)
+                            {
+                                currentVersion = version;
+
+                                ApplicationData.Current.LocalSettings.Values[VERSION_KEY] = currentVersion;
+                            }
+                        }
+
+                        index++;
+                    }
+
+                    if (failed)
+                    {
+                        // TODO: Add logging and notification to user.
                     }
                 }
-
-                index++;
-            }
-
-            if (failed)
-            {
-                // TODO: Add logging and notification to user.
             }
         }
     }
