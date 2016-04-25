@@ -224,6 +224,10 @@
       <Project>{DB694060-DEC8-4E03-A467-CE2E9E0E8502}</Project>
       <Name>Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Patches\Patches.csproj">
+      <Project>{bda9d552-ddb3-43f2-be63-7ac929efbb0f}</Project>
+      <Name>Patches</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Settings\Settings.csproj">
       <Project>{d00c51ea-b212-4269-b3b5-a0297fb64d75}</Project>
       <Name>Settings</Name>

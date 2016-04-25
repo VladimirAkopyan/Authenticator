@@ -1,6 +1,7 @@
 ﻿using Domain.Extensions;
 using Domain.Utilities;
 using Domain.Views.Pages;
+using Patches;
 using Settings;
 using System;
 using Windows.ApplicationModel;
@@ -43,6 +44,7 @@ namespace Domain
             //}
 #endif
 
+            PatchManager.ApplyPatches();
             TimeHelper.Instance.InitializeTime(SettingsManager.Get<bool>(Setting.UseNTP), SettingsManager.Get<TimeSpan>(Setting.NTPTimeout));
 
             Frame rootFrame = Window.Current.Content as Frame;
