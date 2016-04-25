@@ -108,13 +108,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IPatch.cs" />
+    <Compile Include="Patches\1_AddedEncryption.cs" />
     <Compile Include="PatchManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Patches.rd.xml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Patches\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

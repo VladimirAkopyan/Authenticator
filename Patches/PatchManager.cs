@@ -13,7 +13,7 @@ namespace Patches
     {
         private const string VERSION_KEY = "Version";
 
-        public static void ApplyPatches()
+        public static async void ApplyPatches()
         {
             Assembly assembly = Assembly.Load(new AssemblyName("Patches"));
 
@@ -44,7 +44,9 @@ namespace Patches
                 {
                     IPatch patch = (IPatch)Activator.CreateInstance(type);
 
-                    failed = !patch.Apply();
+                    failed = await patch.Apply();
+
+                    failed = !failed;
 
                     if (!failed)
                     {

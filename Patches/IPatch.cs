@@ -8,6 +8,6 @@ namespace Patches
 {
     interface IPatch
     {
-        bool Apply();
+        Task<bool> Apply();
     }
 }

@@ -18,7 +18,7 @@ namespace Domain.Storage
         private static AccountStorage instance;
         private static object syncRoot = new object();
 
-        private const string ACCOUNTS_FILENAME = "Entries.json";
+        private const string ACCOUNTS_FILENAME = "Accounts.json";
         private const string DESCRIPTOR = "LOCAL=user";
 
         public static AccountStorage Instance
