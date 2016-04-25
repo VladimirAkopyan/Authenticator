@@ -19,6 +19,8 @@ namespace Patches
 
             IEnumerable<Type> types = assembly.GetTypes().Where(t => t.GetInterfaces().Contains(typeof(IPatch)));
             int currentVersion = 0;
+            bool failed = false;
+            int index = 0;
 
             KeyValuePair<string, object> settingValue = ApplicationData.Current.LocalSettings.Values.FirstOrDefault(v => v.Key == VERSION_KEY);
 
@@ -26,9 +28,15 @@ namespace Patches
             {
                 int.TryParse(settingValue.Value.ToString(), out currentVersion);
             }
-
-            foreach (Type type in types)
+            else
             {
+                ApplicationData.Current.LocalSettings.Values[VERSION_KEY] = currentVersion;
+            }
+
+            while (!failed && index < types.Count())
+            {
+                Type type = types.ElementAt(index);
+
                 string[] parts = type.Name.Split('_');
                 int version = int.Parse(parts[parts.Length - 2]);
 
@@ -36,15 +44,22 @@ namespace Patches
                 {
                     IPatch patch = (IPatch)Activator.CreateInstance(type);
 
-                    bool result = patch.Apply();
+                    failed = !patch.Apply();
 
-                    if (result)
+                    if (!failed)
                     {
                         currentVersion = version;
 
                         ApplicationData.Current.LocalSettings.Values[VERSION_KEY] = currentVersion;
                     }
                 }
+
+                index++;
+            }
+
+            if (failed)
+            {
+                // TODO: Add logging and notification to user.
             }
         }
     }
