@@ -1,1 +1,1 @@
-MainPackage=D:\Documenten\Visual Studio 2015\Projects\Authenticator for Windows\Authenticator\bin\x86\Release\Upload\Authenticator_1.2.20.0_x86.appx
+MainPackage=D:\Documenten\Visual Studio 2015\Projects\Authenticator for Windows\Authenticator\bin\x86\Release\Upload\Authenticator_1.2.21.0_x86.appx
