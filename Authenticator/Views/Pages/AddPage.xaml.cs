@@ -45,30 +45,37 @@ namespace Domain.Views.Pages
             }
             else
             {
-                object[] parameters = (object[])e.Parameter;
-                mainPage = (MainPage)parameters[0];
-
-                if (ScanPage.LastScanResult != null)
+                try
                 {
-                    Account account = TOTPUtilities.UriToAccount(ScanPage.LastScanResult.Text);
+                    object[] parameters = (object[])e.Parameter;
+                    mainPage = (MainPage)parameters[0];
 
-                    ScanPage.LastScanResult = null;
-
-                    if (account != null)
+                    if (ScanPage.LastScanResult != null)
                     {
-                        AccountUsername.Text = account.Username;
-                        AccountCode.Text = account.Secret;
-                        AccountService.Text = account.Service;
+                        Account account = TOTPUtilities.UriToAccount(ScanPage.LastScanResult.Text);
 
-                        if (!string.IsNullOrWhiteSpace(AccountService.Text))
+                        ScanPage.LastScanResult = null;
+
+                        if (account != null)
                         {
-                            Save_Click(null, null);
+                            AccountUsername.Text = account.Username;
+                            AccountCode.Text = account.Secret;
+                            AccountService.Text = account.Service;
+
+                            if (!string.IsNullOrWhiteSpace(AccountService.Text))
+                            {
+                                Save_Click(null, null);
+                            }
+                        }
+                        else
+                        {
+                            MainPage.AddBanner(new Banner(BannerInvalidCode.BannerType, BannerInvalidCode.BannerText, BannerInvalidCode.Dismissable));
                         }
                     }
-                    else
-                    {
-                        MainPage.AddBanner(new Banner(BannerInvalidCode.BannerType, BannerInvalidCode.BannerText, BannerInvalidCode.Dismissable));
-                    }
+                }
+                catch
+                {
+                    MainPage.AddBanner(new Banner(BannerInvalidCode.BannerType, BannerInvalidCode.BannerText, BannerInvalidCode.Dismissable));
                 }
             }
 
@@ -119,7 +126,7 @@ namespace Domain.Views.Pages
                     if (valid)
                     {
                         OTP otp = new OTP(AccountCode.Text);
-                        
+
                         Account account = new Account()
                         {
                             Username = AccountUsername.Text,
