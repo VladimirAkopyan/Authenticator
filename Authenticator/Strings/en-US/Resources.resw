@@ -281,4 +281,28 @@ Add an account via 'Add account'.</value>
   <data name="BannerUnknownError.BannerText" xml:space="preserve">
     <value>An error occured. Please check your entered data.</value>
   </data>
+  <data name="AddInformation.Text" xml:space="preserve">
+    <value>Enter the information that you received from the provider of the two step authentication service. When you have a camera available, you can also use it to scan a QR code when it's available.</value>
+  </data>
+  <data name="WhatToEnterWhere.Text" xml:space="preserve">
+    <value>What do I enter where?</value>
+  </data>
+  <data name="WhatToEnterWhereCode.Text" xml:space="preserve">
+    <value>Code</value>
+  </data>
+  <data name="WhatToEnterWhereCodeContent.Text" xml:space="preserve">
+    <value>The code (or key) that's being used to generate a unique, temporary code. This is usually a long range of random characters.</value>
+  </data>
+  <data name="WhatToEnterWhereService.Text" xml:space="preserve">
+    <value>Service</value>
+  </data>
+  <data name="WhatToEnterWhereServiceContent.Text" xml:space="preserve">
+    <value>The service that offers the two step authentication. Examples are Microsoft and Google.</value>
+  </data>
+  <data name="WhatToEnterWhereUsername.Text" xml:space="preserve">
+    <value>Username</value>
+  </data>
+  <data name="WhatToEnterWhereUsernameContent.Text" xml:space="preserve">
+    <value>The username of the account. Examples are a login name or an email address.</value>
+  </data>
 </root>

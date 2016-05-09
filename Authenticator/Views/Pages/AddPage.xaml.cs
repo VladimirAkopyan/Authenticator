@@ -7,6 +7,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using Domain.Utilities;
+using Windows.UI.Xaml.Controls.Primitives;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -157,6 +158,11 @@ namespace Domain.Views.Pages
                     MainPage.AddBanner(new Banner(BannerUnknownError.BannerType, BannerUnknownError.BannerText, BannerUnknownError.Dismissable));
                 }
             }
+        }
+
+        private void OpenFlyout(object sender, RoutedEventArgs e)
+        {
+            FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);
         }
     }
 }

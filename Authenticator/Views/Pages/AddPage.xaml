@@ -16,24 +16,48 @@
         <controls:Banner x:Uid="BannerInvalidScannedCode" x:Name="BannerInvalidScannedCode" BannerText="De gescande QR-code bevat geen geldige gegevens voor tweestapsauthenticatie." BannerType="Danger" Dismissable="True" Visibility="Collapsed" />
         <controls:Banner x:Uid="BannerInvalidCode" x:Name="BannerInvalidCode" BannerText="De ingevulde code is ongeldig." BannerType="Danger" Dismissable="True" Visibility="Collapsed" />
         <controls:Banner x:Uid="BannerUnknownError" x:Name="BannerUnknownError" BannerText="Er is een fout opgetreden. Controleer uw ingevulde gegevens." BannerType="Danger" Dismissable="True" Visibility="Collapsed" />
-        <StackPanel Padding="20" Grid.Row="0">
-            <StackPanel Name="AccountBlockPanel" Padding="0 0 0 10" Visibility="Collapsed">
+        <ScrollViewer Grid.Row="0" Padding="20">
+            <StackPanel>
+                <StackPanel Name="AccountBlockPanel" Padding="0 0 0 10" Visibility="Collapsed">
 
-            </StackPanel>
-            <TextBlock>
+                </StackPanel>
+                <TextBlock x:Uid="AddInformation" Text="Vul de informatie in die u hebt gekregen van de aanbieder van deze tweestapsauthenticatiedienst. Wanneer u beschikt over een camera, dan kunt u deze ook gebruiken om een eventuele QR-code te scannen." TextWrapping="Wrap" Margin="0,0,0,9" />
+                <TextBlock>
                 <Run x:Uid="Service" Text="Dienst" />:
-            </TextBlock>
-            <TextBox Name="AccountService" HorizontalAlignment="Stretch" Margin="0 5 0 0" />
-            <TextBlock Margin="0 10 0 5">
+                </TextBlock>
+                <TextBox Name="AccountService" HorizontalAlignment="Stretch" Margin="0 5 0 0" />
+                <TextBlock Margin="0 10 0 5">
                 <Run x:Uid="Username" Text="Gebruikersnaam" />:
-            </TextBlock>
-            <TextBox Name="AccountUsername" HorizontalAlignment="Stretch" Margin="0 5 0 0" />
-            <TextBlock Margin="0 10 0 5">
+                </TextBlock>
+                <TextBox Name="AccountUsername" HorizontalAlignment="Stretch" Margin="0 5 0 0" />
+                <TextBlock Margin="0 10 0 5">
                 <Run x:Uid="Code" Text="Code" />:
-            </TextBlock>
-            <TextBox Name="AccountCode" HorizontalAlignment="Stretch" Margin="0 0 0 0" />
-            <Button x:Uid="Save" Name="Save" Content="Opslaan" Margin="0 5 0 20" HorizontalAlignment="Stretch" Click="Save_Click" />
-        </StackPanel>
+                </TextBlock>
+                <TextBox Name="AccountCode" HorizontalAlignment="Stretch" Margin="0 0 0 0" />
+                <Button x:Uid="Save" Name="Save" Content="Opslaan" Margin="0,5,0,0" HorizontalAlignment="Stretch" Click="Save_Click" />
+                <HyperlinkButton Click="OpenFlyout">
+                    <HyperlinkButton.Content>
+                        <TextBlock TextWrapping="WrapWholeWords">
+                            <Underline>
+                                <Run x:Uid="WhatToEnterWhere">Wat vul ik waar in?</Run>
+                            </Underline>
+                        </TextBlock>
+                    </HyperlinkButton.Content>
+                    <FlyoutBase.AttachedFlyout>
+                        <Flyout x:Name="WhatToEnterWhereFlyout">
+                            <StackPanel MaxWidth="250">
+                                <TextBlock x:Uid="WhatToEnterWhereService" Text="Dienst" FontWeight="Bold" TextWrapping="WrapWholeWords" />
+                                <TextBlock x:Uid="WhatToEnterWhereServiceContent" Text="De dienst die de tweestapsauthenticatie aanbiedt. Voorbeelden hiervan zijn Microsoft en Google." TextWrapping="WrapWholeWords" />
+                                <TextBlock x:Uid="WhatToEnterWhereUsername" Text="Gebruikersnaam" FontWeight="Bold" TextWrapping="WrapWholeWords" Margin="0,10,0,0" />
+                                <TextBlock x:Uid="WhatToEnterWhereUsernameContent" Text="De gebruikersnaam van het account. Voorbeelden hiervan zijn een inlognaam of een e-mailadres." TextWrapping="WrapWholeWords" />
+                                <TextBlock x:Uid="WhatToEnterWhereCode" Text="Code" FontWeight="Bold" TextWrapping="WrapWholeWords" Margin="0,10,0,0" />
+                                <TextBlock x:Uid="WhatToEnterWhereCodeContent" Text="De code (of sleutel) die gebruikt wordt om een unieke, tijdelijke code te genereren. Dit is meestal een lange reeks willekeurige karakters." TextWrapping="WrapWholeWords" />
+                            </StackPanel>
+                        </Flyout>
+                    </FlyoutBase.AttachedFlyout>
+                </HyperlinkButton>
+            </StackPanel>
+        </ScrollViewer>
         <CommandBar Grid.Row="1" Name="CommandBar" VerticalAlignment="Bottom" Visibility="Collapsed">
             <AppBarButton x:Uid="Scan" Icon="Camera" Label="Scannen" Name="Scan" Click="Scan_Click" />
         </CommandBar>

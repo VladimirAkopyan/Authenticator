@@ -281,4 +281,28 @@ Voeg een account toe via 'Account toevoegen'.</value>
   <data name="BannerUnknownError.BannerText" xml:space="preserve">
     <value>Er is een fout opgetreden. Controleer uw ingevulde gegevens.</value>
   </data>
+  <data name="AddInformation.Text" xml:space="preserve">
+    <value>Vul de informatie in die u hebt gekregen van de aanbieder van deze tweestapsauthenticatiedienst. Wanneer u beschikt over een camera, dan kunt u deze ook gebruiken om een eventuele QR-code te scannen.</value>
+  </data>
+  <data name="WhatToEnterWhere.Text" xml:space="preserve">
+    <value>Wat vul ik waar in?</value>
+  </data>
+  <data name="WhatToEnterWhereCode.Text" xml:space="preserve">
+    <value>Code</value>
+  </data>
+  <data name="WhatToEnterWhereCodeContent.Text" xml:space="preserve">
+    <value>De code (of sleutel) die gebruikt wordt om een unieke, tijdelijke code te genereren. Dit is meestal een lange reeks willekeurige karakters.</value>
+  </data>
+  <data name="WhatToEnterWhereService.Text" xml:space="preserve">
+    <value>Dienst</value>
+  </data>
+  <data name="WhatToEnterWhereServiceContent.Text" xml:space="preserve">
+    <value>De dienst die de tweestapsauthenticatie aanbiedt. Voorbeelden hiervan zijn Microsoft en Google.</value>
+  </data>
+  <data name="WhatToEnterWhereUsername.Text" xml:space="preserve">
+    <value>Gebruikersnaam</value>
+  </data>
+  <data name="WhatToEnterWhereUsernameContent.Text" xml:space="preserve">
+    <value>De gebruikersnaam van het account. Voorbeelden hiervan zijn een inlognaam of een e-mailadres.</value>
+  </data>
 </root>
