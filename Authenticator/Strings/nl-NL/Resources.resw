@@ -257,11 +257,11 @@ Wij zullen u nooit storen met vervelende vragen om onze app te beoordelen. Als u
     <value>Open Windows Store</value>
   </data>
   <data name="AddAccount.Text" xml:space="preserve">
-    <value>Je hebt nog geen accounts toegevoegd.
+    <value>U heeft nog geen accounts toegevoegd.
 Voeg een account toe via 'Account toevoegen'.</value>
   </data>
   <data name="AccessDeniedDescription.Text" xml:space="preserve">
-    <value>Authenticator for Windows heeft geen toestemming om je camera te gebruiken. Ga naar de privacyinstellingen van je apparaat om Authenticator for Windows toestemming te geven om je camera te gebruiken.</value>
+    <value>Authenticator for Windows heeft geen toestemming om uw camera te gebruiken. Ga naar de privacyinstellingen van uw apparaat om Authenticator for Windows toestemming te geven om uw camera te gebruiken.</value>
   </data>
   <data name="AccessDeniedDialog.PrimaryButtonText" xml:space="preserve">
     <value>OK</value>
