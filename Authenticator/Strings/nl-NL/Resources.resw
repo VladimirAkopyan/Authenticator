@@ -145,7 +145,7 @@ Wij zullen u nooit storen met vervelende vragen om onze app te beoordelen. Als u
   <data name="BannerSaved.BannerText" xml:space="preserve">
     <value>Uw account is opgeslagen. De huidige code wordt nu weergegeven.</value>
   </data>
-  <data name="Code.Text" xml:space="preserve">
+  <data name="Code.Header" xml:space="preserve">
     <value>Code</value>
   </data>
   <data name="CodeCopied.Text" xml:space="preserve">
@@ -211,7 +211,7 @@ Wij zullen u nooit storen met vervelende vragen om onze app te beoordelen. Als u
   <data name="ScanPage.Tag" xml:space="preserve">
     <value>QR-code scannen</value>
   </data>
-  <data name="Service.Text" xml:space="preserve">
+  <data name="Service.Header" xml:space="preserve">
     <value>Dienst</value>
   </data>
   <data name="SettingsAbout.Header" xml:space="preserve">
@@ -244,7 +244,7 @@ Wij zullen u nooit storen met vervelende vragen om onze app te beoordelen. Als u
   <data name="UseNTP.OnContent" xml:space="preserve">
     <value>Aan</value>
   </data>
-  <data name="Username.Text" xml:space="preserve">
+  <data name="Username.Header" xml:space="preserve">
     <value>Gebruikersnaam</value>
   </data>
   <data name="GiveFeedback.Text" xml:space="preserve">

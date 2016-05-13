@@ -145,7 +145,7 @@ We will never interrupt you with annoying questions to rate our app. If you have
   <data name="BannerSaved.BannerText" xml:space="preserve">
     <value>Your account is saved. The current code is now being displayed.</value>
   </data>
-  <data name="Code.Text" xml:space="preserve">
+  <data name="Code.Header" xml:space="preserve">
     <value>Code</value>
   </data>
   <data name="CodeCopied.Text" xml:space="preserve">
@@ -211,7 +211,7 @@ We will never interrupt you with annoying questions to rate our app. If you have
   <data name="ScanPage.Tag" xml:space="preserve">
     <value>Scan QR code</value>
   </data>
-  <data name="Service.Text" xml:space="preserve">
+  <data name="Service.Header" xml:space="preserve">
     <value>Service</value>
   </data>
   <data name="SettingsAbout.Header" xml:space="preserve">
@@ -241,7 +241,7 @@ We will never interrupt you with annoying questions to rate our app. If you have
   <data name="UseNTP.OnContent" xml:space="preserve">
     <value>On</value>
   </data>
-  <data name="Username.Text" xml:space="preserve">
+  <data name="Username.Header" xml:space="preserve">
     <value>Username</value>
   </data>
   <data name="GiveFeedback.Text" xml:space="preserve">
