@@ -56,7 +56,7 @@ namespace Domain.Views.Pages
                 code.CopyRequested += Code_CopyRequested;
                 code.Removed += Code_Removed;
 
-                Codes.Children.Add(code);
+                Codes.Items.Add(code);
                 mappings.Add(account, code);
             }
 
@@ -96,7 +96,7 @@ namespace Domain.Views.Pages
 
         private void StrechProgress_Completed(object sender, object e)
         {
-            foreach (AccountBlock accountBlock in Codes.Children.Where(c => c.GetType() == typeof(AccountBlock)))
+            foreach (AccountBlock accountBlock in Codes.Items.Where(c => c.GetType() == typeof(AccountBlock)))
             {
                 accountBlock.Update();
             }
@@ -162,7 +162,7 @@ namespace Domain.Views.Pages
 
         private void Edit_Click(object sender, RoutedEventArgs e)
         {
-            foreach (AccountBlock accountBlock in Codes.Children.Where(c => c.GetType() == typeof(AccountBlock)))
+            foreach (AccountBlock accountBlock in Codes.Items.Where(c => c.GetType() == typeof(AccountBlock)))
             {
                 accountBlock.InEditMode = !accountBlock.InEditMode;
             }
