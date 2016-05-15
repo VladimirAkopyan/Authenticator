@@ -196,6 +196,8 @@ namespace Domain.Views.Pages
 
         private void Edit_Click(object sender, RoutedEventArgs e)
         {
+            Codes.CanReorderItems = Edit.IsChecked.HasValue ? Edit.IsChecked.Value : false;
+
             foreach (AccountBlock accountBlock in Codes.Items.Where(c => c.GetType() == typeof(AccountBlock)))
             {
                 accountBlock.InEditMode = !accountBlock.InEditMode;
