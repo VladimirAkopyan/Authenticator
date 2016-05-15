@@ -93,7 +93,7 @@
             <TextBlock x:Uid="CodeCopied" Margin="5 0 0 0" Text="Code gekopieerd naar het klembord" Foreground="White" FontSize="16" VerticalAlignment="Center" />
         </StackPanel>
         <ScrollViewer Grid.Row="2" Padding="0 10">
-            <ListView Name="Codes" CanReorderItems="True" AllowDrop="True" HorizontalAlignment="Stretch">
+            <ListView Name="Codes" CanReorderItems="True" AllowDrop="True" HorizontalAlignment="Stretch" SelectionMode="None">
                 <ListView.Resources>
                     <Style TargetType="controls:AccountBlock">
                         <Setter Property="Margin" Value="10 2"/>
