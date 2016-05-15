@@ -81,10 +81,6 @@ namespace Domain.Views.UserControls
 
         private void SlideUp_Completed(object sender, object e)
         {
-            StackPanel stackPanel = (StackPanel)Parent;
-
-            stackPanel.Children.Remove(stackPanel);
-
             NotifyRemoved();
         }
 
