@@ -171,5 +171,15 @@ namespace Domain.Storage
 
             Persist();
         }
+
+        public void Reorder(int fromIndex, int toIndex)
+        {
+            Account account = accounts.ElementAt(fromIndex);
+
+            accounts.Remove(account);
+            accounts.Insert(toIndex, account);
+
+            Persist();
+        }
     }
 }

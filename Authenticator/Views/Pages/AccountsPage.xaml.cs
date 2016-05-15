@@ -12,6 +12,8 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using Domain.Utilities;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -27,6 +29,8 @@ namespace Domain.Views.Pages
         private Account selectedAccount;
         private IReadOnlyList<Account> accounts;
         private MainPage mainPage;
+        private int reorderFrom;
+        private int reorderTo;
 
         public AccountsPage()
         {
@@ -47,6 +51,10 @@ namespace Domain.Views.Pages
             long currentTicks = TOTPUtilities.RemainingTicks;
             TimeSpan remainingTime = new TimeSpan(TOTPUtilities.RemainingTicks);
 
+            List<AccountBlock> x = new List<AccountBlock>();
+
+            ObservableCollection<AccountBlock> accountBlocks = new ObservableCollection<AccountBlock>();
+
             PageGrid.Children.Remove(LoaderProgressBar);
 
             foreach (Account account in accounts)
@@ -56,9 +64,12 @@ namespace Domain.Views.Pages
                 code.CopyRequested += Code_CopyRequested;
                 code.Removed += Code_Removed;
 
-                Codes.Children.Add(code);
+                accountBlocks.Add(code);
                 mappings.Add(account, code);
             }
+
+            accountBlocks.CollectionChanged += AccountBlocks_CollectionChanged;
+            Codes.ItemsSource = accountBlocks;
 
             CheckEntries();
 
@@ -66,6 +77,29 @@ namespace Domain.Views.Pages
 
             StrechProgress.Begin();
             StrechProgress.Seek(new TimeSpan((30 * TimeSpan.TicksPerSecond) - TOTPUtilities.RemainingTicks));
+        }
+
+        private void AccountBlocks_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            switch (e.Action)
+            {
+                case NotifyCollectionChangedAction.Remove:
+                    reorderFrom = e.OldStartingIndex;
+                    break;
+                case NotifyCollectionChangedAction.Add:
+                    reorderTo = e.NewStartingIndex;
+                    break;
+            }
+
+            if (e.Action == NotifyCollectionChangedAction.Add)
+            {
+                HandleReorder();
+            }
+        }
+
+        private void HandleReorder()
+        {
+            AccountStorage.Instance.Reorder(reorderFrom, reorderTo);
         }
 
         private void Code_Removed(object sender, EventArgs e)
@@ -96,7 +130,7 @@ namespace Domain.Views.Pages
 
         private void StrechProgress_Completed(object sender, object e)
         {
-            foreach (AccountBlock accountBlock in Codes.Children.Where(c => c.GetType() == typeof(AccountBlock)))
+            foreach (AccountBlock accountBlock in Codes.Items.Where(c => c.GetType() == typeof(AccountBlock)))
             {
                 accountBlock.Update();
             }
@@ -162,7 +196,9 @@ namespace Domain.Views.Pages
 
         private void Edit_Click(object sender, RoutedEventArgs e)
         {
-            foreach (AccountBlock accountBlock in Codes.Children.Where(c => c.GetType() == typeof(AccountBlock)))
+            Codes.CanReorderItems = Edit.IsChecked.HasValue ? Edit.IsChecked.Value : false;
+
+            foreach (AccountBlock accountBlock in Codes.Items.Where(c => c.GetType() == typeof(AccountBlock)))
             {
                 accountBlock.InEditMode = !accountBlock.InEditMode;
             }

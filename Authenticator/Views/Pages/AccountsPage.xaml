@@ -10,24 +10,26 @@
     Tag="Accounts"
     x:Uid="AccountsPage">
     <Page.Resources>
-        <Storyboard x:Name="StrechProgress">
-            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Control.Foreground).(SolidColorBrush.Color)" Storyboard.TargetName="ProgressBar">
-                <EasingColorKeyFrame KeyTime="0:0:20" Value="#FF1ABC9C"/>
-                <EasingColorKeyFrame KeyTime="0:0:25" Value="#f39c12"/>
-                <EasingColorKeyFrame KeyTime="0:0:30" Value="#e74c3c"/>
-            </ColorAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(RangeBase.Value)" Storyboard.TargetName="ProgressBar">
-                <EasingDoubleKeyFrame KeyTime="0:0:0" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:30" Value="30"/>
-            </DoubleAnimationUsingKeyFrames>
-        </Storyboard>
-        <Storyboard x:Name="Copied">
-            <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="stackPanel">
-                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="50"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:2.5" Value="50"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:3" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-        </Storyboard>
+        <ResourceDictionary>
+            <Storyboard x:Name="StrechProgress">
+                <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Control.Foreground).(SolidColorBrush.Color)" Storyboard.TargetName="ProgressBar">
+                    <EasingColorKeyFrame KeyTime="0:0:20" Value="#FF1ABC9C"/>
+                    <EasingColorKeyFrame KeyTime="0:0:25" Value="#f39c12"/>
+                    <EasingColorKeyFrame KeyTime="0:0:30" Value="#e74c3c"/>
+                </ColorAnimationUsingKeyFrames>
+                <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(RangeBase.Value)" Storyboard.TargetName="ProgressBar">
+                    <EasingDoubleKeyFrame KeyTime="0:0:0" Value="0"/>
+                    <EasingDoubleKeyFrame KeyTime="0:0:30" Value="30"/>
+                </DoubleAnimationUsingKeyFrames>
+            </Storyboard>
+            <Storyboard x:Name="Copied">
+                <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="stackPanel">
+                    <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="50"/>
+                    <EasingDoubleKeyFrame KeyTime="0:0:2.5" Value="50"/>
+                    <EasingDoubleKeyFrame KeyTime="0:0:3" Value="0"/>
+                </DoubleAnimationUsingKeyFrames>
+            </Storyboard>
+        </ResourceDictionary>
     </Page.Resources>
     <Grid Name="PageGrid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <VisualStateManager.VisualStateGroups>
@@ -90,14 +92,73 @@
             <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE16F;" Foreground="White" FontSize="16" VerticalAlignment="Center" />
             <TextBlock x:Uid="CodeCopied" Margin="5 0 0 0" Text="Code gekopieerd naar het klembord" Foreground="White" FontSize="16" VerticalAlignment="Center" />
         </StackPanel>
-        <ScrollViewer Grid.Row="2">
-            <StackPanel VerticalAlignment="Stretch" x:Name="Codes" Padding="0 10">
-                <StackPanel.Resources>
+        <ScrollViewer Grid.Row="2" Padding="0 10">
+            <ListView Name="Codes" AllowDrop="True" HorizontalAlignment="Stretch" SelectionMode="None">
+                <ListView.Resources>
                     <Style TargetType="controls:AccountBlock">
                         <Setter Property="Margin" Value="10 2"/>
                     </Style>
-                </StackPanel.Resources>
-            </StackPanel>
+                </ListView.Resources>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                        <Setter Property="Margin" Value="0" />
+                        <Setter Property="Padding" Value="0" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate>
+                                    <Grid x:Name="ContentBorder">
+                                        <VisualStateManager.VisualStateGroups>
+                                            <VisualStateGroup x:Name="ReorderHintStates">
+                                                <VisualState x:Name="NoReorderHint" />
+                                                <VisualState x:Name="BottomReorderHint">
+                                                    <Storyboard>
+                                                        <DragOverThemeAnimation TargetName="ContentBorder" ToOffset="{ThemeResource ListViewItemReorderHintThemeOffset}" Direction="Bottom" />
+                                                    </Storyboard>
+                                                </VisualState>
+                                                <VisualState x:Name="TopReorderHint">
+                                                    <Storyboard>
+                                                        <DragOverThemeAnimation TargetName="ContentBorder" ToOffset="{ThemeResource ListViewItemReorderHintThemeOffset}" Direction="Top" />
+                                                    </Storyboard>
+                                                </VisualState>
+                                                <VisualStateGroup.Transitions>
+                                                    <VisualTransition To="NoReorderHint" GeneratedDuration="0:0:0.2"/>
+                                                </VisualStateGroup.Transitions>
+                                            </VisualStateGroup>
+                                            <VisualStateGroup x:Name="DragStates">
+                                                <VisualState x:Name="NotDragging" />
+                                                <VisualState x:Name="Dragging">
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetName="ContentBorder"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         Duration="0"
+                                                         To="{ThemeResource ListViewItemDragThemeOpacity}" />
+                                                        <DragItemThemeAnimation TargetName="ContentBorder" />
+                                                    </Storyboard>
+                                                </VisualState>
+                                                <VisualState x:Name="DraggingTarget">
+                                                    <Storyboard>
+                                                        <DropTargetItemThemeAnimation TargetName="ContentBorder" />
+                                                    </Storyboard>
+                                                </VisualState>
+                                                <VisualState x:Name="DraggedPlaceholder">
+                                                    <Storyboard>
+                                                        <FadeOutThemeAnimation TargetName="ContentBorder" />
+                                                    </Storyboard>
+                                                </VisualState>
+                                                <VisualStateGroup.Transitions>
+                                                    <VisualTransition To="NotDragging" GeneratedDuration="0:0:0.2"/>
+                                                </VisualStateGroup.Transitions>
+                                            </VisualStateGroup>
+                                        </VisualStateManager.VisualStateGroups>
+                                        <ContentPresenter x:Name="ContentPresenter" />
+                                    </Grid>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListView.ItemContainerStyle>
+            </ListView>
         </ScrollViewer>
         <CommandBar Name="CommandBar" Grid.Row="3">
             <AppBarToggleButton x:Uid="Edit" Icon="Edit" x:Name="Edit" Label="Bewerken" Click="Edit_Click" />
