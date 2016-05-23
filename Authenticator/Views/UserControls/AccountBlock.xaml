@@ -13,15 +13,9 @@
             <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="Delete">
                 <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="100"/>
             </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="Reorder">
-                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="30"/>
-            </DoubleAnimationUsingKeyFrames>
         </Storyboard>
         <Storyboard x:Name="Close">
             <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="Delete">
-                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="Reorder">
                 <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0"/>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
@@ -48,15 +42,9 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <Rectangle HorizontalAlignment="Left" VerticalAlignment="Stretch" Width="5" Fill="#C6002A" />
-        <TextBlock Name="Reorder" Text="&#xE8AB;" Grid.Column="1" FontFamily="Segoe MDL2 Assets" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" Width="0" VerticalAlignment="Center" Margin="10,0" FontSize="30" Foreground="#FFBDBDBD">
-            <TextBlock.RenderTransform>
-                <CompositeTransform Rotation="-90"/>
-            </TextBlock.RenderTransform>
-        </TextBlock>
-        <Button x:Name="Delete" Background="#e74c3c" Foreground="White" HorizontalAlignment="Stretch" Width="0" VerticalAlignment="Stretch" Content="&#xE107;" FontSize="30" Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" FontFamily="Segoe MDL2 Assets" Click="Delete_Click" />
+        <Button x:Name="Delete" Background="#e74c3c" Foreground="White" HorizontalAlignment="Stretch" Width="0" VerticalAlignment="Stretch" Content="&#xE107;" FontSize="30" Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" FontFamily="Segoe MDL2 Assets" Click="Delete_Click" />
         <Viewbox Margin="15 0" VerticalAlignment="Top" d:LayoutOverrides="LeftPosition, RightPosition" Stretch="Uniform" MaxHeight="30" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0">
             <TextBlock x:Name="AccountService" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="Microsoft" />
         </Viewbox>

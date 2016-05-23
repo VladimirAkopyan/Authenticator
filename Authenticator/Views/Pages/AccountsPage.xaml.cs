@@ -202,6 +202,18 @@ namespace Domain.Views.Pages
             {
                 accountBlock.InEditMode = !accountBlock.InEditMode;
             }
+
+            if (Edit.IsChecked.HasValue)
+            {
+                if (Edit.IsChecked.Value)
+                {
+                    ReorderOpen.Begin();
+                }
+                else
+                {
+                    ReorderClose.Begin();
+                }
+            }
         }
 
         private async void ConfirmDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
