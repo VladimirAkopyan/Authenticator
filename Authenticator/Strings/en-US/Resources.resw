@@ -305,4 +305,7 @@ Add an account via 'Add account'.</value>
   <data name="WhatToEnterWhereUsernameContent.Text" xml:space="preserve">
     <value>The username of the account. Examples are a login name or an email address.</value>
   </data>
+  <data name="ReorderHint.Text" xml:space="preserve">
+    <value>You can reorder accounts by dragging them in the desired order</value>
+  </data>
 </root>

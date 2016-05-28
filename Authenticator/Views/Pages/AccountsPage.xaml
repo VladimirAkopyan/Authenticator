@@ -22,20 +22,20 @@
                     <EasingDoubleKeyFrame KeyTime="0:0:30" Value="30"/>
                 </DoubleAnimationUsingKeyFrames>
             </Storyboard>
-            <Storyboard x:Name="Copied">
-                <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="CopiedPanel">
-                    <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="50"/>
-                    <EasingDoubleKeyFrame KeyTime="0:0:2.5" Value="50"/>
+            <Storyboard x:Name="CopiedOpenClose">
+                <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.MaxHeight)" Storyboard.TargetName="Copied">
+                    <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="82"/>
+                    <EasingDoubleKeyFrame KeyTime="0:0:2.5" Value="82"/>
                     <EasingDoubleKeyFrame KeyTime="0:0:3" Value="0"/>
                 </DoubleAnimationUsingKeyFrames>
             </Storyboard>
             <Storyboard x:Name="ReorderOpen">
-                <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="ReorderPanel">
-                    <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="50"/>
+                <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.MaxHeight)" Storyboard.TargetName="Reorder">
+                    <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="82"/>
                 </DoubleAnimationUsingKeyFrames>
             </Storyboard>
             <Storyboard x:Name="ReorderClose">
-                <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="ReorderPanel">
+                <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.MaxHeight)" Storyboard.TargetName="Reorder">
                     <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
                 </DoubleAnimationUsingKeyFrames>
             </Storyboard>
@@ -98,13 +98,17 @@
                 </Image.RenderTransform>
             </Image>
         </Grid>
-        <StackPanel x:Name="CopiedPanel" Grid.Row="1" Background="#34495e" Orientation="Horizontal" Padding="10" Height="0">
-            <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE16F;" Foreground="White" FontSize="16" VerticalAlignment="Center" />
-            <TextBlock x:Uid="CodeCopied" Margin="5 0 0 0" Text="Code gekopieerd naar het klembord" Foreground="White" FontSize="16" VerticalAlignment="Center" />
-        </StackPanel>
-        <StackPanel x:Name="ReorderPanel" Grid.Row="1" Background="#34495e" Orientation="Horizontal" Padding="10" Height="0">
-            <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE8CB;" Foreground="White" FontSize="16" VerticalAlignment="Center" />
-            <TextBlock x:Uid="ReorderHint" Margin="5 0 0 0" Text="U kunt accounts ordenen door ze in gewenste volgorde te slepen" Foreground="White" FontSize="16" VerticalAlignment="Center" />
+        <StackPanel Grid.Row="1">
+            <Border Background="#34495e">
+                <TextBlock Name="Copied" MaxHeight="0" Foreground="White" Padding="10" FontSize="16" VerticalAlignment="Stretch" TextWrapping="Wrap">
+                <Run FontFamily="Segoe MDL2 Assets" Text="&#xE16F;" /> <Run x:Uid="CodeCopied" Text="Code gekopieerd naar het klembord" />
+                </TextBlock>
+            </Border>
+            <Border Background="#34495e">
+                <TextBlock Name="Reorder" MaxHeight="0" Foreground="White" Padding="10" FontSize="16" VerticalAlignment="Stretch" TextWrapping="Wrap">
+                <Run FontFamily="Segoe MDL2 Assets" Text="&#xE16F;" /> <Run x:Uid="ReorderHint" Text="U kunt accounts ordenen door ze in gewenste volgorde te slepen" />
+                </TextBlock>
+            </Border>
         </StackPanel>
         <ScrollViewer Grid.Row="2" Padding="0 10" VerticalScrollBarVisibility="Auto">
             <ListView Name="Codes" AllowDrop="True" HorizontalAlignment="Stretch" SelectionMode="None">

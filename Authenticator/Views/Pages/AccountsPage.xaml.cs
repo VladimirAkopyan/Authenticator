@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Navigation;
 using Domain.Utilities;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using Windows.UI.Xaml.Media.Animation;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -170,7 +171,7 @@ namespace Domain.Views.Pages
                 timer.Start();
             }
 
-            Copied.Begin();
+            CopiedOpenClose.Begin();
         }
 
         private void Timer_Tick(object sender, object e)

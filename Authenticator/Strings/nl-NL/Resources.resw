@@ -305,4 +305,7 @@ Voeg een account toe via 'Account toevoegen'.</value>
   <data name="WhatToEnterWhereUsernameContent.Text" xml:space="preserve">
     <value>De gebruikersnaam van het account. Voorbeelden hiervan zijn een inlognaam of een e-mailadres.</value>
   </data>
+  <data name="ReorderHint.Text" xml:space="preserve">
+    <value>U kunt accounts ordenen door ze in gewenste volgorde te slepen</value>
+  </data>
 </root>
