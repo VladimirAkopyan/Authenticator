@@ -41,13 +41,9 @@ namespace Domain.Views.Pages
 
                 backButtonTapped = true;
 
-                if (Contentframe.Content.GetType() == typeof(AccountsPage))
+                if (Contentframe.Content.GetType() == typeof(AccountsPage) || Contentframe.Content.GetType() == typeof(AddPage))
                 {
                     AccountsMenuItem.IsChecked = true;
-                }
-                else if (Contentframe.Content.GetType() == typeof(AddPage))
-                {
-                    AddMenuItem.IsChecked = true;
                 }
                 else if (Contentframe.Content.GetType() == typeof(SettingsPage))
                 {
@@ -116,14 +112,6 @@ namespace Domain.Views.Pages
             if (!backButtonTapped)
             {
                 Navigate(typeof(AccountsPage), this);
-            }
-        }
-
-        private void AddMenuItem_Checked(object sender, RoutedEventArgs e)
-        {
-            if (!backButtonTapped)
-            {
-                Navigate(typeof(AddPage), new object[] { this });
             }
         }
 

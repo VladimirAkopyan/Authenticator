@@ -130,11 +130,8 @@ We will never interrupt you with annoying questions to rate our app. If you have
   <data name="AccountsPage.Tag" xml:space="preserve">
     <value>Accounts</value>
   </data>
-  <data name="AddMenuItem.Content" xml:space="preserve">
-    <value>Add account</value>
-  </data>
   <data name="AddPage.Tag" xml:space="preserve">
-    <value>Add account</value>
+    <value>New account</value>
   </data>
   <data name="BannerEmptyFields" xml:space="preserve">
     <value>You have not entered all fields.</value>
@@ -307,5 +304,8 @@ Add an account via 'Add account'.</value>
   </data>
   <data name="ReorderHint.Text" xml:space="preserve">
     <value>You can reorder accounts by dragging them in the desired order</value>
+  </data>
+  <data name="Add.Label" xml:space="preserve">
+    <value>New account</value>
   </data>
 </root>

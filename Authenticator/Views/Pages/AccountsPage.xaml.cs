@@ -195,7 +195,16 @@ namespace Domain.Views.Pages
             await ConfirmDialog.ShowAsync();
         }
 
-        private void Edit_Click(object sender, RoutedEventArgs e)
+        private async void ConfirmDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        {
+            KeyValuePair<Account, AccountBlock> account = mappings.FirstOrDefault(m => m.Key == selectedAccount);
+
+            await AccountStorage.Instance.RemoveAsync(account.Key);
+
+            account.Value.Remove();
+        }
+
+        private void Edit_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
             Codes.CanReorderItems = Edit.IsChecked.HasValue ? Edit.IsChecked.Value : false;
 
@@ -217,13 +226,9 @@ namespace Domain.Views.Pages
             }
         }
 
-        private async void ConfirmDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        private void Add_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
-            KeyValuePair<Account, AccountBlock> account = mappings.FirstOrDefault(m => m.Key == selectedAccount);
-
-            await AccountStorage.Instance.RemoveAsync(account.Key);
-
-            account.Value.Remove();
+            mainPage.Navigate(typeof(AddPage), new object[] { mainPage });
         }
     }
 }

@@ -130,11 +130,8 @@ Wij zullen u nooit storen met vervelende vragen om onze app te beoordelen. Als u
   <data name="AccountsPage.Tag" xml:space="preserve">
     <value>Accounts</value>
   </data>
-  <data name="AddMenuItem.Content" xml:space="preserve">
-    <value>Account toevoegen</value>
-  </data>
   <data name="AddPage.Tag" xml:space="preserve">
-    <value>Account toevoegen</value>
+    <value>Nieuw account</value>
   </data>
   <data name="BannerEmptyFields" xml:space="preserve">
     <value>U heeft niet alle velden ingevuld.</value>
@@ -307,5 +304,8 @@ Voeg een account toe via 'Account toevoegen'.</value>
   </data>
   <data name="ReorderHint.Text" xml:space="preserve">
     <value>U kunt accounts ordenen door ze in gewenste volgorde te slepen</value>
+  </data>
+  <data name="Add.Label" xml:space="preserve">
+    <value>Nieuw account</value>
   </data>
 </root>
