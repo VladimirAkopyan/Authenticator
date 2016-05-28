@@ -1,7 +1,7 @@
-﻿using Domain.Events;
+﻿using Authenticator_for_Windows.Events;
 using Domain.Storage;
 using Domain.Extensions;
-using Domain.Views.UserControls;
+using Authenticator_for_Windows.Views.UserControls;
 using Settings;
 using System;
 using System.Collections.Generic;
@@ -15,10 +15,11 @@ using Domain.Utilities;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using Windows.UI.Xaml.Media.Animation;
+using Domain;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace Domain.Views.Pages
+namespace Authenticator_for_Windows.Views.Pages
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
@@ -73,11 +74,6 @@ namespace Domain.Views.Pages
             Codes.ItemsSource = accountBlocks;
 
             CheckEntries();
-
-            StrechProgress.Completed += StrechProgress_Completed;
-
-            StrechProgress.Begin();
-            StrechProgress.Seek(new TimeSpan((30 * TimeSpan.TicksPerSecond) - TOTPUtilities.RemainingTicks));
         }
 
         private void AccountBlocks_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -127,18 +123,6 @@ namespace Domain.Views.Pages
                     mainPage.EndAnimateAddAccount();
                 }
             }
-        }
-
-        private void StrechProgress_Completed(object sender, object e)
-        {
-            foreach (AccountBlock accountBlock in Codes.Items.Where(c => c.GetType() == typeof(AccountBlock)))
-            {
-                accountBlock.Update();
-            }
-
-            StrechProgress.Stop();
-            StrechProgress.Begin();
-            StrechProgress.Seek(new TimeSpan((30 * TimeSpan.TicksPerSecond) - TOTPUtilities.RemainingTicks));
         }
 
         private void Code_CopyRequested(object sender, CopyRequestEventArgs e)
@@ -229,6 +213,14 @@ namespace Domain.Views.Pages
         private void Add_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
             mainPage.Navigate(typeof(AddPage), new object[] { mainPage });
+        }
+
+        private void TimeProgressBar_TimeElapsed(object sender, EventArgs e)
+        {
+            foreach (AccountBlock accountBlock in Codes.Items.Where(c => c.GetType() == typeof(AccountBlock)))
+            {
+                accountBlock.Update();
+            }
         }
     }
 }

@@ -2,12 +2,12 @@
 using System;
 using Windows.UI.Xaml;
 using Windows.UI.Core;
-using Domain.Views.UserControls;
+using Authenticator_for_Windows.Views.UserControls;
 using Porrey.Uwp.Ntp;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
-namespace Domain.Views.Pages
+namespace Authenticator_for_Windows.Views.Pages
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.

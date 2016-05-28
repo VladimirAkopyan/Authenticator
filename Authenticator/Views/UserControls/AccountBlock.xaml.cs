@@ -1,16 +1,13 @@
-﻿using Domain.Events;
-using Domain.Storage;
-using Domain.Extensions;
-using Settings;
-using System;
-using Windows.ApplicationModel.DataTransfer;
+﻿using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
+using Domain;
+using Authenticator_for_Windows.Events;
 
 // The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
 
-namespace Domain.Views.UserControls
+namespace Authenticator_for_Windows.Views.UserControls
 {
     public sealed partial class AccountBlock : UserControl
     {

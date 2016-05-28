@@ -1,7 +1,8 @@
-﻿using Domain.Storage;
+﻿using Domain;
+using Domain.Storage;
 using System;
 
-namespace Domain.Events
+namespace Authenticator_for_Windows.Events
 {
     public class DeleteRequestEventArgs : EventArgs
     {

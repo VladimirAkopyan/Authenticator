@@ -1,6 +1,4 @@
 ﻿using Domain.Storage;
-using Domain.Extensions;
-using Domain.Views.UserControls;
 using System;
 using System.Linq;
 using Windows.UI.Xaml;
@@ -9,10 +7,12 @@ using Windows.UI.Xaml.Navigation;
 using Domain.Utilities;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.ApplicationModel.Resources;
+using Domain;
+using Authenticator_for_Windows.Views.UserControls;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace Domain.Views.Pages
+namespace Authenticator_for_Windows.Views.Pages
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.

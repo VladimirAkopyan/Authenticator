@@ -1,4 +1,5 @@
-﻿using Settings;
+﻿using Authenticator_for_Windows.Views.Pages;
+using Settings;
 using System;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Store;
@@ -9,7 +10,7 @@ using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace Domain.Views.Pages
+namespace Authenticator_for_Windows.Views.Pages
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
