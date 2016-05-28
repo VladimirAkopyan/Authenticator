@@ -136,13 +136,13 @@ We will never interrupt you with annoying questions to rate our app. If you have
   <data name="AddPage.Tag" xml:space="preserve">
     <value>Add account</value>
   </data>
-  <data name="BannerEmptyFields.BannerText" xml:space="preserve">
+  <data name="BannerEmptyFields" xml:space="preserve">
     <value>You have not entered all fields.</value>
   </data>
-  <data name="BannerInvalidCharacters.BannerText" xml:space="preserve">
+  <data name="BannerInvalidCharacters" xml:space="preserve">
     <value>The code contains invalid characters.</value>
   </data>
-  <data name="BannerSaved.BannerText" xml:space="preserve">
+  <data name="BannerSaved" xml:space="preserve">
     <value>Your account is saved. The current code is now being displayed.</value>
   </data>
   <data name="Code.Header" xml:space="preserve">
@@ -272,13 +272,13 @@ Add an account via 'Add account'.</value>
   <data name="CameraSettingsLink.Text" xml:space="preserve">
     <value>Camera settings</value>
   </data>
-  <data name="BannerInvalidScannedCode.BannerText" xml:space="preserve">
+  <data name="BannerInvalidScannedCode" xml:space="preserve">
     <value>The scanned QR code does not contain valid data for two step authentication.</value>
   </data>
-  <data name="BannerInvalidCode.BannerText" xml:space="preserve">
+  <data name="BannerInvalidCode" xml:space="preserve">
     <value>De entered code is invalid.</value>
   </data>
-  <data name="BannerUnknownError.BannerText" xml:space="preserve">
+  <data name="BannerUnknownError" xml:space="preserve">
     <value>An error occured. Please check your entered data.</value>
   </data>
   <data name="AddInformation.Text" xml:space="preserve">

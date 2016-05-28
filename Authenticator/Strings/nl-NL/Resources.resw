@@ -136,13 +136,13 @@ Wij zullen u nooit storen met vervelende vragen om onze app te beoordelen. Als u
   <data name="AddPage.Tag" xml:space="preserve">
     <value>Account toevoegen</value>
   </data>
-  <data name="BannerEmptyFields.BannerText" xml:space="preserve">
+  <data name="BannerEmptyFields" xml:space="preserve">
     <value>U heeft niet alle velden ingevuld.</value>
   </data>
-  <data name="BannerInvalidCharacters.BannerText" xml:space="preserve">
+  <data name="BannerInvalidCharacters" xml:space="preserve">
     <value>De code bevat ongeldige karakters.</value>
   </data>
-  <data name="BannerSaved.BannerText" xml:space="preserve">
+  <data name="BannerSaved" xml:space="preserve">
     <value>Uw account is opgeslagen. De huidige code wordt nu weergegeven.</value>
   </data>
   <data name="Code.Header" xml:space="preserve">
@@ -272,13 +272,13 @@ Voeg een account toe via 'Account toevoegen'.</value>
   <data name="CameraSettingsLink.Text" xml:space="preserve">
     <value>Camera-instellingen</value>
   </data>
-  <data name="BannerInvalidScannedCode.BannerText" xml:space="preserve">
+  <data name="BannerInvalidScannedCode" xml:space="preserve">
     <value>De gescande QR-code bevat geen geldige gegevens voor tweestapsauthenticatie.</value>
   </data>
-  <data name="BannerInvalidCode.BannerText" xml:space="preserve">
+  <data name="BannerInvalidCode" xml:space="preserve">
     <value>De ingevulde code is ongeldig.</value>
   </data>
-  <data name="BannerUnknownError.BannerText" xml:space="preserve">
+  <data name="BannerUnknownError" xml:space="preserve">
     <value>Er is een fout opgetreden. Controleer uw ingevulde gegevens.</value>
   </data>
   <data name="AddInformation.Text" xml:space="preserve">

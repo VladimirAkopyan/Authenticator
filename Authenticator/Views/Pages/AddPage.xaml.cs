@@ -8,6 +8,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using Domain.Utilities;
 using Windows.UI.Xaml.Controls.Primitives;
+using Windows.ApplicationModel.Resources;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -70,13 +71,13 @@ namespace Domain.Views.Pages
                         }
                         else
                         {
-                            MainPage.AddBanner(new Banner(BannerInvalidCode.BannerType, BannerInvalidCode.BannerText, BannerInvalidCode.Dismissable));
+                            MainPage.AddBanner(new Banner(BannerType.Danger, ResourceLoader.GetForCurrentView().GetString("BannerInvalidCode"), true));
                         }
                     }
                 }
                 catch
                 {
-                    MainPage.AddBanner(new Banner(BannerInvalidCode.BannerType, BannerInvalidCode.BannerText, BannerInvalidCode.Dismissable));
+                    MainPage.AddBanner(new Banner(BannerType.Danger, ResourceLoader.GetForCurrentView().GetString("BannerInvalidCode"), true));
                 }
             }
 
@@ -108,7 +109,7 @@ namespace Domain.Views.Pages
 
             if (string.IsNullOrWhiteSpace(AccountService.Text) || string.IsNullOrWhiteSpace(AccountUsername.Text) || string.IsNullOrWhiteSpace(AccountCode.Text))
             {
-                MainPage.AddBanner(new Banner(BannerEmptyFields.BannerType, BannerEmptyFields.BannerText, BannerEmptyFields.Dismissable));
+                MainPage.AddBanner(new Banner(BannerType.Danger, ResourceLoader.GetForCurrentView().GetString("BannerEmptyFields"), true));
 
                 valid = false;
             }
@@ -119,7 +120,7 @@ namespace Domain.Views.Pages
                 {
                     if (!AccountCode.Text.All(char.IsLetterOrDigit))
                     {
-                        MainPage.AddBanner(new Banner(BannerInvalidCharacters.BannerType, BannerInvalidCharacters.BannerText, BannerInvalidCharacters.Dismissable));
+                        MainPage.AddBanner(new Banner(BannerType.Danger, ResourceLoader.GetForCurrentView().GetString("BannerInvalidCharacters"), true));
 
                         valid = false;
                     }
@@ -139,7 +140,7 @@ namespace Domain.Views.Pages
 
                         AccountBlock accountBlock = new AccountBlock(account, true);
 
-                        MainPage.AddBanner(new Banner(BannerSaved.BannerType, BannerSaved.BannerText, BannerSaved.Dismissable));
+                        MainPage.AddBanner(new Banner(BannerType.Success, ResourceLoader.GetForCurrentView().GetString("BannerSaved"), true));
                         AccountBlockPanel.Children.Add(accountBlock);
 
                         AccountBlockPanel.Visibility = Visibility.Visible;
@@ -151,11 +152,11 @@ namespace Domain.Views.Pages
                 }
                 catch (ArgumentException)
                 {
-                    MainPage.AddBanner(new Banner(BannerInvalidCharacters.BannerType, BannerInvalidCharacters.BannerText, BannerInvalidCharacters.Dismissable));
+                    MainPage.AddBanner(new Banner(BannerType.Danger, ResourceLoader.GetForCurrentView().GetString("BannerInvalidCharacters"), true));
                 }
                 catch (Exception)
                 {
-                    MainPage.AddBanner(new Banner(BannerUnknownError.BannerType, BannerUnknownError.BannerText, BannerUnknownError.Dismissable));
+                    MainPage.AddBanner(new Banner(BannerType.Danger, ResourceLoader.GetForCurrentView().GetString("BannerUnknownError"), true));
                 }
             }
         }
