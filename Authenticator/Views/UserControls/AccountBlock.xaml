@@ -4,10 +4,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:domain="using:Domain"
     mc:Ignorable="d"
     Height="100"
     d:DesignHeight="300"
-    d:DesignWidth="400">
+    d:DesignWidth="400"
+    DataContext="domain:Account">
     <UserControl.Resources>
         <Storyboard x:Name="Open">
             <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="Delete">
@@ -46,11 +48,11 @@
         <Rectangle HorizontalAlignment="Left" VerticalAlignment="Stretch" Width="5" Fill="#C6002A" />
         <Button x:Name="Delete" Background="#e74c3c" Foreground="White" HorizontalAlignment="Stretch" Width="0" VerticalAlignment="Stretch" Content="&#xE107;" FontSize="30" Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" FontFamily="Segoe MDL2 Assets" Click="Delete_Click" />
         <Viewbox Margin="15 0" VerticalAlignment="Top" d:LayoutOverrides="LeftPosition, RightPosition" Stretch="Uniform" MaxHeight="30" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0">
-            <TextBlock x:Name="AccountService" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="Microsoft" />
+            <TextBlock x:Name="AccountService" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="{Binding Service}" />
         </Viewbox>
         <TextBlock Padding="15 20 0 0" x:Name="CurrentCode" HorizontalAlignment="Stretch" Text="123 456" FontSize="48" Grid.Row="0" Grid.Column="0" />
         <Viewbox Margin="15 0" VerticalAlignment="Bottom" d:LayoutOverrides="LeftPosition, RightPosition" Stretch="Uniform" MaxHeight="30" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0">
-            <TextBlock x:Name="AccountUsername" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="example@example.com" />
+            <TextBlock x:Name="AccountUsername" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="{Binding Username}" />
         </Viewbox>
     </Grid>
 </UserControl>

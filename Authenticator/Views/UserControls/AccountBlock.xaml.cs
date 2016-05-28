@@ -66,9 +66,9 @@ namespace Domain.Views.UserControls
             this.account = account;
             otp = new OTP(account.Secret);
 
+            DataContext = account;
+
             DisplayCodeFormatted();
-            AccountUsername.Text = account.Username;
-            AccountService.Text = account.Service;
             FadeOut.Completed += FadeOut_Completed;
             SlideUp.Completed += SlideUp_Completed;
 
