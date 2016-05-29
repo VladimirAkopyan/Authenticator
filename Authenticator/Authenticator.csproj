@@ -117,6 +117,9 @@
     </Compile>
     <Compile Include="Events\DeleteRequestedEventHandler.cs" />
     <Compile Include="Events\DeleteRequestEventArgs.cs" />
+    <Compile Include="Views\UserControls\CodeCopiedNotification.xaml.cs">
+      <DependentUpon>CodeCopiedNotification.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\UserControls\CustomOverlay.xaml.cs">
       <DependentUpon>CustomOverlay.xaml</DependentUpon>
     </Compile>
@@ -177,6 +180,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Pages\AccountsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\CodeCopiedNotification.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

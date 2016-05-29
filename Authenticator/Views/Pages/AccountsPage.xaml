@@ -11,13 +11,6 @@
     x:Uid="AccountsPage">
     <Page.Resources>
         <ResourceDictionary>
-            <Storyboard x:Name="CopiedOpenClose">
-                <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.MaxHeight)" Storyboard.TargetName="Copied">
-                    <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="82"/>
-                    <EasingDoubleKeyFrame KeyTime="0:0:2.5" Value="82"/>
-                    <EasingDoubleKeyFrame KeyTime="0:0:3" Value="0"/>
-                </DoubleAnimationUsingKeyFrames>
-            </Storyboard>
             <Storyboard x:Name="ReorderOpen">
                 <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.MaxHeight)" Storyboard.TargetName="Reorder">
                     <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="82"/>
@@ -88,11 +81,7 @@
             </Image>
         </Grid>
         <StackPanel Grid.Row="1">
-            <Border Background="#34495e">
-                <TextBlock Name="Copied" MaxHeight="0" Foreground="White" Padding="10" FontSize="16" VerticalAlignment="Stretch" TextWrapping="Wrap">
-                <Run FontFamily="Segoe MDL2 Assets" Text="&#xE16F;" /> <Run x:Uid="CodeCopied" Text="Code gekopieerd naar het klembord" />
-                </TextBlock>
-            </Border>
+            <controls:CodeCopiedNotification x:Name="CodeCopiedNotification" />
             <Border Background="#34495e">
                 <TextBlock Name="Reorder" MaxHeight="0" Foreground="White" Padding="10" FontSize="16" VerticalAlignment="Stretch" TextWrapping="Wrap">
                 <Run FontFamily="Segoe MDL2 Assets" Text="&#xE16F;" /> <Run x:Uid="ReorderHint" Text="U kunt accounts ordenen door ze in gewenste volgorde te slepen" />

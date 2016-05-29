@@ -126,7 +126,7 @@ namespace Authenticator_for_Windows.Views.Pages
 
         private void Code_CopyRequested(object sender, EventArgs e)
         {
-            CopiedOpenClose.Begin();
+            CodeCopiedNotification.Animate();
         }
 
         private async void Code_DeleteRequested(object sender, DeleteRequestEventArgs e)
