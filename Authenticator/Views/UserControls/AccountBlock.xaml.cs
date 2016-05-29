@@ -198,5 +198,10 @@ namespace Authenticator_for_Windows.Views.UserControls
 
             timer.Stop();
         }
+
+        private void Open_Completed(object sender, object e)
+        {
+            ShakePencil.Begin();
+        }
     }
 }

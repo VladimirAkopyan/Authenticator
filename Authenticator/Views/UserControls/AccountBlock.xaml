@@ -11,14 +11,23 @@
     d:DesignWidth="400"
     DataContext="domain:Account">
     <UserControl.Resources>
-        <Storyboard x:Name="Open">
+        <Storyboard x:Name="Open" Completed="Open_Completed">
             <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="Delete">
                 <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="100"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="textBlock">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="25"/>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
         <Storyboard x:Name="Close">
             <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="Delete">
                 <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="textBlock">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="textBlock">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="45"/>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
         <Storyboard x:Name="FadeOut">
@@ -39,6 +48,13 @@
                 <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
+        <Storyboard x:Name="ShakePencil">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="textBlock">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="-45"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="22.5"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
     </UserControl.Resources>
     <Grid x:Name="Grid" Background="#FFF1F1F1" Height="100" Tapped="Grid_Tapped">
         <Grid.ColumnDefinitions>
@@ -48,7 +64,14 @@
         <Rectangle HorizontalAlignment="Left" VerticalAlignment="Stretch" Width="5" Fill="#C6002A" />
         <Button x:Name="Delete" Background="#e74c3c" Foreground="White" HorizontalAlignment="Stretch" Width="0" VerticalAlignment="Stretch" Content="&#xE107;" FontSize="30" Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" FontFamily="Segoe MDL2 Assets" Click="Delete_Click" />
         <Viewbox Margin="15 0" VerticalAlignment="Top" d:LayoutOverrides="LeftPosition, RightPosition" Stretch="Uniform" MaxHeight="30" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0">
-            <TextBlock x:Name="AccountService" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="{Binding Service}" />
+            <StackPanel Orientation="Horizontal">
+                <TextBlock x:Name="textBlock" FontFamily="Segoe MDL2 Assets" Text="&#59151;" Padding="5" RenderTransformOrigin="0.5,0.5" Width="0">
+                    <TextBlock.RenderTransform>
+                        <CompositeTransform Rotation="45"/>
+                    </TextBlock.RenderTransform>
+                </TextBlock>
+                <TextBlock x:Name="AccountService" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="{Binding Service}" />
+            </StackPanel>
         </Viewbox>
         <TextBlock Padding="15 20 0 0" x:Name="CurrentCode" HorizontalAlignment="Stretch" Text="123 456" FontSize="48" Grid.Row="0" Grid.Column="0" />
         <Viewbox Margin="15 0" VerticalAlignment="Bottom" d:LayoutOverrides="LeftPosition, RightPosition" Stretch="Uniform" MaxHeight="30" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0">
