@@ -70,6 +70,17 @@ namespace Domain.Utilities
                             name = name.Substring(service.Length + 1);
                         }
 
+                        if (string.IsNullOrWhiteSpace(service) && name.Contains("@"))
+                        {
+                            string[] nameParts = name.Split('@');
+
+                            if (nameParts.Length >= 2)
+                            {
+                                name = nameParts[0];
+                                service = nameParts[1];
+                            }
+                        }
+
                         account = new Account()
                         {
                             Username = name,
