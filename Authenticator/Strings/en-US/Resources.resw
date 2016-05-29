@@ -305,7 +305,7 @@ Add an account via 'Add account'.</value>
   <data name="ReorderHint.Text" xml:space="preserve">
     <value>You can reorder accounts by dragging them in the desired order</value>
   </data>
-  <data name="Add.Label" xml:space="preserve">
+  <data name="AddMenuItem.Content" xml:space="preserve">
     <value>New account</value>
   </data>
 </root>

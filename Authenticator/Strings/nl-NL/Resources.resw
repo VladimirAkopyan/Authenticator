@@ -305,7 +305,7 @@ Voeg een account toe via 'Account toevoegen'.</value>
   <data name="ReorderHint.Text" xml:space="preserve">
     <value>U kunt accounts ordenen door ze in gewenste volgorde te slepen</value>
   </data>
-  <data name="Add.Label" xml:space="preserve">
+  <data name="AddMenuItem.Content" xml:space="preserve">
     <value>Nieuw account</value>
   </data>
 </root>
