@@ -4,6 +4,9 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
 using Domain;
 using Authenticator_for_Windows.Events;
+using Windows.ApplicationModel.DataTransfer;
+using Settings;
+using Domain.Utilities;
 
 // The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -14,6 +17,7 @@ namespace Authenticator_for_Windows.Views.UserControls
         private Account account;
         private OTP otp;
         private bool _inEditMode;
+        private DispatcherTimer timer;
 
         public bool InEditMode
         {
@@ -108,7 +112,7 @@ namespace Authenticator_for_Windows.Views.UserControls
 
         public event EventHandler<DeleteRequestEventArgs> DeleteRequested;
         public event EventHandler<EventArgs> Removed;
-        public event EventHandler<CopyRequestEventArgs> CopyRequested;
+        public event EventHandler<EventArgs> CopyRequested;
 
         private void NotifyDeleteRequested()
         {
@@ -130,7 +134,7 @@ namespace Authenticator_for_Windows.Views.UserControls
         {
             if (CopyRequested != null)
             {
-                CopyRequested(this, new CopyRequestEventArgs(otp.Code));
+                CopyRequested(this, new EventArgs());
             }
         }
 
@@ -145,8 +149,54 @@ namespace Authenticator_for_Windows.Views.UserControls
 
                 Flash.Begin();
 
+                CopyCode();
                 NotifyCopyRequested();
             }
+        }
+
+        private void CopyCode()
+        {
+            int clipboardType = SettingsManager.Get<int>(Setting.ClipBoardRememberType);
+
+            DataPackage dataPackage = new DataPackage();
+            dataPackage.SetText(otp.Code);
+            Clipboard.SetContent(dataPackage);
+
+            // Type 1 = dynamic, type 2 = forever
+
+            if (clipboardType == 0)
+            {
+                if (timer != null)
+                {
+                    timer.Stop();
+                    timer.Interval = new TimeSpan(0, 0, TOTPUtilities.RemainingSeconds);
+                }
+                else
+                {
+                    timer = new DispatcherTimer()
+                    {
+                        Interval = new TimeSpan(0, 0, TOTPUtilities.RemainingSeconds)
+                    };
+
+                    timer.Tick += Timer_Tick;
+                }
+
+                timer.Start();
+            }
+        }
+
+        private void Timer_Tick(object sender, object e)
+        {
+            try
+            {
+                Clipboard.Clear();
+            }
+            catch (Exception)
+            {
+                // Cannot clear the clipboard (perhaps it's in use)
+            }
+
+            timer.Stop();
         }
     }
 }

@@ -99,8 +99,6 @@
     <PRIResource Include="Strings\nl-NL\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Events\CopyRequestedEventHandler.cs" />
-    <Compile Include="Events\CopyRequestEventArgs.cs" />
     <Compile Include="Views\Pages\AccessDeniedDialog.xaml.cs">
       <DependentUpon>AccessDeniedDialog.xaml</DependentUpon>
     </Compile>

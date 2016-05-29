@@ -27,7 +27,6 @@ namespace Authenticator_for_Windows.Views.Pages
     public sealed partial class AccountsPage : Page
     {
         private Dictionary<Account, AccountBlock> mappings;
-        private DispatcherTimer timer;
         private Account selectedAccount;
         private IReadOnlyList<Account> accounts;
         private MainPage mainPage;
@@ -125,51 +124,9 @@ namespace Authenticator_for_Windows.Views.Pages
             }
         }
 
-        private void Code_CopyRequested(object sender, CopyRequestEventArgs e)
+        private void Code_CopyRequested(object sender, EventArgs e)
         {
-            int clipboardType = SettingsManager.Get<int>(Setting.ClipBoardRememberType);
-
-            DataPackage dataPackage = new DataPackage();
-            dataPackage.SetText(e.Code);
-            Clipboard.SetContent(dataPackage);
-
-            // Type 1 = dynamic, type 2 = forever
-
-            if (clipboardType == 0)
-            {
-                if (timer != null)
-                {
-                    timer.Stop();
-                    timer.Interval = new TimeSpan(0, 0, TOTPUtilities.RemainingSeconds);
-                }
-                else
-                {
-                    timer = new DispatcherTimer()
-                    {
-                        Interval = new TimeSpan(0, 0, TOTPUtilities.RemainingSeconds)
-                    };
-
-                    timer.Tick += Timer_Tick;
-                }
-
-                timer.Start();
-            }
-
             CopiedOpenClose.Begin();
-        }
-
-        private void Timer_Tick(object sender, object e)
-        {
-            try
-            {
-                Clipboard.Clear();
-            }
-            catch (Exception)
-            {
-                // Cannot clear the clipboard (perhaps it's in use)
-            }
-
-            timer.Stop();
         }
 
         private async void Code_DeleteRequested(object sender, DeleteRequestEventArgs e)
