@@ -3,7 +3,6 @@ using System;
 using Windows.UI.Xaml;
 using Windows.UI.Core;
 using Authenticator_for_Windows.Views.UserControls;
-using Porrey.Uwp.Ntp;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -41,9 +40,13 @@ namespace Authenticator_for_Windows.Views.Pages
 
                 backButtonTapped = true;
 
-                if (Contentframe.Content.GetType() == typeof(AccountsPage) || Contentframe.Content.GetType() == typeof(AddPage))
+                if (Contentframe.Content.GetType() == typeof(AccountsPage))
                 {
                     AccountsMenuItem.IsChecked = true;
+                }
+                else if (Contentframe.Content.GetType() == typeof(AddPage))
+                {
+                    AddMenuItem.IsChecked = true;
                 }
                 else if (Contentframe.Content.GetType() == typeof(SettingsPage))
                 {
@@ -112,6 +115,14 @@ namespace Authenticator_for_Windows.Views.Pages
             if (!backButtonTapped)
             {
                 Navigate(typeof(AccountsPage), this);
+            }
+        }
+
+        private void AddMenuItem_Checked(object sender, RoutedEventArgs e)
+        {
+            if (!backButtonTapped)
+            {
+                Navigate(typeof(AddPage), new object[] { this });
             }
         }
 

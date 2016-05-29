@@ -139,6 +139,7 @@ namespace Authenticator_for_Windows.Views.Pages
                         await AccountStorage.Instance.SaveAsync(account);
 
                         AccountBlock accountBlock = new AccountBlock(account, true);
+                        accountBlock.CopyRequested += AccountBlock_CopyRequested;
 
                         MainPage.AddBanner(new Banner(BannerType.Success, ResourceLoader.GetForCurrentView().GetString("BannerSaved"), true));
                         AccountBlockPanel.Children.Add(accountBlock);
@@ -161,9 +162,22 @@ namespace Authenticator_for_Windows.Views.Pages
             }
         }
 
+        private void AccountBlock_CopyRequested(object sender, EventArgs e)
+        {
+            CodeCopiedNotification.Animate();
+        }
+
         private void OpenFlyout(object sender, RoutedEventArgs e)
         {
             FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);
+        }
+
+        private void TimeProgressBar_TimeElapsed(object sender, EventArgs e)
+        {
+            if (AccountBlock.DataContext != null)
+            {
+                AccountBlock.Update();
+            }
         }
     }
 }

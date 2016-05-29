@@ -5,16 +5,27 @@
     xmlns:local="using:Domain"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:controls="using:Domain.Views.UserControls"
+    xmlns:controls="using:Authenticator_for_Windows.Views.UserControls"
     mc:Ignorable="d"
     x:Uid="AddPage"
     Tag="Account toevoegen">
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <ScrollViewer Grid.Row="0" Padding="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <controls:TimeProgressBar TimeElapsed="TimeProgressBar_TimeElapsed" Grid.Row="0" Height="5" HorizontalAlignment="Stretch" />
+        <StackPanel Grid.Row="1">
+            <controls:CodeCopiedNotification x:Name="CodeCopiedNotification" />
+        </StackPanel>
+        <ScrollViewer Grid.Row="2" Padding="20">
             <StackPanel>
                 <StackPanel Name="AccountBlockPanel" Padding="0 0 0 10" Visibility="Collapsed">
 
                 </StackPanel>
+                <controls:AccountBlock x:Name="AccountBlock" Margin="0 0 0 10" />
                 <TextBlock x:Uid="AddInformation" Text="Vul de informatie in die u hebt gekregen van de aanbieder van deze tweestapsauthenticatiedienst. Wanneer u beschikt over een camera, dan kunt u deze ook gebruiken om een eventuele QR-code te scannen." TextWrapping="Wrap" Margin="0,0,0,9" />
                 <TextBox x:Uid="Service" Name="AccountService" Header="Dienst" HorizontalAlignment="Stretch" />
                 <TextBox x:Uid="Account" Name="AccountUsername" Header="Gebruikersnaam" HorizontalAlignment="Stretch" Margin="0 15 0 0" />
@@ -43,7 +54,7 @@
                 </HyperlinkButton>
             </StackPanel>
         </ScrollViewer>
-        <CommandBar Grid.Row="1" Name="CommandBar" VerticalAlignment="Bottom" Visibility="Collapsed">
+        <CommandBar Grid.Row="3" Name="CommandBar" VerticalAlignment="Bottom" Visibility="Collapsed">
             <AppBarButton x:Uid="Scan" Icon="Camera" Label="Scannen" Name="Scan" Click="Scan_Click" />
         </CommandBar>
     </Grid>

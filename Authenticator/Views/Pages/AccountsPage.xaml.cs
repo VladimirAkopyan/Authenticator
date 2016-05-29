@@ -167,11 +167,6 @@ namespace Authenticator_for_Windows.Views.Pages
             }
         }
 
-        private void Add_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
-        {
-            mainPage.Navigate(typeof(AddPage), new object[] { mainPage });
-        }
-
         private void TimeProgressBar_TimeElapsed(object sender, EventArgs e)
         {
             foreach (AccountBlock accountBlock in Codes.Items.Where(c => c.GetType() == typeof(AccountBlock)))
