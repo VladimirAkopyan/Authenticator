@@ -72,7 +72,7 @@
         <Rectangle HorizontalAlignment="Left" Grid.RowSpan="3" Grid.Column="0" VerticalAlignment="Stretch" Width="5" Fill="#C6002A" />
         <TextBlock x:Name="Bars" Grid.Row="0" Grid.RowSpan="3" Grid.Column="1" Text="&#xE700;" Width="0" Padding="10" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30" Foreground="#FFA6A6A6" />
         <Button x:Name="Delete" Background="#e74c3c" Foreground="White" HorizontalAlignment="Stretch" Width="0" VerticalAlignment="Stretch" Content="&#xE107;" FontSize="30" Grid.Row="0" Grid.Column="3" Grid.RowSpan="3" FontFamily="Segoe MDL2 Assets" Click="Delete_Click" />
-        <Viewbox Margin="10 0" VerticalAlignment="Top" d:LayoutOverrides="LeftPosition, RightPosition" Stretch="Uniform" MaxHeight="30" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="2">
+        <Viewbox Margin="10,0,0,0" VerticalAlignment="Top" d:LayoutOverrides="LeftPosition, RightPosition" Stretch="Uniform" MaxHeight="30" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="2">
             <StackPanel Name="EditPanel" Orientation="Horizontal" Tapped="EditPanel_Tapped">
                 <TextBlock x:Name="Pencil" FontFamily="Segoe MDL2 Assets" Text="&#59151;" Padding="5" RenderTransformOrigin="0.5,0.5" Width="0">
                     <TextBlock.RenderTransform>
