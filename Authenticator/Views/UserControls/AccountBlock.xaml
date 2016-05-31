@@ -82,7 +82,7 @@
                 <TextBlock x:Name="AccountService" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="{Binding Service}" />
             </StackPanel>
         </Viewbox>
-        <TextBlock Padding="10 20 0 0" x:Name="CurrentCode" HorizontalAlignment="Stretch" Text="123 456" FontSize="48" Grid.Row="1" Grid.Column="2" />
+        <TextBlock Padding="10,2,0,0" x:Name="CurrentCode" HorizontalAlignment="Stretch" Text="123 456" FontSize="48" Grid.Row="1" Grid.Column="2" Margin="0,13,0,0" />
         <Viewbox Margin="10 0" VerticalAlignment="Bottom" d:LayoutOverrides="LeftPosition, RightPosition" Stretch="Uniform" MaxHeight="30" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="2">
             <TextBlock x:Name="AccountUsername" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="{Binding Username}" />
         </Viewbox>
