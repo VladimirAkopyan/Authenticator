@@ -52,8 +52,6 @@ namespace Authenticator_for_Windows.Views.Pages
             long currentTicks = TOTPUtilities.RemainingTicks;
             TimeSpan remainingTime = new TimeSpan(TOTPUtilities.RemainingTicks);
 
-            List<AccountBlock> x = new List<AccountBlock>();
-
             ObservableCollection<AccountBlock> accountBlocks = new ObservableCollection<AccountBlock>();
 
             PageGrid.Children.Remove(LoaderProgressBar);

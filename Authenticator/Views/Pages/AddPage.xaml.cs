@@ -129,12 +129,7 @@ namespace Authenticator_for_Windows.Views.Pages
                     {
                         OTP otp = new OTP(AccountCode.Text);
 
-                        Account account = new Account()
-                        {
-                            Username = AccountUsername.Text,
-                            Secret = AccountCode.Text,
-                            Service = AccountService.Text
-                        };
+                        Account account = new Account(AccountUsername.Text, AccountCode.Text, AccountService.Text);
 
                         await AccountStorage.Instance.SaveAsync(account);
 

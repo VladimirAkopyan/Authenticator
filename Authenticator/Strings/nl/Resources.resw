@@ -308,4 +308,19 @@ Voeg een account toe via 'Account toevoegen'.</value>
   <data name="AddMenuItem.Content" xml:space="preserve">
     <value>Nieuw account</value>
   </data>
+  <data name="ModifyServiceDialog.PrimaryButtonText" xml:space="preserve">
+    <value>Opslaan</value>
+  </data>
+  <data name="ModifyServiceDialog.SecondaryButtonText" xml:space="preserve">
+    <value>Annuleren</value>
+  </data>
+  <data name="ModifyServiceDialog.Title" xml:space="preserve">
+    <value>Dienst aanpassen</value>
+  </data>
+  <data name="ModifyServiceDialogField.Header" xml:space="preserve">
+    <value>Dienst</value>
+  </data>
+  <data name="ModifyServiceDialogInformation.Text" xml:space="preserve">
+    <value>Hier kunt u de dienst van dit account aanpassen.</value>
+  </data>
 </root>

@@ -7,6 +7,7 @@ using Authenticator_for_Windows.Events;
 using Windows.ApplicationModel.DataTransfer;
 using Settings;
 using Domain.Utilities;
+using Domain.Storage;
 
 // The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -202,6 +203,17 @@ namespace Authenticator_for_Windows.Views.UserControls
         private void Open_Completed(object sender, object e)
         {
             ShakePencil.Begin();
+        }
+
+        private async void EditPanel_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+            ModifyServiceDialog dialog = new ModifyServiceDialog(account);
+            await dialog.ShowAsync();
+
+            if (dialog.IsModified)
+            {
+                await AccountStorage.Instance.SaveAsync(account);
+            }
         }
     }
 }

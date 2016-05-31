@@ -155,7 +155,13 @@ namespace Domain.Storage
                 await LoadStorage();
             }
 
-            accounts.Add(account);
+            if (!account.IsModified)
+            {
+                // This is a new account
+                accounts.Add(account);
+            }
+
+            account.Flush();
 
             Persist();
         }

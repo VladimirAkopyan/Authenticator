@@ -81,12 +81,7 @@ namespace Domain.Utilities
                             }
                         }
 
-                        account = new Account()
-                        {
-                            Username = name,
-                            Secret = secret,
-                            Service = service
-                        };
+                        account = new Account(name, secret, service);
                     }
                 }
             }

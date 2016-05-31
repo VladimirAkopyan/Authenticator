@@ -308,4 +308,19 @@ Add an account via 'Add account'.</value>
   <data name="AddMenuItem.Content" xml:space="preserve">
     <value>New account</value>
   </data>
+  <data name="ModifyServiceDialog.PrimaryButtonText" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="ModifyServiceDialog.SecondaryButtonText" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="ModifyServiceDialog.Title" xml:space="preserve">
+    <value>Modify service</value>
+  </data>
+  <data name="ModifyServiceDialogField.Header" xml:space="preserve">
+    <value>Service</value>
+  </data>
+  <data name="ModifyServiceDialogInformation.Text" xml:space="preserve">
+    <value>Here you can modify the service of this account.</value>
+  </data>
 </root>
