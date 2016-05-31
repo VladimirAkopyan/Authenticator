@@ -96,7 +96,7 @@
     <None Include="Authenticator for Windows.pfx" />
     <None Include="project.json" />
     <PRIResource Include="Strings\en-US\Resources.resw" />
-    <PRIResource Include="Strings\nl-NL\Resources.resw" />
+    <PRIResource Include="Strings\nl\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Views\Pages\AccessDeniedDialog.xaml.cs">
