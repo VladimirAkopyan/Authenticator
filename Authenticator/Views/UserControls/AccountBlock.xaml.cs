@@ -58,7 +58,10 @@ namespace Authenticator_for_Windows.Views.UserControls
 
         public void Update()
         {
-            FadeOut.Begin();
+            if (account != null)
+            {
+                FadeOut.Begin();
+            }
         }
 
         private void Initialize(Account account, bool flash)

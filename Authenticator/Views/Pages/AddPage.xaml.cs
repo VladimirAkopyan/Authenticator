@@ -20,6 +20,7 @@ namespace Authenticator_for_Windows.Views.Pages
     public sealed partial class AddPage : Page
     {
         private static MainPage mainPage;
+        private AccountBlock accountBlock;
 
         public AddPage()
         {
@@ -133,7 +134,7 @@ namespace Authenticator_for_Windows.Views.Pages
 
                         await AccountStorage.Instance.SaveAsync(account);
 
-                        AccountBlock accountBlock = new AccountBlock(account, true);
+                        accountBlock = new AccountBlock(account, true);
                         accountBlock.CopyRequested += AccountBlock_CopyRequested;
 
                         MainPage.AddBanner(new Banner(BannerType.Success, ResourceLoader.GetForCurrentView().GetString("BannerSaved"), true));
@@ -169,9 +170,9 @@ namespace Authenticator_for_Windows.Views.Pages
 
         private void TimeProgressBar_TimeElapsed(object sender, EventArgs e)
         {
-            if (AccountBlock.DataContext != null)
+            if (accountBlock != null)
             {
-                AccountBlock.Update();
+                accountBlock.Update();
             }
         }
     }
