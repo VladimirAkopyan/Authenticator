@@ -12,20 +12,17 @@
     DataContext="domain:Account">
     <UserControl.Resources>
         <Storyboard x:Name="Open" Completed="Open_Completed">
-            <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="Delete">
-                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="100"/>
-            </DoubleAnimationUsingKeyFrames>
             <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="Pencil">
                 <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="25"/>
             </DoubleAnimationUsingKeyFrames>
             <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="Bars">
                 <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="30"/>
             </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimation Duration="0:0:0.2" To="1" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleX)" Storyboard.TargetName="Delete" d:IsOptimized="True"/>
         </Storyboard>
         <Storyboard x:Name="Close">
-            <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="Delete">
-                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
+
+            <DoubleAnimation Duration="0:0:0.2" To="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleX)" Storyboard.TargetName="Delete" d:IsOptimized="True"/>
             <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="Pencil">
                 <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0"/>
             </DoubleAnimationUsingKeyFrames>
@@ -71,7 +68,11 @@
         </Grid.ColumnDefinitions>
         <Rectangle HorizontalAlignment="Left" Grid.RowSpan="3" Grid.Column="0" VerticalAlignment="Stretch" Width="5" Fill="#C6002A" />
         <TextBlock x:Name="Bars" Grid.Row="0" Grid.RowSpan="3" Grid.Column="1" Text="&#xE700;" Width="0" Padding="10" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30" Foreground="#FFA6A6A6" />
-        <Button x:Name="Delete" Background="#e74c3c" Foreground="White" HorizontalAlignment="Stretch" Width="0" VerticalAlignment="Stretch" Content="&#xE107;" FontSize="30" Grid.Row="0" Grid.Column="3" Grid.RowSpan="3" FontFamily="Segoe MDL2 Assets" Click="Delete_Click" />
+        <Button x:Name="Delete" Background="#e74c3c" Foreground="White" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="&#xE107;" FontSize="30" Grid.Row="0" Grid.Column="3" Grid.RowSpan="3" FontFamily="Segoe MDL2 Assets" Click="Delete_Click" RenderTransformOrigin="1,0" >
+            <Button.RenderTransform>
+                <CompositeTransform ScaleX="0"/>
+            </Button.RenderTransform>
+        </Button>
         <Viewbox Margin="10,0,0,0" VerticalAlignment="Top" d:LayoutOverrides="LeftPosition, RightPosition" Stretch="Uniform" MaxHeight="30" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="2">
             <StackPanel Name="EditPanel" Orientation="Horizontal" Tapped="EditPanel_Tapped">
                 <TextBlock x:Name="Pencil" FontFamily="Segoe MDL2 Assets" Text="&#59151;" Padding="5" RenderTransformOrigin="0.5,0.5" Width="0">
