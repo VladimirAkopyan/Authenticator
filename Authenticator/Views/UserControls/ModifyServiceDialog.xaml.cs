@@ -20,24 +20,33 @@ namespace Authenticator_for_Windows.Views.UserControls
 {
     public sealed partial class ModifyServiceDialog : ContentDialog
     {
-        private Account account;
         public bool IsModified { get; private set; }
 
         public ModifyServiceDialog(Account account)
         {
             InitializeComponent();
-
-            this.account = account;
+            
+            DataContext = account;
         }
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
             if (!string.IsNullOrWhiteSpace(Service.Text))
             {
+                Account account = (Account)DataContext;
                 account.Service = Service.Text;
 
                 IsModified = true;
             }
+            else
+            {
+                args.Cancel = true;
+            }
+        }
+
+        private void ContentDialog_Loaded(object sender, RoutedEventArgs e)
+        {
+            Service.Select(Service.Text.Length, 0);
         }
     }
 }

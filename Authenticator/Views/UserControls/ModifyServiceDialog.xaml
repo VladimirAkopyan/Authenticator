@@ -5,14 +5,16 @@
     xmlns:local="using:Authenticator_for_Windows.Views.UserControls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:domain="using:Domain"
+    DataContext="domain:Account"
     x:Uid="ModifyServiceDialog"
     mc:Ignorable="d"
     Title="Dienst aanpassen"
     PrimaryButtonText="Opslaan"
     SecondaryButtonText="Annuleren"
-    PrimaryButtonClick="ContentDialog_PrimaryButtonClick">
+    PrimaryButtonClick="ContentDialog_PrimaryButtonClick" Loaded="ContentDialog_Loaded">
     <StackPanel>
         <TextBlock x:Uid="ModifyServiceDialogInformation" Text="Hier kunt u de dienst van dit account aanpassen." />
-        <TextBox x:Uid="ModifyServiceDialogField" Name="Service" Header="Dienst" Margin="0,20,0,0" />
+        <TextBox x:Uid="ModifyServiceDialogField" Name="Service" Header="Dienst" Text="{Binding Service}" Margin="0,20,0,0" />
     </StackPanel>
 </ContentDialog>
