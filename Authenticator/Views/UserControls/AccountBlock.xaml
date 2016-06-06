@@ -34,14 +34,10 @@
             <DoubleAnimation Duration="0:0:0.2" To="-25" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="AccountService" d:IsOptimized="True"/>
         </Storyboard>
         <Storyboard x:Name="FadeOut">
-            <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(TextBlock.Foreground).(Brush.Opacity)" Storyboard.TargetName="CurrentCode">
-                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0.3"/>
-            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimation Duration="0:0:0.3" To="0.3" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="CurrentCode" d:IsOptimized="True"/>
         </Storyboard>
         <Storyboard x:Name="FadeIn">
-            <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(TextBlock.Foreground).(Brush.Opacity)" Storyboard.TargetName="CurrentCode">
-                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1"/>
-            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimation Duration="0:0:0.3" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="CurrentCode" d:IsOptimized="True"/>
         </Storyboard>
         <Storyboard x:Name="Flash" AutoReverse="True">
             <ColorAnimation Duration="0:0:0.3" To="#FFF4AC45" Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" Storyboard.TargetName="Grid" d:IsOptimized="True"/>
