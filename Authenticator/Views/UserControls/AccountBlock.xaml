@@ -42,10 +42,9 @@
         <Storyboard x:Name="Flash" AutoReverse="True">
             <ColorAnimation Duration="0:0:0.3" To="#FFF4AC45" Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" Storyboard.TargetName="Grid" d:IsOptimized="True"/>
         </Storyboard>
-        <Storyboard x:Name="SlideUp">
-            <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="userControl">
-                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
+        <Storyboard x:Name="SlideUp" Completed="SlideUp_Completed">
+            <DoubleAnimation Duration="0:0:0.5" To="-100" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="Grid" d:IsOptimized="True"/>
+            <DoubleAnimation Duration="0:0:0.5" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="userControl" d:IsOptimized="True"/>
         </Storyboard>
         <Storyboard x:Name="ShakePencil">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="Pencil">
@@ -55,7 +54,10 @@
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
     </UserControl.Resources>
-    <Grid x:Name="Grid" Background="#FFF1F1F1" Height="100" Tapped="Grid_Tapped">
+    <Grid x:Name="Grid" Background="#FFF1F1F1" Height="100" Tapped="Grid_Tapped" RenderTransformOrigin="0.5,0.5">
+        <Grid.RenderTransform>
+            <CompositeTransform/>
+        </Grid.RenderTransform>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
