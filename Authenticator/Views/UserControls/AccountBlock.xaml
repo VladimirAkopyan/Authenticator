@@ -12,21 +12,17 @@
     DataContext="domain:Account">
     <UserControl.Resources>
         <Storyboard x:Name="Open" Completed="Open_Completed">
-            <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="Pencil">
-                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="25"/>
-            </DoubleAnimationUsingKeyFrames>
             <DoubleAnimation Duration="0:0:0.2" To="1" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleX)" Storyboard.TargetName="Delete" d:IsOptimized="True"/>
             <DoubleAnimation Duration="0:0:0.2" To="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="CurrentCode" d:IsOptimized="True"/>
             <DoubleAnimation Duration="0:0:0.2" To="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="ServiceViewBox" d:IsOptimized="True"/>
             <DoubleAnimation Duration="0:0:0.2" To="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="AccountViewBox" d:IsOptimized="True"/>
             <DoubleAnimation Duration="0:0:0.2" To="1" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleX)" Storyboard.TargetName="Bars" d:IsOptimized="True"/>
+            <DoubleAnimation Duration="0:0:0.2" To="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="Pencil" d:IsOptimized="True"/>
+            <DoubleAnimation Duration="0:0:0.2" To="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="AccountService" d:IsOptimized="True"/>
         </Storyboard>
         <Storyboard x:Name="Close">
 
             <DoubleAnimation Duration="0:0:0.2" To="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleX)" Storyboard.TargetName="Delete" d:IsOptimized="True"/>
-            <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="Pencil">
-                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="Pencil">
                 <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="45"/>
             </DoubleAnimationUsingKeyFrames>
@@ -34,6 +30,8 @@
             <DoubleAnimation Duration="0:0:0.2" To="-30" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="ServiceViewBox" d:IsOptimized="True"/>
             <DoubleAnimation Duration="0:0:0.2" To="-30" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="AccountViewBox" d:IsOptimized="True"/>
             <DoubleAnimation Duration="0:0:0.2" To="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleX)" Storyboard.TargetName="Bars" d:IsOptimized="True"/>
+            <DoubleAnimation Duration="0:0:0.2" To="-25" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="Pencil" d:IsOptimized="True"/>
+            <DoubleAnimation Duration="0:0:0.2" To="-25" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="AccountService" d:IsOptimized="True"/>
         </Storyboard>
         <Storyboard x:Name="FadeOut">
             <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(TextBlock.Foreground).(Brush.Opacity)" Storyboard.TargetName="CurrentCode">
@@ -84,12 +82,22 @@
                 <CompositeTransform TranslateX="-30"/>
             </Viewbox.RenderTransform>
             <StackPanel Name="EditPanel" Orientation="Horizontal" Tapped="EditPanel_Tapped" RenderTransformOrigin="0.5,0.5">
-                <TextBlock x:Name="Pencil" FontFamily="Segoe MDL2 Assets" Text="&#59151;" Padding="5" RenderTransformOrigin="0.5,0.5" Width="0">
+                <StackPanel.Clip>
+                    <RectangleGeometry Rect="0,0,400,30" />
+                </StackPanel.Clip>
+                <TextBlock x:Name="Pencil" FontFamily="Segoe MDL2 Assets" Text="&#59151;" Padding="5" RenderTransformOrigin="0.5,0.5" Width="25">
+                    <TextBlock.Projection>
+                        <PlaneProjection RotationX="2"/>
+                    </TextBlock.Projection>
                     <TextBlock.RenderTransform>
-                        <CompositeTransform Rotation="45"/>
+                        <CompositeTransform Rotation="45" TranslateX="-25"/>
                     </TextBlock.RenderTransform>
                 </TextBlock>
-                <TextBlock x:Name="AccountService" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="{Binding Service}" />
+                <TextBlock x:Name="AccountService" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="{Binding Service}" RenderTransformOrigin="0.5,0.5" >
+                    <TextBlock.RenderTransform>
+                        <CompositeTransform TranslateX="-25"/>
+                    </TextBlock.RenderTransform>
+                </TextBlock>
             </StackPanel>
         </Viewbox>
         <TextBlock Padding="10,2,0,0" x:Name="CurrentCode" HorizontalAlignment="Stretch" Text="123 456" FontSize="48" Grid.Row="1" Grid.Column="2" Margin="0,13,0,0" RenderTransformOrigin="0,0.5">
