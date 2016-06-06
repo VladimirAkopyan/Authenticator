@@ -15,10 +15,11 @@
             <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="Pencil">
                 <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="25"/>
             </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="Bars">
-                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="30"/>
-            </DoubleAnimationUsingKeyFrames>
             <DoubleAnimation Duration="0:0:0.2" To="1" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleX)" Storyboard.TargetName="Delete" d:IsOptimized="True"/>
+            <DoubleAnimation Duration="0:0:0.2" To="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="CurrentCode" d:IsOptimized="True"/>
+            <DoubleAnimation Duration="0:0:0.2" To="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="ServiceViewBox" d:IsOptimized="True"/>
+            <DoubleAnimation Duration="0:0:0.2" To="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="AccountViewBox" d:IsOptimized="True"/>
+            <DoubleAnimation Duration="0:0:0.2" To="1" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleX)" Storyboard.TargetName="Bars" d:IsOptimized="True"/>
         </Storyboard>
         <Storyboard x:Name="Close">
 
@@ -29,9 +30,10 @@
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="Pencil">
                 <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="45"/>
             </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="Bars">
-                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimation Duration="0:0:0.2" To="-30" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="CurrentCode" d:IsOptimized="True"/>
+            <DoubleAnimation Duration="0:0:0.2" To="-30" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="ServiceViewBox" d:IsOptimized="True"/>
+            <DoubleAnimation Duration="0:0:0.2" To="-30" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="AccountViewBox" d:IsOptimized="True"/>
+            <DoubleAnimation Duration="0:0:0.2" To="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleX)" Storyboard.TargetName="Bars" d:IsOptimized="True"/>
         </Storyboard>
         <Storyboard x:Name="FadeOut">
             <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(TextBlock.Foreground).(Brush.Opacity)" Storyboard.TargetName="CurrentCode">
@@ -67,14 +69,21 @@
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <Rectangle HorizontalAlignment="Left" Grid.RowSpan="3" Grid.Column="0" VerticalAlignment="Stretch" Width="5" Fill="#C6002A" />
-        <TextBlock x:Name="Bars" Grid.Row="0" Grid.RowSpan="3" Grid.Column="1" Text="&#xE700;" Width="0" Padding="10" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30" Foreground="#FFA6A6A6" />
+        <TextBlock x:Name="Bars" Grid.Row="0" Grid.RowSpan="3" Grid.Column="1" Text="&#xE700;" Width="30" Padding="10" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30" Foreground="#FFA6A6A6" RenderTransformOrigin="0,0.5" >
+            <TextBlock.RenderTransform>
+                <CompositeTransform ScaleX="0"/>
+            </TextBlock.RenderTransform>
+        </TextBlock>
         <Button x:Name="Delete" Background="#e74c3c" Foreground="White" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="&#xE107;" FontSize="30" Grid.Row="0" Grid.Column="3" Grid.RowSpan="3" FontFamily="Segoe MDL2 Assets" Click="Delete_Click" RenderTransformOrigin="1,0" >
             <Button.RenderTransform>
                 <CompositeTransform ScaleX="0"/>
             </Button.RenderTransform>
         </Button>
-        <Viewbox Margin="10,0,0,0" VerticalAlignment="Top" d:LayoutOverrides="LeftPosition, RightPosition" Stretch="Uniform" MaxHeight="30" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="2">
-            <StackPanel Name="EditPanel" Orientation="Horizontal" Tapped="EditPanel_Tapped">
+        <Viewbox Name="ServiceViewBox" Margin="10,0,0,0" VerticalAlignment="Top" d:LayoutOverrides="LeftPosition, RightPosition" Stretch="Uniform" MaxHeight="30" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="2" RenderTransformOrigin="0,0.5">
+            <Viewbox.RenderTransform>
+                <CompositeTransform TranslateX="-30"/>
+            </Viewbox.RenderTransform>
+            <StackPanel Name="EditPanel" Orientation="Horizontal" Tapped="EditPanel_Tapped" RenderTransformOrigin="0.5,0.5">
                 <TextBlock x:Name="Pencil" FontFamily="Segoe MDL2 Assets" Text="&#59151;" Padding="5" RenderTransformOrigin="0.5,0.5" Width="0">
                     <TextBlock.RenderTransform>
                         <CompositeTransform Rotation="45"/>
@@ -83,12 +92,18 @@
                 <TextBlock x:Name="AccountService" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="{Binding Service}" />
             </StackPanel>
         </Viewbox>
-        <TextBlock Padding="10,2,0,0" x:Name="CurrentCode" HorizontalAlignment="Stretch" Text="123 456" FontSize="48" Grid.Row="1" Grid.Column="2" Margin="0,13,0,0">
+        <TextBlock Padding="10,2,0,0" x:Name="CurrentCode" HorizontalAlignment="Stretch" Text="123 456" FontSize="48" Grid.Row="1" Grid.Column="2" Margin="0,13,0,0" RenderTransformOrigin="0,0.5">
+            <TextBlock.RenderTransform>
+                <CompositeTransform TranslateX="-30"/>
+            </TextBlock.RenderTransform>
             <TextBlock.Clip>
                 <RectangleGeometry Rect="0,10,400,48" />
             </TextBlock.Clip>
         </TextBlock>
-        <Viewbox Margin="10 0" VerticalAlignment="Bottom" d:LayoutOverrides="LeftPosition, RightPosition" Stretch="Uniform" MaxHeight="30" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="2">
+        <Viewbox Name="AccountViewBox" Margin="10 0" VerticalAlignment="Bottom" d:LayoutOverrides="LeftPosition, RightPosition" Stretch="Uniform" MaxHeight="30" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="2" RenderTransformOrigin="0.5,0.5">
+            <Viewbox.RenderTransform>
+                <CompositeTransform TranslateX="-30"/>
+            </Viewbox.RenderTransform>
             <TextBlock x:Name="AccountUsername" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="{Binding Username}" />
         </Viewbox>
     </Grid>
