@@ -210,12 +210,15 @@ namespace Authenticator_for_Windows.Views.UserControls
 
         private async void EditPanel_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
-            ModifyServiceDialog dialog = new ModifyServiceDialog(account);
-            await dialog.ShowAsync();
-
-            if (dialog.IsModified)
+            if (InEditMode)
             {
-                await AccountStorage.Instance.SaveAsync(account);
+                ModifyServiceDialog dialog = new ModifyServiceDialog(account);
+                await dialog.ShowAsync();
+
+                if (dialog.IsModified)
+                {
+                    await AccountStorage.Instance.SaveAsync(account);
+                }
             }
         }
     }
