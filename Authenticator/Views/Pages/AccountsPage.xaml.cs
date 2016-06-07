@@ -99,7 +99,13 @@ namespace Authenticator_for_Windows.Views.Pages
 
         private void Code_Removed(object sender, EventArgs e)
         {
-            accountBlocks.Remove((AccountBlock)sender);
+            AccountBlock accountBlock = sender as AccountBlock;
+
+            if (accountBlock != null)
+            {
+                accountBlocks.Remove(accountBlock);
+            }
+
             CheckEntries();
         }
 
