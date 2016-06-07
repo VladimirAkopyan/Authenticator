@@ -156,13 +156,13 @@ namespace Domain.Storage
                 await LoadStorage();
             }
 
-            if (accounts.Any(a => a.Equals(account)))
-            {
-                throw new DuplicateAccountException();
-            }
-
             if (!account.IsModified)
             {
+                if (accounts.Any(a => a.Equals(account)))
+                {
+                    throw new DuplicateAccountException();
+                }
+
                 // This is a new account
                 accounts.Add(account);
             }
