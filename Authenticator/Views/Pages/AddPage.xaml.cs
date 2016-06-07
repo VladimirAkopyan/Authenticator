@@ -9,6 +9,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.ApplicationModel.Resources;
 using Domain;
 using Authenticator_for_Windows.Views.UserControls;
+using Domain.Exceptions;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -150,6 +151,10 @@ namespace Authenticator_for_Windows.Views.Pages
                 catch (ArgumentException)
                 {
                     MainPage.AddBanner(new Banner(BannerType.Danger, ResourceLoader.GetForCurrentView().GetString("BannerInvalidCharacters"), true));
+                }
+                catch (DuplicateAccountException)
+                {
+                    MainPage.AddBanner(new Banner(BannerType.Danger, ResourceLoader.GetForCurrentView().GetString("BannerDuplicateAccount"), true));
                 }
                 catch (Exception)
                 {

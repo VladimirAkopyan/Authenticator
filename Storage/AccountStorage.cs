@@ -1,4 +1,5 @@
 ﻿using Domain;
+using Domain.Exceptions;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -153,6 +154,11 @@ namespace Domain.Storage
             if (accounts == null)
             {
                 await LoadStorage();
+            }
+
+            if (accounts.Any(a => a.Equals(account)))
+            {
+                throw new DuplicateAccountException();
             }
 
             if (!account.IsModified)

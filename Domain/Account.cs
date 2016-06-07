@@ -45,5 +45,12 @@ namespace Domain
         {
             isModified = false;
         }
+
+        public override bool Equals(object obj)
+        {
+            Account account = obj as Account;
+
+            return account != null && account.Username == Username && account.Secret == Secret && account.Service == Service;
+        }
     }
 }

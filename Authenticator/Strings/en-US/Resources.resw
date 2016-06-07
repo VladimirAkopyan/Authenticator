@@ -323,4 +323,7 @@ Add an account via 'Add account'.</value>
   <data name="ModifyServiceDialogInformation.Text" xml:space="preserve">
     <value>Here you can modify the service of this account.</value>
   </data>
+  <data name="BannerDuplicateAccount" xml:space="preserve">
+    <value>An account with the same details already exists.</value>
+  </data>
 </root>
