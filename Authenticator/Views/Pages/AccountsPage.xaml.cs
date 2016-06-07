@@ -30,6 +30,7 @@ namespace Authenticator_for_Windows.Views.Pages
         private Account selectedAccount;
         private IReadOnlyList<Account> accounts;
         private MainPage mainPage;
+        private ObservableCollection<AccountBlock> accountBlocks;
         private int reorderFrom;
         private int reorderTo;
 
@@ -52,7 +53,7 @@ namespace Authenticator_for_Windows.Views.Pages
             long currentTicks = TOTPUtilities.RemainingTicks;
             TimeSpan remainingTime = new TimeSpan(TOTPUtilities.RemainingTicks);
 
-            ObservableCollection<AccountBlock> accountBlocks = new ObservableCollection<AccountBlock>();
+            accountBlocks = new ObservableCollection<AccountBlock>();
 
             PageGrid.Children.Remove(LoaderProgressBar);
 
@@ -98,6 +99,7 @@ namespace Authenticator_for_Windows.Views.Pages
 
         private void Code_Removed(object sender, EventArgs e)
         {
+            accountBlocks.Remove((AccountBlock)sender);
             CheckEntries();
         }
 
