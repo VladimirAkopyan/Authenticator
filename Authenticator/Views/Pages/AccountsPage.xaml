@@ -49,7 +49,7 @@
                         <AdaptiveTrigger MinWindowWidth="720" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        
+
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -156,6 +156,15 @@
                 </ListView.ItemContainerStyle>
             </ListView>
         </ScrollViewer>
+        <Grid Grid.Row="2" Background="#FFB6222A" VerticalAlignment="Bottom">
+            <TextBlock Text="Verwijderd" Padding="10" Foreground="White" HorizontalAlignment="Left" />
+            <Button HorizontalAlignment="Right" VerticalAlignment="Stretch" Background="#FFB6222A">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE7A7;" Foreground="White" RenderTransformOrigin="0.5,0.5" Margin="0,4,0,0" />
+                    <TextBlock Text="Ongedaan maken" Foreground="White" Margin="10,0,0,0" />
+                </StackPanel>
+            </Button>
+        </Grid>
         <CommandBar Name="CommandBar" Grid.Row="3">
             <AppBarToggleButton x:Uid="Edit" Icon="Edit" x:Name="Edit" Label="Bewerken" Tapped="Edit_Tapped" />
         </CommandBar>
