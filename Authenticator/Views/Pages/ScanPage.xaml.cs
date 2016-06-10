@@ -189,7 +189,7 @@ namespace Authenticator_for_Windows.Views.Pages
 
         protected override async void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
-            try
+            if (scannerControl != null)
             {
                 OnRequestAutoFocus -= RequestAutoFocusHandler;
                 OnRequestTorch -= RequestTorchHandler;
@@ -200,10 +200,6 @@ namespace Authenticator_for_Windows.Views.Pages
                 OnRequestResumeAnalysis -= RequestResumeAnalysisHandler;
 
                 await scannerControl.StopScanningAsync();
-            }
-            catch (Exception ex)
-            {
-                //MobileBarcodeScanner.Log("OnNavigatingFrom Error: {0}", ex);
             }
 
             base.OnNavigatingFrom(e);
