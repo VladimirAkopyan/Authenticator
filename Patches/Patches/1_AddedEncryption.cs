@@ -20,32 +20,37 @@ namespace Patches.Patches
         {
             bool result = false;
 
-            try
+            IStorageItem storageItem = await ApplicationData.Current.LocalFolder.TryGetItemAsync(ENTIRES_FILENAME);
+
+            if (storageItem != null)
             {
-                StorageFile entries = await ApplicationData.Current.LocalFolder.GetFileAsync(ENTIRES_FILENAME);
+                StorageFile entries = storageItem as StorageFile;
 
-                StorageFile accounts = await ApplicationData.Current.LocalFolder.CreateFileAsync(ACCOUNTS_FILENAME, CreationCollisionOption.ReplaceExisting);
-
-                try
+                if (entries != null)
                 {
-                    string data = await FileIO.ReadTextAsync(entries);
-                    DataProtectionProvider provider = new DataProtectionProvider(DESCRIPTOR);
+                    StorageFile accounts = await ApplicationData.Current.LocalFolder.CreateFileAsync(ACCOUNTS_FILENAME, CreationCollisionOption.ReplaceExisting);
 
-                    IBuffer buffMsg = CryptographicBuffer.ConvertStringToBinary(data, BinaryStringEncoding.Utf8);
-                    IBuffer buffProtected = await provider.ProtectAsync(buffMsg);
+                    try
+                    {
+                        string data = await FileIO.ReadTextAsync(entries);
+                        DataProtectionProvider provider = new DataProtectionProvider(DESCRIPTOR);
 
-                    await FileIO.WriteBufferAsync(accounts, buffProtected);
+                        IBuffer buffMsg = CryptographicBuffer.ConvertStringToBinary(data, BinaryStringEncoding.Utf8);
+                        IBuffer buffProtected = await provider.ProtectAsync(buffMsg);
 
-                    await entries.DeleteAsync();
+                        await FileIO.WriteBufferAsync(accounts, buffProtected);
 
-                    result = true;
-                }
-                catch
-                {
-                    // TODO: Add logging.
+                        await entries.DeleteAsync();
+
+                        result = true;
+                    }
+                    catch
+                    {
+                        // TODO: Add logging.
+                    }
                 }
             }
-            catch
+            else
             {
                 // No entries file exists, this patch is unnessecary.
                 result = true;
