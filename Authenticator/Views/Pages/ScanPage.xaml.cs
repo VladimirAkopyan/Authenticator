@@ -178,10 +178,6 @@ namespace Authenticator_for_Windows.Views.Pages
 
                 Frame.GoBack();
             }
-            catch (Exception ex)
-            {
-                // No camera access. Handle it.
-            }
 
             base.OnNavigatedTo(e);
         }
