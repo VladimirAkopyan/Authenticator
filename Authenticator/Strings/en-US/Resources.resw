@@ -252,7 +252,7 @@ We will never interrupt you with annoying questions to rate our app. If you have
   </data>
   <data name="AddAccount.Text" xml:space="preserve">
     <value>You have not added any accounts yet.
-Add an account via 'Add account'.</value>
+Add an account via 'New account'.</value>
   </data>
   <data name="SettingsMenuItem.Content" xml:space="preserve">
     <value>Settings</value>

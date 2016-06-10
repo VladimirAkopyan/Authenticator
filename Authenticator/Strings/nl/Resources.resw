@@ -255,7 +255,7 @@ Wij zullen u nooit storen met vervelende vragen om onze app te beoordelen. Als u
   </data>
   <data name="AddAccount.Text" xml:space="preserve">
     <value>U heeft nog geen accounts toegevoegd.
-Voeg een account toe via 'Account toevoegen'.</value>
+Voeg een account toe via 'Nieuw account'.</value>
   </data>
   <data name="AccessDeniedDescription.Text" xml:space="preserve">
     <value>Authenticator for Windows heeft geen toestemming om uw camera te gebruiken. Ga naar de privacyinstellingen van uw apparaat om Authenticator for Windows toestemming te geven om uw camera te gebruiken.</value>
