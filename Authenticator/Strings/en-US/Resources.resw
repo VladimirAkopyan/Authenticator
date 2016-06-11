@@ -326,4 +326,7 @@ Add an account via 'New account'.</value>
   <data name="BannerDuplicateAccount" xml:space="preserve">
     <value>An account with the same details already exists.</value>
   </data>
+  <data name="RespondToReviews.Text" xml:space="preserve">
+    <value>We do our very best to respond to every review. Please note that it could take several days for your feedback to become visible and we can respond.</value>
+  </data>
 </root>
