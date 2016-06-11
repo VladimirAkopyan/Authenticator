@@ -44,6 +44,15 @@ namespace Unit_Tests
             Validate("Administrator", "A7LAL5KRDBZWRRHT", "DiskStation", account);
         }
 
+        [TestMethod]
+        public void TestVersio()
+        {
+            string input = "otpauth://totp/12345?secret=R6H7USVWDYQLNQWD&issuer=Versio";
+            Account account = TOTPUtilities.UriToAccount(input);
+
+            Validate("12345", "R6H7USVWDYQLNQWD", "Versio", account);
+        }
+
         private void Validate(string username, string secret, string service, Account account)
         {
             Assert.IsNotNull(account);
