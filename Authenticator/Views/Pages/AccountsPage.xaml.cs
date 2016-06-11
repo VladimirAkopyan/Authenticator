@@ -151,33 +151,40 @@ namespace Authenticator_for_Windows.Views.Pages
             account.Value.Remove();
         }
 
-        private void Edit_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
-        {
-            Codes.CanReorderItems = Edit.IsChecked.HasValue ? Edit.IsChecked.Value : false;
-
-            foreach (AccountBlock accountBlock in Codes.Items.Where(c => c.GetType() == typeof(AccountBlock)))
-            {
-                accountBlock.InEditMode = !accountBlock.InEditMode;
-            }
-
-            if (Edit.IsChecked.HasValue)
-            {
-                if (Edit.IsChecked.Value)
-                {
-                    ReorderOpen.Begin();
-                }
-                else
-                {
-                    ReorderClose.Begin();
-                }
-            }
-        }
-
         private void TimeProgressBar_TimeElapsed(object sender, EventArgs e)
         {
             foreach (AccountBlock accountBlock in Codes.Items.Where(c => c.GetType() == typeof(AccountBlock)))
             {
                 accountBlock.Update();
+            }
+        }
+
+        private void Edit_Checked(object sender, RoutedEventArgs e)
+        {
+            ChangeEditState(true);
+        }
+
+        private void Edit_Unchecked(object sender, RoutedEventArgs e)
+        {
+            ChangeEditState(false);
+        }
+
+        private void ChangeEditState(bool inEdit)
+        {
+            Codes.CanReorderItems = inEdit;
+
+            foreach (AccountBlock accountBlock in Codes.Items.Where(c => c.GetType() == typeof(AccountBlock)))
+            {
+                accountBlock.InEditMode = inEdit;
+            }
+
+            if (inEdit)
+            {
+                ReorderOpen.Begin();
+            }
+            else
+            {
+                ReorderClose.Begin();
             }
         }
     }
