@@ -9,8 +9,6 @@ using Settings;
 using Domain.Utilities;
 using Domain.Storage;
 
-// The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
-
 namespace Authenticator_for_Windows.Views.UserControls
 {
     public sealed partial class AccountBlock : UserControl

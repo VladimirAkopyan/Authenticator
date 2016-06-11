@@ -1,29 +1,19 @@
 ﻿using Authenticator_for_Windows.Events;
 using Domain.Storage;
-using Domain.Extensions;
 using Authenticator_for_Windows.Views.UserControls;
-using Settings;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using Windows.ApplicationModel.DataTransfer;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using Domain.Utilities;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using Windows.UI.Xaml.Media.Animation;
 using Domain;
-
-// The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace Authenticator_for_Windows.Views.Pages
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class AccountsPage : Page
     {
         private Dictionary<Account, AccountBlock> mappings;
