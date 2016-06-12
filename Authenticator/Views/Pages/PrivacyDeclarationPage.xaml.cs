@@ -7,7 +7,7 @@ namespace Authenticator_for_Windows.Views.Pages
     public sealed partial class PrivacyDeclaration : Page
     {
         private const string FILENAME_STRUCTURE = "Resources/PrivacyDeclaration.{0}.html";
-        private const string DEFAULT_LANGUAGE = "en-US";
+        private const string DEFAULT_LANGUAGE = "en";
 
         public PrivacyDeclaration()
         {
@@ -15,9 +15,9 @@ namespace Authenticator_for_Windows.Views.Pages
 
             string fileName = string.Format(FILENAME_STRUCTURE, DEFAULT_LANGUAGE);
 
-            if (File.Exists(string.Format(FILENAME_STRUCTURE, CultureInfo.CurrentUICulture.Name)))
+            if (File.Exists(string.Format(FILENAME_STRUCTURE, CultureInfo.CurrentUICulture.TwoLetterISOLanguageName)))
             {
-                fileName = string.Format(FILENAME_STRUCTURE, CultureInfo.CurrentUICulture.Name);
+                fileName = string.Format(FILENAME_STRUCTURE, CultureInfo.CurrentUICulture.TwoLetterISOLanguageName);
             }
 
             string html = File.ReadAllText(fileName);

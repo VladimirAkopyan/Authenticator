@@ -1,1 +1,1 @@
-D:\Documenten\Visual Studio 2015\Projects\Authenticator for Windows\Authenticator\AppPackages\Authenticator_1.2.31.0\Authenticator_1.2.31.0_x86_x64_arm.appxbundle
+D:\Documenten\Visual Studio 2015\Projects\Authenticator for Windows\Authenticator\AppPackages\Authenticator_1.3.35.0\Authenticator_1.3.35.0_x86_x64_arm.appxbundle
