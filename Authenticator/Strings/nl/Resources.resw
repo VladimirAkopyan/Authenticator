@@ -170,7 +170,7 @@ Wij zullen u nooit storen met vervelende vragen om onze app te beoordelen. Als u
     <value>Bewerken</value>
   </data>
   <data name="FiveSeconds.Content" xml:space="preserve">
-    <value>5 seconde</value>
+    <value>5 seconden</value>
   </data>
   <data name="Focus.Text" xml:space="preserve">
     <value>Tik of klik om te focussen</value>
@@ -179,7 +179,7 @@ Wij zullen u nooit storen met vervelende vragen om onze app te beoordelen. Als u
     <value>Altijd</value>
   </data>
   <data name="FourSeconds.Content" xml:space="preserve">
-    <value>4 seconde</value>
+    <value>4 seconden</value>
   </data>
   <data name="Never.Content" xml:space="preserve">
     <value>Nooit</value>
@@ -224,10 +224,10 @@ Wij zullen u nooit storen met vervelende vragen om onze app te beoordelen. Als u
     <value>Instellingen</value>
   </data>
   <data name="ThreeSeconds.Content" xml:space="preserve">
-    <value>3 seconde</value>
+    <value>3 seconden</value>
   </data>
   <data name="TwoSeconds.Content" xml:space="preserve">
-    <value>2 seconde</value>
+    <value>2 seconden</value>
   </data>
   <data name="UntilCodeExpires.Content" xml:space="preserve">
     <value>Tot de code verloopt</value>

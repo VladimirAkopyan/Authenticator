@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutText.Text" xml:space="preserve">
-    <value>Authenticator for Windows is the app for the universal Windows platform to store all your account with two step authentication. The developer of this app tries to create the most user friendly and easy way the offer codes to his users.
+    <value>Authenticator for Windows is the app for the universal Windows platform to store all your accounts with two step authentication. The developer of this app tries to create the most user friendly and easy way to offer codes to his users.
 
 We kindly invite you to share all your suggestions and comments with us so we can further improve your experience.
 
@@ -164,7 +164,7 @@ We will never interrupt you with annoying questions to rate our app. If you have
     <value>Caution: deleting this account does not deactivate two step authentication on your account!</value>
   </data>
   <data name="Duration.Text" xml:space="preserve">
-    <value>How long must a copied code be stored on the clipboard?</value>
+    <value>How long should a copied code be stored on the clipboard?</value>
   </data>
   <data name="Edit.Label" xml:space="preserve">
     <value>Edit</value>
@@ -279,7 +279,7 @@ Add an account via 'New account'.</value>
     <value>An error occured. Please check your entered data.</value>
   </data>
   <data name="AddInformation.Text" xml:space="preserve">
-    <value>Enter the information that you received from the provider of the two step authentication service. When you have a camera available, you can also use it to scan a QR code when it's available.</value>
+    <value>Enter the information that you received from the provider of the two step authentication service. If you have a camera available, you can also use it to scan a QR code if it's available.</value>
   </data>
   <data name="WhatToEnterWhere.Text" xml:space="preserve">
     <value>What do I enter where?</value>
