@@ -1,2 +1,2 @@
-MainPackage=D:\Documenten\Visual Studio 2015\Projects\Authenticator for Windows\Authenticator\bin\x86\Release\Authenticator_1.3.35.0_x86.appx
-SymbolPackage=D:\Documenten\Visual Studio 2015\Projects\Authenticator for Windows\Authenticator\AppPackages\Authenticator_1.3.35.0_Test\Authenticator_1.3.35.0_x86.appxsym
+MainPackage=D:\Documenten\Visual Studio 2015\Projects\Authenticator for Windows\Authenticator\bin\x86\Release\Authenticator_1.3.36.0_x86.appx
+SymbolPackage=D:\Documenten\Visual Studio 2015\Projects\Authenticator for Windows\Authenticator\AppPackages\Authenticator_1.3.36.0_Test\Authenticator_1.3.36.0_x86.appxsym
