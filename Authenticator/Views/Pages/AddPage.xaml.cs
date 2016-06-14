@@ -10,6 +10,18 @@ using Windows.ApplicationModel.Resources;
 using Domain;
 using Authenticator_for_Windows.Views.UserControls;
 using Domain.Exceptions;
+using System.Collections.Generic;
+using Windows.Storage;
+using Windows.UI.Xaml.Media.Imaging;
+using ZXing;
+using System.IO;
+using ZXing.QrCode;
+using ZXing.Common;
+using Windows.Storage.Streams;
+using Windows.Media.Capture;
+using Windows.Media.MediaProperties;
+using ZXing.Mobile;
+using Windows.Graphics.Imaging;
 
 namespace Authenticator_for_Windows.Views.Pages
 {
@@ -173,6 +185,81 @@ namespace Authenticator_for_Windows.Views.Pages
             if (accountBlock != null)
             {
                 accountBlock.Update();
+            }
+        }
+
+        private void Grid_DragEnter(object sender, DragEventArgs e)
+        {
+            e.AcceptedOperation = Windows.ApplicationModel.DataTransfer.DataPackageOperation.Copy;
+        }
+
+        private async void Grid_Drop(object sender, DragEventArgs e)
+        {
+            var files = await e.DataView.GetStorageItemsAsync();
+
+            if (files.Count == 1)
+            {
+                StorageFile file = files.FirstOrDefault() as StorageFile;
+
+                if (file != null)
+                {
+                    IRandomAccessStream stream = await file.OpenAsync(FileAccessMode.Read);
+                    BitmapImage bi = new BitmapImage();
+                    bi.SetSource(stream);
+
+                    image.Source = bi;
+
+                    var datareader = new DataReader(stream.GetInputStreamAt(0));
+                    var bytes = new byte[stream.Size];
+                    await datareader.LoadAsync((uint)stream.Size);
+                    datareader.ReadBytes(bytes);
+
+                    QRCodeReader reader = new QRCodeReader();
+
+                    var decoder = await BitmapDecoder.CreateAsync(stream);
+                    SoftwareBitmap sfbmp = await decoder.GetSoftwareBitmapAsync();
+
+                    RGBLuminanceSource rgb = new RGBLuminanceSource(bytes, 200, 200);
+                    
+                    SoftwareBitmap s = new SoftwareBitmap(BitmapPixelFormat.Bgra8, sfbmp.PixelWidth, sfbmp.PixelHeight);
+                    SoftwareBitmapLuminanceSource x = new SoftwareBitmapLuminanceSource(sfbmp);
+                    HybridBinarizer binarizer = new HybridBinarizer(rgb);
+                    BinaryBitmap bb = new BinaryBitmap(binarizer.createBinarizer(x));
+
+                    Dictionary<DecodeHintType, object> d = new Dictionary<DecodeHintType, object>();
+
+                    Result r = reader.decode(bb);
+
+                    if (r != null)
+                    {
+                        System.Diagnostics.Debug.WriteLine(r);
+                    }
+
+
+                    //QRCodeReader reader = new QRCodeReader();
+                    //MediaCapture capture = new MediaCapture();
+                    //await capture.InitializeAsync();
+                    //Result result = null;
+
+                    //VideoEncodingProperties resx = new VideoEncodingProperties();
+                    //ImageEncodingProperties iep = new ImageEncodingProperties();
+                    //iep.Height = resx.Height;
+                    //iep.Width = resx.Width;
+
+                    //WriteableBitmap wb = new WriteableBitmap((int)resx.Width, (int)resx.Height);
+
+                    //while (result == null)
+                    //{
+                    //    using (InMemoryRandomAccessStream str = new InMemoryRandomAccessStream())
+                    //    {
+                    //        await capture.CapturePhotoToStreamAsync(iep, str);
+                    //        str.Seek(0);
+
+                    //        await wb.SetSourceAsync(str);
+                    //        result = reader.decode(wb);
+                    //    }
+                    //}
+                }
             }
         }
     }
