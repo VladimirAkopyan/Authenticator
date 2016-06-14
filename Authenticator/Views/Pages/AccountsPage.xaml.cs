@@ -1,29 +1,19 @@
 ﻿using Authenticator_for_Windows.Events;
 using Domain.Storage;
-using Domain.Extensions;
 using Authenticator_for_Windows.Views.UserControls;
-using Settings;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using Windows.ApplicationModel.DataTransfer;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using Domain.Utilities;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using Windows.UI.Xaml.Media.Animation;
 using Domain;
-
-// The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace Authenticator_for_Windows.Views.Pages
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class AccountsPage : Page
     {
         private Dictionary<Account, AccountBlock> mappings;
@@ -151,33 +141,40 @@ namespace Authenticator_for_Windows.Views.Pages
             account.Value.Remove();
         }
 
-        private void Edit_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
-        {
-            Codes.CanReorderItems = Edit.IsChecked.HasValue ? Edit.IsChecked.Value : false;
-
-            foreach (AccountBlock accountBlock in Codes.Items.Where(c => c.GetType() == typeof(AccountBlock)))
-            {
-                accountBlock.InEditMode = !accountBlock.InEditMode;
-            }
-
-            if (Edit.IsChecked.HasValue)
-            {
-                if (Edit.IsChecked.Value)
-                {
-                    ReorderOpen.Begin();
-                }
-                else
-                {
-                    ReorderClose.Begin();
-                }
-            }
-        }
-
         private void TimeProgressBar_TimeElapsed(object sender, EventArgs e)
         {
             foreach (AccountBlock accountBlock in Codes.Items.Where(c => c.GetType() == typeof(AccountBlock)))
             {
                 accountBlock.Update();
+            }
+        }
+
+        private void Edit_Checked(object sender, RoutedEventArgs e)
+        {
+            ChangeEditState(true);
+        }
+
+        private void Edit_Unchecked(object sender, RoutedEventArgs e)
+        {
+            ChangeEditState(false);
+        }
+
+        private void ChangeEditState(bool inEdit)
+        {
+            Codes.CanReorderItems = inEdit;
+
+            foreach (AccountBlock accountBlock in Codes.Items.Where(c => c.GetType() == typeof(AccountBlock)))
+            {
+                accountBlock.InEditMode = inEdit;
+            }
+
+            if (inEdit)
+            {
+                ReorderOpen.Begin();
+            }
+            else
+            {
+                ReorderClose.Begin();
             }
         }
     }

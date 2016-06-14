@@ -3,6 +3,7 @@ using Domain.Exceptions;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.Security.Cryptography;
@@ -20,6 +21,7 @@ namespace Domain.Storage
         private static object syncRoot = new object();
 
         private const string ACCOUNTS_FILENAME = "Accounts.json";
+        private const string TEMP_ACCOUNTS_FILENAME = "Accounts-temp.json";
         private const string DESCRIPTOR = "LOCAL=user";
 
         public static AccountStorage Instance
@@ -59,40 +61,43 @@ namespace Domain.Storage
         private async Task LoadStorage()
         {
             StorageFile file = null;
+            accounts = new List<Account>();
 
             try
             {
-                file = await applicationData.GetFileAsync(ACCOUNTS_FILENAME);
+                file = await applicationData.CreateFileAsync(ACCOUNTS_FILENAME, CreationCollisionOption.OpenIfExists);
             }
             catch
             {
                 // File does not exist yet. We're going to create it shortly
             }
 
-            if (file == null)
-            {
-                // If the storage file does not exist yet, create it
+            string content = null;
 
-                Persist();
-
-                accounts = new List<Account>();
-            }
-            else
+            try
             {
                 DataProtectionProvider provider = new DataProtectionProvider(DESCRIPTOR);
                 IBuffer buffer = await FileIO.ReadBufferAsync(file);
 
-                IBuffer bufferContent = await provider.UnprotectAsync(buffer);
-                string content = CryptographicBuffer.ConvertBinaryToString(BinaryStringEncoding.Utf8, bufferContent);
+                // Only decrypt the file if the buffer contains content
+                if (buffer.Length > 0)
+                {
+                    IBuffer bufferContent = await provider.UnprotectAsync(buffer);
+                    content = CryptographicBuffer.ConvertBinaryToString(BinaryStringEncoding.Utf8, bufferContent);
+                }
+            }
+            catch
+            {
+                // File was just created or corrupted.
+            }
 
-                if (string.IsNullOrWhiteSpace(content) || content == "null")
-                {
-                    accounts = new List<Account>();
-                }
-                else
-                {
-                    accounts = JsonConvert.DeserializeObject<List<Account>>(content);
-                }
+            if (string.IsNullOrWhiteSpace(content) || content == "null")
+            {
+                accounts = new List<Account>();
+            }
+            else
+            {
+                accounts = JsonConvert.DeserializeObject<List<Account>>(content);
             }
 
             Clean();
@@ -130,7 +135,8 @@ namespace Domain.Storage
                 accounts = new List<Account>();
             }
 
-            StorageFile file = await applicationData.CreateFileAsync(ACCOUNTS_FILENAME, CreationCollisionOption.ReplaceExisting);
+            StorageFile tempFile = await applicationData.CreateFileAsync(TEMP_ACCOUNTS_FILENAME, CreationCollisionOption.ReplaceExisting);
+            StorageFile currentFile = await applicationData.CreateFileAsync(ACCOUNTS_FILENAME, CreationCollisionOption.OpenIfExists);
 
             try
             {
@@ -141,7 +147,9 @@ namespace Domain.Storage
                 IBuffer buffMsg = CryptographicBuffer.ConvertStringToBinary(data, BinaryStringEncoding.Utf8);
                 IBuffer buffProtected = await provider.ProtectAsync(buffMsg);
 
-                await FileIO.WriteBufferAsync(file, buffProtected);
+                await FileIO.WriteBufferAsync(tempFile, buffProtected);
+
+                await tempFile.MoveAndReplaceAsync(currentFile);
             }
             catch
             {

@@ -81,7 +81,7 @@
             </Viewbox.RenderTransform>
             <StackPanel Name="EditPanel" Orientation="Horizontal" Tapped="EditPanel_Tapped" RenderTransformOrigin="0.5,0.5">
                 <StackPanel.Clip>
-                    <RectangleGeometry Rect="0,0,400,30" />
+                    <RectangleGeometry Rect="0,0,999999,30" />
                 </StackPanel.Clip>
                 <TextBlock x:Name="Pencil" FontFamily="Segoe MDL2 Assets" Text="&#59151;" Padding="5" RenderTransformOrigin="0.5,0.5" Width="25">
                     <TextBlock.Projection>

@@ -170,7 +170,7 @@ Wij zullen u nooit storen met vervelende vragen om onze app te beoordelen. Als u
     <value>Bewerken</value>
   </data>
   <data name="FiveSeconds.Content" xml:space="preserve">
-    <value>5 seconde</value>
+    <value>5 seconden</value>
   </data>
   <data name="Focus.Text" xml:space="preserve">
     <value>Tik of klik om te focussen</value>
@@ -179,7 +179,7 @@ Wij zullen u nooit storen met vervelende vragen om onze app te beoordelen. Als u
     <value>Altijd</value>
   </data>
   <data name="FourSeconds.Content" xml:space="preserve">
-    <value>4 seconde</value>
+    <value>4 seconden</value>
   </data>
   <data name="Never.Content" xml:space="preserve">
     <value>Nooit</value>
@@ -224,10 +224,10 @@ Wij zullen u nooit storen met vervelende vragen om onze app te beoordelen. Als u
     <value>Instellingen</value>
   </data>
   <data name="ThreeSeconds.Content" xml:space="preserve">
-    <value>3 seconde</value>
+    <value>3 seconden</value>
   </data>
   <data name="TwoSeconds.Content" xml:space="preserve">
-    <value>2 seconde</value>
+    <value>2 seconden</value>
   </data>
   <data name="UntilCodeExpires.Content" xml:space="preserve">
     <value>Tot de code verloopt</value>
@@ -255,7 +255,7 @@ Wij zullen u nooit storen met vervelende vragen om onze app te beoordelen. Als u
   </data>
   <data name="AddAccount.Text" xml:space="preserve">
     <value>U heeft nog geen accounts toegevoegd.
-Voeg een account toe via 'Account toevoegen'.</value>
+Voeg een account toe via 'Nieuw account'.</value>
   </data>
   <data name="AccessDeniedDescription.Text" xml:space="preserve">
     <value>Authenticator for Windows heeft geen toestemming om uw camera te gebruiken. Ga naar de privacyinstellingen van uw apparaat om Authenticator for Windows toestemming te geven om uw camera te gebruiken.</value>
@@ -325,5 +325,8 @@ Voeg een account toe via 'Account toevoegen'.</value>
   </data>
   <data name="BannerDuplicateAccount" xml:space="preserve">
     <value>Er bestaat al een account met dezelfde gegevens.</value>
+  </data>
+  <data name="RespondToReviews.Text" xml:space="preserve">
+    <value>Wij doen ons uiterste best om op iedere review te reageren. Let u er alstublieft op dat het een aantal dagen kan duren voordat uw feedback zichtbaar is en wij erop kunnen reageren.</value>
   </data>
 </root>

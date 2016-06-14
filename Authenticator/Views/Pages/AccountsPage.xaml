@@ -72,7 +72,7 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <TextBlock Name="AddAccountTextBlock" Grid.ColumnSpan="2" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" TextWrapping="WrapWholeWords" Margin="40,0,0,0" TextAlignment="Center">
-                <Run x:Uid="AddAccount" Text="U heeft nog geen accounts toegevoegd. Voeg een account toe via 'Account toevoegen'." FontFamily="Comic Sans MS" />
+                <Run x:Uid="AddAccount" Text="U heeft nog geen accounts toegevoegd. Voeg een account toe via 'Nieuw account'." FontFamily="Comic Sans MS" />
             </TextBlock>
             <Image x:Name="Image" Grid.ColumnSpan="2" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Source="ms-appx:///Assets/Arrow.png" Width="50" Height="51" Margin="10,-10,0,0" RenderTransformOrigin="0.5,0.5" >
                 <Image.RenderTransform>
@@ -166,7 +166,7 @@
             </Button>
         </Grid>
         <CommandBar Name="CommandBar" Grid.Row="3">
-            <AppBarToggleButton x:Uid="Edit" Icon="Edit" x:Name="Edit" Label="Bewerken" Tapped="Edit_Tapped" />
+            <AppBarToggleButton x:Uid="Edit" Icon="Edit" x:Name="Edit" Label="Bewerken" Checked="Edit_Checked" Unchecked="Edit_Unchecked" />
         </CommandBar>
         <ContentDialog x:Uid="ConfirmDialog" Name="ConfirmDialog" PrimaryButtonText="Verwijderen" SecondaryButtonText="Annuleren" Title="Account verwijderen" PrimaryButtonClick="ConfirmDialog_PrimaryButtonClick">
             <StackPanel>
