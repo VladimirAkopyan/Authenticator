@@ -23,6 +23,8 @@ namespace Authenticator_for_Windows.Views.Pages
         private ObservableCollection<AccountBlock> accountBlocks;
         private int reorderFrom;
         private int reorderTo;
+        private int indexOfRemovedAccountBlock;
+        private AccountBlock removedAccountBlock;
 
         public AccountsPage()
         {
@@ -82,17 +84,22 @@ namespace Authenticator_for_Windows.Views.Pages
             }
         }
 
-        private void HandleReorder()
+        private async void HandleReorder()
         {
-            AccountStorage.Instance.Reorder(reorderFrom, reorderTo);
+            await AccountStorage.Instance.ReorderAsync(reorderFrom, reorderTo);
         }
 
         private void Code_Removed(object sender, EventArgs e)
         {
+            OpenUndo.Begin();
+
             AccountBlock accountBlock = sender as AccountBlock;
 
             if (accountBlock != null)
             {
+                indexOfRemovedAccountBlock = accountBlocks.IndexOf(accountBlock);
+                removedAccountBlock = accountBlock;
+
                 accountBlocks.Remove(accountBlock);
             }
 
@@ -178,6 +185,16 @@ namespace Authenticator_for_Windows.Views.Pages
             {
                 ReorderClose.Begin();
             }
+        }
+
+        private async void ButtonUndo_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+            await AccountStorage.Instance.UndoRemoveAsync();
+
+            accountBlocks.Insert(indexOfRemovedAccountBlock, removedAccountBlock);
+
+            CheckEntries();
+            CloseUndo.Begin();
         }
     }
 }

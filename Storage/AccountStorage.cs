@@ -17,6 +17,7 @@ namespace Domain.Storage
     {
         private StorageFolder applicationData;
         private List<Account> accounts;
+        private Account[] oldAccounts;
         private static AccountStorage instance;
         private static object syncRoot = new object();
 
@@ -128,7 +129,7 @@ namespace Domain.Storage
             }
         }
 
-        private async void Persist()
+        private async Task Persist()
         {
             if (accounts == null)
             {
@@ -177,7 +178,7 @@ namespace Domain.Storage
 
             account.Flush();
 
-            Persist();
+            await Persist();
         }
 
         public async Task RemoveAsync(Account account)
@@ -187,19 +188,28 @@ namespace Domain.Storage
                 await LoadStorage();
             }
 
+            oldAccounts = new Account[accounts.Count];
+
+            accounts.CopyTo(oldAccounts);
             accounts.Remove(account);
 
-            Persist();
+            await Persist();
         }
 
-        public void Reorder(int fromIndex, int toIndex)
+        public async Task ReorderAsync(int fromIndex, int toIndex)
         {
             Account account = accounts.ElementAt(fromIndex);
 
             accounts.Remove(account);
             accounts.Insert(toIndex, account);
 
-            Persist();
+            await Persist();
+        }
+
+        public async Task UndoRemoveAsync()
+        {
+            accounts = new List<Account>(oldAccounts);
+            await Persist();
         }
     }
 }
