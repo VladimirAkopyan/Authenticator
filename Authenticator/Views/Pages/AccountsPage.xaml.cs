@@ -109,6 +109,8 @@ namespace Authenticator_for_Windows.Views.Pages
                     CommandBar.Visibility = Visibility.Collapsed;
 
                     mainPage.BeginAnimateAddAccount();
+
+                    ReorderClose.Begin();
                 }
                 else
                 {
