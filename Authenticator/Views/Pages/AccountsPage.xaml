@@ -11,6 +11,9 @@
     x:Uid="AccountsPage">
     <Page.Resources>
         <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles/Resources.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
             <Storyboard x:Name="ReorderOpen">
                 <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.MaxHeight)" Storyboard.TargetName="Reorder">
                     <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="82"/>
@@ -158,7 +161,7 @@
         </ScrollViewer>
         <Grid Grid.Row="2" Background="#FFB6222A" VerticalAlignment="Bottom">
             <TextBlock Text="Verwijderd" Padding="10" Foreground="White" HorizontalAlignment="Left" />
-            <Button HorizontalAlignment="Right" VerticalAlignment="Stretch" Background="#FFB6222A">
+            <Button HorizontalAlignment="Right" VerticalAlignment="Stretch" Background="#FFB6222A" BorderThickness="0" Style="{StaticResource UndoButton}">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE7A7;" Foreground="White" RenderTransformOrigin="0.5,0.5" Margin="0,4,0,0" />
                     <TextBlock Text="Ongedaan maken" Foreground="White" Margin="10,0,0,0" />
