@@ -23,15 +23,29 @@ namespace Authenticator_for_Windows.Views.Pages
         private ObservableCollection<AccountBlock> accountBlocks;
         private AccountBlock[] oldAccountBlocks;
         private AccountBlock removedAccountBlock;
+        private DispatcherTimer undoTimer;
         private int removedIndex;
         private int reorderFrom;
         private int reorderTo;
+        private const int UNDO_MESSAGE_VISIBLE_SECONDS = 5;
 
         public AccountsPage()
         {
             InitializeComponent();
 
             mappings = new Dictionary<Account, AccountBlock>();
+            undoTimer = new DispatcherTimer()
+            {
+                Interval = new TimeSpan(0, 0, UNDO_MESSAGE_VISIBLE_SECONDS)
+            };
+            undoTimer.Tick += UndoTimer_Tick;
+        }
+
+        private void UndoTimer_Tick(object sender, object e)
+        {
+            CloseUndo.Begin();
+
+            undoTimer.Stop();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -104,6 +118,8 @@ namespace Authenticator_for_Windows.Views.Pages
             }
 
             CheckEntries();
+
+            undoTimer.Start();
         }
 
         private void CheckEntries()
