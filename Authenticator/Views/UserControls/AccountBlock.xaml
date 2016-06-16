@@ -33,7 +33,7 @@
             <DoubleAnimation Duration="0:0:0.2" To="-25" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="Pencil" d:IsOptimized="True"/>
             <DoubleAnimation Duration="0:0:0.2" To="-25" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="AccountService" d:IsOptimized="True"/>
         </Storyboard>
-        <Storyboard x:Name="FadeOut">
+        <Storyboard x:Name="FadeOut" Completed="FadeOut_Completed">
             <DoubleAnimation Duration="0:0:0.3" To="0.3" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="CurrentCode" d:IsOptimized="True"/>
         </Storyboard>
         <Storyboard x:Name="FadeIn">

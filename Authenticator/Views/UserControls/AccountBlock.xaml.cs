@@ -72,8 +72,6 @@ namespace Authenticator_for_Windows.Views.UserControls
             DataContext = account;
 
             DisplayCodeFormatted();
-            FadeOut.Completed += FadeOut_Completed;
-            SlideUp.Completed += SlideUp_Completed;
 
             if (flash)
             {
