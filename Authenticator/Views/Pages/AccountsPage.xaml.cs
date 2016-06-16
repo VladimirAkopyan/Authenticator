@@ -21,9 +21,9 @@ namespace Authenticator_for_Windows.Views.Pages
         private IReadOnlyList<Account> accounts;
         private MainPage mainPage;
         private ObservableCollection<AccountBlock> accountBlocks;
-        private AccountBlock[] oldAccountBlocks;
         private AccountBlock removedAccountBlock;
         private DispatcherTimer undoTimer;
+        private bool inEditMode;
         private int removedIndex;
         private int reorderFrom;
         private int reorderTo;
@@ -186,6 +186,8 @@ namespace Authenticator_for_Windows.Views.Pages
 
         private void ChangeEditState(bool inEdit)
         {
+            inEditMode = inEdit;
+
             Codes.CanReorderItems = inEdit;
 
             foreach (AccountBlock accountBlock in Codes.Items.Where(c => c.GetType() == typeof(AccountBlock)))
@@ -207,6 +209,7 @@ namespace Authenticator_for_Windows.Views.Pages
         {
             await AccountStorage.Instance.UndoRemoveAsync();
 
+            removedAccountBlock.InEditMode = inEditMode;
             accountBlocks.Insert(removedIndex, removedAccountBlock);
             removedAccountBlock.Show();
 
