@@ -329,4 +329,10 @@ Voeg een account toe via 'Nieuw account'.</value>
   <data name="RespondToReviews.Text" xml:space="preserve">
     <value>Wij doen ons uiterste best om op iedere review te reageren. Let u er alstublieft op dat het een aantal dagen kan duren voordat uw feedback zichtbaar is en wij erop kunnen reageren.</value>
   </data>
+  <data name="Deleted.Text" xml:space="preserve">
+    <value>Verwijderd</value>
+  </data>
+  <data name="Undo.Text" xml:space="preserve">
+    <value>Ongedaan maken</value>
+  </data>
 </root>

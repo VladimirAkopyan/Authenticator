@@ -329,4 +329,10 @@ Add an account via 'New account'.</value>
   <data name="RespondToReviews.Text" xml:space="preserve">
     <value>We do our very best to respond to every review. Please note that it could take several days for your feedback to become visible and we can respond.</value>
   </data>
+  <data name="Deleted.Text" xml:space="preserve">
+    <value>Deleted</value>
+  </data>
+  <data name="Undo.Text" xml:space="preserve">
+    <value>Undo</value>
+  </data>
 </root>
