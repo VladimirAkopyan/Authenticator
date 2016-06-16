@@ -91,6 +91,13 @@ namespace Authenticator_for_Windows.Views.Pages
         {
             OpenUndo.Begin();
 
+            AccountBlock accountBlock = sender as AccountBlock;
+
+            if (accountBlock != null)
+            {
+                accountBlocks.Remove(accountBlock);
+            }
+
             CheckEntries();
         }
 
