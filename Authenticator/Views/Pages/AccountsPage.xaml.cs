@@ -191,20 +191,11 @@ namespace Authenticator_for_Windows.Views.Pages
         {
             await AccountStorage.Instance.UndoRemoveAsync();
 
-            //AccountBlock removedAccountBlock = oldAccountBlocks.Except(accountBlocks).FirstOrDefault();
-
-            //if (removedAccountBlock != null)
-            //{
-
             accountBlocks.Insert(removedIndex, removedAccountBlock);
-                removedAccountBlock.Show();
+            removedAccountBlock.Show();
 
-                //accountBlocks = new ObservableCollection<AccountBlock>(oldAccountBlocks);
-                //Codes.ItemsSource = accountBlocks;
-
-                CheckEntries();
-                CloseUndo.Begin();
-            //}
+            CheckEntries();
+            CloseUndo.Begin();
         }
     }
 }
