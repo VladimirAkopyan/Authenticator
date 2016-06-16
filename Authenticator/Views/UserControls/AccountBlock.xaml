@@ -46,6 +46,10 @@
             <DoubleAnimation Duration="0:0:0.5" To="-100" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="Grid" d:IsOptimized="True"/>
             <DoubleAnimation Duration="0:0:0.5" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="userControl" d:IsOptimized="True"/>
         </Storyboard>
+        <Storyboard x:Name="SlideDown">
+            <DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="Grid" d:IsOptimized="True"/>
+            <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="userControl" d:IsOptimized="True"/>
+        </Storyboard>
         <Storyboard x:Name="ShakePencil">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="Pencil">
                 <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="-45"/>

@@ -79,7 +79,6 @@ namespace Authenticator_for_Windows.Views.UserControls
             }
         }
 
-
         private void SlideUp_Completed(object sender, object e)
         {
             NotifyRemoved();
@@ -96,6 +95,11 @@ namespace Authenticator_for_Windows.Views.UserControls
         public void Remove()
         {
             SlideUp.Begin();
+        }
+
+        public void Show()
+        {
+            SlideDown.Begin();
         }
 
         private void FadeOut_Completed(object sender, object e)

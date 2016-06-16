@@ -21,6 +21,9 @@ namespace Authenticator_for_Windows.Views.Pages
         private IReadOnlyList<Account> accounts;
         private MainPage mainPage;
         private ObservableCollection<AccountBlock> accountBlocks;
+        private AccountBlock[] oldAccountBlocks;
+        private AccountBlock removedAccountBlock;
+        private int removedIndex;
         private int reorderFrom;
         private int reorderTo;
 
@@ -92,6 +95,8 @@ namespace Authenticator_for_Windows.Views.Pages
             OpenUndo.Begin();
 
             AccountBlock accountBlock = sender as AccountBlock;
+            removedAccountBlock = accountBlock;
+            removedIndex = accountBlocks.IndexOf(accountBlock);
 
             if (accountBlock != null)
             {
@@ -186,8 +191,20 @@ namespace Authenticator_for_Windows.Views.Pages
         {
             await AccountStorage.Instance.UndoRemoveAsync();
 
-            CheckEntries();
-            CloseUndo.Begin();
+            //AccountBlock removedAccountBlock = oldAccountBlocks.Except(accountBlocks).FirstOrDefault();
+
+            //if (removedAccountBlock != null)
+            //{
+
+            accountBlocks.Insert(removedIndex, removedAccountBlock);
+                removedAccountBlock.Show();
+
+                //accountBlocks = new ObservableCollection<AccountBlock>(oldAccountBlocks);
+                //Codes.ItemsSource = accountBlocks;
+
+                CheckEntries();
+                CloseUndo.Begin();
+            //}
         }
     }
 }
