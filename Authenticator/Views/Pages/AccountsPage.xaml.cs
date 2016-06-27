@@ -211,7 +211,9 @@ namespace Authenticator_for_Windows.Views.Pages
         {
             await AccountStorage.Instance.UndoRemoveAsync();
 
+            removedAccountBlock.SkipEditModeAnimation = true;
             removedAccountBlock.InEditMode = inEditMode;
+            removedAccountBlock.SkipEditModeAnimation = false;
             accountBlocks.Insert(removedIndex, removedAccountBlock);
             removedAccountBlock.Show();
 

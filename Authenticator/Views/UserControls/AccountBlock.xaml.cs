@@ -18,6 +18,8 @@ namespace Authenticator_for_Windows.Views.UserControls
         private bool _inEditMode;
         private DispatcherTimer timer;
 
+        public bool SkipEditModeAnimation { get; set; }
+
         public bool InEditMode
         {
             get
@@ -28,13 +30,22 @@ namespace Authenticator_for_Windows.Views.UserControls
             {
                 _inEditMode = value;
 
+                Storyboard storyBoard = null;
+
                 if (value)
                 {
-                    Open.Begin();
+                    storyBoard = Open;
                 }
                 else
                 {
-                    Close.Begin();
+                    storyBoard = Close;
+                }
+
+                storyBoard.Begin();
+
+                if (SkipEditModeAnimation)
+                {
+                    storyBoard.SkipToFill();
                 }
             }
         }
