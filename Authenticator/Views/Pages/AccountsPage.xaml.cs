@@ -128,6 +128,7 @@ namespace Authenticator_for_Windows.Views.Pages
             {
                 if (accounts.Count == 0)
                 {
+                    Codes.Visibility = Visibility.Collapsed;
                     NoAccountsGrid.Visibility = Visibility.Visible;
                     CommandBar.Visibility = Visibility.Collapsed;
 
@@ -137,6 +138,7 @@ namespace Authenticator_for_Windows.Views.Pages
                 }
                 else
                 {
+                    Codes.Visibility = Visibility.Visible;
                     NoAccountsGrid.Visibility = Visibility.Collapsed;
                     CommandBar.Visibility = Visibility.Visible;
 

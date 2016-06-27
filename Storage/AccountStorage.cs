@@ -17,7 +17,8 @@ namespace Domain.Storage
     {
         private StorageFolder applicationData;
         private List<Account> accounts;
-        private Account[] oldAccounts;
+        private Account removedAccount;
+        private int removedIndex;
         private static AccountStorage instance;
         private static object syncRoot = new object();
 
@@ -187,10 +188,9 @@ namespace Domain.Storage
             {
                 await LoadStorage();
             }
-
-            oldAccounts = new Account[accounts.Count];
-
-            accounts.CopyTo(oldAccounts);
+            
+            removedAccount = account;
+            removedIndex = accounts.IndexOf(account);
             accounts.Remove(account);
 
             await Persist();
@@ -208,7 +208,8 @@ namespace Domain.Storage
 
         public async Task UndoRemoveAsync()
         {
-            accounts = new List<Account>(oldAccounts);
+            accounts.Insert(removedIndex, removedAccount);
+
             await Persist();
         }
     }
