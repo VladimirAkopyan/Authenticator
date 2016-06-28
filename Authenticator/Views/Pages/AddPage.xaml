@@ -27,7 +27,7 @@
                 </StackPanel>
                 <TextBlock x:Uid="AddInformation" Text="Vul de informatie in die u hebt gekregen van de aanbieder van deze tweestapsauthenticatiedienst. Wanneer u beschikt over een camera, dan kunt u deze ook gebruiken om een eventuele QR-code te scannen." TextWrapping="Wrap" Margin="0,0,0,9" />
                 <TextBox x:Uid="Service" Name="AccountService" Header="Dienst" HorizontalAlignment="Stretch" />
-                <TextBox x:Uid="Account" Name="AccountUsername" Header="Gebruikersnaam" HorizontalAlignment="Stretch" Margin="0 15 0 0" />
+                <TextBox x:Uid="Username" Name="AccountUsername" Header="Gebruikersnaam" HorizontalAlignment="Stretch" Margin="0 15 0 0" />
                 <TextBox x:Uid="Code" Name="AccountCode" Header="Code" HorizontalAlignment="Stretch" Margin="0 15 0 0" />
                 <Button x:Uid="Save" Name="Save" Content="Opslaan" Margin="0 15 0 0" HorizontalAlignment="Stretch" Click="Save_Click" />
                 <HyperlinkButton Click="OpenFlyout">
