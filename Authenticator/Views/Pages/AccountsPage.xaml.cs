@@ -210,12 +210,9 @@ namespace Authenticator_for_Windows.Views.Pages
         private async void ButtonUndo_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
             await AccountStorage.Instance.UndoRemoveAsync();
-
-            removedAccountBlock.SkipEditModeAnimation = true;
-            removedAccountBlock.InEditMode = inEditMode;
-            removedAccountBlock.SkipEditModeAnimation = false;
-            accountBlocks.Insert(removedIndex, removedAccountBlock);
+            
             removedAccountBlock.Show();
+            accountBlocks.Insert(removedIndex, removedAccountBlock);
 
             CheckEntries();
             CloseUndo.Begin();

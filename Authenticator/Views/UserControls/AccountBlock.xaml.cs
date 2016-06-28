@@ -17,8 +17,8 @@ namespace Authenticator_for_Windows.Views.UserControls
         private OTP otp;
         private bool _inEditMode;
         private DispatcherTimer timer;
-
-        public bool SkipEditModeAnimation { get; set; }
+        
+        private bool skipEditModeAnimation;
 
         public bool InEditMode
         {
@@ -43,7 +43,7 @@ namespace Authenticator_for_Windows.Views.UserControls
 
                 storyBoard.Begin();
 
-                if (SkipEditModeAnimation)
+                if (skipEditModeAnimation)
                 {
                     storyBoard.SkipToFill();
                 }
@@ -110,6 +110,8 @@ namespace Authenticator_for_Windows.Views.UserControls
 
         public void Show()
         {
+            skipEditModeAnimation = true;
+
             SlideDown.Begin();
         }
 
@@ -217,6 +219,13 @@ namespace Authenticator_for_Windows.Views.UserControls
         private void Open_Completed(object sender, object e)
         {
             ShakePencil.Begin();
+
+            if (skipEditModeAnimation)
+            {
+                ShakePencil.SkipToFill();
+
+                skipEditModeAnimation = false;
+            }
         }
 
         private async void EditPanel_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
