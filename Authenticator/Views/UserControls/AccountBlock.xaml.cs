@@ -108,9 +108,9 @@ namespace Authenticator_for_Windows.Views.UserControls
             SlideUp.Begin();
         }
 
-        public void Show()
+        public void Show(bool inEditMode)
         {
-            skipEditModeAnimation = true;
+            skipEditModeAnimation = !inEditMode;
 
             SlideDown.Begin();
         }
