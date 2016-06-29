@@ -288,7 +288,7 @@ Add an account via 'New account'.</value>
     <value>Code</value>
   </data>
   <data name="WhatToEnterWhereCodeContent.Text" xml:space="preserve">
-    <value>The code (or key) that's being used to generate a unique, temporary code. This is usually a long range of random characters.</value>
+    <value>The code (or key) that's being used to generate a unique, temporary code. This is usually a long range of random characters. You receive this code from the service that offers this two step authentication.</value>
   </data>
   <data name="WhatToEnterWhereService.Text" xml:space="preserve">
     <value>Service</value>
