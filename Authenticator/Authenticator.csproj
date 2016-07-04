@@ -108,6 +108,12 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Pages\SetupSynchronizationFinishedPage.xaml.cs">
+      <DependentUpon>SetupSynchronizationFinishedPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\SetupSynchronizationPage.xaml.cs">
+      <DependentUpon>SetupSynchronizationPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\UserControls\Banner.xaml.cs">
       <DependentUpon>Banner.xaml</DependentUpon>
     </Compile>
@@ -180,6 +186,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Pages\AddPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\SetupSynchronizationFinishedPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\SetupSynchronizationPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

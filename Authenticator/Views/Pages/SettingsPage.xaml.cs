@@ -30,6 +30,13 @@ namespace Authenticator_for_Windows.Views.Pages
             loadingSettings = false;
         }
 
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            base.OnNavigatedFrom(e);
+
+            mainPage = (MainPage)e.Parameter;
+        }
+
         private void LoadGeneralSettings()
         {
             int rememberTime = SettingsManager.Get<int>(Setting.ClipBoardRememberType);
@@ -133,15 +140,11 @@ namespace Authenticator_for_Windows.Views.Pages
                 {
                     ISynchronizer synchronizer = new OneDriveSynchronizer(oneDriveClient);
                     await synchronizer.Setup();
-                    //using (var stream = GenerateStreamFromString("testje"))
-                    //{
-                    //    var item = await oneDriveClient.Drive.Special.AppRoot
-                    //      .ItemWithPath("key.txt")
-                    //      .Content.Request()
-                    //      .PutAsync<Item>(stream);
-                    //}
-                    
-                    await synchronizer.Synchronize();
+
+                    if (synchronizer.IsInitialSetup)
+                    {
+                        mainPage.Navigate(typeof(SetupSynchronizationPage));
+                    }
                 }
             }
             catch (OneDriveException ex)

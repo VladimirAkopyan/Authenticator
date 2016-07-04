@@ -46,52 +46,51 @@ namespace Synchronization
 
         private async Task GetFileFromOneDrive()
         {
-            if (!string.IsNullOrWhiteSpace(userKey))
+            try
             {
-                try
+                IItemRequestBuilder builder = client.Drive.Special.AppRoot.ItemWithPath(FILENAME);
+                Item file = await builder.Request().GetAsync();
+                Stream contentStream = await builder.Content.Request().GetAsync();
+                string content = "";
+
+                using (var reader = new StreamReader(contentStream))
                 {
-                    IItemRequestBuilder builder = client.Drive.Special.AppRoot.ItemWithPath(FILENAME);
-                    Item file = await builder.Request().GetAsync();
-                    Stream contentStream = await builder.Content.Request().GetAsync();
-                    string content = "";
+                    content = await reader.ReadToEndAsync();
+                }
 
-                    using (var reader = new StreamReader(contentStream))
+                string[] parts = content.Split(' ');
+                byte[] b = new byte[parts.Length];
+                int index = 0;
+
+                foreach (string part in parts)
+                {
+                    if (!string.IsNullOrWhiteSpace(part))
                     {
-                        content = await reader.ReadToEndAsync();
+                        int currentNumber = int.Parse(part);
+                        byte currentPart = Convert.ToByte(currentNumber);
+
+                        b[index] = currentPart;
                     }
 
-                    string[] parts = content.Split(' ');
-                    byte[] b = new byte[parts.Length];
-                    int index = 0;
+                    index++;
+                }
 
-                    foreach (string part in parts)
+                if (!string.IsNullOrWhiteSpace(content))
+                {
+                    if (!string.IsNullOrWhiteSpace(userKey))
                     {
-                        if (!string.IsNullOrWhiteSpace(part))
-                        {
-                            int currentNumber = int.Parse(part);
-                            byte currentPart = Convert.ToByte(currentNumber);
-
-                            b[index] = currentPart;
-                        }
-
-                        index++;
-                    }
-
-                    if (!string.IsNullOrWhiteSpace(content))
-                    {
-
                         byte[] bytes = Encoding.UTF32.GetBytes(content);
                         string decrypted = Decrypt(b, KEY, userKey);
+                    }
 
-                        _isInitialSetup = false;
-                    }
+                    _isInitialSetup = false;
                 }
-                catch (OneDriveException ex)
+            }
+            catch (OneDriveException ex)
+            {
+                if (ex.Error.Code == "itemNotFound")
                 {
-                    if (ex.Error.Code == "itemNotFound")
-                    {
-                        _isInitialSetup = true;
-                    }
+                    _isInitialSetup = true;
                 }
             }
         }

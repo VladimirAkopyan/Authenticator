@@ -113,6 +113,7 @@
     <Compile Include="OTP.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Protocols\TOTP.cs" />
+    <Compile Include="Utilities\KeyGenerator.cs" />
     <Compile Include="Utilities\TimeHelper.cs" />
     <Compile Include="Utilities\TOTPUtilities.cs" />
     <EmbeddedResource Include="Properties\Domain.rd.xml" />
