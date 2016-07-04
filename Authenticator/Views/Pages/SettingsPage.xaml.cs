@@ -1,10 +1,14 @@
-﻿using Settings;
+﻿using Microsoft.OneDrive.Sdk;
+using Settings;
 using System;
+using System.Collections.Generic;
 using Windows.ApplicationModel;
 using Windows.System;
+using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using Domain.Utilities;
 
 namespace Authenticator_for_Windows.Views.Pages
 {
@@ -114,6 +118,24 @@ namespace Authenticator_for_Windows.Views.Pages
             var uri = new Uri("ms-windows-store://review/?PFN=" + Package.Current.Id.FamilyName);
 
             var success = await Launcher.LaunchUriAsync(uri);
+        }
+
+        private async void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                IOneDriveClient oneDriveClient = OneDriveClientExtensions.GetUniversalClient(new[] { "wl.basic" });
+                AccountSession session = await oneDriveClient.AuthenticateAsync();
+
+                if (session.AccountType == AccountType.MicrosoftAccount)
+                {
+                    string maskedUserId = AccountMasker.Mask(session.UserId);
+                }
+            }
+            catch (OneDriveException ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex);
+            }
         }
     }
 }
