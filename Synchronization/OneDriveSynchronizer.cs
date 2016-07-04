@@ -18,7 +18,7 @@ namespace Synchronization
         private const string KEY = "P`31ba]6a'v+zu3B~oS4|Qcjzd>1,]";
 
         private bool _isInitialSetup;
-        private string hash;
+        private string userKey;
         private IOneDriveClient client;
 
         public bool IsInitialSetup
@@ -33,10 +33,10 @@ namespace Synchronization
             
         }
 
-        public OneDriveSynchronizer(IOneDriveClient client, string hash)
+        public OneDriveSynchronizer(IOneDriveClient client, string userKey)
         {
             this.client = client;
-            this.hash = hash;
+            this.userKey = userKey;
         }
 
         public async Task Setup()
@@ -46,49 +46,52 @@ namespace Synchronization
 
         private async Task GetFileFromOneDrive()
         {
-            try
+            if (!string.IsNullOrWhiteSpace(userKey))
             {
-                IItemRequestBuilder builder = client.Drive.Special.AppRoot.ItemWithPath(FILENAME);
-                Item file = await builder.Request().GetAsync();
-                Stream contentStream = await builder.Content.Request().GetAsync();
-                string content = "";
-
-                using (var reader = new StreamReader(contentStream))
+                try
                 {
-                    content = await reader.ReadToEndAsync();
-                }
+                    IItemRequestBuilder builder = client.Drive.Special.AppRoot.ItemWithPath(FILENAME);
+                    Item file = await builder.Request().GetAsync();
+                    Stream contentStream = await builder.Content.Request().GetAsync();
+                    string content = "";
 
-                string[] parts = content.Split(' ');
-                byte[] b = new byte[parts.Length];
-                int index = 0;
-
-                foreach (string part in parts)
-                {
-                    if (!string.IsNullOrWhiteSpace(part))
+                    using (var reader = new StreamReader(contentStream))
                     {
-                        int currentNumber = int.Parse(part);
-                        byte currentPart = Convert.ToByte(currentNumber);
-
-                        b[index] = currentPart;
+                        content = await reader.ReadToEndAsync();
                     }
 
-                    index++;
+                    string[] parts = content.Split(' ');
+                    byte[] b = new byte[parts.Length];
+                    int index = 0;
+
+                    foreach (string part in parts)
+                    {
+                        if (!string.IsNullOrWhiteSpace(part))
+                        {
+                            int currentNumber = int.Parse(part);
+                            byte currentPart = Convert.ToByte(currentNumber);
+
+                            b[index] = currentPart;
+                        }
+
+                        index++;
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(content))
+                    {
+
+                        byte[] bytes = Encoding.UTF32.GetBytes(content);
+                        string decrypted = Decrypt(b, KEY, userKey);
+
+                        _isInitialSetup = false;
+                    }
                 }
-
-                if (!string.IsNullOrWhiteSpace(content))
+                catch (OneDriveException ex)
                 {
-
-                    byte[] bytes = Encoding.UTF32.GetBytes(content);
-                    string decrypted = Decrypt(b, KEY, "12345678");
-
-                    _isInitialSetup = false;
-                }
-            }
-            catch (OneDriveException ex)
-            {
-                if (ex.Error.Code == "itemNotFound")
-                {
-                    _isInitialSetup = true;
+                    if (ex.Error.Code == "itemNotFound")
+                    {
+                        _isInitialSetup = true;
+                    }
                 }
             }
         }
@@ -105,40 +108,43 @@ namespace Synchronization
 
         public async Task<SynchronizationResult> Synchronize()
         {
-            string input = await AccountStorage.Instance.GetPlainStorageAsync();
-
-            //var encryptString = EasyEncryption.Aes.Encrypt(input, KEY, "12345");
-            //var result = EasyEncryption.Aes.Decrypt(encryptString, key, iv);
-
-            byte[] encrypted = Encrypt(input, KEY, "12345678");
-            int i = 0;
-
-            StringBuilder builder = new StringBuilder();
-
-            foreach (byte b in encrypted)
+            SynchronizationResult result = new SynchronizationResult()
             {
-                builder.Append(b);
+                Successful = false
+            };
 
-                if (i < encrypted.Length - 1)
+            if (!string.IsNullOrWhiteSpace(userKey))
+            {
+                string input = await AccountStorage.Instance.GetPlainStorageAsync();
+
+                byte[] encrypted = Encrypt(input, KEY, userKey);
+                int i = 0;
+
+                StringBuilder builder = new StringBuilder();
+
+                foreach (byte b in encrypted)
                 {
-                    builder.Append(" ");
+                    builder.Append(b);
+
+                    if (i < encrypted.Length - 1)
+                    {
+                        builder.Append(" ");
+                    }
+
+                    i++;
                 }
 
-                i++;
+                Stream stream = GenerateStreamFromString(builder.ToString());
+
+                var item = await client.Drive.Special.AppRoot
+                      .ItemWithPath(FILENAME)
+                      .Content.Request()
+                      .PutAsync<Item>(stream);
+
+                result.Successful = true;
             }
 
-            string encryptedText = Encoding.UTF32.GetString(encrypted);
-            Stream stream = GenerateStreamFromString(builder.ToString());
-
-            var item = await client.Drive.Special.AppRoot
-                  .ItemWithPath(FILENAME)
-                  .Content.Request()
-                  .PutAsync<Item>(stream);
-
-            return new SynchronizationResult()
-            {
-                Successful = true
-            };
+            return result;
         }
 
         public static byte[] Encrypt(string plainText, string pw, string salt)
@@ -207,6 +213,11 @@ namespace Synchronization
             IBuffer resultBuffer = CryptographicEngine.Decrypt(symmKey, cipherBuffer, saltMaterial);
             string result = CryptographicBuffer.ConvertBinaryToString(BinaryStringEncoding.Utf16LE, resultBuffer);
             return result;
+        }
+
+        public void SetUserKey(string userKey)
+        {
+            this.userKey = userKey;
         }
     }
 }

@@ -12,5 +12,6 @@ namespace Synchronization
 
         Task<SynchronizationResult> Synchronize();
         Task Setup();
+        void SetUserKey(string userKey);
     }
 }
