@@ -9,6 +9,8 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using Domain.Utilities;
+using Synchronization;
+using System.IO;
 
 namespace Authenticator_for_Windows.Views.Pages
 {
@@ -124,12 +126,22 @@ namespace Authenticator_for_Windows.Views.Pages
         {
             try
             {
-                IOneDriveClient oneDriveClient = OneDriveClientExtensions.GetUniversalClient(new[] { "wl.basic" });
+                IOneDriveClient oneDriveClient = OneDriveClientExtensions.GetUniversalClient(new[] { "onedrive.appfolder" });
                 AccountSession session = await oneDriveClient.AuthenticateAsync();
 
                 if (session.AccountType == AccountType.MicrosoftAccount)
                 {
-                    string maskedUserId = AccountMasker.Mask(session.UserId);
+                    ISynchronizer synchronizer = new OneDriveSynchronizer(oneDriveClient);
+                    await synchronizer.Setup();
+                    //using (var stream = GenerateStreamFromString("testje"))
+                    //{
+                    //    var item = await oneDriveClient.Drive.Special.AppRoot
+                    //      .ItemWithPath("key.txt")
+                    //      .Content.Request()
+                    //      .PutAsync<Item>(stream);
+                    //}
+                    
+                    await synchronizer.Synchronize();
                 }
             }
             catch (OneDriveException ex)

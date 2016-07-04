@@ -260,6 +260,10 @@
       <Project>{7629a322-667c-4595-9ae2-90e6017fc4f3}</Project>
       <Name>Storage</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Synchronization\Synchronization.csproj">
+      <Project>{9DE9CFAB-78E7-470F-97A3-8C3842E1EDEC}</Project>
+      <Name>Synchronization</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

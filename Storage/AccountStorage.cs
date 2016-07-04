@@ -212,5 +212,15 @@ namespace Domain.Storage
 
             await Persist();
         }
+
+        public async Task<string> GetPlainStorageAsync()
+        {
+            if (accounts == null)
+            {
+                await LoadStorage();
+            }
+
+            return JsonConvert.SerializeObject(accounts);
+        }
     }
 }
