@@ -1,5 +1,7 @@
-﻿using Domain.Storage;
+﻿using Domain;
+using Domain.Storage;
 using Microsoft.OneDrive.Sdk;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -20,6 +22,7 @@ namespace Synchronization
         private bool _isInitialSetup;
         private string userKey;
         private string content;
+        private string decrypted;
         private IOneDriveClient client;
 
         public bool IsInitialSetup
@@ -65,7 +68,7 @@ namespace Synchronization
                 {
                     if (!string.IsNullOrWhiteSpace(userKey))
                     {
-                        string decrypted = Decrypt(bytes, KEY, userKey);
+                        decrypted = Decrypt(bytes, KEY, userKey);
                     }
 
                     _isInitialSetup = false;
@@ -121,7 +124,22 @@ namespace Synchronization
 
             if (!string.IsNullOrWhiteSpace(userKey))
             {
-                string input = await AccountStorage.Instance.GetPlainStorageAsync();
+                List<Account> mergedAccounts = new List<Account>();
+                IReadOnlyList<Account> localAccounts = await AccountStorage.Instance.GetAllAsync();
+                Account[] remoteAccounts = JsonConvert.DeserializeObject<Account[]>(decrypted);
+
+                mergedAccounts.AddRange(localAccounts);
+
+                foreach (Account account in remoteAccounts)
+                {
+                    if (!localAccounts.Contains(account))
+                    {
+                        mergedAccounts.Add(account);
+                    }
+                }
+
+                string input = JsonConvert.SerializeObject(mergedAccounts);
+                await AccountStorage.Instance.SaveListAsync(mergedAccounts);
 
                 byte[] encrypted = Encrypt(input, KEY, userKey);
                 int i = 0;
@@ -226,7 +244,7 @@ namespace Synchronization
             this.userKey = userKey;
         }
 
-        public bool IsUserKeyValid(string userKey)
+        public bool DecryptWithKey(string userKey)
         {
             bool valid = false;
 
@@ -238,7 +256,7 @@ namespace Synchronization
                     {
                         byte[] bytes = StringToBytes(content);
 
-                        Decrypt(bytes, KEY, userKey);
+                        decrypted = Decrypt(bytes, KEY, userKey);
 
                         valid = true;
                     }

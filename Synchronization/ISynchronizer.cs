@@ -13,6 +13,6 @@ namespace Synchronization
         Task<SynchronizationResult> Synchronize();
         Task Setup();
         void SetUserKey(string userKey);
-        bool IsUserKeyValid(string userKey);
+        bool DecryptWithKey(string userKey);
     }
 }

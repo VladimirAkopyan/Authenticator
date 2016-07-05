@@ -114,6 +114,10 @@
     <EmbeddedResource Include="Properties\Synchronization.rd.xml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Domain\Domain.csproj">
+      <Project>{DB694060-DEC8-4E03-A467-CE2E9E0E8502}</Project>
+      <Name>Domain</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Storage\Storage.csproj">
       <Project>{7629A322-667C-4595-9AE2-90E6017FC4F3}</Project>
       <Name>Storage</Name>

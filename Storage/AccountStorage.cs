@@ -130,6 +130,13 @@ namespace Domain.Storage
             }
         }
 
+        public async Task SaveListAsync(List<Account> accounts)
+        {
+            this.accounts = accounts;
+
+            await Persist();
+        }
+
         private async Task Persist()
         {
             if (accounts == null)

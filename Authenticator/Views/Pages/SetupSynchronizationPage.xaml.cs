@@ -94,7 +94,7 @@ namespace Authenticator_for_Windows.Views.Pages
         {
             if (UserKeyToValidate.Text.Length == 23)
             {
-                if (synchronizer.IsUserKeyValid(UserKeyToValidate.Text))
+                if (synchronizer.DecryptWithKey(UserKeyToValidate.Text))
                 {
                     VisualStateManager.GoToState(this, ShowSynchronizing.Name, true);
                     
