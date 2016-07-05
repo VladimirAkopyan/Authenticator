@@ -44,7 +44,7 @@
                         </Run>
                     </TextBlock>
                     <TextBox Name="UserKeyToValidate" TextChanged="UserKeyToValidate_TextChanged" IsSpellCheckEnabled="False" IsTextPredictionEnabled="False" MaxLength="23" Margin="0,10" />
-                    <Button Content="Koppelen voor cloudsynchronisatie" />
+                    <Button Name="ButtonConnect" Content="Koppelen voor cloudsynchronisatie" Tapped="ButtonConnect_Tapped" />
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>

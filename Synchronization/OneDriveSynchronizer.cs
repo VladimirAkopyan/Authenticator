@@ -19,6 +19,7 @@ namespace Synchronization
 
         private bool _isInitialSetup;
         private string userKey;
+        private string content;
         private IOneDriveClient client;
 
         public bool IsInitialSetup
@@ -51,36 +52,20 @@ namespace Synchronization
                 IItemRequestBuilder builder = client.Drive.Special.AppRoot.ItemWithPath(FILENAME);
                 Item file = await builder.Request().GetAsync();
                 Stream contentStream = await builder.Content.Request().GetAsync();
-                string content = "";
+                content = "";
 
                 using (var reader = new StreamReader(contentStream))
                 {
                     content = await reader.ReadToEndAsync();
                 }
 
-                string[] parts = content.Split(' ');
-                byte[] b = new byte[parts.Length];
-                int index = 0;
-
-                foreach (string part in parts)
-                {
-                    if (!string.IsNullOrWhiteSpace(part))
-                    {
-                        int currentNumber = int.Parse(part);
-                        byte currentPart = Convert.ToByte(currentNumber);
-
-                        b[index] = currentPart;
-                    }
-
-                    index++;
-                }
+                byte[] bytes = StringToBytes(content);
 
                 if (!string.IsNullOrWhiteSpace(content))
                 {
                     if (!string.IsNullOrWhiteSpace(userKey))
                     {
-                        byte[] bytes = Encoding.UTF32.GetBytes(content);
-                        string decrypted = Decrypt(b, KEY, userKey);
+                        string decrypted = Decrypt(bytes, KEY, userKey);
                     }
 
                     _isInitialSetup = false;
@@ -93,6 +78,28 @@ namespace Synchronization
                     _isInitialSetup = true;
                 }
             }
+        }
+
+        private byte[] StringToBytes(string content)
+        {
+            string[] parts = content.Split(' ');
+            byte[] bytes = new byte[parts.Length];
+            int index = 0;
+
+            foreach (string part in parts)
+            {
+                if (!string.IsNullOrWhiteSpace(part))
+                {
+                    int currentNumber = int.Parse(part);
+                    byte currentPart = Convert.ToByte(currentNumber);
+
+                    bytes[index] = currentPart;
+                }
+
+                index++;
+            }
+
+            return bytes;
         }
 
         public Stream GenerateStreamFromString(string s)
@@ -221,7 +228,28 @@ namespace Synchronization
 
         public bool IsUserKeyValid(string userKey)
         {
-            return false;
+            bool valid = false;
+
+            if (!string.IsNullOrWhiteSpace(content) && !string.IsNullOrWhiteSpace(userKey))
+            {
+                if (!string.IsNullOrWhiteSpace(userKey))
+                {
+                    try
+                    {
+                        byte[] bytes = StringToBytes(content);
+
+                        Decrypt(bytes, KEY, userKey);
+
+                        valid = true;
+                    }
+                    catch
+                    {
+                        valid = false;
+                    }
+                }
+            }
+
+            return valid;
         }
     }
 }

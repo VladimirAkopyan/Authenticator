@@ -9,6 +9,8 @@ using Windows.UI.Xaml.Input;
 using System.Linq;
 using Windows.UI.Xaml.Navigation;
 using System.Text.RegularExpressions;
+using Authenticator_for_Windows.Views.UserControls;
+using Windows.ApplicationModel.Resources;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -36,11 +38,10 @@ namespace Authenticator_for_Windows.Views.Pages
             base.OnNavigatedTo(e);
 
             synchronizer = (ISynchronizer)e.Parameter;
+            vault = new PasswordVault();
 
             if (synchronizer.IsInitialSetup)
             {
-                vault = new PasswordVault();
-
                 if (vault.RetrieveAll().Any())
                 {
                     IReadOnlyList<PasswordCredential> credentials = vault.FindAllByResource(RESOURCE_NAME);
@@ -74,7 +75,6 @@ namespace Authenticator_for_Windows.Views.Pages
 
             if (session.AccountType == AccountType.MicrosoftAccount)
             {
-                ISynchronizer synchronizer = new OneDriveSynchronizer(oneDriveClient);
                 synchronizer.SetUserKey(userKey);
                 await synchronizer.Synchronize();
 
@@ -88,6 +88,28 @@ namespace Authenticator_for_Windows.Views.Pages
 
             UserKeyToValidate.Text = UserKeyToValidate.Text.ToUpper();
             UserKeyToValidate.Select(selection, 0);
+        }
+
+        private async void ButtonConnect_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            if (UserKeyToValidate.Text.Length == 23)
+            {
+                if (synchronizer.IsUserKeyValid(UserKeyToValidate.Text))
+                {
+                    VisualStateManager.GoToState(this, ShowSynchronizing.Name, true);
+                    
+                    synchronizer.SetUserKey(UserKeyToValidate.Text);
+                    await synchronizer.Synchronize();
+                    
+                    vault.Add(new PasswordCredential(RESOURCE_NAME, USERNAME_NAME, UserKeyToValidate.Text));
+
+                    Frame.Navigate(typeof(SetupSynchronizationFinishedPage));
+                }
+                else
+                {
+                    MainPage.AddBanner(new Banner(BannerType.Danger, "De ingevoerde sleutel is incorrect.", true));
+                }
+            }
         }
     }
 }
