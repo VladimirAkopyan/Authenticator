@@ -11,13 +11,20 @@ using Windows.UI.Xaml.Navigation;
 using Domain.Utilities;
 using Synchronization;
 using System.IO;
+using Windows.Security.Credentials;
+using Authenticator_for_Windows.Views.UserControls;
+using Windows.UI.Xaml.Controls.Primitives;
 
 namespace Authenticator_for_Windows.Views.Pages
 {
     public sealed partial class SettingsPage : Page
     {
+        private IOneDriveClient oneDriveClient;
         private MainPage mainPage;
+        private PasswordVault vault;
         private bool loadingSettings;
+
+        private const string RESOURCE_NAME = "EncryptionKey";
 
         public SettingsPage()
         {
@@ -28,13 +35,6 @@ namespace Authenticator_for_Windows.Views.Pages
             LoadGeneralSettings();
 
             loadingSettings = false;
-        }
-
-        protected override void OnNavigatedFrom(NavigationEventArgs e)
-        {
-            base.OnNavigatedFrom(e);
-
-            mainPage = (MainPage)e.Parameter;
         }
 
         private void LoadGeneralSettings()
@@ -129,11 +129,19 @@ namespace Authenticator_for_Windows.Views.Pages
             var success = await Launcher.LaunchUriAsync(uri);
         }
 
-        private async void Page_Loaded(object sender, RoutedEventArgs e)
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            oneDriveClient = OneDriveClientExtensions.GetUniversalClient(new[] { "onedrive.appfolder" });
+
+            vault = new PasswordVault();
+
+            ShowInformation();
+        }
+
+        private async void ButtonTurnOnSynchronization_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
             try
             {
-                IOneDriveClient oneDriveClient = OneDriveClientExtensions.GetUniversalClient(new[] { "onedrive.appfolder" });
                 AccountSession session = await oneDriveClient.AuthenticateAsync();
 
                 if (session.AccountType == AccountType.MicrosoftAccount)
@@ -150,6 +158,56 @@ namespace Authenticator_for_Windows.Views.Pages
             catch (OneDriveException ex)
             {
                 System.Diagnostics.Debug.WriteLine(ex);
+            }
+        }
+        
+        private void OpenFlyout(object sender, RoutedEventArgs e)
+        {
+            FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);
+        }
+
+        private async void ConfirmTurnOffSynchronization_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+            IReadOnlyList<PasswordCredential> credentials = vault.FindAllByResource(RESOURCE_NAME);
+
+            foreach (PasswordCredential credential in credentials)
+            {
+                vault.Remove(credential);
+            }
+
+            await oneDriveClient.SignOutAsync();
+
+            ShowInformation();
+        }
+
+        private void ShowInformation()
+        {
+            if (vault.RetrieveAll().Any())
+            {
+                SynchronizationOff.Visibility = Visibility.Collapsed;
+                SynchronizationOn.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                SynchronizationOn.Visibility = Visibility.Collapsed;
+                SynchronizationOff.Visibility = Visibility.Visible;
+            }
+        }
+
+        private async void ShowUserKey_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+            IReadOnlyList<PasswordCredential> credentials = vault.FindAllByResource(RESOURCE_NAME);
+
+            if (credentials.Any())
+            {
+                credentials[0].RetrievePassword();
+
+                ShowUserKeyDialog dialog = new ShowUserKeyDialog(credentials[0].Password);
+                await dialog.ShowAsync();
+            }
+            else
+            {
+                ShowInformation();
             }
         }
     }

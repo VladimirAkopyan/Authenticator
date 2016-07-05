@@ -1,0 +1,15 @@
+﻿<ContentDialog
+    x:Class="Authenticator_for_Windows.Views.UserControls.ShowUserKeyDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Authenticator_for_Windows.Views.UserControls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="Uw persoonlijke sleutel"
+    PrimaryButtonText="Sluiten">
+    <StackPanel>
+        <TextBlock Text="Hieronder ziet u uw persoonlijke sleutel. Deze sleutel wordt gebruikt om de opslag van uw accounts in de cloud te versleutelen en te ontsleutelen. U heeft deze sleutel nodig op uw andere apparaten waarop uw cloudsynchronisatie wilt inschakelen." TextWrapping="Wrap" />
+        <TextBlock Name="UserKey" Text="ABCD-ABCD-ABCD-ABCD" TextWrapping="Wrap" Margin="0,10,0,0" FontWeight="Bold" />
+    </StackPanel>
+</ContentDialog>

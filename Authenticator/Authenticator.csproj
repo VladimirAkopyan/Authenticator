@@ -148,6 +148,9 @@
     <Compile Include="Views\Pages\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\UserControls\ShowUserKeyDialog.xaml.cs">
+      <DependentUpon>ShowUserKeyDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\UserControls\TimeProgressBar.xaml.cs">
       <DependentUpon>TimeProgressBar.xaml</DependentUpon>
     </Compile>
@@ -240,6 +243,10 @@
     <Page Include="Styles\SplitViewStyles.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\UserControls\ShowUserKeyDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\UserControls\TimeProgressBar.xaml">
       <SubType>Designer</SubType>

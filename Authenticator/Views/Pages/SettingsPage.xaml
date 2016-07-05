@@ -42,6 +42,32 @@
                     </StackPanel>
                 </ScrollViewer>
             </PivotItem>
+            <PivotItem x:Uid="SettingsSynchronization" Header="Cloudsynchronisatie">
+                <ScrollViewer>
+                    <StackPanel>
+                        <TextBlock Text="Met cloudsynchronisatie kunt u uw accounts synchroniseren over uw gekoppelde apparaten. Hierdoor heeft u al uw accounts altijd op al uw Windows-apparaten." TextWrapping="Wrap" Margin="0,0,0,10" />
+                        <StackPanel Name="SynchronizationOn" Visibility="Collapsed">
+                            <TextBlock Text="Cloudsynchronisatie is momenteel ingeschakeld. U kunt het uitschakelen als u uw accounts niet meer met dit apparaat wilt synchroniseren." Foreground="Green" TextWrapping="Wrap" />
+                            <Button Name="ButtonTurnOffSynchronization" Content="Cloudsynchronisatie uitschakelen" Margin="0,10" Tapped="OpenFlyout">
+                                <FlyoutBase.AttachedFlyout>
+                                    <Flyout x:Name="TurnOffSynchronization">
+                                        <StackPanel Width="250">
+                                            <TextBlock Text="Weet u zeker dat u cloudsynchronisatie wilt uitschakelen?" TextWrapping="WrapWholeWords" />
+                                            <Button Name="ConfirmTurnOffSynchronization" Margin="0, 10, 0, 0" Content="Ik weet het zeker" Tapped="ConfirmTurnOffSynchronization_Tapped" />
+                                        </StackPanel>
+                                    </Flyout>
+                                </FlyoutBase.AttachedFlyout>
+                            </Button>
+                            <TextBlock Text="U heeft uw persoonlijke sleutel nodig op uw andere apparaten om de opslag van uw accounts te ontsleutelen. U kunt uw persoonlijke sleutel weergeven door de onderstaande knop te selecteren." TextWrapping="Wrap" />
+                            <Button Name="ShowUserKey" Content="Persoonlijke sleutel weergeven" Margin="0,10,0,0" Tapped="ShowUserKey_Tapped" />
+                        </StackPanel>
+                        <StackPanel Name="SynchronizationOff" Visibility="Collapsed">
+                            <TextBlock Text="Cloudsynchronisatie is momenteel uitgeschakeld. U kunt het inschakelen als u uw accounts met dit apparaat wilt synchroniseren." Foreground="Blue" TextWrapping="Wrap" />
+                            <Button Name="ButtonTurnOnSynchronization" Content="Cloudsynchronisatie inschakelen" Margin="0,10,0,0" Tapped="ButtonTurnOnSynchronization_Tapped" />
+                        </StackPanel>
+                    </StackPanel>
+                </ScrollViewer>
+            </PivotItem>
             <PivotItem x:Uid="SettingsAbout" Header="Over">
                 <ScrollViewer>
                     <StackPanel>
