@@ -142,21 +142,26 @@ namespace Authenticator_for_Windows.Views.Pages
         {
             try
             {
+                ProgressRing.Visibility = Visibility.Visible;
+                ProgressRing.IsActive = true;
+                ButtonTurnOnSynchronization.IsEnabled = false;
+
                 AccountSession session = await oneDriveClient.AuthenticateAsync();
 
                 if (session.AccountType == AccountType.MicrosoftAccount)
                 {
                     ISynchronizer synchronizer = new OneDriveSynchronizer(oneDriveClient);
                     await synchronizer.Setup();
-
-                    if (synchronizer.IsInitialSetup)
-                    {
-                        mainPage.Navigate(typeof(SetupSynchronizationPage));
-                    }
+                    
+                    mainPage.Navigate(typeof(SetupSynchronizationPage), synchronizer);
                 }
             }
             catch (OneDriveException ex)
             {
+                ProgressRing.Visibility = Visibility.Collapsed;
+                ProgressRing.IsActive = false;
+                ButtonTurnOnSynchronization.IsEnabled = true;
+
                 System.Diagnostics.Debug.WriteLine(ex);
             }
         }

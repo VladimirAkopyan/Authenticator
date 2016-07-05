@@ -218,5 +218,10 @@ namespace Synchronization
         {
             this.userKey = userKey;
         }
+
+        public bool IsUserKeyValid(string userKey)
+        {
+            return false;
+        }
     }
 }

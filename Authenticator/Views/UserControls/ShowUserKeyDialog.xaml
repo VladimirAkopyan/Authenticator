@@ -10,6 +10,6 @@
     PrimaryButtonText="Sluiten">
     <StackPanel>
         <TextBlock Text="Hieronder ziet u uw persoonlijke sleutel. Deze sleutel wordt gebruikt om de opslag van uw accounts in de cloud te versleutelen en te ontsleutelen. U heeft deze sleutel nodig op uw andere apparaten waarop uw cloudsynchronisatie wilt inschakelen." TextWrapping="Wrap" />
-        <TextBlock Name="UserKey" Text="ABCD-ABCD-ABCD-ABCD" TextWrapping="Wrap" Margin="0,10,0,0" FontWeight="Bold" />
+        <TextBlock Name="UserKey" Text="ABCDE-ABCDE-ABCDE-ABCDE" TextWrapping="Wrap" Margin="0,10,0,0" FontWeight="Bold" />
     </StackPanel>
 </ContentDialog>

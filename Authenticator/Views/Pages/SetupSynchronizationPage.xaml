@@ -10,12 +10,12 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="VisualStateError">
-                <VisualState x:Name="ShowUploading">
+                <VisualState x:Name="ShowSynchronizing">
                     <VisualState.Setters>
-                        <Setter Target="Uploading.(UIElement.Visibility)" Value="Visible"/>
+                        <Setter Target="Synchronizing.(UIElement.Visibility)" Value="Visible"/>
                     </VisualState.Setters>
                     <Storyboard>
-                        <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" Storyboard.TargetName="Uploading">
+                        <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" Storyboard.TargetName="Synchronizing">
                             <EasingColorKeyFrame KeyTime="0" Value="#00000000"/>
                             <EasingColorKeyFrame KeyTime="0:0:0.5" Value="#E5000000"/>
                         </ColorAnimationUsingKeyFrames>
@@ -23,16 +23,35 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        <StackPanel Padding="10">
-            <TextBlock Text="U heeft ervoor gekozen om cloudsynchronisatie in te schakelen. U heeft Authenticator for Windows inmiddels toegang verleend tot uw OneDrive-opslag. De centrale opslag van uw accounts wordt vanaf het moment dat u deze stappen heeft voltooid daar opgeslagen. Omdat wij u de hoogste veiligheid willen bieden maken wij gebruik van versleuteling. De opslag wordt versleuteld met een sleutel die alleen op uw apparaten staan en niet in de cloud. Onderstaande sleutel wordt gebruikt voor de versleuteling van uw accounts in de cloud." TextWrapping="Wrap" />
-            <TextBlock Name="UserKey" Text="ABCDE-ABCDE-ABCDE-ABCDE" TextWrapping="Wrap" FontWeight="Bold" Margin="0,10,0,0" />
-            <TextBlock Text="U kunt deze sleutel opvragen wanneer u andere apparaten ook gebruik wil laten maken van cloudsynchronisatie. Deze sleutel wordt in een beveiligde omgeving opgeslagen die door Windows wordt gebeheerd." TextWrapping="Wrap" Margin="0,10,0,0" />
-            <Button Name="Continue" Content="Doorgaan" Margin="0,10,0,0" Tapped="Continue_Tapped" />
-        </StackPanel>
-        <Grid x:Name="Uploading" Background="#E5000000" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Visibility="Collapsed">
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <StackPanel Padding="10" Name="InitialSetupPanel" Visibility="Collapsed">
+                    <TextBlock Text="U heeft ervoor gekozen om cloudsynchronisatie in te schakelen. U heeft Authenticator for Windows inmiddels toegang verleend tot uw OneDrive-opslag. De centrale opslag van uw accounts wordt vanaf het moment dat u deze stappen heeft voltooid daar opgeslagen. Omdat wij u de hoogste veiligheid willen bieden maken wij gebruik van versleuteling. De opslag wordt versleuteld met een sleutel die alleen op uw apparaten staan en niet in de cloud. Onderstaande sleutel wordt gebruikt voor de versleuteling van uw accounts in de cloud." TextWrapping="Wrap" />
+                    <TextBlock Name="UserKey" Text="ABCDE-ABCDE-ABCDE-ABCDE" TextWrapping="Wrap" FontWeight="Bold" Margin="0,10,0,0" />
+                    <TextBlock Text="U kunt deze sleutel opvragen wanneer u andere apparaten ook gebruik wil laten maken van cloudsynchronisatie. Deze sleutel wordt in een beveiligde omgeving opgeslagen die door Windows wordt gebeheerd." TextWrapping="Wrap" Margin="0,10,0,0" />
+                    <Button Name="Continue" Content="Doorgaan" Margin="0,10,0,0" Tapped="Continue_Tapped" />
+                </StackPanel>
+                <StackPanel Padding="10" Name="ConnectPanel" Visibility="Visible">
+                    <TextBlock TextWrapping="Wrap">
+                        <Run x:Uid="InstructionsForUserKey" Text="Het lijkt erop dat u cloudsynchronisatie al op een ander apparaat heeft ingesteld. In dat geval kunt u nu dit apparaat koppelen voor cloudsynchronisatie. U heeft hiervoor uw persoonlijke sleutel nodig. U kunt deze sleutel opvragen door op een apparaat waarop u cloudsynchronisatie al heeft ingeschakeld de volgende stappen uit te voeren:
+                            
+                            1. Open Authenticator for Windows
+                            2. Navigeer via het menu naar 'Instellingen'
+                            3. Ga naar het onderdeel 'Cloudsynchronisatie'
+                            4. Selecteer 'Persoonlijke sleutel weergeven'
+                            
+                            Voer de weergegeven sleutel in onderstaande tekstveld in:">
+                        </Run>
+                    </TextBlock>
+                    <TextBox Name="UserKeyToValidate" TextChanged="UserKeyToValidate_TextChanged" IsSpellCheckEnabled="False" IsTextPredictionEnabled="False" MaxLength="23" Margin="0,10" />
+                    <Button Content="Koppelen voor cloudsynchronisatie" />
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+        <Grid x:Name="Synchronizing" Background="#E5000000" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Visibility="Collapsed">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                 <ProgressRing Height="50" Width="50" VerticalAlignment="Center" Foreground="White" IsActive="True" />
-                <TextBlock Text="Uw accounts worden naar de cloud verstuurd..." RequestedTheme="Dark" FontSize="26.667" TextWrapping="Wrap" TextAlignment="Center" />
+                <TextBlock Text="Uw accounts worden met de cloud gesynchroniseerd..." RequestedTheme="Dark" FontSize="26.667" TextWrapping="Wrap" TextAlignment="Center" />
             </StackPanel>
         </Grid>
     </Grid>

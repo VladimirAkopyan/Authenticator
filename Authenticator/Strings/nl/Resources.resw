@@ -335,4 +335,14 @@ Voeg een account toe via 'Nieuw account'.</value>
   <data name="Undo.Text" xml:space="preserve">
     <value>Ongedaan maken</value>
   </data>
+  <data name="InstructionsForUserKey.Text" xml:space="preserve">
+    <value>Het lijkt erop dat u cloudsynchronisatie al op een ander apparaat heeft ingesteld. In dat geval kunt u nu dit apparaat koppelen voor cloudsynchronisatie. U heeft hiervoor uw persoonlijke sleutel nodig. U kunt deze sleutel opvragen door op een apparaat waarop u cloudsynchronisatie al heeft ingeschakeld de volgende stappen uit te voeren:
+                            
+1. Open Authenticator for Windows
+2. Navigeer via het menu naar 'Instellingen'
+3. Ga naar het onderdeel 'Cloudsynchronisatie'
+4. Selecteer 'Persoonlijke sleutel weergeven'
+                            
+Voer de weergegeven sleutel in onderstaande tekstveld in:</value>
+  </data>
 </root>
