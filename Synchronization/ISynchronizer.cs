@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,7 @@ namespace Synchronization
     {
         bool IsInitialSetup { get; }
 
-        Task<SynchronizationResult> Synchronize();
+        Task<SynchronizationResult> Synchronize(List<Account> localAccounts);
         Task Setup();
         void SetUserKey(string userKey);
         bool DecryptWithKey(string userKey);

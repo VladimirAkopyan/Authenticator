@@ -1,6 +1,7 @@
 ﻿using Domain;
 using Domain.Exceptions;
 using Newtonsoft.Json;
+using Synchronization;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -18,6 +19,7 @@ namespace Domain.Storage
         private StorageFolder applicationData;
         private List<Account> accounts;
         private Account removedAccount;
+        private ISynchronizer synchronizer;
         private int removedIndex;
         private static AccountStorage instance;
         private static object syncRoot = new object();
@@ -130,11 +132,24 @@ namespace Domain.Storage
             }
         }
 
-        public async Task SaveListAsync(List<Account> accounts)
+        public void SetSynchronizer(ISynchronizer synchronizer)
         {
-            this.accounts = accounts;
+            this.synchronizer = synchronizer;
+        }
 
-            await Persist();
+        public async Task Synchronize()
+        {
+            if (synchronizer != null)
+            {
+                SynchronizationResult result = await synchronizer.Synchronize(accounts);
+
+                if (result.Accounts != null)
+                {
+                    accounts = result.Accounts.ToList();
+                }
+
+                await Persist();
+            }
         }
 
         private async Task Persist()

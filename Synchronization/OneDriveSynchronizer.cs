@@ -1,5 +1,4 @@
 ﻿using Domain;
-using Domain.Storage;
 using Microsoft.OneDrive.Sdk;
 using Newtonsoft.Json;
 using System;
@@ -115,17 +114,13 @@ namespace Synchronization
             return stream;
         }
 
-        public async Task<SynchronizationResult> Synchronize()
+        public async Task<SynchronizationResult> Synchronize(List<Account> localAccounts)
         {
-            SynchronizationResult result = new SynchronizationResult()
-            {
-                Successful = false
-            };
+            SynchronizationResult result = new SynchronizationResult();
 
             if (!string.IsNullOrWhiteSpace(userKey))
             {
                 List<Account> mergedAccounts = new List<Account>();
-                IReadOnlyList<Account> localAccounts = await AccountStorage.Instance.GetAllAsync();
                 Account[] remoteAccounts = JsonConvert.DeserializeObject<Account[]>(decrypted);
 
                 mergedAccounts.AddRange(localAccounts);
@@ -139,7 +134,6 @@ namespace Synchronization
                 }
 
                 string input = JsonConvert.SerializeObject(mergedAccounts);
-                await AccountStorage.Instance.SaveListAsync(mergedAccounts);
 
                 byte[] encrypted = Encrypt(input, KEY, userKey);
                 int i = 0;
@@ -165,7 +159,7 @@ namespace Synchronization
                       .Content.Request()
                       .PutAsync<Item>(stream);
 
-                result.Successful = true;
+                result.Accounts = mergedAccounts.ToArray();
             }
 
             return result;

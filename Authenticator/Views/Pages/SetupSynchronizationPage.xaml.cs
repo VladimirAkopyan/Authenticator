@@ -11,6 +11,7 @@ using Windows.UI.Xaml.Navigation;
 using System.Text.RegularExpressions;
 using Authenticator_for_Windows.Views.UserControls;
 using Windows.ApplicationModel.Resources;
+using Domain.Storage;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -39,6 +40,8 @@ namespace Authenticator_for_Windows.Views.Pages
 
             synchronizer = (ISynchronizer)e.Parameter;
             vault = new PasswordVault();
+
+            AccountStorage.Instance.SetSynchronizer(synchronizer);
 
             if (synchronizer.IsInitialSetup)
             {
@@ -76,7 +79,7 @@ namespace Authenticator_for_Windows.Views.Pages
             if (session.AccountType == AccountType.MicrosoftAccount)
             {
                 synchronizer.SetUserKey(userKey);
-                await synchronizer.Synchronize();
+                await AccountStorage.Instance.Synchronize();
 
                 Frame.Navigate(typeof(SetupSynchronizationFinishedPage));
             }
@@ -97,9 +100,9 @@ namespace Authenticator_for_Windows.Views.Pages
                 if (synchronizer.DecryptWithKey(UserKeyToValidate.Text))
                 {
                     VisualStateManager.GoToState(this, ShowSynchronizing.Name, true);
-                    
+
                     synchronizer.SetUserKey(UserKeyToValidate.Text);
-                    await synchronizer.Synchronize();
+                    await AccountStorage.Instance.Synchronize();
                     
                     vault.Add(new PasswordCredential(RESOURCE_NAME, USERNAME_NAME, UserKeyToValidate.Text));
 
