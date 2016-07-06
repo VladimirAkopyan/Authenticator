@@ -31,6 +31,7 @@ namespace Synchronization
                 return _isInitialSetup;
             }
         }
+
         public OneDriveSynchronizer(IOneDriveClient client) : this(client, null)
         {
             
@@ -51,6 +52,8 @@ namespace Synchronization
         {
             try
             {
+                AccountSession session = await client.AuthenticateAsync();
+
                 IItemRequestBuilder builder = client.Drive.Special.AppRoot.ItemWithPath(FILENAME);
                 Item file = await builder.Request().GetAsync();
                 Stream contentStream = await builder.Content.Request().GetAsync();
@@ -114,28 +117,19 @@ namespace Synchronization
             return stream;
         }
 
-        public async Task<SynchronizationResult> Synchronize(List<Account> localAccounts)
+        public async Task<SynchronizationResult> Synchronize(string plainContents)
         {
-            SynchronizationResult result = new SynchronizationResult();
+            SynchronizationResult result = new SynchronizationResult()
+            {
+                HasChanges = false,
+                Successful = false
+            };
 
             if (!string.IsNullOrWhiteSpace(userKey))
             {
-                List<Account> mergedAccounts = new List<Account>();
-                Account[] remoteAccounts = JsonConvert.DeserializeObject<Account[]>(decrypted);
+                await GetFileFromOneDrive();
 
-                mergedAccounts.AddRange(localAccounts);
-
-                foreach (Account account in remoteAccounts)
-                {
-                    if (!localAccounts.Contains(account))
-                    {
-                        mergedAccounts.Add(account);
-                    }
-                }
-
-                string input = JsonConvert.SerializeObject(mergedAccounts);
-
-                byte[] encrypted = Encrypt(input, KEY, userKey);
+                byte[] encrypted = Encrypt(content, KEY, userKey);
                 int i = 0;
 
                 StringBuilder builder = new StringBuilder();
@@ -158,8 +152,8 @@ namespace Synchronization
                       .ItemWithPath(FILENAME)
                       .Content.Request()
                       .PutAsync<Item>(stream);
-
-                result.Accounts = mergedAccounts.ToArray();
+                
+                result.Successful = true;
             }
 
             return result;
@@ -262,6 +256,25 @@ namespace Synchronization
             }
 
             return valid;
+        }
+
+        public async Task<SynchronizationResult> UpdateLocalFromRemote()
+        {
+            SynchronizationResult result = new SynchronizationResult();
+
+            await GetFileFromOneDrive();
+
+            if (!string.IsNullOrWhiteSpace(decrypted))
+            {
+                result.Accounts = JsonConvert.DeserializeObject<Account[]>(decrypted);
+            }
+
+            return result;
+        }
+
+        public Task<SynchronizationResult> UpdateRemoteFromLocal()
+        {
+            throw new NotImplementedException();
         }
     }
 }

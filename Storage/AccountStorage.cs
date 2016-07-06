@@ -28,6 +28,8 @@ namespace Domain.Storage
         private const string TEMP_ACCOUNTS_FILENAME = "Accounts-temp.json";
         private const string DESCRIPTOR = "LOCAL=user";
 
+        public event EventHandler<SynchronizationResult> SynchronizationCompleted;
+
         public static AccountStorage Instance
         {
             get
@@ -50,6 +52,14 @@ namespace Domain.Storage
         private AccountStorage()
         {
             applicationData = ApplicationData.Current.LocalFolder;
+        }
+
+        private void NotifySynchronizationCompleted(SynchronizationResult synchronizationResult)
+        {
+            if (SynchronizationCompleted != null)
+            {
+                SynchronizationCompleted(this, synchronizationResult);
+            }
         }
 
         public async Task<IReadOnlyList<Account>> GetAllAsync()
@@ -137,11 +147,31 @@ namespace Domain.Storage
             this.synchronizer = synchronizer;
         }
 
+        public async Task UpdateLocalFromRemote()
+        {
+            SynchronizationResult result = null;
+
+            if (synchronizer != null)
+            {
+                result = await synchronizer.UpdateLocalFromRemote();
+
+                if (result.Accounts != null)
+                {
+                    accounts = result.Accounts.ToList();
+
+                    await Persist();
+                }
+            }
+
+            NotifySynchronizationCompleted(result);
+        }
+
         public async Task Synchronize()
         {
             if (synchronizer != null)
             {
-                SynchronizationResult result = await synchronizer.Synchronize(accounts);
+                string plainStorage = await GetPlainStorageAsync();
+                SynchronizationResult result = await synchronizer.Synchronize(plainStorage);
 
                 if (result.Accounts != null)
                 {

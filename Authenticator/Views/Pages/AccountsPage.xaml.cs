@@ -27,6 +27,7 @@ namespace Authenticator_for_Windows.Views.Pages
         private int removedIndex;
         private int reorderFrom;
         private int reorderTo;
+        private bool update;
         private const int UNDO_MESSAGE_VISIBLE_SECONDS = 5;
 
         public AccountsPage()
@@ -62,8 +63,6 @@ namespace Authenticator_for_Windows.Views.Pages
 
             accountBlocks = new ObservableCollection<AccountBlock>();
 
-            PageGrid.Children.Remove(LoaderProgressBar);
-
             foreach (Account account in accounts)
             {
                 AccountBlock code = new AccountBlock(account);
@@ -79,6 +78,23 @@ namespace Authenticator_for_Windows.Views.Pages
             Codes.ItemsSource = accountBlocks;
 
             CheckEntries();
+
+            PageGrid.Children.Remove(LoaderProgressBar);
+
+            if (update)
+            {
+                update = false;
+
+                await AccountStorage.Instance.UpdateLocalFromRemote();
+            }
+        }
+
+        public void SynchronizationCompleted()
+        {
+            SpinSynchronize.Stop();
+            Synchronize.IsEnabled = true;
+
+            Page_Loaded(this, null);
         }
 
         private void AccountBlocks_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -216,6 +232,16 @@ namespace Authenticator_for_Windows.Views.Pages
 
             CheckEntries();
             CloseUndo.Begin();
+        }
+
+        private async void Synchronize_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+            update = true;
+
+            Synchronize.IsEnabled = false;
+            SpinSynchronize.Begin();
+
+            await AccountStorage.Instance.UpdateLocalFromRemote();
         }
     }
 }

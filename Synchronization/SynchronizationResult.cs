@@ -10,5 +10,7 @@ namespace Synchronization
     public class SynchronizationResult
     {
         public Account[] Accounts { get; set; }
+        public bool Successful { get; set; }
+        public bool HasChanges { get; set; }
     }
 }

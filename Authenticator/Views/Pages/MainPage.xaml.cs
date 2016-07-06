@@ -1,8 +1,14 @@
 ﻿using Windows.UI.Xaml.Controls;
 using System;
+using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Core;
 using Authenticator_for_Windows.Views.UserControls;
+using System.Collections.Generic;
+using Windows.Security.Credentials;
+using Synchronization;
+using Microsoft.OneDrive.Sdk;
+using Domain.Storage;
 
 namespace Authenticator_for_Windows.Views.Pages
 {
@@ -20,7 +26,32 @@ namespace Authenticator_for_Windows.Views.Pages
             // Navigate to the first page
             Navigate(typeof(AccountsPage), this);
 
+
+            PasswordVault vault = new PasswordVault();
+            IReadOnlyList<PasswordCredential> credentials = vault.RetrieveAll();
+
+            if (credentials.Any())
+            {
+                credentials[0].RetrievePassword();
+
+                ISynchronizer synchronizer = new OneDriveSynchronizer(OneDriveClientExtensions.GetUniversalClient(new[] { "onedrive.appfolder" }));
+                synchronizer.SetUserKey(credentials[0].Password);
+
+                AccountStorage.Instance.SetSynchronizer(synchronizer);
+                AccountStorage.Instance.SynchronizationCompleted += Instance_SynchronizationCompleted;
+            }
+
             SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
+        }
+
+        private void Instance_SynchronizationCompleted(object sender, SynchronizationResult e)
+        {
+            AccountsPage accountsPage = Contentframe.Content as AccountsPage;
+
+            if (accountsPage != null)
+            {
+                accountsPage.SynchronizationCompleted();
+            }
         }
 
         private void OnBackRequested(object sender, BackRequestedEventArgs e)

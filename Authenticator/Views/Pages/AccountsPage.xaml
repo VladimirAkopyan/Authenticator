@@ -25,10 +25,13 @@
                 </DoubleAnimationUsingKeyFrames>
             </Storyboard>
             <Storyboard x:Name="OpenUndo">
-            	<DoubleAnimation Duration="0:0:0.2" To="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="grid" d:IsOptimized="True"/>
+                <DoubleAnimation Duration="0:0:0.2" To="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="grid" d:IsOptimized="True"/>
             </Storyboard>
             <Storyboard x:Name="CloseUndo">
                 <DoubleAnimation Duration="0:0:0.2" To="40" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="grid" d:IsOptimized="True"/>
+            </Storyboard>
+            <Storyboard x:Name="SpinSynchronize" RepeatBehavior="Forever">
+                <DoubleAnimation Duration="0:0:1" To="360" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="Synchronize" d:IsOptimized="True"/>
             </Storyboard>
         </ResourceDictionary>
     </Page.Resources>
@@ -178,6 +181,11 @@
             </Button>
         </Grid>
         <CommandBar Name="CommandBar" Grid.Row="3">
+            <AppBarButton x:Uid="Synchronize" Icon="Sync" x:Name="Synchronize" Label="Synchroniseren" RenderTransformOrigin="0.5,0.5" Tapped="Synchronize_Tapped" >
+                <AppBarButton.RenderTransform>
+                    <CompositeTransform/>
+                </AppBarButton.RenderTransform>
+            </AppBarButton>
             <AppBarToggleButton x:Uid="Edit" Icon="Edit" x:Name="Edit" Label="Bewerken" Checked="Edit_Checked" Unchecked="Edit_Unchecked" />
         </CommandBar>
         <ContentDialog x:Uid="ConfirmDialog" Name="ConfirmDialog" PrimaryButtonText="Verwijderen" SecondaryButtonText="Annuleren" Title="Account verwijderen" PrimaryButtonClick="ConfirmDialog_PrimaryButtonClick">

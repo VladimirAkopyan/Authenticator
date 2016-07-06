@@ -121,7 +121,6 @@
     <Compile Include="Views\Pages\AccountsPage.xaml.cs">
       <DependentUpon>AccountsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Events\DeleteRequestedEventHandler.cs" />
     <Compile Include="Events\DeleteRequestEventArgs.cs" />
     <Compile Include="Views\UserControls\ModifyServiceDialog.xaml.cs">
       <DependentUpon>ModifyServiceDialog.xaml</DependentUpon>
