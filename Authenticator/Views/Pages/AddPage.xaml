@@ -55,7 +55,7 @@
             </StackPanel>
         </ScrollViewer>
         <CommandBar Grid.Row="3" Name="CommandBar" VerticalAlignment="Bottom">
-            <controls:SynchronizeAppBarButton x:Name="Synchronize" />
+            <controls:SynchronizeAppBarButton x:Name="Synchronize" IsEnabled="False" />
             <AppBarButton x:Uid="Scan" Icon="Camera" Label="Scannen" Name="Scan" Visibility="Collapsed" Click="Scan_Click" />
         </CommandBar>
     </Grid>
