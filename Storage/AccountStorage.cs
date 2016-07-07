@@ -28,6 +28,7 @@ namespace Domain.Storage
         private const string TEMP_ACCOUNTS_FILENAME = "Accounts-temp.json";
         private const string DESCRIPTOR = "LOCAL=user";
 
+        public event EventHandler SynchronizationStarted;
         public event EventHandler<SynchronizationResult> SynchronizationCompleted;
 
         public static AccountStorage Instance
@@ -52,6 +53,14 @@ namespace Domain.Storage
         private AccountStorage()
         {
             applicationData = ApplicationData.Current.LocalFolder;
+        }
+
+        private void NotifySynchronizationStarted()
+        {
+            if (SynchronizationStarted != null)
+            {
+                SynchronizationStarted(this, null);
+            }
         }
 
         private void NotifySynchronizationCompleted(SynchronizationResult synchronizationResult)
@@ -149,6 +158,8 @@ namespace Domain.Storage
 
         public async Task UpdateLocalFromRemote()
         {
+            NotifySynchronizationStarted();
+
             SynchronizationResult result = null;
 
             if (synchronizer != null)

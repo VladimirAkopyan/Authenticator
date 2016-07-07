@@ -266,7 +266,7 @@ namespace Synchronization
 
             if (!string.IsNullOrWhiteSpace(decrypted))
             {
-                result.Accounts = JsonConvert.DeserializeObject<Account[]>(decrypted);
+                //result.Accounts = JsonConvert.DeserializeObject<Account[]>(decrypted);
             }
 
             return result;

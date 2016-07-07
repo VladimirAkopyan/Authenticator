@@ -11,6 +11,8 @@ using Domain.Utilities;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using Domain;
+using Synchronization;
+using System.Threading.Tasks;
 
 namespace Authenticator_for_Windows.Views.Pages
 {
@@ -27,14 +29,12 @@ namespace Authenticator_for_Windows.Views.Pages
         private int removedIndex;
         private int reorderFrom;
         private int reorderTo;
-        private bool update;
         private const int UNDO_MESSAGE_VISIBLE_SECONDS = 5;
 
         public AccountsPage()
         {
             InitializeComponent();
 
-            mappings = new Dictionary<Account, AccountBlock>();
             undoTimer = new DispatcherTimer()
             {
                 Interval = new TimeSpan(0, 0, UNDO_MESSAGE_VISIBLE_SECONDS)
@@ -54,7 +54,20 @@ namespace Authenticator_for_Windows.Views.Pages
             mainPage = (MainPage)e.Parameter;
         }
 
+        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        {
+            AccountStorage.Instance.SynchronizationStarted -= SynchronizationStarted;
+            AccountStorage.Instance.SynchronizationCompleted -= SynchronizationCompleted;
+        }
+
         private async void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            await LoadAccounts();
+
+            PageGrid.Children.Remove(LoaderProgressBar);
+        }
+
+        private async Task LoadAccounts()
         {
             accounts = await AccountStorage.Instance.GetAllAsync();
 
@@ -62,6 +75,7 @@ namespace Authenticator_for_Windows.Views.Pages
             TimeSpan remainingTime = new TimeSpan(TOTPUtilities.RemainingTicks);
 
             accountBlocks = new ObservableCollection<AccountBlock>();
+            mappings = new Dictionary<Account, AccountBlock>();
 
             foreach (Account account in accounts)
             {
@@ -77,24 +91,22 @@ namespace Authenticator_for_Windows.Views.Pages
             accountBlocks.CollectionChanged += AccountBlocks_CollectionChanged;
             Codes.ItemsSource = accountBlocks;
 
+            AccountStorage.Instance.SynchronizationStarted += SynchronizationStarted;
+            AccountStorage.Instance.SynchronizationCompleted += SynchronizationCompleted;
+
             CheckEntries();
-
-            PageGrid.Children.Remove(LoaderProgressBar);
-
-            if (update)
-            {
-                update = false;
-
-                await AccountStorage.Instance.UpdateLocalFromRemote();
-            }
         }
 
-        public void SynchronizationCompleted()
+        private void SynchronizationCompleted(object sender, SynchronizationResult e)
         {
             SpinSynchronize.Stop();
             Synchronize.IsEnabled = true;
+        }
 
-            Page_Loaded(this, null);
+        private void SynchronizationStarted(object sender, EventArgs e)
+        {
+            SpinSynchronize.Begin();
+            Synchronize.IsEnabled = false;
         }
 
         private void AccountBlocks_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -236,11 +248,6 @@ namespace Authenticator_for_Windows.Views.Pages
 
         private async void Synchronize_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
-            update = true;
-
-            Synchronize.IsEnabled = false;
-            SpinSynchronize.Begin();
-
             await AccountStorage.Instance.UpdateLocalFromRemote();
         }
     }

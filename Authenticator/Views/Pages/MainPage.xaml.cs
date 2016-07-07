@@ -38,20 +38,9 @@ namespace Authenticator_for_Windows.Views.Pages
                 synchronizer.SetUserKey(credentials[0].Password);
 
                 AccountStorage.Instance.SetSynchronizer(synchronizer);
-                AccountStorage.Instance.SynchronizationCompleted += Instance_SynchronizationCompleted;
             }
 
             SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
-        }
-
-        private void Instance_SynchronizationCompleted(object sender, SynchronizationResult e)
-        {
-            AccountsPage accountsPage = Contentframe.Content as AccountsPage;
-
-            if (accountsPage != null)
-            {
-                accountsPage.SynchronizationCompleted();
-            }
         }
 
         private void OnBackRequested(object sender, BackRequestedEventArgs e)
