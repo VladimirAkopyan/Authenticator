@@ -65,6 +65,12 @@ namespace Authenticator_for_Windows.Views.Pages
             await LoadAccounts();
 
             PageGrid.Children.Remove(LoaderProgressBar);
+
+            if (AccountStorage.Instance.IsSynchronizing)
+            {
+                Synchronize.StartAnimationAndDisable();
+                Edit.IsEnabled = false;
+            }
         }
 
         private async Task LoadAccounts()
