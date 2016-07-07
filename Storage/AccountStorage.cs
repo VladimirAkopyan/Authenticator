@@ -50,6 +50,8 @@ namespace Domain.Storage
             }
         }
 
+        public bool IsSynchronizing { get; private set; }
+
         private AccountStorage()
         {
             applicationData = ApplicationData.Current.LocalFolder;
@@ -57,6 +59,8 @@ namespace Domain.Storage
 
         private void NotifySynchronizationStarted()
         {
+            IsSynchronizing = true;
+
             if (SynchronizationStarted != null)
             {
                 SynchronizationStarted(this, null);
@@ -65,6 +69,8 @@ namespace Domain.Storage
 
         private void NotifySynchronizationCompleted(SynchronizationResult synchronizationResult)
         {
+            IsSynchronizing = false;
+
             if (SynchronizationCompleted != null)
             {
                 SynchronizationCompleted(this, synchronizationResult);
@@ -164,7 +170,7 @@ namespace Domain.Storage
 
             if (synchronizer != null)
             {
-                result = await synchronizer.UpdateLocalFromRemote();
+                result = await synchronizer.UpdateLocalFromRemote(accounts);
 
                 if (result.Accounts != null)
                 {
@@ -181,8 +187,7 @@ namespace Domain.Storage
         {
             if (synchronizer != null)
             {
-                string plainStorage = await GetPlainStorageAsync();
-                SynchronizationResult result = await synchronizer.Synchronize(plainStorage);
+                SynchronizationResult result = await synchronizer.Synchronize(accounts);
 
                 if (result.Accounts != null)
                 {
@@ -242,7 +247,17 @@ namespace Domain.Storage
 
             account.Flush();
 
+            await UpdateRemoteFromLocal();
+
             await Persist();
+        }
+
+        private async Task UpdateRemoteFromLocal()
+        {
+            if (synchronizer != null)
+            {
+                await synchronizer.UpdateRemoteFromLocal(accounts);
+            }
         }
 
         public async Task RemoveAsync(Account account)

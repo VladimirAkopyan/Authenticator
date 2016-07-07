@@ -117,7 +117,7 @@ namespace Synchronization
             return stream;
         }
 
-        public async Task<SynchronizationResult> Synchronize(string plainContents)
+        public async Task<SynchronizationResult> Synchronize(IEnumerable<Account> localAccounts)
         {
             SynchronizationResult result = new SynchronizationResult()
             {
@@ -129,7 +129,22 @@ namespace Synchronization
             {
                 await GetFileFromOneDrive();
 
-                byte[] encrypted = Encrypt(content, KEY, userKey);
+                List<Account> mergedAccounts = new List<Account>();
+                Account[] remoteAccounts = JsonConvert.DeserializeObject<Account[]>(decrypted);
+
+                mergedAccounts.AddRange(localAccounts);
+
+                foreach (Account account in remoteAccounts)
+                {
+                    if (!mergedAccounts.Contains(account))
+                    {
+                        mergedAccounts.Add(account);
+                    }
+                }
+
+                string plainContents = JsonConvert.SerializeObject(mergedAccounts);
+
+                byte[] encrypted = Encrypt(plainContents, KEY, userKey);
                 int i = 0;
 
                 StringBuilder builder = new StringBuilder();
@@ -258,7 +273,7 @@ namespace Synchronization
             return valid;
         }
 
-        public async Task<SynchronizationResult> UpdateLocalFromRemote()
+        public async Task<SynchronizationResult> UpdateLocalFromRemote(IEnumerable<Account> accounts)
         {
             SynchronizationResult result = new SynchronizationResult();
 
@@ -266,15 +281,71 @@ namespace Synchronization
 
             if (!string.IsNullOrWhiteSpace(decrypted))
             {
-                //result.Accounts = JsonConvert.DeserializeObject<Account[]>(decrypted);
+                result.Accounts = JsonConvert.DeserializeObject<Account[]>(decrypted);
+                result.HasChanges = false;
+
+                if (result.Accounts.Count() != accounts.Count())
+                {
+                    result.HasChanges = true;
+                }
+                else
+                {
+                    int i = 0;
+                    int max = result.Accounts.Count() > accounts.Count() ? result.Accounts.Count() : accounts.Count();
+
+                    while (!result.HasChanges && i < max)
+                    {
+                        result.HasChanges = result.Accounts.ElementAt(i) == accounts.ElementAt(i);
+
+                        i++;
+                    }
+                }
             }
 
             return result;
         }
 
-        public Task<SynchronizationResult> UpdateRemoteFromLocal()
+        public async Task<SynchronizationResult> UpdateRemoteFromLocal(IEnumerable<Account> accounts)
         {
-            throw new NotImplementedException();
+            SynchronizationResult result = new SynchronizationResult()
+            {
+                Successful = false
+            };
+
+            await client.AuthenticateAsync();
+
+            if (!string.IsNullOrWhiteSpace(userKey))
+            {
+                string plainAccounts = JsonConvert.SerializeObject(accounts);
+
+                byte[] encrypted = Encrypt(plainAccounts, KEY, userKey);
+                int i = 0;
+
+                StringBuilder builder = new StringBuilder();
+
+                foreach (byte b in encrypted)
+                {
+                    builder.Append(b);
+
+                    if (i < encrypted.Length - 1)
+                    {
+                        builder.Append(" ");
+                    }
+
+                    i++;
+                }
+
+                Stream stream = GenerateStreamFromString(builder.ToString());
+
+                var item = await client.Drive.Special.AppRoot
+                      .ItemWithPath(FILENAME)
+                      .Content.Request()
+                      .PutAsync<Item>(stream);
+
+                result.Successful = true;
+            }
+
+            return result;
         }
     }
 }

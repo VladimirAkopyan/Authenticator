@@ -97,16 +97,19 @@ namespace Authenticator_for_Windows.Views.Pages
             CheckEntries();
         }
 
-        private void SynchronizationCompleted(object sender, SynchronizationResult e)
+        private async void SynchronizationCompleted(object sender, SynchronizationResult e)
         {
-            SpinSynchronize.Stop();
-            Synchronize.IsEnabled = true;
+            if (e.HasChanges)
+            {
+                await LoadAccounts();
+            }
+            
+            Synchronize.StopAnimationAndEnable();
         }
 
         private void SynchronizationStarted(object sender, EventArgs e)
         {
-            SpinSynchronize.Begin();
-            Synchronize.IsEnabled = false;
+            Synchronize.StartAnimationAndDisable();
         }
 
         private void AccountBlocks_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)

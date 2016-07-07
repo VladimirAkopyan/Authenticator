@@ -11,9 +11,9 @@ namespace Synchronization
     {
         bool IsInitialSetup { get; }
 
-        Task<SynchronizationResult> UpdateLocalFromRemote();
-        Task<SynchronizationResult> UpdateRemoteFromLocal();
-        Task<SynchronizationResult> Synchronize(string plainContents);
+        Task<SynchronizationResult> UpdateLocalFromRemote(IEnumerable<Account> accounts);
+        Task<SynchronizationResult> UpdateRemoteFromLocal(IEnumerable<Account> accounts);
+        Task<SynchronizationResult> Synchronize(IEnumerable<Account> localAccounts);
         Task Setup();
         void SetUserKey(string userKey);
         bool DecryptWithKey(string userKey);

@@ -31,7 +31,7 @@ namespace Authenticator_for_Windows.Views.Pages
 
             if (devices.Count > 1)
             {
-                CommandBar.Visibility = Visibility.Visible;
+                Scan.Visibility = Visibility.Visible;
             }
         }
 
@@ -84,6 +84,14 @@ namespace Authenticator_for_Windows.Views.Pages
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
             MainPage.ClearBanners();
+
+            AccountStorage.Instance.SynchronizationCompleted -= SynchronizationCompleted;
+        }
+
+        private void SynchronizationCompleted(object sender, Synchronization.SynchronizationResult e)
+        {
+            Synchronize.StopAnimationAndEnable();
+            Synchronize.IsEnabled = false;
         }
 
         private void Scan_Click(object sender, RoutedEventArgs e)
@@ -173,6 +181,16 @@ namespace Authenticator_for_Windows.Views.Pages
             if (accountBlock != null)
             {
                 accountBlock.Update();
+            }
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            AccountStorage.Instance.SynchronizationCompleted += SynchronizationCompleted;
+
+            if (AccountStorage.Instance.IsSynchronizing)
+            {
+                Synchronize.StartAnimationAndDisable();
             }
         }
     }

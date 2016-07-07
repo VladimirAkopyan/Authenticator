@@ -8,7 +8,8 @@
     xmlns:controls="using:Authenticator_for_Windows.Views.UserControls"
     mc:Ignorable="d"
     x:Uid="AddPage"
-    Tag="Account toevoegen">
+    Tag="Account toevoegen"
+    Loaded="Page_Loaded">
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="5" />
@@ -53,8 +54,9 @@
                 </HyperlinkButton>
             </StackPanel>
         </ScrollViewer>
-        <CommandBar Grid.Row="3" Name="CommandBar" VerticalAlignment="Bottom" Visibility="Collapsed">
-            <AppBarButton x:Uid="Scan" Icon="Camera" Label="Scannen" Name="Scan" Click="Scan_Click" />
+        <CommandBar Grid.Row="3" Name="CommandBar" VerticalAlignment="Bottom">
+            <controls:SynchronizeAppBarButton x:Name="Synchronize" />
+            <AppBarButton x:Uid="Scan" Icon="Camera" Label="Scannen" Name="Scan" Visibility="Collapsed" Click="Scan_Click" />
         </CommandBar>
     </Grid>
 </Page>

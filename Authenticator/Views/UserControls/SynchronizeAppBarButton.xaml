@@ -1,0 +1,19 @@
+﻿<AppBarButton
+    x:Class="Authenticator_for_Windows.Views.UserControls.SynchronizeAppBarButton"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Authenticator_for_Windows.Views.UserControls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Name="Synchronize"
+    x:Uid="Synchronize" Icon="Sync" Label="Synchroniseren" RenderTransformOrigin="0.5,0.5" Tapped="Synchronize_Tapped">
+    <AppBarButton.Resources>
+        <Storyboard x:Name="SpinSynchronize" RepeatBehavior="Forever">
+            <DoubleAnimation Duration="0:0:1" To="360" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="Synchronize" d:IsOptimized="True"/>
+        </Storyboard>
+    </AppBarButton.Resources>
+    <AppBarButton.RenderTransform>
+        <CompositeTransform/>
+    </AppBarButton.RenderTransform>
+</AppBarButton>
