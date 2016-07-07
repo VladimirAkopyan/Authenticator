@@ -103,6 +103,8 @@ namespace Authenticator_for_Windows.Views.Pages
             {
                 await LoadAccounts();
             }
+
+            Edit.IsEnabled = true;
             
             Synchronize.StopAnimationAndEnable();
         }
@@ -251,6 +253,9 @@ namespace Authenticator_for_Windows.Views.Pages
 
         private async void Synchronize_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
+            Edit.IsChecked = false;
+            Edit.IsEnabled = false;
+
             await AccountStorage.Instance.UpdateLocalFromRemote();
         }
     }
