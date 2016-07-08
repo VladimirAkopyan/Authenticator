@@ -112,6 +112,7 @@ namespace Authenticator_for_Windows.Views.Pages
             }
 
             Edit.IsEnabled = true;
+            Codes.IsEnabled = true;
             
             Synchronize.StopAnimationAndEnable();
         }
@@ -119,6 +120,9 @@ namespace Authenticator_for_Windows.Views.Pages
         private void SynchronizationStarted(object sender, EventArgs e)
         {
             Synchronize.StartAnimationAndDisable();
+
+            Edit.IsEnabled = false;
+            Codes.IsEnabled = false;
         }
 
         private void AccountBlocks_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
