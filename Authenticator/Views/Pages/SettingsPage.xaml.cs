@@ -153,7 +153,7 @@ namespace Authenticator_for_Windows.Views.Pages
                     ISynchronizer synchronizer = new OneDriveSynchronizer(oneDriveClient);
                     await synchronizer.Setup();
                     
-                    mainPage.Navigate(typeof(SetupSynchronizationPage), synchronizer);
+                    mainPage.Navigate(typeof(SetupSynchronizationPage), new object[] { synchronizer, mainPage });
                 }
             }
             catch (OneDriveException ex)

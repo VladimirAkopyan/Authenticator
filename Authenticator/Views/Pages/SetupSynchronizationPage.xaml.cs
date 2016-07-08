@@ -28,6 +28,7 @@ namespace Authenticator_for_Windows.Views.Pages
         private string userKey;
         private PasswordVault vault;
         private ISynchronizer synchronizer;
+        private MainPage mainPage;
 
         public SetupSynchronizationPage()
         {
@@ -38,7 +39,10 @@ namespace Authenticator_for_Windows.Views.Pages
         {
             base.OnNavigatedTo(e);
 
-            synchronizer = (ISynchronizer)e.Parameter;
+            object[] parameters = (object[])e.Parameter;
+
+            synchronizer = (ISynchronizer)parameters[0];
+            mainPage = (MainPage)parameters[1];
             vault = new PasswordVault();
 
             AccountStorage.Instance.SetSynchronizer(synchronizer);
@@ -81,7 +85,7 @@ namespace Authenticator_for_Windows.Views.Pages
                 synchronizer.SetUserKey(userKey);
                 await AccountStorage.Instance.Synchronize();
 
-                Frame.Navigate(typeof(SetupSynchronizationFinishedPage));
+                Frame.Navigate(typeof(SetupSynchronizationFinishedPage), mainPage);
             }
         }
 
@@ -106,7 +110,7 @@ namespace Authenticator_for_Windows.Views.Pages
                     
                     vault.Add(new PasswordCredential(RESOURCE_NAME, USERNAME_NAME, UserKeyToValidate.Text));
 
-                    Frame.Navigate(typeof(SetupSynchronizationFinishedPage));
+                    Frame.Navigate(typeof(SetupSynchronizationFinishedPage), mainPage);
                 }
                 else
                 {

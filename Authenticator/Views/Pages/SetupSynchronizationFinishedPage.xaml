@@ -5,9 +5,32 @@
     xmlns:local="using:Authenticator_for_Windows.Views.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
-
+    xmlns:controls="using:Authenticator_for_Windows.Views.UserControls"
+    mc:Ignorable="d"
+    Loaded="Page_Loaded">
+    <Page.Resources>
+        <Storyboard x:Name="SpinSynchronize" RepeatBehavior="Forever">
+            <DoubleAnimation Duration="0:0:1" To="360" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="Synchronize" d:IsOptimized="True"/>
+        </Storyboard>
+    </Page.Resources>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <TextBlock Text="Done!" />
+        <ScrollViewer Padding="10">
+            <StackPanel>
+                <TextBlock Text="Cloudsynchronisatie geconfigureerd" HorizontalAlignment="Center" FontSize="30" TextWrapping="Wrap" TextAlignment="Center" />
+                <Grid>
+                    <TextBlock Text="&#xE753;" FontFamily="Segoe MDL2 Assets" FontSize="200" HorizontalAlignment="Center" />
+                    <TextBlock Text="&#xE73E;" FontFamily="Segoe MDL2 Assets" FontSize="70" HorizontalAlignment="Center" FontWeight="Bold" VerticalAlignment="Center" Foreground="Green" Margin="0,20,0,0" />
+                </Grid>
+                <TextBlock Text="Vanaf nu worden al uw accounts van dit apparaat gesynchroniseerd met uw accounts op uw andere Windows-apparaten waarop u cloudsynchronisatie heeft ingesteld. Let u er alstublieft op dat synchronisatie plaatsvindt op het moment dat u een account toevoegt, wijzigt of verplaatst van volgorde. Dit heeft als gevolg dat u iets langer moet wachten voordat uw wijzigingen zijn doorgevoerd, maar gewoonlijk duurt dit hooguit een paar seconden. Op het moment dat er synchronisatie plaatsvindt, kunt u dit rechtsonder zien aan de ronddraaiende synchronisatieknop (zoals hieronder)." MaxWidth="800" HorizontalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center" />
+                <Border HorizontalAlignment="Center" CornerRadius="40" Margin="10" Background="Silver">
+                    <TextBlock x:Name="Synchronize" FontFamily="Segoe MDL2 Assets" Text="&#xE895;" Padding="15" FontSize="20" RenderTransformOrigin="0.5,0.5" >
+                        <TextBlock.RenderTransform>
+                            <CompositeTransform/>
+                        </TextBlock.RenderTransform>
+                    </TextBlock>
+                </Border>
+                <Button Name="ViewCodes" Content="Bekijk uw codes" HorizontalAlignment="Stretch" MaxWidth="400" Click="ViewCodes_Click" />
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Page>

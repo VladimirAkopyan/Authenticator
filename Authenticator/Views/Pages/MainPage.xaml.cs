@@ -112,6 +112,20 @@ namespace Authenticator_for_Windows.Views.Pages
             }
         }
 
+        public void ClearBackStack()
+        {
+            Contentframe.BackStack.Clear();
+
+            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
+        }
+
+        public void NavigateToAccountsAndClearBackStack()
+        {
+            AccountsMenuItem.IsChecked = true;
+
+            ClearBackStack();
+        }
+
         public void SetTitle()
         {
             if (Contentframe.Content is Page)
