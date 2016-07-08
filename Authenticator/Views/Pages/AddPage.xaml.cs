@@ -93,6 +93,8 @@ namespace Authenticator_for_Windows.Views.Pages
         {
             Synchronize.StopAnimationAndEnable();
             Synchronize.IsEnabled = false;
+
+            SetButtonState(true);
         }
 
         private void Scan_Click(object sender, RoutedEventArgs e)
@@ -107,6 +109,7 @@ namespace Authenticator_for_Windows.Views.Pages
         private void SetButtonState(bool enabled)
         {
             Save.IsEnabled = enabled;
+            Scan.IsEnabled = enabled;
             ProgressRing.IsActive = !enabled;
         }
 
@@ -213,6 +216,8 @@ namespace Authenticator_for_Windows.Views.Pages
             if (AccountStorage.Instance.IsSynchronizing)
             {
                 Synchronize.StartAnimationAndDisable();
+
+                SetButtonState(false);
             }
         }
     }
