@@ -7,10 +7,17 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Name="Synchronize"
-    x:Uid="Synchronize" Icon="Sync" Label="Synchroniseren" RenderTransformOrigin="0.5,0.5" Tapped="Synchronize_Tapped">
+    x:Uid="Synchronize" Label="Synchroniseren" RenderTransformOrigin="0.5,0.5" Tapped="Synchronize_Tapped">
+    <AppBarButton.Icon>
+        <SymbolIcon x:Name="Symbol" Symbol="Sync" RenderTransformOrigin="0.5,0.5" >
+            <SymbolIcon.RenderTransform>
+                <CompositeTransform/>
+            </SymbolIcon.RenderTransform>
+        </SymbolIcon>
+    </AppBarButton.Icon>
     <AppBarButton.Resources>
         <Storyboard x:Name="SpinSynchronize" RepeatBehavior="Forever">
-            <DoubleAnimation Duration="0:0:1" To="360" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="Synchronize" d:IsOptimized="True"/>
+            <DoubleAnimation Duration="0:0:1" To="360" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.Rotation)" Storyboard.TargetName="Symbol" d:IsOptimized="True"/>
         </Storyboard>
     </AppBarButton.Resources>
     <AppBarButton.RenderTransform>
