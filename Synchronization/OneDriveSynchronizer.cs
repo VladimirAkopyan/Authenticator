@@ -1,6 +1,7 @@
 ﻿using Domain;
 using Microsoft.OneDrive.Sdk;
 using Newtonsoft.Json;
+using Synchronization.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -167,7 +168,8 @@ namespace Synchronization
                       .ItemWithPath(FILENAME)
                       .Content.Request()
                       .PutAsync<Item>(stream);
-                
+
+                result.Accounts = mergedAccounts.ToArray();
                 result.Successful = true;
             }
 
@@ -305,7 +307,7 @@ namespace Synchronization
             return result;
         }
 
-        public async Task<SynchronizationResult> UpdateRemoteFromLocal(IEnumerable<Account> accounts)
+        public async Task<SynchronizationResult> UpdateRemoteFromLocal(string plainAccountsBeforeChange, IEnumerable<Account> currentAccounts)
         {
             SynchronizationResult result = new SynchronizationResult()
             {
@@ -314,9 +316,51 @@ namespace Synchronization
 
             await client.AuthenticateAsync();
 
+            bool stale = false;
+
+            if (string.IsNullOrWhiteSpace(decrypted))
+            {
+                await GetFileFromOneDrive();
+                
+                stale = !Comparer.AreEqual(plainAccountsBeforeChange, decrypted);
+
+                //int index = 0;
+                //bool stale = remoteAccounts.Count() != accounts.Count();
+
+                //while (!stale && index < remoteAccounts.Count())
+                //{
+                //    Account remoteAccount = remoteAccounts.ElementAt(index);
+                //    Account localAccount = accounts.FirstOrDefault(a => a == remoteAccount);
+
+                //    if (localAccount == null)
+                //    {
+                //        stale = true;
+                //    }
+                //    else
+                //    {
+                //        stale = localAccount.IsModified;
+                //    }
+
+                //    index++;
+                //}
+            }
+            else
+            {
+                string oldDecrypted = decrypted;
+
+                await GetFileFromOneDrive();
+
+                stale = !Comparer.AreEqual(oldDecrypted, decrypted);
+            }
+
+            if (stale)
+            {
+                throw new StaleException();
+            }
+
             if (!string.IsNullOrWhiteSpace(userKey))
             {
-                string plainAccounts = JsonConvert.SerializeObject(accounts);
+                string plainAccounts = JsonConvert.SerializeObject(currentAccounts);
 
                 byte[] encrypted = Encrypt(plainAccounts, KEY, userKey);
                 int i = 0;

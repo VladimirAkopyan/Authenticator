@@ -21,6 +21,7 @@ namespace Domain.Storage
         private Account removedAccount;
         private ISynchronizer synchronizer;
         private int removedIndex;
+        private string plainStorage;
         private static AccountStorage instance;
         private static object syncRoot = new object();
 
@@ -130,6 +131,12 @@ namespace Domain.Storage
             }
 
             Clean();
+            UpdatePlainStorage();
+        }
+
+        private void UpdatePlainStorage()
+        {
+            plainStorage = JsonConvert.SerializeObject(accounts);
         }
 
         private async void Clean()
@@ -220,6 +227,8 @@ namespace Domain.Storage
                 await FileIO.WriteBufferAsync(tempFile, buffProtected);
 
                 await tempFile.MoveAndReplaceAsync(currentFile);
+
+                UpdatePlainStorage();
             }
             catch
             {
@@ -247,16 +256,23 @@ namespace Domain.Storage
 
             account.Flush();
 
-            await UpdateRemoteFromLocal();
+            try
+            {
+                await UpdateRemoteFromLocal();
 
-            await Persist();
+                await Persist();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         private async Task UpdateRemoteFromLocal()
         {
             if (synchronizer != null)
             {
-                await synchronizer.UpdateRemoteFromLocal(accounts);
+                await synchronizer.UpdateRemoteFromLocal(plainStorage, accounts);
             }
         }
 

@@ -170,7 +170,7 @@ namespace Authenticator_for_Windows.Views.Pages
                 }
                 catch (StaleException)
                 {
-
+                    // TODO: Implement this exception.
                 }
                 catch (Exception)
                 {
