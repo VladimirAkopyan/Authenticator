@@ -177,7 +177,7 @@ namespace Domain.Storage
 
             if (synchronizer != null)
             {
-                result = await synchronizer.UpdateLocalFromRemote(accounts);
+                result = await synchronizer.UpdateLocalFromRemote(plainStorage);
 
                 if (result.Accounts != null)
                 {

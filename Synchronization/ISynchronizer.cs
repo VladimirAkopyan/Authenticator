@@ -11,7 +11,7 @@ namespace Synchronization
     {
         bool IsInitialSetup { get; }
 
-        Task<SynchronizationResult> UpdateLocalFromRemote(IEnumerable<Account> accounts);
+        Task<SynchronizationResult> UpdateLocalFromRemote(string plainAccounts);
         Task<SynchronizationResult> UpdateRemoteFromLocal(string plainAccountsBeforeChange, IEnumerable<Account> currentAccounts);
         Task<SynchronizationResult> Synchronize(IEnumerable<Account> localAccounts);
         Task Setup();

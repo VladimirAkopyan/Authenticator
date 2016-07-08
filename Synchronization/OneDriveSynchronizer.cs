@@ -275,7 +275,7 @@ namespace Synchronization
             return valid;
         }
 
-        public async Task<SynchronizationResult> UpdateLocalFromRemote(IEnumerable<Account> accounts)
+        public async Task<SynchronizationResult> UpdateLocalFromRemote(string plainAccounts)
         {
             SynchronizationResult result = new SynchronizationResult();
 
@@ -284,24 +284,7 @@ namespace Synchronization
             if (!string.IsNullOrWhiteSpace(decrypted))
             {
                 result.Accounts = JsonConvert.DeserializeObject<Account[]>(decrypted);
-                result.HasChanges = false;
-
-                if (result.Accounts.Count() != accounts.Count())
-                {
-                    result.HasChanges = true;
-                }
-                else
-                {
-                    int i = 0;
-                    int max = result.Accounts.Count() > accounts.Count() ? result.Accounts.Count() : accounts.Count();
-
-                    while (!result.HasChanges && i < max)
-                    {
-                        result.HasChanges = result.Accounts.ElementAt(i) != accounts.ElementAt(i);
-
-                        i++;
-                    }
-                }
+                result.HasChanges = !Comparer.AreEqual(plainAccounts, decrypted);
             }
 
             return result;
