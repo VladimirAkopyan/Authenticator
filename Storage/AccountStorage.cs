@@ -265,6 +265,8 @@ namespace Domain.Storage
             }
 
             account.Flush();
+
+            await Persist();
         }
 
         private async Task UpdateRemoteFromLocal()
