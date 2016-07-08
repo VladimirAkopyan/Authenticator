@@ -314,79 +314,66 @@ namespace Synchronization
                 Successful = false
             };
 
-            await client.AuthenticateAsync();
-
-            bool stale = false;
-
-            if (string.IsNullOrWhiteSpace(decrypted))
+            try
             {
-                await GetFileFromOneDrive();
-                
-                stale = !Comparer.AreEqual(plainAccountsBeforeChange, decrypted);
+                await client.AuthenticateAsync();
 
-                //int index = 0;
-                //bool stale = remoteAccounts.Count() != accounts.Count();
+                bool stale = false;
 
-                //while (!stale && index < remoteAccounts.Count())
-                //{
-                //    Account remoteAccount = remoteAccounts.ElementAt(index);
-                //    Account localAccount = accounts.FirstOrDefault(a => a == remoteAccount);
-
-                //    if (localAccount == null)
-                //    {
-                //        stale = true;
-                //    }
-                //    else
-                //    {
-                //        stale = localAccount.IsModified;
-                //    }
-
-                //    index++;
-                //}
-            }
-            else
-            {
-                string oldDecrypted = decrypted;
-
-                await GetFileFromOneDrive();
-
-                stale = !Comparer.AreEqual(oldDecrypted, decrypted);
-            }
-
-            if (stale)
-            {
-                throw new StaleException();
-            }
-
-            if (!string.IsNullOrWhiteSpace(userKey))
-            {
-                string plainAccounts = JsonConvert.SerializeObject(currentAccounts);
-
-                byte[] encrypted = Encrypt(plainAccounts, KEY, userKey);
-                int i = 0;
-
-                StringBuilder builder = new StringBuilder();
-
-                foreach (byte b in encrypted)
+                if (string.IsNullOrWhiteSpace(decrypted))
                 {
-                    builder.Append(b);
+                    await GetFileFromOneDrive();
 
-                    if (i < encrypted.Length - 1)
-                    {
-                        builder.Append(" ");
-                    }
+                    stale = !Comparer.AreEqual(plainAccountsBeforeChange, decrypted);
+                }
+                else
+                {
+                    string oldDecrypted = decrypted;
 
-                    i++;
+                    await GetFileFromOneDrive();
+
+                    stale = !Comparer.AreEqual(oldDecrypted, decrypted);
                 }
 
-                Stream stream = GenerateStreamFromString(builder.ToString());
+                if (stale)
+                {
+                    throw new StaleException();
+                }
 
-                var item = await client.Drive.Special.AppRoot
-                      .ItemWithPath(FILENAME)
-                      .Content.Request()
-                      .PutAsync<Item>(stream);
+                if (!string.IsNullOrWhiteSpace(userKey))
+                {
+                    string plainAccounts = JsonConvert.SerializeObject(currentAccounts);
 
-                result.Successful = true;
+                    byte[] encrypted = Encrypt(plainAccounts, KEY, userKey);
+                    int i = 0;
+
+                    StringBuilder builder = new StringBuilder();
+
+                    foreach (byte b in encrypted)
+                    {
+                        builder.Append(b);
+
+                        if (i < encrypted.Length - 1)
+                        {
+                            builder.Append(" ");
+                        }
+
+                        i++;
+                    }
+
+                    Stream stream = GenerateStreamFromString(builder.ToString());
+
+                    var item = await client.Drive.Special.AppRoot
+                          .ItemWithPath(FILENAME)
+                          .Content.Request()
+                          .PutAsync<Item>(stream);
+
+                    result.Successful = true;
+                }
+            }
+            catch (OneDriveException)
+            {
+                throw new NetworkException();
             }
 
             return result;
