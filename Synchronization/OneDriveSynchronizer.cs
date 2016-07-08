@@ -297,7 +297,7 @@ namespace Synchronization
 
                     while (!result.HasChanges && i < max)
                     {
-                        result.HasChanges = result.Accounts.ElementAt(i) == accounts.ElementAt(i);
+                        result.HasChanges = result.Accounts.ElementAt(i) != accounts.ElementAt(i);
 
                         i++;
                     }
