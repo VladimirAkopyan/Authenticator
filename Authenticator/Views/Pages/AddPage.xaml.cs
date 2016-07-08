@@ -10,6 +10,7 @@ using Windows.ApplicationModel.Resources;
 using Domain;
 using Authenticator_for_Windows.Views.UserControls;
 using Domain.Exceptions;
+using Synchronization.Exceptions;
 
 namespace Authenticator_for_Windows.Views.Pages
 {
@@ -103,8 +104,16 @@ namespace Authenticator_for_Windows.Views.Pages
             mainPage.Navigate(typeof(ScanPage));
         }
 
+        private void SetButtonState(bool enabled)
+        {
+            Save.IsEnabled = enabled;
+            ProgressRing.IsActive = !enabled;
+        }
+
         private async void Save_Click(object sender, RoutedEventArgs e)
         {
+            SetButtonState(false);
+
             AccountBlockPanel.Visibility = Visibility.Collapsed;
 
             MainPage.ClearBanners();
@@ -159,11 +168,17 @@ namespace Authenticator_for_Windows.Views.Pages
                 {
                     MainPage.AddBanner(new Banner(BannerType.Danger, ResourceLoader.GetForCurrentView().GetString("BannerDuplicateAccount"), true));
                 }
+                catch (StaleException)
+                {
+
+                }
                 catch (Exception)
                 {
                     MainPage.AddBanner(new Banner(BannerType.Danger, ResourceLoader.GetForCurrentView().GetString("BannerUnknownError"), true));
                 }
             }
+
+            SetButtonState(true);
         }
 
         private void AccountBlock_CopyRequested(object sender, EventArgs e)
