@@ -183,7 +183,7 @@ namespace Domain.Storage
                 {
                     accounts = result.Accounts.ToList();
 
-                    await Persist();
+                    await Persist(false);
                 }
             }
 
@@ -201,11 +201,11 @@ namespace Domain.Storage
                     accounts = result.Accounts.ToList();
                 }
 
-                await Persist();
+                await Persist(false);
             }
         }
 
-        private async Task Persist()
+        private async Task Persist(bool persistRemote = true)
         {
             if (accounts == null)
             {
@@ -215,7 +215,10 @@ namespace Domain.Storage
 
             try
             {
-                await UpdateRemoteFromLocal();
+                if (persistRemote)
+                {
+                    await UpdateRemoteFromLocal();
+                }
 
                 StorageFile tempFile = await applicationData.CreateFileAsync(TEMP_ACCOUNTS_FILENAME, CreationCollisionOption.ReplaceExisting);
                 StorageFile currentFile = await applicationData.CreateFileAsync(ACCOUNTS_FILENAME, CreationCollisionOption.OpenIfExists);
@@ -273,7 +276,11 @@ namespace Domain.Storage
         {
             if (synchronizer != null)
             {
-                await synchronizer.UpdateRemoteFromLocal(plainStorage, accounts);
+                NotifySynchronizationStarted();
+
+                SynchronizationResult result = await synchronizer.UpdateRemoteFromLocal(plainStorage, accounts);
+
+                NotifySynchronizationCompleted(result);
             }
         }
 

@@ -317,23 +317,11 @@ namespace Synchronization
             try
             {
                 await client.AuthenticateAsync();
+                await GetFileFromOneDrive();
 
                 bool stale = false;
-
-                if (string.IsNullOrWhiteSpace(decrypted))
-                {
-                    await GetFileFromOneDrive();
-
-                    stale = !Comparer.AreEqual(plainAccountsBeforeChange, decrypted);
-                }
-                else
-                {
-                    string oldDecrypted = decrypted;
-
-                    await GetFileFromOneDrive();
-
-                    stale = !Comparer.AreEqual(oldDecrypted, decrypted);
-                }
+                
+                stale = !Comparer.AreEqual(plainAccountsBeforeChange, decrypted);
 
                 if (stale)
                 {

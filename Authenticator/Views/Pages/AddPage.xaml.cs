@@ -112,6 +112,7 @@ namespace Authenticator_for_Windows.Views.Pages
 
         private async void Save_Click(object sender, RoutedEventArgs e)
         {
+            Synchronize.StartAnimationAndDisable();
             SetButtonState(false);
 
             AccountBlockPanel.Visibility = Visibility.Collapsed;
@@ -183,6 +184,8 @@ namespace Authenticator_for_Windows.Views.Pages
             }
 
             SetButtonState(true);
+            Synchronize.StopAnimationAndEnable();
+            Synchronize.IsEnabled = false;
         }
 
         private void AccountBlock_CopyRequested(object sender, EventArgs e)

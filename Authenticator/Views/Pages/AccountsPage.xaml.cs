@@ -13,6 +13,7 @@ using System.Collections.Specialized;
 using Domain;
 using Synchronization;
 using System.Threading.Tasks;
+using Synchronization.Exceptions;
 
 namespace Authenticator_for_Windows.Views.Pages
 {
@@ -200,11 +201,22 @@ namespace Authenticator_for_Windows.Views.Pages
 
         private async void ConfirmDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            KeyValuePair<Account, AccountBlock> account = mappings.FirstOrDefault(m => m.Key == selectedAccount);
+            try
+            {
+                KeyValuePair<Account, AccountBlock> account = mappings.FirstOrDefault(m => m.Key == selectedAccount);
 
-            await AccountStorage.Instance.RemoveAsync(account.Key);
+                await AccountStorage.Instance.RemoveAsync(account.Key);
 
-            account.Value.Remove();
+                account.Value.Remove();
+            }
+            catch (StaleException)
+            {
+
+            }
+            catch (NetworkException)
+            {
+
+            }
         }
 
         private void TimeProgressBar_TimeElapsed(object sender, EventArgs e)
