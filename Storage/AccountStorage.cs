@@ -210,29 +210,39 @@ namespace Domain.Storage
             if (accounts == null)
             {
                 accounts = new List<Account>();
+                UpdatePlainStorage();
             }
-
-            StorageFile tempFile = await applicationData.CreateFileAsync(TEMP_ACCOUNTS_FILENAME, CreationCollisionOption.ReplaceExisting);
-            StorageFile currentFile = await applicationData.CreateFileAsync(ACCOUNTS_FILENAME, CreationCollisionOption.OpenIfExists);
 
             try
             {
-                DataProtectionProvider provider = new DataProtectionProvider(DESCRIPTOR);
+                await UpdateRemoteFromLocal();
 
-                string data = JsonConvert.SerializeObject(accounts);
+                StorageFile tempFile = await applicationData.CreateFileAsync(TEMP_ACCOUNTS_FILENAME, CreationCollisionOption.ReplaceExisting);
+                StorageFile currentFile = await applicationData.CreateFileAsync(ACCOUNTS_FILENAME, CreationCollisionOption.OpenIfExists);
 
-                IBuffer buffMsg = CryptographicBuffer.ConvertStringToBinary(data, BinaryStringEncoding.Utf8);
-                IBuffer buffProtected = await provider.ProtectAsync(buffMsg);
+                try
+                {
+                    DataProtectionProvider provider = new DataProtectionProvider(DESCRIPTOR);
 
-                await FileIO.WriteBufferAsync(tempFile, buffProtected);
+                    string data = JsonConvert.SerializeObject(accounts);
 
-                await tempFile.MoveAndReplaceAsync(currentFile);
+                    IBuffer buffMsg = CryptographicBuffer.ConvertStringToBinary(data, BinaryStringEncoding.Utf8);
+                    IBuffer buffProtected = await provider.ProtectAsync(buffMsg);
 
-                UpdatePlainStorage();
+                    await FileIO.WriteBufferAsync(tempFile, buffProtected);
+
+                    await tempFile.MoveAndReplaceAsync(currentFile);
+
+                    UpdatePlainStorage();
+                }
+                catch
+                {
+                    // TODO: Add logging.
+                }
             }
-            catch
+            catch (Exception e)
             {
-                // TODO: Add logging.
+                throw e;
             }
         }
 
@@ -255,17 +265,6 @@ namespace Domain.Storage
             }
 
             account.Flush();
-
-            try
-            {
-                await UpdateRemoteFromLocal();
-
-                await Persist();
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
         }
 
         private async Task UpdateRemoteFromLocal()
