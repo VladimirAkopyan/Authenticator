@@ -24,6 +24,7 @@ namespace Synchronization
         private string content;
         private string decrypted;
         private IOneDriveClient client;
+        private AccountSession session;
 
         public bool IsInitialSetup
         {
@@ -44,6 +45,14 @@ namespace Synchronization
             this.userKey = userKey;
         }
 
+        private async Task AuthenticateAsync()
+        {
+            if (session == null)
+            {
+                session = await client.AuthenticateAsync();
+            }
+        }
+
         public async Task Setup()
         {
             await GetFileFromOneDrive();
@@ -53,7 +62,7 @@ namespace Synchronization
         {
             try
             {
-                AccountSession session = await client.AuthenticateAsync();
+                await AuthenticateAsync();
 
                 IItemRequestBuilder builder = client.Drive.Special.AppRoot.ItemWithPath(FILENAME);
                 Item file = await builder.Request().GetAsync();
@@ -301,7 +310,7 @@ namespace Synchronization
 
             try
             {
-                await client.AuthenticateAsync();
+                await AuthenticateAsync();
                 await GetFileFromOneDrive();
 
                 bool stale = false;
