@@ -12,6 +12,7 @@ using System.Text.RegularExpressions;
 using Authenticator_for_Windows.Views.UserControls;
 using Windows.ApplicationModel.Resources;
 using Domain.Storage;
+using Encryption;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -80,9 +81,11 @@ namespace Authenticator_for_Windows.Views.Pages
             IOneDriveClient oneDriveClient = OneDriveClientExtensions.GetUniversalClient(new[] { "onedrive.appfolder" });
             AccountSession session = await oneDriveClient.AuthenticateAsync();
 
+            IEncrypter encrypter = new AESEncrypter();
+
             if (session.AccountType == AccountType.MicrosoftAccount)
             {
-                synchronizer.SetUserKey(userKey);
+                synchronizer.SetEncrypter(encrypter, userKey);
                 await AccountStorage.Instance.Synchronize();
 
                 Frame.Navigate(typeof(SetupSynchronizationFinishedPage), mainPage);
@@ -105,13 +108,15 @@ namespace Authenticator_for_Windows.Views.Pages
 
                 VisualStateManager.GoToState(this, ShowLoading.Name, true);
 
+                IEncrypter encrypter = new AESEncrypter();
+                synchronizer.SetEncrypter(encrypter, UserKeyToValidate.Text);
+
                 bool result = await synchronizer.DecryptWithKey(UserKeyToValidate.Text);
 
                 if (result)
                 {
                     Status.Text = "Uw accounts worden met de cloud gesynchroniseerd...";
-
-                    synchronizer.SetUserKey(UserKeyToValidate.Text);
+                    
                     await AccountStorage.Instance.Synchronize();
                     
                     vault.Add(new PasswordCredential(RESOURCE_NAME, USERNAME_NAME, UserKeyToValidate.Text));

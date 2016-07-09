@@ -8,8 +8,10 @@ namespace Encryption
 {
     public interface IEncrypter
     {
+        string Password { set; }
         string Salt { set; }
         string Encrypt(string unencryptedText);
         string Decrypt(string encryptedText);
+        bool IsInitialized { get; }
     }
 }

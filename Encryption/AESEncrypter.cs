@@ -9,7 +9,7 @@ namespace Encryption
     public class AESEncrypter : IEncrypter
     {
         private string _salt;
-        private string password;
+        private string _password;
 
         public string Salt
         {
@@ -19,16 +19,27 @@ namespace Encryption
             }
         }
 
-        public AESEncrypter(string password)
+        public string Password
         {
-            this.password = password;
+            set
+            {
+                _password = value;
+            }
+        }
+
+        public bool IsInitialized
+        {
+            get
+            {
+                return !string.IsNullOrWhiteSpace(_salt) && !string.IsNullOrWhiteSpace(_password);
+            }
         }
 
         public string Decrypt(string encryptedText)
         {
             byte[] encryptedBytes = StringToBytes(encryptedText);
 
-            IBuffer pwBuffer = CryptographicBuffer.ConvertStringToBinary(password, BinaryStringEncoding.Utf8);
+            IBuffer pwBuffer = CryptographicBuffer.ConvertStringToBinary(_password, BinaryStringEncoding.Utf8);
             IBuffer saltBuffer = CryptographicBuffer.ConvertStringToBinary(_salt, BinaryStringEncoding.Utf16LE);
             IBuffer cipherBuffer = CryptographicBuffer.CreateFromByteArray(encryptedBytes);
 
@@ -61,7 +72,7 @@ namespace Encryption
 
         public string Encrypt(string unencryptedText)
         {
-            IBuffer pwBuffer = CryptographicBuffer.ConvertStringToBinary(password, BinaryStringEncoding.Utf8);
+            IBuffer pwBuffer = CryptographicBuffer.ConvertStringToBinary(_password, BinaryStringEncoding.Utf8);
             IBuffer saltBuffer = CryptographicBuffer.ConvertStringToBinary(_salt, BinaryStringEncoding.Utf16LE);
             IBuffer plainBuffer = CryptographicBuffer.ConvertStringToBinary(unencryptedText, BinaryStringEncoding.Utf16LE);
 

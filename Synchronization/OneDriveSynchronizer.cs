@@ -1,4 +1,5 @@
 ﻿using Domain;
+using Encryption;
 using Microsoft.OneDrive.Sdk;
 using Newtonsoft.Json;
 using Synchronization.Exceptions;
@@ -17,13 +18,13 @@ namespace Synchronization
     public class OneDriveSynchronizer : ISynchronizer
     {
         private const string FILENAME = "Accounts.dat";
-        private const string KEY = "P`31ba]6a'v+zu3B~oS4|Qcjzd>1,]";
+        private const string PASSWORD = "P`31ba]6a'v+zu3B~oS4|Qcjzd>1,]";
 
         private bool _isInitialSetup;
-        private string userKey;
         private string content;
         private string decrypted;
         private IOneDriveClient client;
+        private IEncrypter encrypter;
         private AccountSession session;
 
         public bool IsInitialSetup
@@ -34,15 +35,21 @@ namespace Synchronization
             }
         }
 
-        public OneDriveSynchronizer(IOneDriveClient client) : this(client, null)
+        public OneDriveSynchronizer(IOneDriveClient client) : this(client, null, null)
         {
             
         }
 
-        public OneDriveSynchronizer(IOneDriveClient client, string userKey)
+        public OneDriveSynchronizer(IOneDriveClient client, IEncrypter encrypter, string userKey)
         {
             this.client = client;
-            this.userKey = userKey;
+            this.encrypter = encrypter;
+
+            if (this.encrypter != null)
+            {
+                encrypter.Salt = userKey;
+                encrypter.Password = PASSWORD;
+            }
         }
 
         private async Task AuthenticateAsync()
@@ -74,14 +81,9 @@ namespace Synchronization
                     content = await reader.ReadToEndAsync();
                 }
 
-                byte[] bytes = StringToBytes(content);
-
-                if (!string.IsNullOrWhiteSpace(content))
+                if (!string.IsNullOrWhiteSpace(content) && encrypter != null && encrypter.IsInitialized)
                 {
-                    if (!string.IsNullOrWhiteSpace(userKey))
-                    {
-                        decrypted = Decrypt(bytes, KEY, userKey);
-                    }
+                    decrypted = encrypter.Decrypt(content);
 
                     _isInitialSetup = false;
                 }
@@ -93,28 +95,6 @@ namespace Synchronization
                     _isInitialSetup = true;
                 }
             }
-        }
-
-        private byte[] StringToBytes(string content)
-        {
-            string[] parts = content.Split(' ');
-            byte[] bytes = new byte[parts.Length];
-            int index = 0;
-
-            foreach (string part in parts)
-            {
-                if (!string.IsNullOrWhiteSpace(part))
-                {
-                    int currentNumber = int.Parse(part);
-                    byte currentPart = Convert.ToByte(currentNumber);
-
-                    bytes[index] = currentPart;
-                }
-
-                index++;
-            }
-
-            return bytes;
         }
 
         public Stream GenerateStreamFromString(string s)
@@ -135,7 +115,7 @@ namespace Synchronization
                 Successful = false
             };
 
-            if (!string.IsNullOrWhiteSpace(userKey))
+            if (encrypter != null && encrypter.IsInitialized)
             {
                 await GetFileFromOneDrive();
 
@@ -153,25 +133,9 @@ namespace Synchronization
                 }
 
                 string plainContents = JsonConvert.SerializeObject(mergedAccounts);
+                string encrypted = encrypter.Encrypt(plainContents);
 
-                byte[] encrypted = Encrypt(plainContents, KEY, userKey);
-                int i = 0;
-
-                StringBuilder builder = new StringBuilder();
-
-                foreach (byte b in encrypted)
-                {
-                    builder.Append(b);
-
-                    if (i < encrypted.Length - 1)
-                    {
-                        builder.Append(" ");
-                    }
-
-                    i++;
-                }
-
-                Stream stream = GenerateStreamFromString(builder.ToString());
+                Stream stream = GenerateStreamFromString(encrypted);
 
                 var item = await client.Drive.Special.AppRoot
                       .ItemWithPath(FILENAME)
@@ -185,77 +149,15 @@ namespace Synchronization
             return result;
         }
 
-        public static byte[] Encrypt(string plainText, string pw, string salt)
+        public void SetEncrypter(IEncrypter encrypter, string userKey)
         {
-            IBuffer pwBuffer = CryptographicBuffer.ConvertStringToBinary(pw, BinaryStringEncoding.Utf8);
-            IBuffer saltBuffer = CryptographicBuffer.ConvertStringToBinary(salt, BinaryStringEncoding.Utf16LE);
-            IBuffer plainBuffer = CryptographicBuffer.ConvertStringToBinary(plainText, BinaryStringEncoding.Utf16LE);
-
-            // Derive key material for password size 32 bytes for AES256 algorithm
-            KeyDerivationAlgorithmProvider keyDerivationProvider = Windows.Security.Cryptography.Core.KeyDerivationAlgorithmProvider.OpenAlgorithm("PBKDF2_SHA1");
-            // using salt and 1000 iterations
-            KeyDerivationParameters pbkdf2Parms = KeyDerivationParameters.BuildForPbkdf2(saltBuffer, 1000);
-
-            // create a key based on original key and derivation parmaters
-            CryptographicKey keyOriginal = keyDerivationProvider.CreateKey(pwBuffer);
-            IBuffer keyMaterial = CryptographicEngine.DeriveKeyMaterial(keyOriginal, pbkdf2Parms, 32);
-            CryptographicKey derivedPwKey = keyDerivationProvider.CreateKey(pwBuffer);
-
-            // derive buffer to be used for encryption salt from derived password key 
-            IBuffer saltMaterial = CryptographicEngine.DeriveKeyMaterial(derivedPwKey, pbkdf2Parms, 16);
-
-            // display the buffers – because KeyDerivationProvider always gets cleared after each use, they are very similar unforunately
-            string keyMaterialString = CryptographicBuffer.EncodeToBase64String(keyMaterial);
-            string saltMaterialString = CryptographicBuffer.EncodeToBase64String(saltMaterial);
-
-            SymmetricKeyAlgorithmProvider symProvider = SymmetricKeyAlgorithmProvider.OpenAlgorithm("AES_CBC_PKCS7");
-            // create symmetric key from derived password key
-            CryptographicKey symmKey = symProvider.CreateSymmetricKey(keyMaterial);
-
-            // encrypt data buffer using symmetric key and derived salt material
-            IBuffer resultBuffer = CryptographicEngine.Encrypt(symmKey, plainBuffer, saltMaterial);
-            byte[] result;
-            CryptographicBuffer.CopyToByteArray(resultBuffer, out result);
-
-            return result;
-        }
-
-        public static string Decrypt(byte[] encryptedData, string pw, string salt)
-        {
-            IBuffer pwBuffer = CryptographicBuffer.ConvertStringToBinary(pw, BinaryStringEncoding.Utf8);
-            IBuffer saltBuffer = CryptographicBuffer.ConvertStringToBinary(salt, BinaryStringEncoding.Utf16LE);
-            IBuffer cipherBuffer = CryptographicBuffer.CreateFromByteArray(encryptedData);
-
-            // Derive key material for password size 32 bytes for AES256 algorithm
-            KeyDerivationAlgorithmProvider keyDerivationProvider = Windows.Security.Cryptography.Core.KeyDerivationAlgorithmProvider.OpenAlgorithm("PBKDF2_SHA1");
-            // using salt and 1000 iterations
-            KeyDerivationParameters pbkdf2Parms = KeyDerivationParameters.BuildForPbkdf2(saltBuffer, 1000);
-
-            // create a key based on original key and derivation parmaters
-            CryptographicKey keyOriginal = keyDerivationProvider.CreateKey(pwBuffer);
-            IBuffer keyMaterial = CryptographicEngine.DeriveKeyMaterial(keyOriginal, pbkdf2Parms, 32);
-            CryptographicKey derivedPwKey = keyDerivationProvider.CreateKey(pwBuffer);
-
-            // derive buffer to be used for encryption salt from derived password key 
-            IBuffer saltMaterial = CryptographicEngine.DeriveKeyMaterial(derivedPwKey, pbkdf2Parms, 16);
-
-            // display the keys – because KeyDerivationProvider always gets cleared after each use, they are very similar unforunately
-            string keyMaterialString = CryptographicBuffer.EncodeToBase64String(keyMaterial);
-            string saltMaterialString = CryptographicBuffer.EncodeToBase64String(saltMaterial);
-
-            SymmetricKeyAlgorithmProvider symProvider = SymmetricKeyAlgorithmProvider.OpenAlgorithm("AES_CBC_PKCS7");
-            // create symmetric key from derived password material
-            CryptographicKey symmKey = symProvider.CreateSymmetricKey(keyMaterial);
-
-            // encrypt data buffer using symmetric key and derived salt material
-            IBuffer resultBuffer = CryptographicEngine.Decrypt(symmKey, cipherBuffer, saltMaterial);
-            string result = CryptographicBuffer.ConvertBinaryToString(BinaryStringEncoding.Utf16LE, resultBuffer);
-            return result;
-        }
-
-        public void SetUserKey(string userKey)
-        {
-            this.userKey = userKey;
+            this.encrypter = encrypter;
+            
+            if (this.encrypter != null)
+            {
+                this.encrypter.Salt = userKey;
+                this.encrypter.Password = PASSWORD;
+            }
         }
 
         public async Task<bool> DecryptWithKey(string userKey)
@@ -264,22 +166,18 @@ namespace Synchronization
 
             await GetFileFromOneDrive();
 
-            if (!string.IsNullOrWhiteSpace(content) && !string.IsNullOrWhiteSpace(userKey))
+            if (!string.IsNullOrWhiteSpace(content))
             {
-                if (!string.IsNullOrWhiteSpace(userKey))
+                try
                 {
-                    try
-                    {
-                        byte[] bytes = StringToBytes(content);
+                    encrypter.Salt = userKey;
+                    decrypted = encrypter.Decrypt(content);
 
-                        decrypted = Decrypt(bytes, KEY, userKey);
-
-                        valid = true;
-                    }
-                    catch
-                    {
-                        valid = false;
-                    }
+                    valid = true;
+                }
+                catch
+                {
+                    valid = false;
                 }
             }
 
@@ -322,28 +220,12 @@ namespace Synchronization
                     throw new StaleException();
                 }
 
-                if (!string.IsNullOrWhiteSpace(userKey))
+                if (encrypter != null && encrypter.IsInitialized)
                 {
                     string plainAccounts = JsonConvert.SerializeObject(currentAccounts);
+                    string encrypted = encrypter.Encrypt(plainAccounts);
 
-                    byte[] encrypted = Encrypt(plainAccounts, KEY, userKey);
-                    int i = 0;
-
-                    StringBuilder builder = new StringBuilder();
-
-                    foreach (byte b in encrypted)
-                    {
-                        builder.Append(b);
-
-                        if (i < encrypted.Length - 1)
-                        {
-                            builder.Append(" ");
-                        }
-
-                        i++;
-                    }
-
-                    Stream stream = GenerateStreamFromString(builder.ToString());
+                    Stream stream = GenerateStreamFromString(encrypted);
 
                     var item = await client.Drive.Special.AppRoot
                           .ItemWithPath(FILENAME)

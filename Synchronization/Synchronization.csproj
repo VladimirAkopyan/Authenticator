@@ -122,6 +122,10 @@
       <Project>{DB694060-DEC8-4E03-A467-CE2E9E0E8502}</Project>
       <Name>Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Encryption\Encryption.csproj">
+      <Project>{77BF15E1-495C-4E1C-85D3-29074A140196}</Project>
+      <Name>Encryption</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

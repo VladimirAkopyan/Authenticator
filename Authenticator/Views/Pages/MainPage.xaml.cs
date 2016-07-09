@@ -9,6 +9,7 @@ using Windows.Security.Credentials;
 using Synchronization;
 using Microsoft.OneDrive.Sdk;
 using Domain.Storage;
+using Encryption;
 
 namespace Authenticator_for_Windows.Views.Pages
 {
@@ -25,8 +26,7 @@ namespace Authenticator_for_Windows.Views.Pages
 
             // Navigate to the first page
             Navigate(typeof(AccountsPage), this);
-
-
+            
             PasswordVault vault = new PasswordVault();
             IReadOnlyList<PasswordCredential> credentials = vault.RetrieveAll();
 
@@ -35,7 +35,9 @@ namespace Authenticator_for_Windows.Views.Pages
                 credentials[0].RetrievePassword();
 
                 ISynchronizer synchronizer = new OneDriveSynchronizer(OneDriveClientExtensions.GetUniversalClient(new[] { "onedrive.appfolder" }));
-                synchronizer.SetUserKey(credentials[0].Password);
+                IEncrypter encrypter = new AESEncrypter();
+
+                synchronizer.SetEncrypter(encrypter, credentials[0].Password);
 
                 AccountStorage.Instance.SetSynchronizer(synchronizer);
             }

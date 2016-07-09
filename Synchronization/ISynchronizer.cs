@@ -1,4 +1,5 @@
 ﻿using Domain;
+using Encryption;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace Synchronization
         Task<SynchronizationResult> UpdateRemoteFromLocal(string plainAccountsBeforeChange, IEnumerable<Account> currentAccounts);
         Task<SynchronizationResult> Synchronize(IEnumerable<Account> localAccounts);
         Task Setup();
-        void SetUserKey(string userKey);
+        void SetEncrypter(IEncrypter encrypter, string userKey);
         Task<bool> DecryptWithKey(string userKey);
     }
 }
