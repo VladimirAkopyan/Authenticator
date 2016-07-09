@@ -16,6 +16,6 @@ namespace Synchronization
         Task<SynchronizationResult> Synchronize(IEnumerable<Account> localAccounts);
         Task Setup();
         void SetUserKey(string userKey);
-        bool DecryptWithKey(string userKey);
+        Task<bool> DecryptWithKey(string userKey);
     }
 }

@@ -249,9 +249,11 @@ namespace Synchronization
             this.userKey = userKey;
         }
 
-        public bool DecryptWithKey(string userKey)
+        public async Task<bool> DecryptWithKey(string userKey)
         {
             bool valid = false;
+
+            await GetFileFromOneDrive();
 
             if (!string.IsNullOrWhiteSpace(content) && !string.IsNullOrWhiteSpace(userKey))
             {

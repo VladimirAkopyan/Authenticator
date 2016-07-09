@@ -10,12 +10,12 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="VisualStateError">
-                <VisualState x:Name="ShowSynchronizing">
+                <VisualState x:Name="ShowLoading">
                     <VisualState.Setters>
-                        <Setter Target="Synchronizing.(UIElement.Visibility)" Value="Visible"/>
+                        <Setter Target="Loading.(UIElement.Visibility)" Value="Visible"/>
                     </VisualState.Setters>
                     <Storyboard>
-                        <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" Storyboard.TargetName="Synchronizing">
+                        <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" Storyboard.TargetName="Loading">
                             <EasingColorKeyFrame KeyTime="0" Value="#00000000"/>
                             <EasingColorKeyFrame KeyTime="0:0:0.5" Value="#E5000000"/>
                         </ColorAnimationUsingKeyFrames>
@@ -48,10 +48,10 @@
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>
-        <Grid x:Name="Synchronizing" Background="#E5000000" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Visibility="Collapsed">
+        <Grid x:Name="Loading" Background="#E5000000" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Visibility="Collapsed">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                 <ProgressRing Height="50" Width="50" VerticalAlignment="Center" Foreground="White" IsActive="True" />
-                <TextBlock Text="Uw accounts worden met de cloud gesynchroniseerd..." RequestedTheme="Dark" FontSize="26.667" TextWrapping="Wrap" TextAlignment="Center" />
+                <TextBlock Name="Status" Text="STATUS" RequestedTheme="Dark" FontSize="26.667" TextWrapping="Wrap" TextAlignment="Center" />
             </StackPanel>
         </Grid>
     </Grid>

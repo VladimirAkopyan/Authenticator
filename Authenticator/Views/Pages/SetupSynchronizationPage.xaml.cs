@@ -75,7 +75,7 @@ namespace Authenticator_for_Windows.Views.Pages
 
         private async void Continue_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            VisualStateManager.GoToState(this, ShowSynchronizing.Name, true);
+            VisualStateManager.GoToState(this, ShowLoading.Name, true);
             
             IOneDriveClient oneDriveClient = OneDriveClientExtensions.GetUniversalClient(new[] { "onedrive.appfolder" });
             AccountSession session = await oneDriveClient.AuthenticateAsync();
@@ -101,9 +101,15 @@ namespace Authenticator_for_Windows.Views.Pages
         {
             if (UserKeyToValidate.Text.Length == 23)
             {
-                if (synchronizer.DecryptWithKey(UserKeyToValidate.Text))
+                Status.Text = "Uw sleutel wordt gecontroleerd...";
+
+                VisualStateManager.GoToState(this, ShowLoading.Name, true);
+
+                bool result = await synchronizer.DecryptWithKey(UserKeyToValidate.Text);
+
+                if (result)
                 {
-                    VisualStateManager.GoToState(this, ShowSynchronizing.Name, true);
+                    Status.Text = "Uw accounts worden met de cloud gesynchroniseerd...";
 
                     synchronizer.SetUserKey(UserKeyToValidate.Text);
                     await AccountStorage.Instance.Synchronize();
