@@ -14,6 +14,7 @@ using System.IO;
 using Windows.Security.Credentials;
 using Authenticator_for_Windows.Views.UserControls;
 using Windows.UI.Xaml.Controls.Primitives;
+using Domain.Storage;
 
 namespace Authenticator_for_Windows.Views.Pages
 {
@@ -181,6 +182,9 @@ namespace Authenticator_for_Windows.Views.Pages
             }
 
             await oneDriveClient.SignOutAsync();
+
+            TurnOffSynchronization.Hide();
+            AccountStorage.Instance.SetSynchronizer(null);
 
             ShowInformation();
         }
