@@ -199,7 +199,7 @@ Wij zullen u nooit storen met vervelende vragen om onze app te beoordelen. Als u
   <data name="PrivacyDeclarationPage.Tag" xml:space="preserve">
     <value>Privacyverklaring</value>
   </data>
-  <data name="Save.Content" xml:space="preserve">
+  <data name="Save" xml:space="preserve">
     <value>Opslaan</value>
   </data>
   <data name="Scan.Label" xml:space="preserve">

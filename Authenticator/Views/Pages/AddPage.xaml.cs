@@ -64,7 +64,7 @@ namespace Authenticator_for_Windows.Views.Pages
 
                             if (!string.IsNullOrWhiteSpace(AccountService.Text))
                             {
-                                Save_Click(null, null);
+                                Save_Tapped(null, null);
                             }
                         }
                         else
@@ -108,12 +108,42 @@ namespace Authenticator_for_Windows.Views.Pages
 
         private void SetButtonState(bool enabled)
         {
-            Save.IsEnabled = enabled;
             Scan.IsEnabled = enabled;
-            ProgressRing.IsActive = !enabled;
+
+            Save.IsLoading = !enabled;
         }
 
-        private async void Save_Click(object sender, RoutedEventArgs e)
+        private void AccountBlock_CopyRequested(object sender, EventArgs e)
+        {
+            CodeCopiedNotification.Animate();
+        }
+
+        private void OpenFlyout(object sender, RoutedEventArgs e)
+        {
+            FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);
+        }
+
+        private void TimeProgressBar_TimeElapsed(object sender, EventArgs e)
+        {
+            if (accountBlock != null)
+            {
+                accountBlock.Update();
+            }
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            AccountStorage.Instance.SynchronizationCompleted += SynchronizationCompleted;
+
+            if (AccountStorage.Instance.IsSynchronizing)
+            {
+                Synchronize.StartAnimationAndDisable();
+
+                SetButtonState(false);
+            }
+        }
+
+        private async void Save_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
             Synchronize.StartAnimationAndDisable();
             SetButtonState(false);
@@ -189,36 +219,6 @@ namespace Authenticator_for_Windows.Views.Pages
             SetButtonState(true);
             Synchronize.StopAnimationAndEnable();
             Synchronize.IsEnabled = false;
-        }
-
-        private void AccountBlock_CopyRequested(object sender, EventArgs e)
-        {
-            CodeCopiedNotification.Animate();
-        }
-
-        private void OpenFlyout(object sender, RoutedEventArgs e)
-        {
-            FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);
-        }
-
-        private void TimeProgressBar_TimeElapsed(object sender, EventArgs e)
-        {
-            if (accountBlock != null)
-            {
-                accountBlock.Update();
-            }
-        }
-
-        private void Page_Loaded(object sender, RoutedEventArgs e)
-        {
-            AccountStorage.Instance.SynchronizationCompleted += SynchronizationCompleted;
-
-            if (AccountStorage.Instance.IsSynchronizing)
-            {
-                Synchronize.StartAnimationAndDisable();
-
-                SetButtonState(false);
-            }
         }
     }
 }

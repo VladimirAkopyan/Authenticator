@@ -199,7 +199,7 @@ We will never interrupt you with annoying questions to rate our app. If you have
   <data name="PrivacyDeclarationPage.Tag" xml:space="preserve">
     <value>Privacy declaration</value>
   </data>
-  <data name="Save.Content" xml:space="preserve">
+  <data name="Save" xml:space="preserve">
     <value>Save</value>
   </data>
   <data name="Scan.Label" xml:space="preserve">
