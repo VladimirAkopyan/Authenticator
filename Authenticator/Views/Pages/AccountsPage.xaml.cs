@@ -151,25 +151,43 @@ namespace Authenticator_for_Windows.Views.Pages
 
         private async void HandleReorder()
         {
-            await AccountStorage.Instance.ReorderAsync(reorderFrom, reorderTo);
+            try
+            {
+                await AccountStorage.Instance.ReorderAsync(reorderFrom, reorderTo);
+            }
+            catch (Exception e)
+            {
+                mainPage.Navigate(typeof(ErrorPage), e);
+            }
         }
 
         private void Code_Removed(object sender, EventArgs e)
         {
-            OpenUndo.Begin();
-
-            AccountBlock accountBlock = sender as AccountBlock;
-            removedAccountBlock = accountBlock;
-            removedIndex = accountBlocks.IndexOf(accountBlock);
-
-            if (accountBlock != null)
+            try
             {
-                accountBlocks.Remove(accountBlock);
+                OpenUndo.Begin();
+
+                AccountBlock accountBlock = sender as AccountBlock;
+                removedAccountBlock = accountBlock;
+                removedIndex = accountBlocks.IndexOf(accountBlock);
+
+                if (accountBlock != null)
+                {
+                    accountBlocks.Remove(accountBlock);
+                }
+
+                CheckEntries();
+
+                undoTimer.Start();
             }
-
-            CheckEntries();
-
-            undoTimer.Start();
+            catch (NetworkException)
+            {
+                // TODO: Show banner.
+            }
+            catch (Exception ex)
+            {
+                mainPage.Navigate(typeof(ErrorPage), ex);
+            }
         }
 
         private void CheckEntries()
@@ -295,9 +313,9 @@ namespace Authenticator_for_Windows.Views.Pages
             {
                 await AccountStorage.Instance.UpdateLocalFromRemote();
             }
-            catch (RemovedSynchronizationException)
+            catch (Exception ex)
             {
-                mainPage.Navigate(typeof(ErrorPage));
+                mainPage.Navigate(typeof(ErrorPage), ex);
             }
         }
     }

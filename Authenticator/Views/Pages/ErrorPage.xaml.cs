@@ -36,9 +36,13 @@ namespace Authenticator_for_Windows.Views.Pages
             {
 
             }
-            else if (exception.GetType() == typeof(InvalidKeyException))
+            else if (exception.GetType() == typeof(NetworkException))
             {
 
+            }
+            else if (exception.GetType() == typeof(InvalidKeyException))
+            {
+                removeCloudSynchronization = true;
             }
             else if (exception.GetType() == typeof(RemovedSynchronizationException))
             {
