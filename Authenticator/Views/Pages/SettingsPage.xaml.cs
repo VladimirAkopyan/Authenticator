@@ -168,7 +168,7 @@ namespace Authenticator_for_Windows.Views.Pages
         
         private async Task DisableSynchronization()
         {
-            IReadOnlyList<PasswordCredential> credentials = vault.FindAllByResource(RESOURCE_NAME);
+            IReadOnlyList<PasswordCredential> credentials = vault.RetrieveAll();
 
             foreach (PasswordCredential credential in credentials)
             {
@@ -225,6 +225,8 @@ namespace Authenticator_for_Windows.Views.Pages
             {
                 try
                 {
+                    VisualStateManager.GoToState(this, ShowLoading.Name, true);
+
                     ISynchronizer synchronizer = new OneDriveSynchronizer(oneDriveClient);
                     bool result = await synchronizer.Remove();
 
@@ -250,6 +252,8 @@ namespace Authenticator_for_Windows.Views.Pages
 
                 await DisableSynchronization();
                 ShowInformation();
+
+                VisualStateManager.GoToState(this, HideLoading.Name, true);
             }
         }
 
