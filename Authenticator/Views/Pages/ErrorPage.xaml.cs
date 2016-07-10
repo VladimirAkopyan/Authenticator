@@ -48,6 +48,10 @@ namespace Authenticator_for_Windows.Views.Pages
             {
                 removeCloudSynchronization = true;
             }
+            else
+            {
+
+            }
 
             if (removeCloudSynchronization)
             {
@@ -62,6 +66,9 @@ namespace Authenticator_for_Windows.Views.Pages
                 AccountStorage.Instance.SetSynchronizer(null);
                 SettingsManager.Save(Setting.UseCloudSynchronization, false);
             }
+
+            Type.Text = "Type: " + exception.GetType().ToString();
+            TurnedOffCloudSynchronization.Text = TurnedOffCloudSynchronization.Text + ": " + (removeCloudSynchronization ? "YES" : "NO");
         }
     }
 }

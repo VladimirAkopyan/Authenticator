@@ -9,6 +9,8 @@
     Loaded="Page_Loaded">
 
     <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <TextBlock Text="Cloud synchronization disabled from another device." />
+        <TextBlock Text="ERROR!" />
+        <TextBlock Name="Type" Text="Type: " />
+        <TextBlock Name="TurnedOffCloudSynchronization" Text="Turned off cloud synchronization: " />
     </StackPanel>
 </Page>

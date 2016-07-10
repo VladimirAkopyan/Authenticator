@@ -331,10 +331,12 @@ namespace Domain.Storage
             {
                 await Persist();
             }
-            catch (StaleException)
+            catch (StaleException e)
             {
+                // If the latest version is stale, take the remote version and rethrow the exception
                 await UpdateLocalFromRemote();
-                await RemoveAsync(account);
+
+                throw e;
             }
         }
 
@@ -345,14 +347,34 @@ namespace Domain.Storage
             accounts.Remove(account);
             accounts.Insert(toIndex, account);
 
-            await Persist();
+            try
+            {
+                await Persist();
+            }
+            catch (StaleException e)
+            {
+                // If the latest version is stale, take the remote version and rethrow the exception
+                await UpdateLocalFromRemote();
+
+                throw e;
+            }
         }
 
         public async Task UndoRemoveAsync()
         {
             accounts.Insert(removedIndex, removedAccount);
 
-            await Persist();
+            try
+            {
+                await Persist();
+            }
+            catch (StaleException e)
+            {
+                // If the latest version is stale, take the remote version and rethrow the exception
+                await UpdateLocalFromRemote();
+
+                throw e;
+            }
         }
 
         public async Task<string> GetPlainStorageAsync()

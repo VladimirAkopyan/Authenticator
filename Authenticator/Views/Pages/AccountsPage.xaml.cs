@@ -295,13 +295,20 @@ namespace Authenticator_for_Windows.Views.Pages
 
         private async void ButtonUndo_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
-            await AccountStorage.Instance.UndoRemoveAsync();
-            
-            removedAccountBlock.Show(inEditMode);
-            accountBlocks.Insert(removedIndex, removedAccountBlock);
+            try
+            {
+                await AccountStorage.Instance.UndoRemoveAsync();
 
-            CheckEntries();
-            CloseUndo.Begin();
+                removedAccountBlock.Show(inEditMode);
+                accountBlocks.Insert(removedIndex, removedAccountBlock);
+
+                CheckEntries();
+                CloseUndo.Begin();
+            }
+            catch (Exception ex)
+            {
+                mainPage.Navigate(typeof(ErrorPage), ex);
+            }
         }
 
         private async void Synchronize_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
