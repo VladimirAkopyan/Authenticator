@@ -124,7 +124,7 @@ namespace Synchronization
 
                 if (!string.IsNullOrWhiteSpace(decrypted))
                 {
-                    JsonConvert.DeserializeObject<Account[]>(decrypted);
+                    remoteAccounts = JsonConvert.DeserializeObject<Account[]>(decrypted);
                 }
 
                 mergedAccounts.AddRange(localAccounts);
