@@ -109,6 +109,7 @@
   <ItemGroup>
     <Compile Include="Comparer.cs" />
     <Compile Include="Exceptions\NetworkException.cs" />
+    <Compile Include="Exceptions\RemovedSynchronizationException.cs" />
     <Compile Include="Exceptions\StaleException.cs" />
     <Compile Include="ISynchronizer.cs" />
     <Compile Include="OneDriveSynchronizer.cs" />

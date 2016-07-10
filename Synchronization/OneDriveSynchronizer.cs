@@ -195,6 +195,12 @@ namespace Synchronization
 
             await GetFileFromOneDrive();
 
+            if (_isInitialSetup)
+            {
+                // File was removed
+                throw new RemovedSynchronizationException();
+            }
+
             if (!string.IsNullOrWhiteSpace(decrypted))
             {
                 result.Accounts = JsonConvert.DeserializeObject<Account[]>(decrypted);
@@ -215,6 +221,12 @@ namespace Synchronization
             {
                 await AuthenticateAsync();
                 await GetFileFromOneDrive();
+
+                if (_isInitialSetup)
+                {
+                    // File was removed
+                    throw new RemovedSynchronizationException();
+                }
 
                 bool stale = false;
                 

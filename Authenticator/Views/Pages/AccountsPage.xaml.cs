@@ -284,7 +284,14 @@ namespace Authenticator_for_Windows.Views.Pages
             Edit.IsChecked = false;
             Edit.IsEnabled = false;
 
-            await AccountStorage.Instance.UpdateLocalFromRemote();
+            try
+            {
+                await AccountStorage.Instance.UpdateLocalFromRemote();
+            }
+            catch (RemovedSynchronizationException)
+            {
+                mainPage.Navigate(typeof(CloudSynchronizationRemovedPage));
+            }
         }
     }
 }
