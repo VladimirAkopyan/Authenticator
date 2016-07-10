@@ -120,7 +120,12 @@ namespace Synchronization
                 await GetFileFromOneDrive();
 
                 List<Account> mergedAccounts = new List<Account>();
-                Account[] remoteAccounts = JsonConvert.DeserializeObject<Account[]>(decrypted);
+                Account[] remoteAccounts = new Account[0];
+
+                if (!string.IsNullOrWhiteSpace(decrypted))
+                {
+                    JsonConvert.DeserializeObject<Account[]>(decrypted);
+                }
 
                 mergedAccounts.AddRange(localAccounts);
 

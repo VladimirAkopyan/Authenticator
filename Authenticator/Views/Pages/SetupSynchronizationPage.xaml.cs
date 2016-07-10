@@ -76,6 +76,7 @@ namespace Authenticator_for_Windows.Views.Pages
 
         private async void Continue_Tapped(object sender, TappedRoutedEventArgs e)
         {
+            Status.Text = "Uw accounts worden met de cloud gesynchroniseerd...";
             VisualStateManager.GoToState(this, ShowLoading.Name, true);
             
             IOneDriveClient oneDriveClient = OneDriveClientExtensions.GetUniversalClient(new[] { "onedrive.appfolder" });
