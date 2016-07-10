@@ -49,16 +49,7 @@
                         <TextBlock Text="Met cloudsynchronisatie kunt u uw accounts synchroniseren over uw gekoppelde apparaten. Hierdoor heeft u al uw accounts altijd op al uw Windows-apparaten." TextWrapping="Wrap" Margin="0,0,0,10" />
                         <StackPanel Name="SynchronizationOn" Visibility="Collapsed">
                             <TextBlock Text="Cloudsynchronisatie is momenteel ingeschakeld. U kunt het uitschakelen als u uw accounts niet meer met dit apparaat wilt synchroniseren." Foreground="Green" TextWrapping="Wrap" />
-                            <Button Name="ButtonTurnOffSynchronization" Content="Cloudsynchronisatie uitschakelen" Margin="0,10" Tapped="OpenFlyout">
-                                <FlyoutBase.AttachedFlyout>
-                                    <Flyout x:Name="TurnOffSynchronization">
-                                        <StackPanel Width="250">
-                                            <TextBlock Text="Weet u zeker dat u cloudsynchronisatie wilt uitschakelen?" TextWrapping="WrapWholeWords" />
-                                            <Button Name="ConfirmTurnOffSynchronization" Margin="0, 10, 0, 0" Content="Ik weet het zeker" Tapped="ConfirmTurnOffSynchronization_Tapped" />
-                                        </StackPanel>
-                                    </Flyout>
-                                </FlyoutBase.AttachedFlyout>
-                            </Button>
+                            <Button Name="ButtonTurnOffSynchronization" Content="Cloudsynchronisatie uitschakelen" Margin="0,10" Tapped="ButtonTurnOffSynchronization_Tapped" />
                             <TextBlock Text="U heeft uw persoonlijke sleutel nodig op uw andere apparaten om de opslag van uw accounts te ontsleutelen. U kunt uw persoonlijke sleutel weergeven door de onderstaande knop te selecteren." TextWrapping="Wrap" />
                             <Button Name="ShowUserKey" Content="Persoonlijke sleutel weergeven" Margin="0,10,0,0" Tapped="ShowUserKey_Tapped" />
                         </StackPanel>
@@ -68,16 +59,7 @@
                         </StackPanel>
                         <StackPanel Margin="0,10,0,0">
                             <TextBlock Text="U kunt cloudsynchronisatie uitschakelen voor alle aparaten waarop het momenteel is ingeschakeld. Wanneer u geen toegang meer heeft tot uw persoonlijke sleutel bent of een nieuwe persoonlijke sleutel wilt, is dit de enige manier om opnieuw te beginnen. Cloudsynchronisatie wordt op uw andere apparaten automatisch uitgeschakeld wanneer er synchronisatie plaatsvindt." TextWrapping="Wrap" />
-                            <Button Name="ButtonRemoveSynchronization" Content="Cloudsynchronisatie verwijderen" Margin="0,10" Tapped="OpenFlyout">
-                                <FlyoutBase.AttachedFlyout>
-                                    <Flyout x:Name="RemoveSynchronization">
-                                        <StackPanel Width="250">
-                                            <TextBlock Text="Weet u zeker dat u cloudsynchronisatie wilt uitschakelen? Dit geldt voor alle apparaten waarop u cloudsynchronisatie heeft ingeschakeld." TextWrapping="WrapWholeWords" />
-                                            <Button Name="ConfirmRemoveSynchronization" Margin="0, 10, 0, 0" Content="Ik weet het zeker" Tapped="ConfirmRemoveSynchronization_Tapped" />
-                                        </StackPanel>
-                                    </Flyout>
-                                </FlyoutBase.AttachedFlyout>
-                            </Button>
+                            <Button Name="ButtonRemoveSynchronization" Content="Cloudsynchronisatie verwijderen" Margin="0,10" Tapped="ButtonRemoveSynchronization_Tapped" />
                         </StackPanel>
                     </StackPanel>
                 </ScrollViewer>

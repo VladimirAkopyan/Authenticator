@@ -17,6 +17,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Domain.Storage;
 using Synchronization.Exceptions;
 using System.Threading.Tasks;
+using Windows.UI.Popups;
 
 namespace Authenticator_for_Windows.Views.Pages
 {
@@ -165,21 +166,6 @@ namespace Authenticator_for_Windows.Views.Pages
             }
         }
         
-        private void OpenFlyout(object sender, RoutedEventArgs e)
-        {
-            FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);
-        }
-
-        private async void ConfirmTurnOffSynchronization_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
-        {
-            await DisableSynchronization();
-
-            TurnOffSynchronization.Hide();
-            AccountStorage.Instance.SetSynchronizer(null);
-
-            ShowInformation();
-        }
-        
         private async Task DisableSynchronization()
         {
             IReadOnlyList<PasswordCredential> credentials = vault.FindAllByResource(RESOURCE_NAME);
@@ -224,35 +210,68 @@ namespace Authenticator_for_Windows.Views.Pages
             }
         }
 
-        private async void ConfirmRemoveSynchronization_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        private async void ButtonRemoveSynchronization_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
-            try
+            MessageDialog dialog = new MessageDialog("Weet u zeker dat u cloudsynchronisatie wilt uitschakelen ? Dit geldt voor alle apparaten waarop u cloudsynchronisatie heeft ingeschakeld.", "Cloudsynchronisatie verwijderen");
+            dialog.Commands.Add(new UICommand() { Label = "Verwijderen", Id = 0 });
+            dialog.Commands.Add(new UICommand() { Label = "Annuleren", Id = 1 });
+
+            dialog.CancelCommandIndex = 1;
+            dialog.DefaultCommandIndex = 1;
+
+            IUICommand selectedCommand = await dialog.ShowAsync();
+
+            if ((int)selectedCommand.Id == 0)
             {
-                ISynchronizer synchronizer = new OneDriveSynchronizer(oneDriveClient);
-                bool result = await synchronizer.Remove();
-
-                Banner banner = new Banner();
-
-                if (result)
+                try
                 {
-                    banner.BannerText = "Cloudsynchronisatie is succesvol verwijderd.";
-                    banner.BannerType = BannerType.Success;
-                    banner.Dismissable = true;
+                    ISynchronizer synchronizer = new OneDriveSynchronizer(oneDriveClient);
+                    bool result = await synchronizer.Remove();
+
+                    Banner banner = new Banner();
+
+                    if (result)
+                    {
+                        banner.BannerText = "Cloudsynchronisatie is succesvol verwijderd.";
+                        banner.BannerType = BannerType.Success;
+                        banner.Dismissable = true;
+                    }
+                    else
+                    {
+                        banner.BannerText = "Cloudsynchronisatie is niet verwijderd. Probeer het later opnieuw.";
+                        banner.BannerType = BannerType.Danger;
+                        banner.Dismissable = true;
+                    }
                 }
-                else
+                catch (NetworkException)
                 {
-                    banner.BannerText = "Cloudsynchronisatie is niet verwijderd. Probeer het later opnieuw.";
-                    banner.BannerType = BannerType.Danger;
-                    banner.Dismissable = true;
+                    // TODO: Implement this exception.
                 }
+
+                await DisableSynchronization();
+                ShowInformation();
             }
-            catch (NetworkException)
+        }
+
+        private async void ButtonTurnOffSynchronization_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+            MessageDialog dialog = new MessageDialog("Weet u zeker dat u cloudsynchronisatie wilt uitschakelen?", "Cloudsynchronisatie uitschakelen");
+            dialog.Commands.Add(new UICommand() { Label = "Uitschakelen", Id = 0 });
+            dialog.Commands.Add(new UICommand() { Label = "Annuleren", Id = 1 });
+
+            dialog.CancelCommandIndex = 1;
+            dialog.DefaultCommandIndex = 1;
+
+            IUICommand selectedCommand = await dialog.ShowAsync();
+
+            if ((int)selectedCommand.Id == 0)
             {
-                // TODO: Implement this exception.
-            }
+                await DisableSynchronization();
+                
+                AccountStorage.Instance.SetSynchronizer(null);
 
-            await DisableSynchronization();
-            ShowInformation();
+                ShowInformation();
+            }
         }
     }
 }
