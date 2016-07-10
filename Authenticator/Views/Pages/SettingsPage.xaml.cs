@@ -15,6 +15,8 @@ using Windows.Security.Credentials;
 using Authenticator_for_Windows.Views.UserControls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Domain.Storage;
+using Synchronization.Exceptions;
+using System.Threading.Tasks;
 
 namespace Authenticator_for_Windows.Views.Pages
 {
@@ -170,6 +172,16 @@ namespace Authenticator_for_Windows.Views.Pages
 
         private async void ConfirmTurnOffSynchronization_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
+            await DisableSynchronization();
+
+            TurnOffSynchronization.Hide();
+            AccountStorage.Instance.SetSynchronizer(null);
+
+            ShowInformation();
+        }
+        
+        private async Task DisableSynchronization()
+        {
             IReadOnlyList<PasswordCredential> credentials = vault.FindAllByResource(RESOURCE_NAME);
 
             foreach (PasswordCredential credential in credentials)
@@ -179,11 +191,6 @@ namespace Authenticator_for_Windows.Views.Pages
 
             await oneDriveClient.SignOutAsync();
             SettingsManager.Save(Setting.UseCloudSynchronization, false);
-
-            TurnOffSynchronization.Hide();
-            AccountStorage.Instance.SetSynchronizer(null);
-
-            ShowInformation();
         }
 
         private void ShowInformation()
@@ -215,6 +222,37 @@ namespace Authenticator_for_Windows.Views.Pages
             {
                 ShowInformation();
             }
+        }
+
+        private async void ConfirmRemoveSynchronization_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+            try
+            {
+                ISynchronizer synchronizer = new OneDriveSynchronizer(oneDriveClient);
+                bool result = await synchronizer.Remove();
+
+                Banner banner = new Banner();
+
+                if (result)
+                {
+                    banner.BannerText = "Cloudsynchronisatie is succesvol verwijderd.";
+                    banner.BannerType = BannerType.Success;
+                    banner.Dismissable = true;
+                }
+                else
+                {
+                    banner.BannerText = "Cloudsynchronisatie is niet verwijderd. Probeer het later opnieuw.";
+                    banner.BannerType = BannerType.Danger;
+                    banner.Dismissable = true;
+                }
+            }
+            catch (NetworkException)
+            {
+                // TODO: Implement this exception.
+            }
+
+            await DisableSynchronization();
+            ShowInformation();
         }
     }
 }

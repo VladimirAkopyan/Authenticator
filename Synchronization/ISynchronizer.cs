@@ -16,6 +16,7 @@ namespace Synchronization
         Task<SynchronizationResult> UpdateRemoteFromLocal(string plainAccountsBeforeChange, IEnumerable<Account> currentAccounts);
         Task<SynchronizationResult> Synchronize(IEnumerable<Account> localAccounts);
         Task Setup();
+        Task<bool> Remove();
         void SetEncrypter(IEncrypter encrypter, string userKey);
         Task<bool> DecryptWithKey(string userKey);
     }

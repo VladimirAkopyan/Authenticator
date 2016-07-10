@@ -247,5 +247,35 @@ namespace Synchronization
 
             return result;
         }
+
+        public async Task<bool> Remove()
+        {
+            bool result = false;
+
+            try
+            {
+                await AuthenticateAsync();
+                
+                IItemRequestBuilder builder = client.Drive.Special.AppRoot.ItemWithPath(FILENAME);
+                Item file = await builder.Request().GetAsync();
+
+                await client.Drive.Items[file.Id].Request().DeleteAsync();
+
+                result = true;
+            }
+            catch (OneDriveException e)
+            {
+                if (e.IsMatch(OneDriveErrorCode.ItemNotFound.ToString()))
+                {
+                    result = true;
+                }
+                else
+                {
+                    throw new NetworkException();
+                }
+            }
+
+            return result;
+        }
     }
 }
