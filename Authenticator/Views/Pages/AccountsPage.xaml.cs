@@ -64,7 +64,7 @@ namespace Authenticator_for_Windows.Views.Pages
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            if (SettingsManager.Get<bool>(Setting.UseCloudSynchronization))
+            if (SettingsManager.Get<bool>(Setting.UseCloudSynchronization) && AccountStorage.Instance.HasSynchronizer)
             {
                 Synchronize.Visibility = Visibility.Visible;
             }
@@ -92,7 +92,7 @@ namespace Authenticator_for_Windows.Views.Pages
 
             foreach (Account account in accounts)
             {
-                AccountBlock code = new AccountBlock(account);
+                AccountBlock code = new AccountBlock(account, mainPage);
                 code.DeleteRequested += Code_DeleteRequested;
                 code.CopyRequested += Code_CopyRequested;
                 code.Removed += Code_Removed;
@@ -226,13 +226,13 @@ namespace Authenticator_for_Windows.Views.Pages
 
                 account.Value.Remove();
             }
-            catch (StaleException)
-            {
-
-            }
             catch (NetworkException)
             {
-
+                MainPage.AddBanner(new Banner(BannerType.Danger, "Het lijkt erop dat u geen werkende internetverbinding heeft. Voor cloudsynchronisatie is een werkende internetverbinding vereist.", true));
+            }
+            catch (Exception e)
+            {
+                mainPage.Navigate(typeof(ErrorPage), e);
             }
         }
 
@@ -297,7 +297,7 @@ namespace Authenticator_for_Windows.Views.Pages
             }
             catch (RemovedSynchronizationException)
             {
-                mainPage.Navigate(typeof(CloudSynchronizationRemovedPage));
+                mainPage.Navigate(typeof(ErrorPage));
             }
         }
     }

@@ -27,11 +27,11 @@ namespace Authenticator_for_Windows.Views.Pages
 
             // Navigate to the first page
             Navigate(typeof(AccountsPage), this);
-            
+
             if (SettingsManager.Get<bool>(Setting.UseCloudSynchronization))
             {
-            PasswordVault vault = new PasswordVault();
-            IReadOnlyList<PasswordCredential> credentials = vault.RetrieveAll();
+                PasswordVault vault = new PasswordVault();
+                IReadOnlyList<PasswordCredential> credentials = vault.RetrieveAll();
 
                 if (credentials.Any())
                 {

@@ -108,8 +108,8 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Pages\CloudSynchronizationRemovedPage.xaml.cs">
-      <DependentUpon>CloudSynchronizationRemovedPage.xaml</DependentUpon>
+    <Compile Include="Views\Pages\ErrorPage.xaml.cs">
+      <DependentUpon>ErrorPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Pages\SetupSynchronizationFinishedPage.xaml.cs">
       <DependentUpon>SetupSynchronizationFinishedPage.xaml</DependentUpon>
@@ -203,7 +203,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Pages\CloudSynchronizationRemovedPage.xaml">
+    <Page Include="Views\Pages\ErrorPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

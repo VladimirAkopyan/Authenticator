@@ -134,7 +134,7 @@ namespace Authenticator_for_Windows.Views.Pages
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            if (SettingsManager.Get<bool>(Setting.UseCloudSynchronization))
+            if (SettingsManager.Get<bool>(Setting.UseCloudSynchronization) && AccountStorage.Instance.HasSynchronizer)
             {
                 Synchronize.Visibility = Visibility.Visible;
 
@@ -194,7 +194,7 @@ namespace Authenticator_for_Windows.Views.Pages
 
                         await AccountStorage.Instance.SaveAsync(account);
 
-                        accountBlock = new AccountBlock(account, true);
+                        accountBlock = new AccountBlock(account, true, mainPage);
                         accountBlock.CopyRequested += AccountBlock_CopyRequested;
 
                         MainPage.AddBanner(new Banner(BannerType.Success, ResourceLoader.GetForCurrentView().GetString("BannerSaved"), true));

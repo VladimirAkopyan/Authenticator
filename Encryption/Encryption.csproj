@@ -108,6 +108,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AESEncrypter.cs" />
+    <Compile Include="Exceptions\InvalidKeyException.cs" />
     <Compile Include="IEncrypter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Encryption.rd.xml" />

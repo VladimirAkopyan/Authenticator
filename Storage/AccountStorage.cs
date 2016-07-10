@@ -54,6 +54,14 @@ namespace Domain.Storage
 
         public bool IsSynchronizing { get; private set; }
 
+        public bool HasSynchronizer
+        {
+            get
+            {
+                return synchronizer != null;
+            }
+        }
+
         private AccountStorage()
         {
             applicationData = ApplicationData.Current.LocalFolder;
@@ -268,16 +276,27 @@ namespace Domain.Storage
                 accounts.Add(account);
             }
 
+            bool isModified = account.IsModified;
             account.Flush();
 
             try
             {
                 await Persist();
             }
-            catch (StaleException)
+            catch (StaleException e)
             {
                 await UpdateLocalFromRemote();
-                await SaveAsync(account);
+
+                if (!isModified)
+                {
+                    // If it's a new account, save it again against the most up to date cloud version
+                    await SaveAsync(account);
+                }
+                else
+                {
+                    // If it's not a new account, throw the exception so the UI can tell the user there's been a conflict
+                    throw e;
+                }
             }
         }
 
@@ -301,10 +320,22 @@ namespace Domain.Storage
             }
 
             removedAccount = account;
-            removedIndex = accounts.IndexOf(account);
-            accounts.Remove(account);
 
-            await Persist();
+            if (accounts.Contains(account))
+            {
+                removedIndex = accounts.IndexOf(account);
+                accounts.Remove(account);
+            }
+
+            try
+            {
+                await Persist();
+            }
+            catch (StaleException)
+            {
+                await UpdateLocalFromRemote();
+                await RemoveAsync(account);
+            }
         }
 
         public async Task ReorderAsync(int fromIndex, int toIndex)

@@ -13,6 +13,8 @@ using Authenticator_for_Windows.Views.UserControls;
 using Windows.ApplicationModel.Resources;
 using Domain.Storage;
 using Encryption;
+using Encryption.Exceptions;
+using Synchronization.Exceptions;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -112,7 +114,20 @@ namespace Authenticator_for_Windows.Views.Pages
                 IEncrypter encrypter = new AESEncrypter();
                 synchronizer.SetEncrypter(encrypter, UserKeyToValidate.Text);
 
-                bool result = await synchronizer.DecryptWithKey(UserKeyToValidate.Text);
+                bool result = false;
+
+                try
+                {
+                    result = await synchronizer.DecryptWithKey(UserKeyToValidate.Text);
+                }
+                catch (InvalidKeyException)
+                {
+                    result = false;
+                }
+                catch (NetworkException)
+                {
+                    // TODO: Implement this exception.
+                }
 
                 if (result)
                 {

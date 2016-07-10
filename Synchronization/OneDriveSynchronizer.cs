@@ -167,26 +167,33 @@ namespace Synchronization
 
         public async Task<bool> DecryptWithKey(string userKey)
         {
-            bool valid = false;
-
-            await GetFileFromOneDrive();
-
-            if (!string.IsNullOrWhiteSpace(content))
+            try
             {
-                try
-                {
-                    encrypter.Salt = userKey;
-                    decrypted = encrypter.Decrypt(content);
+                bool valid = false;
 
-                    valid = true;
-                }
-                catch
+                await GetFileFromOneDrive();
+
+                if (!string.IsNullOrWhiteSpace(content))
                 {
-                    valid = false;
+                    try
+                    {
+                        encrypter.Salt = userKey;
+                        decrypted = encrypter.Decrypt(content);
+
+                        valid = true;
+                    }
+                    catch
+                    {
+                        valid = false;
+                    }
                 }
+
+                return valid;
             }
-
-            return valid;
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public async Task<SynchronizationResult> UpdateLocalFromRemote(string plainAccounts)
