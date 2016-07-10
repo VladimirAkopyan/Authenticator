@@ -10,6 +10,7 @@ using Synchronization;
 using Microsoft.OneDrive.Sdk;
 using Domain.Storage;
 using Encryption;
+using Settings;
 
 namespace Authenticator_for_Windows.Views.Pages
 {
@@ -27,19 +28,22 @@ namespace Authenticator_for_Windows.Views.Pages
             // Navigate to the first page
             Navigate(typeof(AccountsPage), this);
             
+            if (SettingsManager.Get<bool>(Setting.UseCloudSynchronization))
+            {
             PasswordVault vault = new PasswordVault();
             IReadOnlyList<PasswordCredential> credentials = vault.RetrieveAll();
 
-            if (credentials.Any())
-            {
-                credentials[0].RetrievePassword();
+                if (credentials.Any())
+                {
+                    credentials[0].RetrievePassword();
 
-                ISynchronizer synchronizer = new OneDriveSynchronizer(OneDriveClientExtensions.GetUniversalClient(new[] { "onedrive.appfolder" }));
-                IEncrypter encrypter = new AESEncrypter();
+                    ISynchronizer synchronizer = new OneDriveSynchronizer(OneDriveClientExtensions.GetUniversalClient(new[] { "onedrive.appfolder" }));
+                    IEncrypter encrypter = new AESEncrypter();
 
-                synchronizer.SetEncrypter(encrypter, credentials[0].Password);
+                    synchronizer.SetEncrypter(encrypter, credentials[0].Password);
 
-                AccountStorage.Instance.SetSynchronizer(synchronizer);
+                    AccountStorage.Instance.SetSynchronizer(synchronizer);
+                }
             }
 
             SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;

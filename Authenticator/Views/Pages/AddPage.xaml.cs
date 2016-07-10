@@ -11,6 +11,7 @@ using Domain;
 using Authenticator_for_Windows.Views.UserControls;
 using Domain.Exceptions;
 using Synchronization.Exceptions;
+using Settings;
 
 namespace Authenticator_for_Windows.Views.Pages
 {
@@ -133,13 +134,25 @@ namespace Authenticator_for_Windows.Views.Pages
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            AccountStorage.Instance.SynchronizationCompleted += SynchronizationCompleted;
-
-            if (AccountStorage.Instance.IsSynchronizing)
+            if (SettingsManager.Get<bool>(Setting.UseCloudSynchronization))
             {
-                Synchronize.StartAnimationAndDisable();
+                Synchronize.Visibility = Visibility.Visible;
 
-                SetButtonState(false);
+                AccountStorage.Instance.SynchronizationCompleted += SynchronizationCompleted;
+
+                if (AccountStorage.Instance.IsSynchronizing)
+                {
+                    Synchronize.StartAnimationAndDisable();
+
+                    SetButtonState(false);
+                }
+            }
+            else
+            {
+                if (Scan.Visibility == Visibility.Collapsed)
+                {
+                    CommandBar.Visibility = Visibility.Collapsed;
+                }
             }
         }
 

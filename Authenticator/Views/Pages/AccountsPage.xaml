@@ -178,7 +178,7 @@
             </Button>
         </Grid>
         <CommandBar Name="CommandBar" Grid.Row="3">
-            <controls:SynchronizeAppBarButton x:Name="Synchronize" Tapped="Synchronize_Tapped" />
+            <controls:SynchronizeAppBarButton x:Name="Synchronize" Tapped="Synchronize_Tapped" Visibility="Collapsed" />
             <AppBarToggleButton x:Uid="Edit" Icon="Edit" x:Name="Edit" Label="Bewerken" Checked="Edit_Checked" Unchecked="Edit_Unchecked" />
         </CommandBar>
         <ContentDialog x:Uid="ConfirmDialog" Name="ConfirmDialog" PrimaryButtonText="Verwijderen" SecondaryButtonText="Annuleren" Title="Account verwijderen" PrimaryButtonClick="ConfirmDialog_PrimaryButtonClick">

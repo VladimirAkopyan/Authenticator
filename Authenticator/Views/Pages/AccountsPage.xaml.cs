@@ -14,6 +14,7 @@ using Domain;
 using Synchronization;
 using System.Threading.Tasks;
 using Synchronization.Exceptions;
+using Settings;
 
 namespace Authenticator_for_Windows.Views.Pages
 {
@@ -63,6 +64,11 @@ namespace Authenticator_for_Windows.Views.Pages
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            if (SettingsManager.Get<bool>(Setting.UseCloudSynchronization))
+            {
+                Synchronize.Visibility = Visibility.Visible;
+            }
+
             await LoadAccounts();
 
             PageGrid.Children.Remove(LoaderProgressBar);
