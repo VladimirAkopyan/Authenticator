@@ -181,6 +181,7 @@ namespace Authenticator_for_Windows.Views.Pages
                     Codes.Visibility = Visibility.Collapsed;
                     NoAccountsGrid.Visibility = Visibility.Visible;
                     CommandBar.Visibility = Visibility.Collapsed;
+                    Edit.Visibility = Visibility.Collapsed;
 
                     mainPage.BeginAnimateAddAccount();
 
@@ -191,9 +192,15 @@ namespace Authenticator_for_Windows.Views.Pages
                     Codes.Visibility = Visibility.Visible;
                     NoAccountsGrid.Visibility = Visibility.Collapsed;
                     CommandBar.Visibility = Visibility.Visible;
+                    Edit.Visibility = Visibility.Visible;
 
                     mainPage.EndAnimateAddAccount();
                 }
+            }
+
+            if (SettingsManager.Get<bool>(Setting.UseCloudSynchronization))
+            {
+                CommandBar.Visibility = Visibility.Visible;
             }
         }
 
