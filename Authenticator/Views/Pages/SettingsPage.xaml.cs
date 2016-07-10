@@ -143,9 +143,7 @@ namespace Authenticator_for_Windows.Views.Pages
         {
             try
             {
-                ProgressRing.Visibility = Visibility.Visible;
-                ProgressRing.IsActive = true;
-                ButtonTurnOnSynchronization.IsEnabled = false;
+                ButtonTurnOnSynchronization.IsLoading = true;
 
                 AccountSession session = await oneDriveClient.AuthenticateAsync();
 
@@ -159,9 +157,7 @@ namespace Authenticator_for_Windows.Views.Pages
             }
             catch (OneDriveException ex)
             {
-                ProgressRing.Visibility = Visibility.Collapsed;
-                ProgressRing.IsActive = false;
-                ButtonTurnOnSynchronization.IsEnabled = true;
+                ButtonTurnOnSynchronization.IsLoading = false;
 
                 System.Diagnostics.Debug.WriteLine(ex);
             }

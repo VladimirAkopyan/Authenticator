@@ -5,6 +5,7 @@
     xmlns:local="using:Domain"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Authenticator_for_Windows.Views.UserControls"
     mc:Ignorable="d"
     x:Uid="SettingsPage"
     Tag="Instellingen"
@@ -63,12 +64,7 @@
                         </StackPanel>
                         <StackPanel Name="SynchronizationOff" Visibility="Collapsed">
                             <TextBlock Text="Cloudsynchronisatie is momenteel uitgeschakeld. U kunt het inschakelen als u uw accounts met dit apparaat wilt synchroniseren. Voor cloudsynchronisatie wordt gebruikgemaakt van OneDrive en u zult Authenticator for Windows toegang moeten geven tot uw OneDrive-opslag om cloudsynchronisatie in te schakelen." Foreground="Blue" TextWrapping="Wrap" />
-                            <Button Name="ButtonTurnOnSynchronization" Margin="0,10,0,0" Tapped="ButtonTurnOnSynchronization_Tapped">
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="Cloudsynchronisatie inschakelen" />
-                                    <ProgressRing Name="ProgressRing" Height="20" Width="20" Margin="10,0,0,0" Visibility="Collapsed" />
-                                </StackPanel>
-                            </Button>
+                            <controls:ProgressRingButton x:Name="ButtonTurnOnSynchronization" Margin="0,10,0,0" Translation="ButtonTurnOnSynchronization" Tapped="ButtonTurnOnSynchronization_Tapped" />
                         </StackPanel>
                     </StackPanel>
                 </ScrollViewer>

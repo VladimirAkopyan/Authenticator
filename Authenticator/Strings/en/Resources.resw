@@ -345,4 +345,7 @@ Add an account via 'New account'.</value>
                             
 Voer de weergegeven sleutel in onderstaande tekstveld in:</value>
   </data>
+  <data name="ButtonTurnOnSynchronization" xml:space="preserve">
+    <value>Turn on cloud synchronization</value>
+  </data>
 </root>
