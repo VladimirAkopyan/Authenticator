@@ -2,6 +2,7 @@
 using Domain.Exceptions;
 using Newtonsoft.Json;
 using Synchronization;
+using Synchronization.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -269,7 +270,15 @@ namespace Domain.Storage
 
             account.Flush();
 
-            await Persist();
+            try
+            {
+                await Persist();
+            }
+            catch (StaleException)
+            {
+                await UpdateLocalFromRemote();
+                await SaveAsync(account);
+            }
         }
 
         private async Task UpdateRemoteFromLocal()
@@ -290,7 +299,7 @@ namespace Domain.Storage
             {
                 await LoadStorage();
             }
-            
+
             removedAccount = account;
             removedIndex = accounts.IndexOf(account);
             accounts.Remove(account);
