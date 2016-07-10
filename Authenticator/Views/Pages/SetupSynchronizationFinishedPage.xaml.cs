@@ -1,4 +1,5 @@
-﻿using Windows.UI.Xaml;
+﻿using Settings;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
@@ -25,6 +26,8 @@ namespace Authenticator_for_Windows.Views.Pages
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            SettingsManager.Save(Setting.UseCloudSynchronization, true);
+
             SpinSynchronize.Begin();
         }
 

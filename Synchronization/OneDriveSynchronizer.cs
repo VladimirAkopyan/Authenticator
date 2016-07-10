@@ -90,7 +90,7 @@ namespace Synchronization
             }
             catch (OneDriveException ex)
             {
-                if (ex.Error.Code == "itemNotFound")
+                if (ex.IsMatch(OneDriveErrorCode.ItemNotFound.ToString()))
                 {
                     _isInitialSetup = true;
                 }

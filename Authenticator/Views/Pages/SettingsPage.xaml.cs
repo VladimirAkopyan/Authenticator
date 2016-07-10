@@ -182,6 +182,7 @@ namespace Authenticator_for_Windows.Views.Pages
             }
 
             await oneDriveClient.SignOutAsync();
+            SettingsManager.Save(Setting.UseCloudSynchronization, false);
 
             TurnOffSynchronization.Hide();
             AccountStorage.Instance.SetSynchronizer(null);
@@ -191,7 +192,7 @@ namespace Authenticator_for_Windows.Views.Pages
 
         private void ShowInformation()
         {
-            if (vault.RetrieveAll().Any())
+            if (SettingsManager.Get<bool>(Setting.UseCloudSynchronization) && vault.RetrieveAll().Any())
             {
                 SynchronizationOff.Visibility = Visibility.Collapsed;
                 SynchronizationOn.Visibility = Visibility.Visible;
