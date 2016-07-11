@@ -26,31 +26,32 @@ namespace Authenticator_for_Windows.Views.Pages
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             exception = (Exception)e.Parameter;
+
+            MainPage.Instance.ClearBackStack();
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             bool removeCloudSynchronization = false;
+            string title = "";
+            string message = "";
 
-            if (exception.GetType() == typeof(StaleException))
-            {
-
-            }
-            else if (exception.GetType() == typeof(NetworkException))
-            {
-
-            }
-            else if (exception.GetType() == typeof(InvalidKeyException))
+            if (exception.GetType() == typeof(InvalidKeyException))
             {
                 removeCloudSynchronization = true;
+                title = "Ongeldige persoonlijke sleutel";
+                message = "Uw persoonlijke sleutel is veranderd vanaf een ander apparaat. Omdat deze persoonlijke sleutel benodigd is voor het ontsleutelen van uw accounts in de cloud, is cloudsynchronisatie nu uitgeschakeld.";
             }
             else if (exception.GetType() == typeof(RemovedSynchronizationException))
             {
                 removeCloudSynchronization = true;
+                title = "Cloudsynchronisatie verwijderd";
+                message = "Cloudsynchronisatie is vanaf een ander apparaat verwijderd, daarom is cloudsynchronisatie op dit apparaat nu uitgeschakeld.";
             }
             else
             {
-
+                title = "Onbekende fout";
+                message = "Er is een onbekende fout opgetreden bij het synchroniseren van uw accounts met de cloud.";
             }
 
             if (removeCloudSynchronization)
@@ -67,8 +68,13 @@ namespace Authenticator_for_Windows.Views.Pages
                 SettingsManager.Save(Setting.UseCloudSynchronization, false);
             }
 
-            Type.Text = "Type: " + exception.GetType().ToString();
-            TurnedOffCloudSynchronization.Text = TurnedOffCloudSynchronization.Text + ": " + (removeCloudSynchronization ? "YES" : "NO");
+            ErrorTitle.Text = title;
+            ErrorMessage.Text = message;
+        }
+
+        private void ViewCodes_Click(object sender, RoutedEventArgs e)
+        {
+            MainPage.Instance.NavigateToAccountsAndClearBackStack();
         }
     }
 }

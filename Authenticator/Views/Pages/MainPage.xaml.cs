@@ -19,6 +19,14 @@ namespace Authenticator_for_Windows.Views.Pages
         private static MainPage instance;
         private bool backButtonTapped;
 
+        public static MainPage Instance
+        {
+            get
+            {
+                return instance;
+            }
+        }
+
         public MainPage()
         {
             InitializeComponent();
