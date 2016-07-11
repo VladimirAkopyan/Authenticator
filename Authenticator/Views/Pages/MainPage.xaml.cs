@@ -136,6 +136,8 @@ namespace Authenticator_for_Windows.Views.Pages
         public void NavigateToAccountsAndClearBackStack()
         {
             AccountsMenuItem.IsChecked = true;
+            
+            Navigate(typeof(AccountsPage), this);
 
             ClearBackStack();
         }
