@@ -212,7 +212,7 @@ namespace Authenticator_for_Windows.Views.Pages
 
         private async void ButtonRemoveSynchronization_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
-            MessageDialog dialog = new MessageDialog("Weet u zeker dat u cloudsynchronisatie wilt uitschakelen ? Dit geldt voor alle apparaten waarop u cloudsynchronisatie heeft ingeschakeld.", "Cloudsynchronisatie verwijderen");
+            MessageDialog dialog = new MessageDialog("Weet u zeker dat u cloudsynchronisatie wilt uitschakelen? Dit geldt voor alle apparaten waarop u cloudsynchronisatie heeft ingeschakeld.", "Cloudsynchronisatie verwijderen");
             dialog.Commands.Add(new UICommand() { Label = "Verwijderen", Id = 0 });
             dialog.Commands.Add(new UICommand() { Label = "Annuleren", Id = 1 });
 
