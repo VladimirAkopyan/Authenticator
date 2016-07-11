@@ -215,10 +215,6 @@ namespace Authenticator_for_Windows.Views.Pages
                 {
                     MainPage.AddBanner(new Banner(BannerType.Danger, ResourceLoader.GetForCurrentView().GetString("BannerDuplicateAccount"), true));
                 }
-                catch (StaleException)
-                {
-                    // TODO: Implement this exception.
-                }
                 catch (NetworkException)
                 {
                     MainPage.AddBanner(new Banner(BannerType.Danger, "Het lijkt erop dat u geen werkende internetverbinding heeft. Voor cloudsynchronisatie is een werkende internetverbinding vereist.", true));
