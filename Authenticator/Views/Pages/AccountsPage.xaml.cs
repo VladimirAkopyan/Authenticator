@@ -28,6 +28,7 @@ namespace Authenticator_for_Windows.Views.Pages
         private AccountBlock removedAccountBlock;
         private DispatcherTimer undoTimer;
         private bool inEditMode;
+        private bool didUndo;
         private int removedIndex;
         private int reorderFrom;
         private int reorderTo;
@@ -116,6 +117,10 @@ namespace Authenticator_for_Windows.Views.Pages
             {
                 await LoadAccounts();
             }
+            else if (!e.Successful)
+            {
+                RevertAndReload();
+            }
 
             Edit.IsEnabled = true;
             Codes.IsEnabled = true;
@@ -133,19 +138,23 @@ namespace Authenticator_for_Windows.Views.Pages
 
         private void AccountBlocks_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            switch (e.Action)
+            // Check if the collection was changed because of an undo. If that's the case, there's no need to do anything.
+            if (!didUndo)
             {
-                case NotifyCollectionChangedAction.Remove:
-                    reorderFrom = e.OldStartingIndex;
-                    break;
-                case NotifyCollectionChangedAction.Add:
-                    reorderTo = e.NewStartingIndex;
-                    break;
-            }
+                switch (e.Action)
+                {
+                    case NotifyCollectionChangedAction.Remove:
+                        reorderFrom = e.OldStartingIndex;
+                        break;
+                    case NotifyCollectionChangedAction.Add:
+                        reorderTo = e.NewStartingIndex;
+                        break;
+                }
 
-            if (e.Action == NotifyCollectionChangedAction.Add)
-            {
-                HandleReorder();
+                if (e.Action == NotifyCollectionChangedAction.Add)
+                {
+                    HandleReorder();
+                }
             }
         }
 
@@ -155,6 +164,18 @@ namespace Authenticator_for_Windows.Views.Pages
             {
                 await AccountStorage.Instance.ReorderAsync(reorderFrom, reorderTo);
             }
+            catch (StaleException)
+            {
+                RevertAndReload();
+
+                MainPage.AddBanner(new Banner(BannerType.Danger, "Er zijn wijzigingen gedetecteerd sinds uw laatste synchronisatie en uw apparaat is bijgewerkt. Verplaatst alstublieft uw account opnieuw."));
+            }
+            catch (NetworkException)
+            {
+                RevertAndReload();
+
+                MainPage.AddBanner(new Banner(BannerType.Danger, "Het lijkt erop dat er geen werkende interverbinding beschikbaar is. Uw wijzigingen zijn ongedaan gemaakt."));
+            }
             catch (Exception e)
             {
                 mainPage.Navigate(typeof(ErrorPage), e);
@@ -163,31 +184,20 @@ namespace Authenticator_for_Windows.Views.Pages
 
         private void Code_Removed(object sender, EventArgs e)
         {
-            try
+            OpenUndo.Begin();
+
+            AccountBlock accountBlock = sender as AccountBlock;
+            removedAccountBlock = accountBlock;
+            removedIndex = accountBlocks.IndexOf(accountBlock);
+
+            if (accountBlock != null)
             {
-                OpenUndo.Begin();
-
-                AccountBlock accountBlock = sender as AccountBlock;
-                removedAccountBlock = accountBlock;
-                removedIndex = accountBlocks.IndexOf(accountBlock);
-
-                if (accountBlock != null)
-                {
-                    accountBlocks.Remove(accountBlock);
-                }
-
-                CheckEntries();
-
-                undoTimer.Start();
+                accountBlocks.Remove(accountBlock);
             }
-            catch (NetworkException)
-            {
-                // TODO: Show banner.
-            }
-            catch (Exception ex)
-            {
-                mainPage.Navigate(typeof(ErrorPage), ex);
-            }
+
+            CheckEntries();
+
+            undoTimer.Start();
         }
 
         private void CheckEntries()
@@ -234,6 +244,16 @@ namespace Authenticator_for_Windows.Views.Pages
             await ConfirmDialog.ShowAsync();
         }
 
+        private async void RevertAndReload()
+        {
+            await LoadAccounts();
+            
+            Codes.CanReorderItems = false;
+            Edit.IsChecked = false;
+
+            Synchronize.StopAnimationAndEnable();
+        }
+
         private async void ConfirmDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
             try
@@ -244,13 +264,21 @@ namespace Authenticator_for_Windows.Views.Pages
 
                 account.Value.Remove();
             }
+            catch (StaleException)
+            {
+                RevertAndReload();
+
+                MainPage.AddBanner(new Banner(BannerType.Danger, "Er zijn wijzigingen gedetecteerd sinds uw laatste synchronisatie en uw apparaat is bijgewerkt. Verwijder alstublieft uw account opnieuw."));
+            }
             catch (NetworkException)
             {
-                MainPage.AddBanner(new Banner(BannerType.Danger, "Het lijkt erop dat u geen werkende internetverbinding heeft. Voor cloudsynchronisatie is een werkende internetverbinding vereist.", true));
+                RevertAndReload();
+
+                MainPage.AddBanner(new Banner(BannerType.Danger, "Het lijkt erop dat er geen werkende interverbinding beschikbaar is. Uw wijzigingen zijn ongedaan gemaakt."));
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                mainPage.Navigate(typeof(ErrorPage), e);
+                mainPage.Navigate(typeof(ErrorPage), ex);
             }
         }
 
@@ -295,6 +323,8 @@ namespace Authenticator_for_Windows.Views.Pages
 
         private async void ButtonUndo_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
+            didUndo = true;
+
             try
             {
                 await AccountStorage.Instance.UndoRemoveAsync();
@@ -305,10 +335,24 @@ namespace Authenticator_for_Windows.Views.Pages
                 CheckEntries();
                 CloseUndo.Begin();
             }
+            catch (StaleException)
+            {
+                RevertAndReload();
+
+                MainPage.AddBanner(new Banner(BannerType.Danger, "Er zijn wijzigingen gedetecteerd sinds uw laatste synchronisatie en uw apparaat is bijgewerkt. Maak het verwijderen alstublieft opnieuw ongedaan."));
+            }
+            catch (NetworkException)
+            {
+                RevertAndReload();
+
+                MainPage.AddBanner(new Banner(BannerType.Danger, "Het lijkt erop dat er geen werkende interverbinding beschikbaar is. Uw wijzigingen zijn ongedaan gemaakt."));
+            }
             catch (Exception ex)
             {
                 mainPage.Navigate(typeof(ErrorPage), ex);
             }
+
+            didUndo = false;
         }
 
         private async void Synchronize_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
@@ -319,6 +363,12 @@ namespace Authenticator_for_Windows.Views.Pages
             try
             {
                 await AccountStorage.Instance.UpdateLocalFromRemote();
+            }
+            catch (NetworkException)
+            {
+                RevertAndReload();
+
+                MainPage.AddBanner(new Banner(BannerType.Danger, "Het lijkt erop dat er geen werkende interverbinding beschikbaar is."));
             }
             catch (Exception ex)
             {

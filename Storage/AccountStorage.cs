@@ -180,23 +180,32 @@ namespace Domain.Storage
 
         public async Task UpdateLocalFromRemote()
         {
-            NotifySynchronizationStarted();
-
-            SynchronizationResult result = null;
-
-            if (synchronizer != null)
+            try
             {
-                result = await synchronizer.UpdateLocalFromRemote(plainStorage);
+                NotifySynchronizationStarted();
 
-                if (result.Accounts != null)
+                SynchronizationResult result = null;
+
+                if (synchronizer != null)
                 {
-                    accounts = result.Accounts.ToList();
+                    result = await synchronizer.UpdateLocalFromRemote(plainStorage);
 
-                    await Persist(false);
+                    if (result.Accounts != null)
+                    {
+                        accounts = result.Accounts.ToList();
+
+                        await Persist(false);
+                    }
                 }
-            }
 
-            NotifySynchronizationCompleted(result);
+                NotifySynchronizationCompleted(result);
+            }
+            catch (Exception e)
+            {
+                CompleteWithException(e);
+
+                throw e;
+            }
         }
 
         public async Task Synchronize()
@@ -311,14 +320,31 @@ namespace Domain.Storage
 
         private async Task UpdateRemoteFromLocal()
         {
-            if (synchronizer != null)
+            try
             {
-                NotifySynchronizationStarted();
+                if (synchronizer != null)
+                {
+                    NotifySynchronizationStarted();
 
-                SynchronizationResult result = await synchronizer.UpdateRemoteFromLocal(plainStorage, accounts);
+                    SynchronizationResult result = await synchronizer.UpdateRemoteFromLocal(plainStorage, accounts);
 
-                NotifySynchronizationCompleted(result);
+                    NotifySynchronizationCompleted(result);
+                }
             }
+            catch (Exception e)
+            {
+                CompleteWithException(e);
+
+                throw e;
+            }
+        }
+
+        private void CompleteWithException(Exception exception)
+        {
+            NotifySynchronizationCompleted(new SynchronizationResult()
+            {
+                Successful = false
+            });
         }
 
         public async Task RemoveAsync(Account account)
