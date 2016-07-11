@@ -241,7 +241,18 @@ namespace Synchronization
 
                 if (stale)
                 {
-                    throw new StaleException();
+                    Account[] accounts = null;
+
+                    try
+                    {
+                        accounts = JsonConvert.DeserializeObject<Account[]>(decrypted);
+                    }
+                    catch (Exception)
+                    {
+                        accounts = null;
+                    }
+
+                    throw new StaleException(accounts);
                 }
 
                 if (encrypter != null && encrypter.IsInitialized)

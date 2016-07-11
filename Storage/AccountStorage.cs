@@ -285,7 +285,16 @@ namespace Domain.Storage
             }
             catch (StaleException e)
             {
-                await UpdateLocalFromRemote();
+                if (e.Accounts == null)
+                {
+                    await UpdateLocalFromRemote();
+                }
+                else
+                {
+                    accounts = e.Accounts.ToList();
+                }
+
+                UpdatePlainStorage();
 
                 if (!isModified)
                 {
@@ -334,7 +343,16 @@ namespace Domain.Storage
             catch (StaleException e)
             {
                 // If the latest version is stale, take the remote version and rethrow the exception
-                await UpdateLocalFromRemote();
+                if (e.Accounts != null)
+                {
+                    accounts = e.Accounts.ToList();
+                }
+                else
+                {
+                    await UpdateLocalFromRemote();
+                }
+
+                UpdatePlainStorage();
 
                 throw e;
             }
@@ -354,7 +372,16 @@ namespace Domain.Storage
             catch (StaleException e)
             {
                 // If the latest version is stale, take the remote version and rethrow the exception
-                await UpdateLocalFromRemote();
+                if (e.Accounts != null)
+                {
+                    accounts = e.Accounts.ToList();
+                }
+                else
+                {
+                    await UpdateLocalFromRemote();
+                }
+
+                UpdatePlainStorage();
 
                 throw e;
             }
@@ -371,7 +398,16 @@ namespace Domain.Storage
             catch (StaleException e)
             {
                 // If the latest version is stale, take the remote version and rethrow the exception
-                await UpdateLocalFromRemote();
+                if (e.Accounts != null)
+                {
+                    accounts = e.Accounts.ToList();
+                }
+                else
+                {
+                    await UpdateLocalFromRemote();
+                }
+
+                UpdatePlainStorage();
 
                 throw e;
             }
