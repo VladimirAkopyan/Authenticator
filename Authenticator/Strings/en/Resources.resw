@@ -384,4 +384,16 @@ Voer de weergegeven sleutel in onderstaande tekstveld in:</value>
     <value>Cloudsynchronisatie uitschakelen</value>
     <comment>Not translated yet.</comment>
   </data>
+  <data name="CheckingKey" xml:space="preserve">
+    <value>Uw sleutel wordt gecontroleerd...</value>
+    <comment>Not translated yet.</comment>
+  </data>
+  <data name="EnteredKeyIncorrect" xml:space="preserve">
+    <value>De ingevoerde sleutel is incorrect.</value>
+    <comment>Not translated yet.</comment>
+  </data>
+  <data name="SynchronizingAccountsWithCloud" xml:space="preserve">
+    <value>Uw accounts worden met de cloud gesynchroniseerd...</value>
+    <comment>Not translated yet.</comment>
+  </data>
 </root>

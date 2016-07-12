@@ -78,7 +78,7 @@ namespace Authenticator_for_Windows.Views.Pages
 
         private async void Continue_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            Status.Text = "Uw accounts worden met de cloud gesynchroniseerd...";
+            Status.Text = ResourceLoader.GetForCurrentView().GetString("SynchronizingAccountsWithCloud");
             VisualStateManager.GoToState(this, ShowLoading.Name, true);
             
             IOneDriveClient oneDriveClient = OneDriveClientExtensions.GetUniversalClient(new[] { "onedrive.appfolder" });
@@ -107,7 +107,7 @@ namespace Authenticator_for_Windows.Views.Pages
         {
             if (UserKeyToValidate.Text.Length == 23)
             {
-                Status.Text = "Uw sleutel wordt gecontroleerd...";
+                Status.Text = ResourceLoader.GetForCurrentView().GetString("CheckingKey");
 
                 VisualStateManager.GoToState(this, ShowLoading.Name, true);
 
@@ -131,8 +131,8 @@ namespace Authenticator_for_Windows.Views.Pages
 
                 if (result)
                 {
-                    Status.Text = "Uw accounts worden met de cloud gesynchroniseerd...";
-                    
+                    Status.Text = ResourceLoader.GetForCurrentView().GetString("SynchronizingAccountsWithCloud");
+
                     await AccountStorage.Instance.Synchronize();
                     
                     vault.Add(new PasswordCredential(RESOURCE_NAME, USERNAME_NAME, UserKeyToValidate.Text));
@@ -141,7 +141,7 @@ namespace Authenticator_for_Windows.Views.Pages
                 }
                 else
                 {
-                    MainPage.AddBanner(new Banner(BannerType.Danger, "De ingevoerde sleutel is incorrect.", true));
+                    MainPage.AddBanner(new Banner(BannerType.Danger, ResourceLoader.GetForCurrentView().GetString("EnteredKeyIncorrect"), true));
                 }
             }
         }
