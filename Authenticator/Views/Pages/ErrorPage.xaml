@@ -17,7 +17,7 @@
                     <TextBlock Text="&#xE895;" FontFamily="Segoe MDL2 Assets" FontSize="40" HorizontalAlignment="Center" FontWeight="Bold" VerticalAlignment="Center" Foreground="Red" Margin="0,20,0,0" />
                 </Grid>
                 <TextBlock Name="ErrorMessage" Text="MESSAGE" MaxWidth="800" HorizontalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center" />
-                <Button Name="ViewCodes" Content="Bekijk uw codes" HorizontalAlignment="Stretch" MaxWidth="400" Click="ViewCodes_Click" Margin="0,20,0,0" />
+                <Button Name="ViewCodes" x:Uid="ViewCodes" Content="Bekijk uw codes" HorizontalAlignment="Stretch" MaxWidth="400" Click="ViewCodes_Click" Margin="0,20,0,0" />
             </StackPanel>
         </ScrollViewer>
     </Grid>

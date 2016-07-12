@@ -363,6 +363,12 @@ Voer de weergegeven sleutel in onderstaande tekstveld in:</value>
   <data name="CheckingKey" xml:space="preserve">
     <value>Uw sleutel wordt gecontroleerd...</value>
   </data>
+  <data name="ConfiguredCloudSynchronization.Text" xml:space="preserve">
+    <value>Cloudsynchronisatie geconfigureerd</value>
+  </data>
+  <data name="ConfiguredCloudSynchronizationInformation.Text" xml:space="preserve">
+    <value>Vanaf nu worden al uw accounts van dit apparaat gesynchroniseerd met uw accounts op uw andere Windows-apparaten waarop u cloudsynchronisatie heeft ingesteld. Let u er alstublieft op dat synchronisatie plaatsvindt op het moment dat u een account toevoegt, wijzigt of verplaatst van volgorde. Dit heeft als gevolg dat u iets langer moet wachten voordat uw wijzigingen zijn doorgevoerd, maar gewoonlijk duurt dit hooguit een paar seconden. Op het moment dat er synchronisatie plaatsvindt, kunt u dit rechtsonder zien aan de ronddraaiende synchronisatieknop (zoals hieronder).</value>
+  </data>
   <data name="Delete" xml:space="preserve">
     <value>Verwijderen</value>
   </data>
@@ -416,5 +422,8 @@ Voer de weergegeven sleutel in onderstaande tekstveld in:</value>
   </data>
   <data name="UnknownErrorDuringSynchronize" xml:space="preserve">
     <value>Er is een onbekende fout opgetreden bij het synchroniseren van uw accounts met de cloud.</value>
+  </data>
+  <data name="ViewCodes.Content" xml:space="preserve">
+    <value>Bekijk uw codes</value>
   </data>
 </root>
