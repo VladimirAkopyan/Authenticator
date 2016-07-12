@@ -153,9 +153,6 @@
     <Compile Include="Views\UserControls\ProgressRingButton.xaml.cs">
       <DependentUpon>ProgressRingButton.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserControls\RemoveCloudSynchronizationDialog.xaml.cs">
-      <DependentUpon>RemoveCloudSynchronizationDialog.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\UserControls\ShowUserKeyDialog.xaml.cs">
       <DependentUpon>ShowUserKeyDialog.xaml</DependentUpon>
     </Compile>
@@ -260,10 +257,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\UserControls\ProgressRingButton.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\UserControls\RemoveCloudSynchronizationDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
