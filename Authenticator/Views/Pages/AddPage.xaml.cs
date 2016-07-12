@@ -217,7 +217,7 @@ namespace Authenticator_for_Windows.Views.Pages
                 }
                 catch (NetworkException)
                 {
-                    MainPage.AddBanner(new Banner(BannerType.Danger, "Het lijkt erop dat u geen werkende internetverbinding heeft. Voor cloudsynchronisatie is een werkende internetverbinding vereist.", true));
+                    MainPage.AddBanner(new Banner(BannerType.Danger, ResourceLoader.GetForCurrentView().GetString("NoInternetConnection"), true));
                 }
                 catch (Exception)
                 {

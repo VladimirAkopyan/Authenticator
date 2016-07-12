@@ -363,6 +363,9 @@ Voer de weergegeven sleutel in onderstaande tekstveld in:</value>
   <data name="InvalidPersonalKey" xml:space="preserve">
     <value>Ongeldige persoonlijke sleutel</value>
   </data>
+  <data name="NoInternetConnection" xml:space="preserve">
+    <value>Het lijkt erop dat u geen werkende internetverbinding heeft. Voor cloudsynchronisatie is een werkende internetverbinding vereist.</value>
+  </data>
   <data name="PersonalKeyChanged" xml:space="preserve">
     <value>Uw persoonlijke sleutel is veranderd vanaf een ander apparaat. Omdat deze persoonlijke sleutel benodigd is voor het ontsleutelen van uw accounts in de cloud, is cloudsynchronisatie nu uitgeschakeld.</value>
   </data>
