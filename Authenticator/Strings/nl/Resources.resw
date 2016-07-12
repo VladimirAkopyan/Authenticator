@@ -348,4 +348,31 @@ Voer de weergegeven sleutel in onderstaande tekstveld in:</value>
   <data name="ButtonTurnOnSynchronization" xml:space="preserve">
     <value>Cloudsynchronisatie inschakelen</value>
   </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Annuleren</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Verwijderen</value>
+  </data>
+  <data name="RemoveSynchronizationMessage" xml:space="preserve">
+    <value>Weet u zeker dat u cloudsynchronisatie wilt uitschakelen? Dit geldt voor alle apparaten waarop u cloudsynchronisatie heeft ingeschakeld.</value>
+  </data>
+  <data name="RemoveSynchronizationTitle" xml:space="preserve">
+    <value>Cloudsynchronisatie verwijderen</value>
+  </data>
+  <data name="SynchronizationRemoved" xml:space="preserve">
+    <value>Cloudsynchronisatie is succesvol verwijderd.</value>
+  </data>
+  <data name="SynchronizationRemovedError" xml:space="preserve">
+    <value>Cloudsynchronisatie is niet verwijderd. Probeer het later opnieuw.</value>
+  </data>
+  <data name="TurnOff" xml:space="preserve">
+    <value>Uitschakelen</value>
+  </data>
+  <data name="TurnOffSynchronizationMessage" xml:space="preserve">
+    <value>Weet u zeker dat u cloudsynchronisatie wilt uitschakelen?</value>
+  </data>
+  <data name="TurnOffSynchronizationTitle" xml:space="preserve">
+    <value>Cloudsynchronisatie uitschakelen</value>
+  </data>
 </root>

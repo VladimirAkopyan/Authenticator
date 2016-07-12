@@ -348,4 +348,40 @@ Voer de weergegeven sleutel in onderstaande tekstveld in:</value>
   <data name="ButtonTurnOnSynchronization" xml:space="preserve">
     <value>Turn on cloud synchronization</value>
   </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Annuleren</value>
+    <comment>Not translated yet.</comment>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Verwijderen</value>
+    <comment>Not translated yet.</comment>
+  </data>
+  <data name="RemoveSynchronizationMessage" xml:space="preserve">
+    <value>Weet u zeker dat u cloudsynchronisatie wilt uitschakelen? Dit geldt voor alle apparaten waarop u cloudsynchronisatie heeft ingeschakeld.</value>
+    <comment>Not translated yet.</comment>
+  </data>
+  <data name="RemoveSynchronizationTitle" xml:space="preserve">
+    <value>Cloudsynchronisatie verwijderen</value>
+    <comment>Not translated yet.</comment>
+  </data>
+  <data name="SynchronizationRemoved" xml:space="preserve">
+    <value>Cloudsynchronisatie is succesvol verwijderd.</value>
+    <comment>Not translated yet.</comment>
+  </data>
+  <data name="SynchronizationRemovedError" xml:space="preserve">
+    <value>Cloudsynchronisatie is niet verwijderd. Probeer het later opnieuw.</value>
+    <comment>Not translated yet.</comment>
+  </data>
+  <data name="TurnOff" xml:space="preserve">
+    <value>Uitschakelen</value>
+    <comment>Not translated yet.</comment>
+  </data>
+  <data name="TurnOffSynchronizationMessage" xml:space="preserve">
+    <value>Weet u zeker dat u cloudsynchronisatie wilt uitschakelen?</value>
+    <comment>Not translated yet.</comment>
+  </data>
+  <data name="TurnOffSynchronizationTitle" xml:space="preserve">
+    <value>Cloudsynchronisatie uitschakelen</value>
+    <comment>Not translated yet.</comment>
+  </data>
 </root>

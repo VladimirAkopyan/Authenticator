@@ -18,6 +18,7 @@ using Domain.Storage;
 using Synchronization.Exceptions;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
+using Windows.ApplicationModel.Resources;
 
 namespace Authenticator_for_Windows.Views.Pages
 {
@@ -212,9 +213,9 @@ namespace Authenticator_for_Windows.Views.Pages
 
         private async void ButtonRemoveSynchronization_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
-            MessageDialog dialog = new MessageDialog("Weet u zeker dat u cloudsynchronisatie wilt uitschakelen? Dit geldt voor alle apparaten waarop u cloudsynchronisatie heeft ingeschakeld.", "Cloudsynchronisatie verwijderen");
-            dialog.Commands.Add(new UICommand() { Label = "Verwijderen", Id = 0 });
-            dialog.Commands.Add(new UICommand() { Label = "Annuleren", Id = 1 });
+            MessageDialog dialog = new MessageDialog(ResourceLoader.GetForCurrentView().GetString("RemoveSynchronizationMessage"), ResourceLoader.GetForCurrentView().GetString("RemoveSynchronizationTitle"));
+            dialog.Commands.Add(new UICommand() { Label = ResourceLoader.GetForCurrentView().GetString("Delete"), Id = 0 });
+            dialog.Commands.Add(new UICommand() { Label = ResourceLoader.GetForCurrentView().GetString("Cancel"), Id = 1 });
 
             dialog.CancelCommandIndex = 1;
             dialog.DefaultCommandIndex = 1;
@@ -234,13 +235,13 @@ namespace Authenticator_for_Windows.Views.Pages
 
                     if (result)
                     {
-                        banner.BannerText = "Cloudsynchronisatie is succesvol verwijderd.";
+                        banner.BannerText = ResourceLoader.GetForCurrentView().GetString("SynchronizationRemoved");
                         banner.BannerType = BannerType.Success;
                         banner.Dismissable = true;
                     }
                     else
                     {
-                        banner.BannerText = "Cloudsynchronisatie is niet verwijderd. Probeer het later opnieuw.";
+                        banner.BannerText = ResourceLoader.GetForCurrentView().GetString("SynchronizationRemovedError");
                         banner.BannerType = BannerType.Danger;
                         banner.Dismissable = true;
                     }
@@ -259,9 +260,9 @@ namespace Authenticator_for_Windows.Views.Pages
 
         private async void ButtonTurnOffSynchronization_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
-            MessageDialog dialog = new MessageDialog("Weet u zeker dat u cloudsynchronisatie wilt uitschakelen?", "Cloudsynchronisatie uitschakelen");
-            dialog.Commands.Add(new UICommand() { Label = "Uitschakelen", Id = 0 });
-            dialog.Commands.Add(new UICommand() { Label = "Annuleren", Id = 1 });
+            MessageDialog dialog = new MessageDialog(ResourceLoader.GetForCurrentView().GetString("TurnOffSynchronizationMessage"), ResourceLoader.GetForCurrentView().GetString("TurnOffSynchronizationTitle"));
+            dialog.Commands.Add(new UICommand() { Label = ResourceLoader.GetForCurrentView().GetString("TurnOff"), Id = 0 });
+            dialog.Commands.Add(new UICommand() { Label = ResourceLoader.GetForCurrentView().GetString("Cancel"), Id = 1 });
 
             dialog.CancelCommandIndex = 1;
             dialog.DefaultCommandIndex = 1;
