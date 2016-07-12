@@ -15,6 +15,7 @@ using Synchronization;
 using System.Threading.Tasks;
 using Synchronization.Exceptions;
 using Settings;
+using Windows.ApplicationModel.Resources;
 
 namespace Authenticator_for_Windows.Views.Pages
 {
@@ -168,13 +169,13 @@ namespace Authenticator_for_Windows.Views.Pages
             {
                 RevertAndReload();
 
-                MainPage.AddBanner(new Banner(BannerType.Danger, "Er zijn wijzigingen gedetecteerd sinds uw laatste synchronisatie en uw apparaat is bijgewerkt. Verplaatst alstublieft uw account opnieuw."));
+                MainPage.AddBanner(new Banner(BannerType.Danger, ResourceLoader.GetForCurrentView().GetString("ChangesDetectedRedoMove"), true));
             }
             catch (NetworkException)
             {
                 RevertAndReload();
 
-                MainPage.AddBanner(new Banner(BannerType.Danger, "Het lijkt erop dat er geen werkende interverbinding beschikbaar is. Uw wijzigingen zijn ongedaan gemaakt."));
+                MainPage.AddBanner(new Banner(BannerType.Danger, ResourceLoader.GetForCurrentView().GetString("NoInternetChangesRolledBack"), true));
             }
             catch (Exception e)
             {
@@ -268,13 +269,13 @@ namespace Authenticator_for_Windows.Views.Pages
             {
                 RevertAndReload();
 
-                MainPage.AddBanner(new Banner(BannerType.Danger, "Er zijn wijzigingen gedetecteerd sinds uw laatste synchronisatie en uw apparaat is bijgewerkt. Verwijder alstublieft uw account opnieuw."));
+                MainPage.AddBanner(new Banner(BannerType.Danger, ResourceLoader.GetForCurrentView().GetString("ChangesDetectedRedoDelete"), true));
             }
             catch (NetworkException)
             {
                 RevertAndReload();
-
-                MainPage.AddBanner(new Banner(BannerType.Danger, "Het lijkt erop dat er geen werkende interverbinding beschikbaar is. Uw wijzigingen zijn ongedaan gemaakt."));
+                
+                MainPage.AddBanner(new Banner(BannerType.Danger, ResourceLoader.GetForCurrentView().GetString("NoInternetChangesRolledBack"), true));
             }
             catch (Exception ex)
             {
@@ -339,13 +340,13 @@ namespace Authenticator_for_Windows.Views.Pages
             {
                 RevertAndReload();
 
-                MainPage.AddBanner(new Banner(BannerType.Danger, "Er zijn wijzigingen gedetecteerd sinds uw laatste synchronisatie en uw apparaat is bijgewerkt. Maak het verwijderen alstublieft opnieuw ongedaan."));
+                MainPage.AddBanner(new Banner(BannerType.Danger, ResourceLoader.GetForCurrentView().GetString("ChangesDetectedRedoUndo"), true));
             }
             catch (NetworkException)
             {
                 RevertAndReload();
 
-                MainPage.AddBanner(new Banner(BannerType.Danger, "Het lijkt erop dat er geen werkende interverbinding beschikbaar is. Uw wijzigingen zijn ongedaan gemaakt."));
+                MainPage.AddBanner(new Banner(BannerType.Danger, ResourceLoader.GetForCurrentView().GetString("NoInternetChangesRolledBack"), true));
             }
             catch (Exception ex)
             {
@@ -368,7 +369,7 @@ namespace Authenticator_for_Windows.Views.Pages
             {
                 RevertAndReload();
 
-                MainPage.AddBanner(new Banner(BannerType.Danger, "Het lijkt erop dat er geen werkende interverbinding beschikbaar is."));
+                MainPage.AddBanner(new Banner(BannerType.Danger, ResourceLoader.GetForCurrentView().GetString("NoInternetConnection"), true));
             }
             catch (Exception ex)
             {

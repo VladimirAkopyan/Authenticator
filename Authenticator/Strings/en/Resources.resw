@@ -384,6 +384,18 @@ Voer de weergegeven sleutel in onderstaande tekstveld in:</value>
     <value>Cloudsynchronisatie uitschakelen</value>
     <comment>Not translated yet.</comment>
   </data>
+  <data name="ChangesDetectedRedoDelete" xml:space="preserve">
+    <value>Er zijn wijzigingen gedetecteerd sinds uw laatste synchronisatie en uw apparaat is bijgewerkt. Verwijder alstublieft uw account opnieuw.</value>
+    <comment>Not translated yet.</comment>
+  </data>
+  <data name="ChangesDetectedRedoMove" xml:space="preserve">
+    <value>Er zijn wijzigingen gedetecteerd sinds uw laatste synchronisatie en uw apparaat is bijgewerkt. Verplaatst alstublieft uw account opnieuw.</value>
+    <comment>Not translated yet.</comment>
+  </data>
+  <data name="ChangesDetectedRedoUndo" xml:space="preserve">
+    <value>Er zijn wijzigingen gedetecteerd sinds uw laatste synchronisatie en uw apparaat is bijgewerkt. Maak het verwijderen alstublieft opnieuw ongedaan.</value>
+    <comment>Not translated yet.</comment>
+  </data>
   <data name="CheckingKey" xml:space="preserve">
     <value>Uw sleutel wordt gecontroleerd...</value>
     <comment>Not translated yet.</comment>
@@ -394,6 +406,10 @@ Voer de weergegeven sleutel in onderstaande tekstveld in:</value>
   </data>
   <data name="InvalidPersonalKey" xml:space="preserve">
     <value>Ongeldige persoonlijke sleutel</value>
+    <comment>Not translated yet.</comment>
+  </data>
+  <data name="NoInternetChangesRolledBack" xml:space="preserve">
+    <value>Het lijkt erop dat er geen werkende interverbinding beschikbaar is. Uw wijzigingen zijn ongedaan gemaakt.</value>
     <comment>Not translated yet.</comment>
   </data>
   <data name="NoInternetConnection" xml:space="preserve">
