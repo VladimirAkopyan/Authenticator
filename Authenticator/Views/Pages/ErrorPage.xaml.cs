@@ -4,6 +4,7 @@ using Settings;
 using Synchronization.Exceptions;
 using System;
 using System.Collections.Generic;
+using Windows.ApplicationModel.Resources;
 using Windows.Security.Credentials;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -39,19 +40,20 @@ namespace Authenticator_for_Windows.Views.Pages
             if (exception.GetType() == typeof(InvalidKeyException))
             {
                 removeCloudSynchronization = true;
-                title = "Ongeldige persoonlijke sleutel";
-                message = "Uw persoonlijke sleutel is veranderd vanaf een ander apparaat. Omdat deze persoonlijke sleutel benodigd is voor het ontsleutelen van uw accounts in de cloud, is cloudsynchronisatie nu uitgeschakeld.";
+
+                title = ResourceLoader.GetForCurrentView().GetString("InvalidPersonalKey");
+                message = ResourceLoader.GetForCurrentView().GetString("PersonalKeyChanged");
             }
             else if (exception.GetType() == typeof(RemovedSynchronizationException))
             {
                 removeCloudSynchronization = true;
-                title = "Cloudsynchronisatie verwijderd";
-                message = "Cloudsynchronisatie is vanaf een ander apparaat verwijderd, daarom is cloudsynchronisatie op dit apparaat nu uitgeschakeld.";
+                title = ResourceLoader.GetForCurrentView().GetString("RemovedCloudSynchronization");
+                message = ResourceLoader.GetForCurrentView().GetString("RemovedCloudSynchronizationFromOtherDevice");
             }
             else
             {
-                title = "Onbekende fout";
-                message = "Er is een onbekende fout opgetreden bij het synchroniseren van uw accounts met de cloud.";
+                title = ResourceLoader.GetForCurrentView().GetString("UnknownError");
+                message = ResourceLoader.GetForCurrentView().GetString("UnknownErrorDuringSynchronize");
             }
 
             if (removeCloudSynchronization)

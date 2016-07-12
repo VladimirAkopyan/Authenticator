@@ -360,6 +360,18 @@ Voer de weergegeven sleutel in onderstaande tekstveld in:</value>
   <data name="EnteredKeyIncorrect" xml:space="preserve">
     <value>De ingevoerde sleutel is incorrect.</value>
   </data>
+  <data name="InvalidPersonalKey" xml:space="preserve">
+    <value>Ongeldige persoonlijke sleutel</value>
+  </data>
+  <data name="PersonalKeyChanged" xml:space="preserve">
+    <value>Uw persoonlijke sleutel is veranderd vanaf een ander apparaat. Omdat deze persoonlijke sleutel benodigd is voor het ontsleutelen van uw accounts in de cloud, is cloudsynchronisatie nu uitgeschakeld.</value>
+  </data>
+  <data name="RemovedCloudSynchronization" xml:space="preserve">
+    <value>Cloudsynchronisatie verwijderd</value>
+  </data>
+  <data name="RemovedCloudSynchronizationFromOtherDevice" xml:space="preserve">
+    <value>Cloudsynchronisatie is vanaf een ander apparaat verwijderd, daarom is cloudsynchronisatie op dit apparaat nu uitgeschakeld.</value>
+  </data>
   <data name="RemoveSynchronizationMessage" xml:space="preserve">
     <value>Weet u zeker dat u cloudsynchronisatie wilt uitschakelen? Dit geldt voor alle apparaten waarop u cloudsynchronisatie heeft ingeschakeld.</value>
   </data>
@@ -383,5 +395,11 @@ Voer de weergegeven sleutel in onderstaande tekstveld in:</value>
   </data>
   <data name="TurnOffSynchronizationTitle" xml:space="preserve">
     <value>Cloudsynchronisatie uitschakelen</value>
+  </data>
+  <data name="UnknownError" xml:space="preserve">
+    <value>Onbekende fout</value>
+  </data>
+  <data name="UnknownErrorDuringSynchronize" xml:space="preserve">
+    <value>Er is een onbekende fout opgetreden bij het synchroniseren van uw accounts met de cloud.</value>
   </data>
 </root>
