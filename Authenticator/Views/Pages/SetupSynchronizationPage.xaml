@@ -26,10 +26,10 @@
         <ScrollViewer VerticalScrollBarVisibility="Auto">
             <StackPanel>
                 <StackPanel Padding="10" Name="InitialSetupPanel" Visibility="Collapsed">
-                    <TextBlock Text="U heeft ervoor gekozen om cloudsynchronisatie in te schakelen. U heeft Authenticator for Windows inmiddels toegang verleend tot uw OneDrive-opslag. De centrale opslag van uw accounts wordt vanaf het moment dat u deze stappen heeft voltooid daar opgeslagen. Omdat wij u de hoogste veiligheid willen bieden maken wij gebruik van versleuteling. De opslag wordt versleuteld met een sleutel die alleen op uw apparaten staan en niet in de cloud. Onderstaande sleutel wordt gebruikt voor de versleuteling van uw accounts in de cloud." TextWrapping="Wrap" />
+                    <TextBlock x:Uid="InitialSetupIntro" Text="U heeft ervoor gekozen om cloudsynchronisatie in te schakelen. U heeft Authenticator for Windows inmiddels toegang verleend tot uw OneDrive-opslag. De centrale opslag van uw accounts wordt vanaf het moment dat u deze stappen heeft voltooid daar opgeslagen. Omdat wij u de hoogste veiligheid willen bieden maken wij gebruik van versleuteling. De opslag wordt versleuteld met een sleutel die alleen op uw apparaten staan en niet in de cloud. Onderstaande sleutel wordt gebruikt voor de versleuteling van uw accounts in de cloud." TextWrapping="Wrap" />
                     <TextBlock Name="UserKey" Text="ABCDE-ABCDE-ABCDE-ABCDE" TextWrapping="Wrap" FontWeight="Bold" Margin="0,10,0,0" />
-                    <TextBlock Text="U kunt deze sleutel opvragen wanneer u andere apparaten ook gebruik wil laten maken van cloudsynchronisatie. Deze sleutel wordt in een beveiligde omgeving opgeslagen die door Windows wordt gebeheerd." TextWrapping="Wrap" Margin="0,10,0,0" />
-                    <Button Name="Continue" Content="Doorgaan" Margin="0,10,0,0" Tapped="Continue_Tapped" />
+                    <TextBlock x:Uid="AboutUserKey" Text="U kunt deze sleutel opvragen wanneer u andere apparaten ook gebruik wil laten maken van cloudsynchronisatie. Deze sleutel wordt in een beveiligde omgeving opgeslagen die door Windows wordt gebeheerd." TextWrapping="Wrap" Margin="0,10,0,0" />
+                    <Button Name="Continue" x:Uid="Continue" Content="Doorgaan" Margin="0,10,0,0" Tapped="Continue_Tapped" />
                 </StackPanel>
                 <StackPanel Padding="10" Name="ConnectPanel" Visibility="Collapsed">
                     <TextBlock TextWrapping="Wrap">
@@ -44,7 +44,7 @@
                         </Run>
                     </TextBlock>
                     <TextBox Name="UserKeyToValidate" TextChanged="UserKeyToValidate_TextChanged" IsSpellCheckEnabled="False" IsTextPredictionEnabled="False" MaxLength="23" Margin="0,10" />
-                    <Button Name="ButtonConnect" Content="Koppelen voor cloudsynchronisatie" Tapped="ButtonConnect_Tapped" />
+                    <Button Name="ButtonConnect" x:Uid="ButtonConnect" Content="Koppelen voor cloudsynchronisatie" Tapped="ButtonConnect_Tapped" />
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>

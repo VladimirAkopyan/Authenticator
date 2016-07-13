@@ -468,4 +468,20 @@ Voer de weergegeven sleutel in onderstaande tekstveld in:</value>
     <value>Bekijk uw codes</value>
     <comment>Not translated yet.</comment>
   </data>
+  <data name="AboutUserKey.Text" xml:space="preserve">
+    <value>U kunt deze sleutel opvragen wanneer u andere apparaten ook gebruik wil laten maken van cloudsynchronisatie. Deze sleutel wordt in een beveiligde omgeving opgeslagen die door Windows wordt gebeheerd.</value>
+    <comment>Not translated yet.</comment>
+  </data>
+  <data name="ButtonConnect.Content" xml:space="preserve">
+    <value>Koppelen voor cloudsynchronisatie</value>
+    <comment>Not translated yet.</comment>
+  </data>
+  <data name="Continue.Content" xml:space="preserve">
+    <value>Doorgaan</value>
+    <comment>Not translated yet.</comment>
+  </data>
+  <data name="InitialSetupIntro.Text" xml:space="preserve">
+    <value>U heeft ervoor gekozen om cloudsynchronisatie in te schakelen. U heeft Authenticator for Windows inmiddels toegang verleend tot uw OneDrive-opslag. De centrale opslag van uw accounts wordt vanaf het moment dat u deze stappen heeft voltooid daar opgeslagen. Omdat wij u de hoogste veiligheid willen bieden maken wij gebruik van versleuteling. De opslag wordt versleuteld met een sleutel die alleen op uw apparaten staan en niet in de cloud. Onderstaande sleutel wordt gebruikt voor de versleuteling van uw accounts in de cloud.</value>
+    <comment>Not translated yet.</comment>
+  </data>
 </root>
