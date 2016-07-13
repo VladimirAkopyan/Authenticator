@@ -409,7 +409,7 @@ Voer de weergegeven sleutel in onderstaande tekstveld in:</value>
     <value>Cloudsynchronisatie is succesvol verwijderd.</value>
   </data>
   <data name="SynchronizationRemovedError" xml:space="preserve">
-    <value>Cloudsynchronisatie is niet verwijderd. Probeer het later opnieuw.</value>
+    <value>Cloudsynchronisatie is niet verwijderd. Controleer uw internetverbinding en probeer het later opnieuw.</value>
   </data>
   <data name="Synchronize.Label" xml:space="preserve">
     <value>Synchronizeren</value>

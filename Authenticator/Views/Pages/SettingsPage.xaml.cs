@@ -230,31 +230,32 @@ namespace Authenticator_for_Windows.Views.Pages
 
             if ((int)selectedCommand.Id == 0)
             {
+                Banner banner = new Banner();
+                bool result = false;
+
                 try
                 {
                     VisualStateManager.GoToState(this, ShowLoading.Name, true);
 
                     ISynchronizer synchronizer = new OneDriveSynchronizer(oneDriveClient);
-                    bool result = await synchronizer.Remove();
-
-                    Banner banner = new Banner();
-
-                    if (result)
-                    {
-                        banner.BannerText = ResourceLoader.GetForCurrentView().GetString("SynchronizationRemoved");
-                        banner.BannerType = BannerType.Success;
-                        banner.Dismissable = true;
-                    }
-                    else
-                    {
-                        banner.BannerText = ResourceLoader.GetForCurrentView().GetString("SynchronizationRemovedError");
-                        banner.BannerType = BannerType.Danger;
-                        banner.Dismissable = true;
-                    }
+                    result = await synchronizer.Remove();
                 }
                 catch (NetworkException)
                 {
-                    // TODO: Implement this exception.
+                    result = false;
+                }                
+
+                if (result)
+                {
+                    banner.BannerText = ResourceLoader.GetForCurrentView().GetString("SynchronizationRemoved");
+                    banner.BannerType = BannerType.Success;
+                    banner.Dismissable = true;
+                }
+                else
+                {
+                    banner.BannerText = ResourceLoader.GetForCurrentView().GetString("SynchronizationRemovedError");
+                    banner.BannerType = BannerType.Danger;
+                    banner.Dismissable = true;
                 }
 
                 await DisableSynchronization();

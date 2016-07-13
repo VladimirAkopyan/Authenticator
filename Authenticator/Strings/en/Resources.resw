@@ -364,7 +364,7 @@ Enter the displayed key in the text field below:</value>
     <value>Successfully removed cloud synchronization.</value>
   </data>
   <data name="SynchronizationRemovedError" xml:space="preserve">
-    <value>Cloud synchronization is not removed. Please try again later.</value>
+    <value>Cloud synchronization is not removed. Please check your internet connection and try again later.</value>
   </data>
   <data name="TurnOff" xml:space="preserve">
     <value>Turn off</value>
