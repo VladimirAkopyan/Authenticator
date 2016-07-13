@@ -247,7 +247,7 @@ namespace Authenticator_for_Windows.Views.UserControls
                     }
                     catch (Exception ex)
                     {
-                        mainPage.Navigate(typeof(ErrorPage), ex);
+                        // TODO: Implement this exception.
                     }
                 }
             }
