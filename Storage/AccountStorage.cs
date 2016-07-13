@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.Security.Cryptography;
 using Windows.Security.Cryptography.DataProtection;
@@ -32,6 +33,14 @@ namespace Domain.Storage
 
         public event EventHandler SynchronizationStarted;
         public event EventHandler<SynchronizationResult> SynchronizationCompleted;
+
+        public bool Loaded
+        {
+            get
+            {
+                return accounts != null;
+            }
+        }
 
         public static AccountStorage Instance
         {

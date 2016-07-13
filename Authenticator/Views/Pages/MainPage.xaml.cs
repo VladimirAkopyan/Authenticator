@@ -51,11 +51,6 @@ namespace Authenticator_for_Windows.Views.Pages
                     synchronizer.SetEncrypter(encrypter, credentials[0].Password);
 
                     AccountStorage.Instance.SetSynchronizer(synchronizer);
-
-                    if (SettingsManager.Get<int>(Setting.WhenToSynchronize) == 0)
-                    {
-                        AccountStorage.Instance.UpdateLocalFromRemote();
-                    }
                 }
             }
 

@@ -34,6 +34,8 @@ namespace Authenticator_for_Windows.Views.Pages
         private int reorderFrom;
         private int reorderTo;
         private const int UNDO_MESSAGE_VISIBLE_SECONDS = 5;
+        
+        private static bool firstLoad = true;
 
         public AccountsPage()
         {
@@ -66,17 +68,29 @@ namespace Authenticator_for_Windows.Views.Pages
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            bool synchronize = false;
+
             if (SettingsManager.Get<bool>(Setting.UseCloudSynchronization) && AccountStorage.Instance.HasSynchronizer)
             {
                 AccountStorage.Instance.SynchronizationStarted += SynchronizationStarted;
                 AccountStorage.Instance.SynchronizationCompleted += SynchronizationCompleted;
 
                 Synchronize.Visibility = Visibility.Visible;
+
+                if (SettingsManager.Get<int>(Setting.WhenToSynchronize) == 0)
+                {
+                    synchronize = true;
+                }
             }
 
             await LoadAccounts();
 
             PageGrid.Children.Remove(LoaderProgressBar);
+
+            if (firstLoad && synchronize)
+            {
+                await AccountStorage.Instance.UpdateLocalFromRemote();
+            }
 
             if (AccountStorage.Instance.IsSynchronizing)
             {
@@ -127,6 +141,8 @@ namespace Authenticator_for_Windows.Views.Pages
             Codes.IsEnabled = true;
             
             Synchronize.StopAnimationAndEnable();
+
+            firstLoad = false;
         }
 
         private void SynchronizationStarted(object sender, EventArgs e)
