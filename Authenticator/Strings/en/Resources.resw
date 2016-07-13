@@ -471,6 +471,9 @@ Voer de weergegeven sleutel in onderstaande tekstveld in:</value>
   <data name="RemoveCloudSynchronization.Text" xml:space="preserve">
     <value>You can turn off cloud synchronization for all the devices on which it is currently enabled. When you no longer have access to your personal key or want a new personal key, this is the only way to start over again. Cloud synchronization will be turned off on your other devices when synchronization occurs.</value>
   </data>
+  <data name="SettingsSynchronization.Header" xml:space="preserve">
+    <value>Cloud synchronization</value>
+  </data>
   <data name="UserKeyRequired.Text" xml:space="preserve">
     <value>You need your personal key on your other devices to decrypt the storage of your accounts. You can display your personal key by selecting the button below.</value>
   </data>

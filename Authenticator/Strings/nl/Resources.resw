@@ -474,4 +474,7 @@ Voer de weergegeven sleutel in onderstaande tekstveld in:</value>
   <data name="UserKeyRequired.Text" xml:space="preserve">
     <value>U heeft uw persoonlijke sleutel nodig op uw andere apparaten om de opslag van uw accounts te ontsleutelen. U kunt uw persoonlijke sleutel weergeven door de onderstaande knop te selecteren.</value>
   </data>
+  <data name="SettingsSynchronization.Header" xml:space="preserve">
+    <value>Cloudsynchronisatie</value>
+  </data>
 </root>
