@@ -1,5 +1,6 @@
 ﻿using Domain;
 using Encryption;
+using Encryption.Exceptions;
 using Microsoft.OneDrive.Sdk;
 using Newtonsoft.Json;
 using Synchronization.Exceptions;
@@ -167,33 +168,36 @@ namespace Synchronization
 
         public async Task<bool> DecryptWithKey(string userKey)
         {
+            bool valid = false;
+
             try
             {
-                bool valid = false;
-
                 await GetFileFromOneDrive();
 
                 if (!string.IsNullOrWhiteSpace(content))
                 {
-                    try
-                    {
-                        encrypter.Salt = userKey;
-                        decrypted = encrypter.Decrypt(content);
+                    encrypter.Salt = userKey;
+                    decrypted = encrypter.Decrypt(content);
 
-                        valid = true;
-                    }
-                    catch
-                    {
-                        valid = false;
-                    }
+                    valid = true;
+                }
+                else
+                {
+                    throw new NetworkException();
                 }
 
                 return valid;
+            }
+            catch (InvalidKeyException)
+            {
+                valid = false;
             }
             catch (Exception e)
             {
                 throw e;
             }
+
+            return valid;
         }
 
         public async Task<SynchronizationResult> UpdateLocalFromRemote(string plainAccounts)

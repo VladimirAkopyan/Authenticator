@@ -119,29 +119,29 @@ namespace Authenticator_for_Windows.Views.Pages
                 try
                 {
                     result = await synchronizer.DecryptWithKey(UserKeyToValidate.Text);
-                }
-                catch (InvalidKeyException)
-                {
-                    result = false;
+
+                    if (result)
+                    {
+                        Status.Text = ResourceLoader.GetForCurrentView().GetString("SynchronizingAccountsWithCloud");
+
+                        await AccountStorage.Instance.Synchronize();
+
+                        vault.Add(new PasswordCredential(RESOURCE_NAME, USERNAME_NAME, UserKeyToValidate.Text));
+
+                        Frame.Navigate(typeof(SetupSynchronizationFinishedPage), mainPage);
+                    }
+                    else
+                    {
+                        VisualStateManager.GoToState(this, HideLoading.Name, true);
+
+                        MainPage.AddBanner(new Banner(BannerType.Danger, ResourceLoader.GetForCurrentView().GetString("EnteredKeyIncorrect"), true));
+                    }
                 }
                 catch (NetworkException)
                 {
-                    // TODO: Implement this exception.
-                }
+                    VisualStateManager.GoToState(this, HideLoading.Name, true);
 
-                if (result)
-                {
-                    Status.Text = ResourceLoader.GetForCurrentView().GetString("SynchronizingAccountsWithCloud");
-
-                    await AccountStorage.Instance.Synchronize();
-                    
-                    vault.Add(new PasswordCredential(RESOURCE_NAME, USERNAME_NAME, UserKeyToValidate.Text));
-
-                    Frame.Navigate(typeof(SetupSynchronizationFinishedPage), mainPage);
-                }
-                else
-                {
-                    MainPage.AddBanner(new Banner(BannerType.Danger, ResourceLoader.GetForCurrentView().GetString("EnteredKeyIncorrect"), true));
+                    MainPage.AddBanner(new Banner(BannerType.Danger, ResourceLoader.GetForCurrentView().GetString("BannerUnableToValidateKey"), true));
                 }
             }
         }

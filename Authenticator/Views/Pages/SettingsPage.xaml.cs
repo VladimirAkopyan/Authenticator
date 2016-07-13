@@ -169,7 +169,7 @@ namespace Authenticator_for_Windows.Views.Pages
             {
                 ButtonTurnOnSynchronization.IsLoading = false;
 
-                System.Diagnostics.Debug.WriteLine(ex);
+                // TODO: Implement this exception.
             }
         }
         

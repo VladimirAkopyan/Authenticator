@@ -486,4 +486,7 @@ Voer de weergegeven sleutel in onderstaande tekstveld in:</value>
   <data name="WhenToSynchronize.Text" xml:space="preserve">
     <value>Wanneer moet er gesynchroniseerd worden?</value>
   </data>
+  <data name="BannerUnableToValidateKey" xml:space="preserve">
+    <value>Uw persoonlijke sleutel kon niet gecontroleerd worden. Controleer uw internetverbinding en probeer het later opnieuw.</value>
+  </data>
 </root>
