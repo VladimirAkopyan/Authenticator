@@ -489,4 +489,7 @@ Enter the displayed key in the text field below:</value>
   <data name="BannerUnableToValidateKey" xml:space="preserve">
     <value>Unable to validate your personal key. Please check your internet connection and try again later.</value>
   </data>
+  <data name="UnknownErrorWhileAuthenticating" xml:space="preserve">
+    <value>An unknown error occured while authenticating you.</value>
+  </data>
 </root>

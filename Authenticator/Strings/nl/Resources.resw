@@ -489,4 +489,7 @@ Voer de weergegeven sleutel in onderstaande tekstveld in:</value>
   <data name="BannerUnableToValidateKey" xml:space="preserve">
     <value>Uw persoonlijke sleutel kon niet gecontroleerd worden. Controleer uw internetverbinding en probeer het later opnieuw.</value>
   </data>
+  <data name="UnknownErrorWhileAuthenticating" xml:space="preserve">
+    <value>Er is een onbekende fout opgetreden tijdens het authentificeren van u.</value>
+  </data>
 </root>

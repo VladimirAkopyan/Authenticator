@@ -169,7 +169,10 @@ namespace Authenticator_for_Windows.Views.Pages
             {
                 ButtonTurnOnSynchronization.IsLoading = false;
 
-                // TODO: Implement this exception.
+                if (!ex.IsMatch(OneDriveErrorCode.Unauthenticated.ToString()) && !ex.IsMatch(OneDriveErrorCode.AccessDenied.ToString()))
+                {
+                    MainPage.AddBanner(new Banner(BannerType.Danger, ResourceLoader.GetForCurrentView().GetString("UnknownErrorWhileAuthenticating"), true));
+                }
             }
         }
         
@@ -257,6 +260,8 @@ namespace Authenticator_for_Windows.Views.Pages
                     banner.BannerType = BannerType.Danger;
                     banner.Dismissable = true;
                 }
+
+                MainPage.AddBanner(banner);
 
                 await DisableSynchronization();
                 ShowInformation();
