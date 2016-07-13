@@ -349,170 +349,129 @@ Voer de weergegeven sleutel in onderstaande tekstveld in:</value>
     <value>Turn on cloud synchronization</value>
   </data>
   <data name="Cancel" xml:space="preserve">
-    <value>Annuleren</value>
-    <comment>Not translated yet.</comment>
+    <value>Cancel</value>
   </data>
   <data name="Delete" xml:space="preserve">
-    <value>Verwijderen</value>
-    <comment>Not translated yet.</comment>
+    <value>Delete</value>
   </data>
   <data name="RemoveSynchronizationMessage" xml:space="preserve">
-    <value>Weet u zeker dat u cloudsynchronisatie wilt uitschakelen? Dit geldt voor alle apparaten waarop u cloudsynchronisatie heeft ingeschakeld.</value>
-    <comment>Not translated yet.</comment>
+    <value>Are you sure you want to turn off cloud synchronization? This applies to all devices on which you have enabled cloud synchronization.</value>
   </data>
   <data name="RemoveSynchronizationTitle" xml:space="preserve">
-    <value>Cloudsynchronisatie verwijderen</value>
-    <comment>Not translated yet.</comment>
+    <value>Remove cloud synchronization</value>
   </data>
   <data name="SynchronizationRemoved" xml:space="preserve">
-    <value>Cloudsynchronisatie is succesvol verwijderd.</value>
-    <comment>Not translated yet.</comment>
+    <value>Successfully removed cloud synchronization.</value>
   </data>
   <data name="SynchronizationRemovedError" xml:space="preserve">
-    <value>Cloudsynchronisatie is niet verwijderd. Probeer het later opnieuw.</value>
-    <comment>Not translated yet.</comment>
+    <value>Cloud synchronization is not removed. Please try again later.</value>
   </data>
   <data name="TurnOff" xml:space="preserve">
-    <value>Uitschakelen</value>
-    <comment>Not translated yet.</comment>
+    <value>Turn off</value>
   </data>
   <data name="TurnOffSynchronizationMessage" xml:space="preserve">
-    <value>Weet u zeker dat u cloudsynchronisatie wilt uitschakelen?</value>
-    <comment>Not translated yet.</comment>
+    <value>Are you sure you want to turn off cloud synchronization?</value>
   </data>
   <data name="TurnOffSynchronizationTitle" xml:space="preserve">
-    <value>Cloudsynchronisatie uitschakelen</value>
-    <comment>Not translated yet.</comment>
+    <value>Turn off cloud synchronization</value>
   </data>
   <data name="ChangesDetectedRedoDelete" xml:space="preserve">
-    <value>Er zijn wijzigingen gedetecteerd sinds uw laatste synchronisatie en uw apparaat is bijgewerkt. Verwijder alstublieft uw account opnieuw.</value>
-    <comment>Not translated yet.</comment>
+    <value>There are changes detected since your last synchronization and your device is updated. Please delete your account again.</value>
   </data>
   <data name="ChangesDetectedRedoMove" xml:space="preserve">
-    <value>Er zijn wijzigingen gedetecteerd sinds uw laatste synchronisatie en uw apparaat is bijgewerkt. Verplaatst alstublieft uw account opnieuw.</value>
-    <comment>Not translated yet.</comment>
+    <value>There are changes detected since your last synchronization and your device is updated. Please move your account again.</value>
   </data>
   <data name="ChangesDetectedRedoUndo" xml:space="preserve">
-    <value>Er zijn wijzigingen gedetecteerd sinds uw laatste synchronisatie en uw apparaat is bijgewerkt. Maak het verwijderen alstublieft opnieuw ongedaan.</value>
-    <comment>Not translated yet.</comment>
+    <value>There are changes detected since your last synchronization and your device is updated. Please undo the removal again.</value>
   </data>
   <data name="CheckingKey" xml:space="preserve">
-    <value>Uw sleutel wordt gecontroleerd...</value>
-    <comment>Not translated yet.</comment>
+    <value>Your key is being validated...</value>
   </data>
   <data name="ConfiguredCloudSynchronization.Text" xml:space="preserve">
-    <value>Cloudsynchronisatie geconfigureerd</value>
-    <comment>Not translated yet.</comment>
+    <value>Cloud synchronization configured</value>
   </data>
   <data name="ConfiguredCloudSynchronizationInformation.Text" xml:space="preserve">
-    <value>Vanaf nu worden al uw accounts van dit apparaat gesynchroniseerd met uw accounts op uw andere Windows-apparaten waarop u cloudsynchronisatie heeft ingesteld. Let u er alstublieft op dat synchronisatie plaatsvindt op het moment dat u een account toevoegt, wijzigt of verplaatst van volgorde. Dit heeft als gevolg dat u iets langer moet wachten voordat uw wijzigingen zijn doorgevoerd, maar gewoonlijk duurt dit hooguit een paar seconden. Op het moment dat er synchronisatie plaatsvindt, kunt u dit rechtsonder zien aan de ronddraaiende synchronisatieknop (zoals hieronder).</value>
-    <comment>Not translated yet.</comment>
+    <value>From now on, all your accounts from this device are being synchronized with your accounts on your other Windows devices on which you have configured cloud synchronization. Please note that synchronization occurs when you add, modify, delete or reorder an account. This results in a small delay before your changes are processed, but usually this takes no longer than a few seconds. When synchronization occurs, you can see this on the bottom right on the spinning synchronization button (like below).</value>
   </data>
   <data name="EnteredKeyIncorrect" xml:space="preserve">
-    <value>De ingevoerde sleutel is incorrect.</value>
-    <comment>Not translated yet.</comment>
+    <value>The entered key is incorrect.</value>
   </data>
   <data name="InvalidPersonalKey" xml:space="preserve">
-    <value>Ongeldige persoonlijke sleutel</value>
-    <comment>Not translated yet.</comment>
+    <value>Invalid personal key</value>
   </data>
   <data name="NoInternetChangesRolledBack" xml:space="preserve">
-    <value>Het lijkt erop dat er geen werkende interverbinding beschikbaar is. Uw wijzigingen zijn ongedaan gemaakt.</value>
-    <comment>Not translated yet.</comment>
+    <value>It seems there is no working internet connection available. Your changes are undone.</value>
   </data>
   <data name="NoInternetConnection" xml:space="preserve">
-    <value>Het lijkt erop dat u geen werkende internetverbinding heeft. Voor cloudsynchronisatie is een werkende internetverbinding vereist.</value>
-    <comment>Not translated yet.</comment>
+    <value>It seems there is no working internet connection available. Cloud synchronization requires a working internet connection.</value>
   </data>
   <data name="PersonalKeyChanged" xml:space="preserve">
-    <value>Uw persoonlijke sleutel is veranderd vanaf een ander apparaat. Omdat deze persoonlijke sleutel benodigd is voor het ontsleutelen van uw accounts in de cloud, is cloudsynchronisatie nu uitgeschakeld.</value>
-    <comment>Not translated yet.</comment>
+    <value>Your personal key is changed from another device. Because this personal key is required to decrypt your accounts from the cloud, cloud synchronization is now turned off.</value>
   </data>
   <data name="RemovedCloudSynchronization" xml:space="preserve">
-    <value>Cloudsynchronisatie verwijderd</value>
-    <comment>Not translated yet.</comment>
+    <value>Removed cloud synchronization</value>
   </data>
   <data name="RemovedCloudSynchronizationFromOtherDevice" xml:space="preserve">
-    <value>Cloudsynchronisatie is vanaf een ander apparaat verwijderd, daarom is cloudsynchronisatie op dit apparaat nu uitgeschakeld.</value>
-    <comment>Not translated yet.</comment>
+    <value>Cloud synchronization is removed from another device, so cloud synchronization is now turned off on this device.</value>
   </data>
   <data name="ShowUserKeyDialog.PrimaryButtonText" xml:space="preserve">
-    <value>Sluiten</value>
-    <comment>Not translated yet.</comment>
+    <value>Close</value>
   </data>
   <data name="ShowUserKeyDialog.Title" xml:space="preserve">
-    <value>Uw persoonlijke sleutel</value>
-    <comment>Not translated yet.</comment>
+    <value>Your personal key</value>
   </data>
   <data name="Synchronize.Label" xml:space="preserve">
-    <value>Synchronizeren</value>
-    <comment>Not translated yet.</comment>
+    <value>Synchronize</value>
   </data>
   <data name="SynchronizingAccountsWithCloud" xml:space="preserve">
-    <value>Uw accounts worden met de cloud gesynchroniseerd...</value>
-    <comment>Not translated yet.</comment>
+    <value>Your accounts are being synchronized with the cloud...</value>
   </data>
   <data name="UnknownError" xml:space="preserve">
-    <value>Onbekende fout</value>
-    <comment>Not translated yet.</comment>
+    <value>Unknown error</value>
   </data>
   <data name="UnknownErrorDuringSynchronize" xml:space="preserve">
-    <value>Er is een onbekende fout opgetreden bij het synchroniseren van uw accounts met de cloud.</value>
-    <comment>Not translated yet.</comment>
+    <value>An unknown error occured while synchronizing your accounts with the cloud.</value>
   </data>
   <data name="UserKeyInformation.Text" xml:space="preserve">
-    <value>Hieronder ziet u uw persoonlijke sleutel. Deze sleutel wordt gebruikt om de opslag van uw accounts in de cloud te versleutelen en te ontsleutelen. U heeft deze sleutel nodig op uw andere apparaten waarop uw cloudsynchronisatie wilt inschakelen.</value>
-    <comment>Not translated yet.</comment>
+    <value>Below you'll see your personal key. This key is being used to encrypt and decrypt the storage of your accounts in the cloud. You need this key on your other devices on which you want to turn on cloud synchronization.</value>
   </data>
   <data name="ViewCodes.Content" xml:space="preserve">
-    <value>Bekijk uw codes</value>
-    <comment>Not translated yet.</comment>
+    <value>View your codes</value>
   </data>
   <data name="AboutCloudSynchronization.Text" xml:space="preserve">
-    <value>Met cloudsynchronisatie kunt u uw accounts synchroniseren over uw gekoppelde apparaten. Hierdoor heeft u al uw accounts altijd op al uw Windows-apparaten.</value>
-    <comment>Not translated yet.</comment>
+    <value>With cloud synchronization, your accounts are being synchronized between your connected devices. By using this, you always have all your accounts on all your Windows devices.</value>
   </data>
   <data name="AboutUserKey.Text" xml:space="preserve">
-    <value>U kunt deze sleutel opvragen wanneer u andere apparaten ook gebruik wil laten maken van cloudsynchronisatie. Deze sleutel wordt in een beveiligde omgeving opgeslagen die door Windows wordt gebeheerd.</value>
-    <comment>Not translated yet.</comment>
+    <value>You can request this key when you want to make use of cloud synchronization on your other devices. This key is being saved in a secured environment that's being managed by Windows.</value>
   </data>
   <data name="ButtonConnect.Content" xml:space="preserve">
-    <value>Koppelen voor cloudsynchronisatie</value>
-    <comment>Not translated yet.</comment>
+    <value>Connect with cloud synchronization</value>
   </data>
   <data name="ButtonRemoveCloudSynchronization.Content" xml:space="preserve">
-    <value>Cloudsynchronisatie verwijderen</value>
+    <value>Remove cloud synchronization</value>
   </data>
   <data name="ButtonShowUserKey.Content" xml:space="preserve">
-    <value>Persoonlijke sleutel weergeven</value>
-    <comment>Not translated yet.</comment>
+    <value>Display personal key</value>
   </data>
   <data name="ButtonTurnOffSynchronization.Content" xml:space="preserve">
-    <value>Cloudsynchronisatie uitschakelen</value>
-    <comment>Not translated yet.</comment>
+    <value>Turn off cloud synchronization</value>
   </data>
   <data name="CloudSynchronizationTurnedOff.Text" xml:space="preserve">
-    <value>Cloudsynchronisatie is momenteel uitgeschakeld. U kunt het inschakelen als u uw accounts met dit apparaat wilt synchroniseren. Voor cloudsynchronisatie wordt gebruikgemaakt van OneDrive en u zult Authenticator for Windows toegang moeten geven tot uw OneDrive-opslag om cloudsynchronisatie in te schakelen.</value>
-    <comment>Not translated yet.</comment>
+    <value>Cloud synchronization is currently turned off. You can turn it on if you want to synchronize your accounts with this device. Cloud synchronization uses OneDrive and you must grant Authenticator for Windows access to your OneDrive storage to turn on cloud synchronization.</value>
   </data>
   <data name="CloudSynchronizationTurnedOn.Text" xml:space="preserve">
-    <value>Cloudsynchronisatie is momenteel ingeschakeld. U kunt het uitschakelen als u uw accounts niet meer met dit apparaat wilt synchroniseren.</value>
-    <comment>Not translated yet.</comment>
+    <value>Cloud synchronization is currently turned on. You can turn it off if you don't want to synchronize your accounts with this device anymore.</value>
   </data>
   <data name="Continue.Content" xml:space="preserve">
-    <value>Doorgaan</value>
-    <comment>Not translated yet.</comment>
+    <value>Continue</value>
   </data>
   <data name="InitialSetupIntro.Text" xml:space="preserve">
-    <value>U heeft ervoor gekozen om cloudsynchronisatie in te schakelen. U heeft Authenticator for Windows inmiddels toegang verleend tot uw OneDrive-opslag. De centrale opslag van uw accounts wordt vanaf het moment dat u deze stappen heeft voltooid daar opgeslagen. Omdat wij u de hoogste veiligheid willen bieden maken wij gebruik van versleuteling. De opslag wordt versleuteld met een sleutel die alleen op uw apparaten staan en niet in de cloud. Onderstaande sleutel wordt gebruikt voor de versleuteling van uw accounts in de cloud.</value>
-    <comment>Not translated yet.</comment>
+    <value>You have chosen to turn on cloud synchronization. At this stage you already have granted Authenticator for Windows access to your OneDrive storage. The central storage of your accounts will be saved there after you complete these steps. Because we want to give you the highest security, we make use of encryption. The storage is being encrypted with a key that's only on your devices and not in the cloud. The key below is being used for encryption of your accounts in the cloud.</value>
   </data>
   <data name="RemoveCloudSynchronization.Text" xml:space="preserve">
-    <value>U kunt cloudsynchronisatie uitschakelen voor alle aparaten waarop het momenteel is ingeschakeld. Wanneer u geen toegang meer heeft tot uw persoonlijke sleutel bent of een nieuwe persoonlijke sleutel wilt, is dit de enige manier om opnieuw te beginnen. Cloudsynchronisatie wordt op uw andere apparaten automatisch uitgeschakeld wanneer er synchronisatie plaatsvindt.</value>
-    <comment>Not translated yet.</comment>
+    <value>You can turn off cloud synchronization for all the devices on which it is currently enabled. When you no longer have access to your personal key or want a new personal key, this is the only way to start over again. Cloud synchronization will be turned off on your other devices when synchronization occurs.</value>
   </data>
   <data name="UserKeyRequired.Text" xml:space="preserve">
-    <value>U heeft uw persoonlijke sleutel nodig op uw andere apparaten om de opslag van uw accounts te ontsleutelen. U kunt uw persoonlijke sleutel weergeven door de onderstaande knop te selecteren.</value>
-    <comment>Not translated yet.</comment>
+    <value>You need your personal key on your other devices to decrypt the storage of your accounts. You can display your personal key by selecting the button below.</value>
   </data>
 </root>
