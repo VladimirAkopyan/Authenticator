@@ -211,7 +211,7 @@ namespace Authenticator_for_Windows.Views.Pages
             }
         }
 
-        private async void ButtonRemoveSynchronization_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        private async void ButtonRemoveCloudSynchronization_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
             MessageDialog dialog = new MessageDialog(ResourceLoader.GetForCurrentView().GetString("RemoveSynchronizationMessage"), ResourceLoader.GetForCurrentView().GetString("RemoveSynchronizationTitle"));
             dialog.Commands.Add(new UICommand() { Label = ResourceLoader.GetForCurrentView().GetString("Delete"), Id = 0 });

@@ -468,6 +468,10 @@ Voer de weergegeven sleutel in onderstaande tekstveld in:</value>
     <value>Bekijk uw codes</value>
     <comment>Not translated yet.</comment>
   </data>
+  <data name="AboutCloudSynchronization.Text" xml:space="preserve">
+    <value>Met cloudsynchronisatie kunt u uw accounts synchroniseren over uw gekoppelde apparaten. Hierdoor heeft u al uw accounts altijd op al uw Windows-apparaten.</value>
+    <comment>Not translated yet.</comment>
+  </data>
   <data name="AboutUserKey.Text" xml:space="preserve">
     <value>U kunt deze sleutel opvragen wanneer u andere apparaten ook gebruik wil laten maken van cloudsynchronisatie. Deze sleutel wordt in een beveiligde omgeving opgeslagen die door Windows wordt gebeheerd.</value>
     <comment>Not translated yet.</comment>
@@ -476,12 +480,39 @@ Voer de weergegeven sleutel in onderstaande tekstveld in:</value>
     <value>Koppelen voor cloudsynchronisatie</value>
     <comment>Not translated yet.</comment>
   </data>
+  <data name="ButtonRemoveCloudSynchronization.Content" xml:space="preserve">
+    <value>Cloudsynchronisatie verwijderen</value>
+  </data>
+  <data name="ButtonShowUserKey.Content" xml:space="preserve">
+    <value>Persoonlijke sleutel weergeven</value>
+    <comment>Not translated yet.</comment>
+  </data>
+  <data name="ButtonTurnOffSynchronization.Content" xml:space="preserve">
+    <value>Cloudsynchronisatie uitschakelen</value>
+    <comment>Not translated yet.</comment>
+  </data>
+  <data name="CloudSynchronizationTurnedOff.Text" xml:space="preserve">
+    <value>Cloudsynchronisatie is momenteel uitgeschakeld. U kunt het inschakelen als u uw accounts met dit apparaat wilt synchroniseren. Voor cloudsynchronisatie wordt gebruikgemaakt van OneDrive en u zult Authenticator for Windows toegang moeten geven tot uw OneDrive-opslag om cloudsynchronisatie in te schakelen.</value>
+    <comment>Not translated yet.</comment>
+  </data>
+  <data name="CloudSynchronizationTurnedOn.Text" xml:space="preserve">
+    <value>Cloudsynchronisatie is momenteel ingeschakeld. U kunt het uitschakelen als u uw accounts niet meer met dit apparaat wilt synchroniseren.</value>
+    <comment>Not translated yet.</comment>
+  </data>
   <data name="Continue.Content" xml:space="preserve">
     <value>Doorgaan</value>
     <comment>Not translated yet.</comment>
   </data>
   <data name="InitialSetupIntro.Text" xml:space="preserve">
     <value>U heeft ervoor gekozen om cloudsynchronisatie in te schakelen. U heeft Authenticator for Windows inmiddels toegang verleend tot uw OneDrive-opslag. De centrale opslag van uw accounts wordt vanaf het moment dat u deze stappen heeft voltooid daar opgeslagen. Omdat wij u de hoogste veiligheid willen bieden maken wij gebruik van versleuteling. De opslag wordt versleuteld met een sleutel die alleen op uw apparaten staan en niet in de cloud. Onderstaande sleutel wordt gebruikt voor de versleuteling van uw accounts in de cloud.</value>
+    <comment>Not translated yet.</comment>
+  </data>
+  <data name="RemoveCloudSynchronization.Text" xml:space="preserve">
+    <value>U kunt cloudsynchronisatie uitschakelen voor alle aparaten waarop het momenteel is ingeschakeld. Wanneer u geen toegang meer heeft tot uw persoonlijke sleutel bent of een nieuwe persoonlijke sleutel wilt, is dit de enige manier om opnieuw te beginnen. Cloudsynchronisatie wordt op uw andere apparaten automatisch uitgeschakeld wanneer er synchronisatie plaatsvindt.</value>
+    <comment>Not translated yet.</comment>
+  </data>
+  <data name="UserKeyRequired.Text" xml:space="preserve">
+    <value>U heeft uw persoonlijke sleutel nodig op uw andere apparaten om de opslag van uw accounts te ontsleutelen. U kunt uw persoonlijke sleutel weergeven door de onderstaande knop te selecteren.</value>
     <comment>Not translated yet.</comment>
   </data>
 </root>
