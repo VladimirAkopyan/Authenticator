@@ -76,6 +76,11 @@
                         <StackPanel Name="SynchronizationOn" Visibility="Collapsed">
                             <TextBlock x:Uid="CloudSynchronizationTurnedOn" Text="Cloudsynchronisatie is momenteel ingeschakeld. U kunt het uitschakelen als u uw accounts niet meer met dit apparaat wilt synchroniseren." Foreground="Green" TextWrapping="Wrap" />
                             <Button x:Uid="ButtonTurnOffSynchronization" Name="ButtonTurnOffSynchronization" Content="Cloudsynchronisatie uitschakelen" Margin="0,10" Tapped="ButtonTurnOffSynchronization_Tapped" />
+                            <TextBlock x:Uid="WhenToSynchronize" Text="Wanneer moet er gesynchroniseerd worden?" TextWrapping="Wrap" Margin="0,10,0,0" />
+                            <ComboBox Name="WhenToSynchronize" SelectionChanged="WhenToSynchronize_SelectionChanged" Margin="0,0,0,10">
+                                <ComboBoxItem x:Uid="OnStart" Content="Wanneer ik de app start" />
+                                <ComboBoxItem x:Uid="Manually" Content="Handmatig" />
+                            </ComboBox>
                             <TextBlock x:Uid="UserKeyRequired" Text="U heeft uw persoonlijke sleutel nodig op uw andere apparaten om de opslag van uw accounts te ontsleutelen. U kunt uw persoonlijke sleutel weergeven door de onderstaande knop te selecteren." TextWrapping="Wrap" />
                             <Button x:Uid="ButtonShowUserKey" Name="ShowUserKey" Content="Persoonlijke sleutel weergeven" Margin="0,10,0,0" Tapped="ShowUserKey_Tapped" />
                         </StackPanel>

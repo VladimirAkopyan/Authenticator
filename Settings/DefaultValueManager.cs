@@ -23,6 +23,9 @@ namespace Settings
                 case Setting.UseCloudSynchronization:
                     defaultValue = false;
                     break;
+                case Setting.WhenToSynchronize:
+                    defaultValue = 0;
+                    break;
             }
 
             return defaultValue;

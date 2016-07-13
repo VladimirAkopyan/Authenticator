@@ -5,6 +5,7 @@
         ClipBoardRememberType,
         UseNTP,
         NTPTimeout,
-        UseCloudSynchronization
+        UseCloudSynchronization,
+        WhenToSynchronize
     }
 }

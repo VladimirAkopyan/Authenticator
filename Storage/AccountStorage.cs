@@ -182,6 +182,7 @@ namespace Domain.Storage
         {
             try
             {
+                await LoadStorage();
                 NotifySynchronizationStarted();
 
                 SynchronizationResult result = null;

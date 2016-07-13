@@ -477,4 +477,13 @@ Enter the displayed key in the text field below:</value>
   <data name="UserKeyRequired.Text" xml:space="preserve">
     <value>You need your personal key on your other devices to decrypt the storage of your accounts. You can display your personal key by selecting the button below.</value>
   </data>
+  <data name="Manually.Content" xml:space="preserve">
+    <value>Manually</value>
+  </data>
+  <data name="OnStart.Content" xml:space="preserve">
+    <value>When I start the app</value>
+  </data>
+  <data name="WhenToSynchronize.Text" xml:space="preserve">
+    <value>When should a synchronization be done?</value>
+  </data>
 </root>

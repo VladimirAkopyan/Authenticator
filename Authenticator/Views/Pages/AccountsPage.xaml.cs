@@ -68,6 +68,9 @@ namespace Authenticator_for_Windows.Views.Pages
         {
             if (SettingsManager.Get<bool>(Setting.UseCloudSynchronization) && AccountStorage.Instance.HasSynchronizer)
             {
+                AccountStorage.Instance.SynchronizationStarted += SynchronizationStarted;
+                AccountStorage.Instance.SynchronizationCompleted += SynchronizationCompleted;
+
                 Synchronize.Visibility = Visibility.Visible;
             }
 
@@ -105,9 +108,6 @@ namespace Authenticator_for_Windows.Views.Pages
 
             accountBlocks.CollectionChanged += AccountBlocks_CollectionChanged;
             Codes.ItemsSource = accountBlocks;
-
-            AccountStorage.Instance.SynchronizationStarted += SynchronizationStarted;
-            AccountStorage.Instance.SynchronizationCompleted += SynchronizationCompleted;
 
             CheckEntries();
         }

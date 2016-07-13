@@ -477,4 +477,13 @@ Voer de weergegeven sleutel in onderstaande tekstveld in:</value>
   <data name="SettingsSynchronization.Header" xml:space="preserve">
     <value>Cloudsynchronisatie</value>
   </data>
+  <data name="Manually.Content" xml:space="preserve">
+    <value>Handmatig</value>
+  </data>
+  <data name="OnStart.Content" xml:space="preserve">
+    <value>Wanneer ik de app start</value>
+  </data>
+  <data name="WhenToSynchronize.Text" xml:space="preserve">
+    <value>Wanneer moet er gesynchroniseerd worden?</value>
+  </data>
 </root>

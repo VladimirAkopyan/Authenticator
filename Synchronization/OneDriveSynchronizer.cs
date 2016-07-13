@@ -212,6 +212,7 @@ namespace Synchronization
             {
                 result.Accounts = JsonConvert.DeserializeObject<Account[]>(decrypted);
                 result.HasChanges = !Comparer.AreEqual(plainAccounts, decrypted);
+                result.Successful = true;
             }
 
             return result;

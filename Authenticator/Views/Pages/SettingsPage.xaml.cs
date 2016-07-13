@@ -38,6 +38,7 @@ namespace Authenticator_for_Windows.Views.Pages
             loadingSettings = true;
 
             LoadGeneralSettings();
+            LoadSynchronizationSettings();
 
             loadingSettings = false;
         }
@@ -55,6 +56,11 @@ namespace Authenticator_for_Windows.Views.Pages
             NTPTimeout.SelectedIndex = GetIndexOfTimeSpan(SettingsManager.Get<TimeSpan>(Setting.NTPTimeout));
 
             UseNTP_Toggled(null, null);
+        }
+
+        private void LoadSynchronizationSettings()
+        {
+            WhenToSynchronize.SelectedIndex = SettingsManager.Get<int>(Setting.WhenToSynchronize);
         }
 
         private int GetIndexOfTimeSpan(TimeSpan timeSpan)
@@ -276,6 +282,14 @@ namespace Authenticator_for_Windows.Views.Pages
                 AccountStorage.Instance.SetSynchronizer(null);
 
                 ShowInformation();
+            }
+        }
+
+        private void WhenToSynchronize_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (!loadingSettings)
+            {
+                SettingsManager.Save(Setting.WhenToSynchronize, WhenToSynchronize.SelectedIndex);
             }
         }
     }
