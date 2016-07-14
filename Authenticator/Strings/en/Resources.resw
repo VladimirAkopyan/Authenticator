@@ -376,13 +376,13 @@ Enter the displayed key in the text field below: (hyphens are added automaticall
     <value>Turn off cloud synchronization</value>
   </data>
   <data name="ChangesDetectedRedoDelete" xml:space="preserve">
-    <value>There are changes detected since your last synchronization and your device is updated. Please delete your account again.</value>
+    <value>Changes have been detected since your last synchronization and your device has been updated. Please delete your account again.</value>
   </data>
   <data name="ChangesDetectedRedoMove" xml:space="preserve">
-    <value>There are changes detected since your last synchronization and your device is updated. Please move your account again.</value>
+    <value>Changes have been detected since your last synchronization and your device has been updated. Please move your account again.</value>
   </data>
   <data name="ChangesDetectedRedoUndo" xml:space="preserve">
-    <value>There are changes detected since your last synchronization and your device is updated. Please undo the removal again.</value>
+    <value>Changes have been detected since your last synchronization and your device has been updated. Please undo the removal again.</value>
   </data>
   <data name="CheckingKey" xml:space="preserve">
     <value>Your key is being validated...</value>
@@ -400,7 +400,7 @@ Enter the displayed key in the text field below: (hyphens are added automaticall
     <value>Invalid personal key</value>
   </data>
   <data name="NoInternetChangesRolledBack" xml:space="preserve">
-    <value>It seems there is no working internet connection available. Your changes are undone.</value>
+    <value>It seems there is no working internet connection available. Your changes have been undone.</value>
   </data>
   <data name="NoInternetConnection" xml:space="preserve">
     <value>It seems there is no working internet connection available. Cloud synchronization requires a working internet connection.</value>
@@ -442,7 +442,7 @@ Enter the displayed key in the text field below: (hyphens are added automaticall
     <value>With cloud synchronization, your accounts are being synchronized between your connected devices. By using this, you always have all your accounts on all your Windows devices.</value>
   </data>
   <data name="AboutUserKey.Text" xml:space="preserve">
-    <value>You can request this key when you want to make use of cloud synchronization on your other devices. This key is being saved in a secured environment that's being managed by Windows.</value>
+    <value>You can request this key when you want to make use of cloud synchronization on your other devices. This key is being saved in a secure environment that's being managed by Windows.</value>
   </data>
   <data name="ButtonConnect.Content" xml:space="preserve">
     <value>Connect with cloud synchronization</value>

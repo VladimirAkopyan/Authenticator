@@ -355,7 +355,7 @@ Voer de weergegeven sleutel in onderstaande tekstveld in: (streepjes worden auto
     <value>Er zijn wijzigingen gedetecteerd sinds uw laatste synchronisatie en uw apparaat is bijgewerkt. Verwijder alstublieft uw account opnieuw.</value>
   </data>
   <data name="ChangesDetectedRedoMove" xml:space="preserve">
-    <value>Er zijn wijzigingen gedetecteerd sinds uw laatste synchronisatie en uw apparaat is bijgewerkt. Verplaatst alstublieft uw account opnieuw.</value>
+    <value>Er zijn wijzigingen gedetecteerd sinds uw laatste synchronisatie en uw apparaat is bijgewerkt. Verplaats alstublieft uw account opnieuw.</value>
   </data>
   <data name="ChangesDetectedRedoUndo" xml:space="preserve">
     <value>Er zijn wijzigingen gedetecteerd sinds uw laatste synchronisatie en uw apparaat is bijgewerkt. Maak het verwijderen alstublieft opnieuw ongedaan.</value>
@@ -412,7 +412,7 @@ Voer de weergegeven sleutel in onderstaande tekstveld in: (streepjes worden auto
     <value>Cloudsynchronisatie is niet verwijderd. Controleer uw internetverbinding en probeer het later opnieuw.</value>
   </data>
   <data name="Synchronize.Label" xml:space="preserve">
-    <value>Synchronizeren</value>
+    <value>Synchroniseren</value>
   </data>
   <data name="SynchronizingAccountsWithCloud" xml:space="preserve">
     <value>Uw accounts worden met de cloud gesynchroniseerd...</value>
@@ -433,7 +433,7 @@ Voer de weergegeven sleutel in onderstaande tekstveld in: (streepjes worden auto
     <value>Er is een onbekende fout opgetreden bij het synchroniseren van uw accounts met de cloud.</value>
   </data>
   <data name="UserKeyInformation.Text" xml:space="preserve">
-    <value>Hieronder ziet u uw persoonlijke sleutel. Deze sleutel wordt gebruikt om de opslag van uw accounts in de cloud te versleutelen en te ontsleutelen. U heeft deze sleutel nodig op uw andere apparaten waarop uw cloudsynchronisatie wilt inschakelen.</value>
+    <value>Hieronder ziet u uw persoonlijke sleutel. Deze sleutel wordt gebruikt om de opslag van uw accounts in de cloud te versleutelen en te ontsleutelen. U heeft deze sleutel nodig op uw andere apparaten waarop u cloudsynchronisatie wilt inschakelen.</value>
   </data>
   <data name="ViewCodes.Content" xml:space="preserve">
     <value>Bekijk uw codes</value>
@@ -442,7 +442,7 @@ Voer de weergegeven sleutel in onderstaande tekstveld in: (streepjes worden auto
     <value>Met cloudsynchronisatie kunt u uw accounts synchroniseren over uw gekoppelde apparaten. Hierdoor heeft u al uw accounts altijd op al uw Windows-apparaten.</value>
   </data>
   <data name="AboutUserKey.Text" xml:space="preserve">
-    <value>U kunt deze sleutel opvragen wanneer u andere apparaten ook gebruik wil laten maken van cloudsynchronisatie. Deze sleutel wordt in een beveiligde omgeving opgeslagen die door Windows wordt gebeheerd.</value>
+    <value>U kunt deze sleutel opvragen wanneer u andere apparaten ook gebruik wil laten maken van cloudsynchronisatie. Deze sleutel wordt in een beveiligde omgeving opgeslagen die door Windows wordt beheerd.</value>
   </data>
   <data name="ButtonConnect.Content" xml:space="preserve">
     <value>Koppelen voor cloudsynchronisatie</value>
@@ -490,7 +490,7 @@ Voer de weergegeven sleutel in onderstaande tekstveld in: (streepjes worden auto
     <value>Uw persoonlijke sleutel kon niet gecontroleerd worden. Controleer uw internetverbinding en probeer het later opnieuw.</value>
   </data>
   <data name="UnknownErrorWhileAuthenticating" xml:space="preserve">
-    <value>Er is een onbekende fout opgetreden tijdens het authentificeren van u.</value>
+    <value>Er is een onbekende fout opgetreden tijdens uw authenticatie.</value>
   </data>
   <data name="ReleaseNotes.Text" xml:space="preserve">
     <value>Deze versie introduceert cloudsynchronisatie. Dit betekent dat u al uw accounts op al uw apparaten heeft. Ga naar 'Instellingen' en vervolgens naar de sectie 'Cloudsynchronisatie' om het in te schakelen.</value>
