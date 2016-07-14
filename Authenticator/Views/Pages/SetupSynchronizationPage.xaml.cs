@@ -97,10 +97,7 @@ namespace Authenticator_for_Windows.Views.Pages
 
         private void UserKeyToValidate_TextChanged(object sender, TextChangedEventArgs e)
         {
-            int selection = UserKeyToValidate.SelectionStart;
-
-            UserKeyToValidate.Text = UserKeyToValidate.Text.ToUpper();
-            UserKeyToValidate.Select(selection, 0);
+            ButtonConnect.IsEnabled = UserKeyToValidate.ContainsValidUserKey;
         }
 
         private async void ButtonConnect_Tapped(object sender, TappedRoutedEventArgs e)

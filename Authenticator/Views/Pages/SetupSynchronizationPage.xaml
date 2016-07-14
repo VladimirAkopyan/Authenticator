@@ -5,6 +5,7 @@
     xmlns:local="using:Authenticator_for_Windows.Views.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Authenticator_for_Windows.Views.UserControls"
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -45,11 +46,11 @@
                             3. Ga naar het onderdeel 'Cloudsynchronisatie'
                             4. Selecteer 'Persoonlijke sleutel weergeven'
                             
-                            Voer de weergegeven sleutel in onderstaande tekstveld in:">
+                            Voer de weergegeven sleutel in onderstaande tekstveld in: (streepjes worden automatisch toegevoegd)">
                         </Run>
                     </TextBlock>
-                    <TextBox Name="UserKeyToValidate" TextChanged="UserKeyToValidate_TextChanged" IsSpellCheckEnabled="False" IsTextPredictionEnabled="False" MaxLength="23" Margin="0,10" />
-                    <Button Name="ButtonConnect" x:Uid="ButtonConnect" Content="Koppelen voor cloudsynchronisatie" Tapped="ButtonConnect_Tapped" />
+                    <controls:UserKeyTextBox x:Name="UserKeyToValidate" TextChanged="UserKeyToValidate_TextChanged" IsSpellCheckEnabled="False" IsTextPredictionEnabled="False" MaxLength="23" Margin="0,10" />
+                    <Button Name="ButtonConnect" x:Uid="ButtonConnect" Content="Koppelen voor cloudsynchronisatie" IsEnabled="False" Tapped="ButtonConnect_Tapped" />
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>

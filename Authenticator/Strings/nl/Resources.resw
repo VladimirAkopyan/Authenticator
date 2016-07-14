@@ -343,7 +343,7 @@ Voeg een account toe via 'Nieuw account'.</value>
 3. Ga naar het onderdeel 'Cloudsynchronisatie'
 4. Selecteer 'Persoonlijke sleutel weergeven'
                             
-Voer de weergegeven sleutel in onderstaande tekstveld in:</value>
+Voer de weergegeven sleutel in onderstaande tekstveld in: (streepjes worden automatisch toegevoegd)</value>
   </data>
   <data name="ButtonTurnOnSynchronization" xml:space="preserve">
     <value>Cloudsynchronisatie inschakelen</value>

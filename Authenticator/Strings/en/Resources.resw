@@ -343,7 +343,7 @@ Add an account via 'New account'.</value>
 3. Go to the section 'Cloud synchronization'
 4. Select 'Display personal key'
 
-Enter the displayed key in the text field below:</value>
+Enter the displayed key in the text field below: (hyphens are added automatically)</value>
   </data>
   <data name="ButtonTurnOnSynchronization" xml:space="preserve">
     <value>Turn on cloud synchronization</value>

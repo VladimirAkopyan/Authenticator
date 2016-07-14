@@ -162,6 +162,9 @@
     <Compile Include="Views\UserControls\TimeProgressBar.xaml.cs">
       <DependentUpon>TimeProgressBar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\UserControls\UserKeyTextBox.xaml.cs">
+      <DependentUpon>UserKeyTextBox.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -269,6 +272,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\UserControls\TimeProgressBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\UserKeyTextBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
