@@ -492,4 +492,15 @@ Voer de weergegeven sleutel in onderstaande tekstveld in: (streepjes worden auto
   <data name="UnknownErrorWhileAuthenticating" xml:space="preserve">
     <value>Er is een onbekende fout opgetreden tijdens het authentificeren van u.</value>
   </data>
+  <data name="ReleaseNotes.Text" xml:space="preserve">
+    <value>Deze versie introduceert cloudsynchronisatie. Dit betekent dat u al uw accounts op al uw apparaten heeft. Ga naar 'Instellingen' en vervolgens naar de sectie 'Cloudsynchronisatie' om het in te schakelen.</value>
+    <comment>Must be updated when a version is important enough to show to release notes.</comment>
+  </data>
+  <data name="ReleaseNotesDialog.PrimaryButtonText" xml:space="preserve">
+    <value>Sluiten</value>
+  </data>
+  <data name="ReleaseNotesDialog.Title" xml:space="preserve">
+    <value>Eindelijk, al uw accounts, overal</value>
+    <comment>Must be updated when a version is important enough to show to release notes.</comment>
+  </data>
 </root>

@@ -6,6 +6,7 @@
         UseNTP,
         NTPTimeout,
         UseCloudSynchronization,
-        WhenToSynchronize
+        WhenToSynchronize,
+        LastKnownVersionNumber
     }
 }

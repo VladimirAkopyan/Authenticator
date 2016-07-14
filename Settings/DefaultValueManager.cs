@@ -26,6 +26,9 @@ namespace Settings
                 case Setting.WhenToSynchronize:
                     defaultValue = 0;
                     break;
+                case Setting.LastKnownVersionNumber:
+                    defaultValue = null;
+                    break;
             }
 
             return defaultValue;

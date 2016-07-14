@@ -16,6 +16,8 @@ using System.Threading.Tasks;
 using Synchronization.Exceptions;
 using Settings;
 using Windows.ApplicationModel.Resources;
+using Windows.ApplicationModel;
+using Authenticator_for_Windows.Utilities;
 
 namespace Authenticator_for_Windows.Views.Pages
 {
@@ -68,6 +70,12 @@ namespace Authenticator_for_Windows.Views.Pages
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            if (ReleaseNotesManager.ShowReleaseNotes)
+            {
+                ReleaseNotesDialog dialog = new ReleaseNotesDialog();
+                await dialog.ShowAsync();
+            }
+
             bool synchronize = false;
 
             if (SettingsManager.Get<bool>(Setting.UseCloudSynchronization) && AccountStorage.Instance.HasSynchronizer)

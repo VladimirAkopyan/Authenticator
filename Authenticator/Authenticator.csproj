@@ -99,6 +99,8 @@
     <PRIResource Include="Strings\nl\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Utilities\Properties.cs" />
+    <Compile Include="Utilities\ReleaseNotesManager.cs" />
     <Compile Include="Views\Pages\AccessDeniedDialog.xaml.cs">
       <DependentUpon>AccessDeniedDialog.xaml</DependentUpon>
     </Compile>
@@ -152,6 +154,9 @@
     </Compile>
     <Compile Include="Views\UserControls\ProgressRingButton.xaml.cs">
       <DependentUpon>ProgressRingButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\ReleaseNotesDialog.xaml.cs">
+      <DependentUpon>ReleaseNotesDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UserControls\ShowUserKeyDialog.xaml.cs">
       <DependentUpon>ShowUserKeyDialog.xaml</DependentUpon>
@@ -260,6 +265,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\UserControls\ProgressRingButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\ReleaseNotesDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
