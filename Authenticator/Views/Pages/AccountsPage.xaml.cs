@@ -97,10 +97,10 @@ namespace Authenticator_for_Windows.Views.Pages
 
             if (firstLoad && synchronize)
             {
-                firstLoad = false;
-
                 UpdateLocalFromRemote();
             }
+
+            firstLoad = false;
 
             if (AccountStorage.Instance.IsSynchronizing)
             {
