@@ -134,6 +134,7 @@ namespace Authenticator_for_Windows.Views.UserControls
         public event EventHandler<DeleteRequestEventArgs> DeleteRequested;
         public event EventHandler<EventArgs> Removed;
         public event EventHandler<EventArgs> CopyRequested;
+        public event EventHandler<EventArgs> Modified;
 
         private void NotifyDeleteRequested()
         {
@@ -156,6 +157,14 @@ namespace Authenticator_for_Windows.Views.UserControls
             if (CopyRequested != null)
             {
                 CopyRequested(this, new EventArgs());
+            }
+        }
+
+        private void NotifyModified()
+        {
+            if (Modified != null)
+            {
+                Modified(account, new EventArgs());
             }
         }
 
@@ -241,14 +250,7 @@ namespace Authenticator_for_Windows.Views.UserControls
 
                 if (dialog.IsModified)
                 {
-                    try
-                    {
-                        await AccountStorage.Instance.SaveAsync(account);
-                    }
-                    catch (Exception ex)
-                    {
-                        // TODO: Implement this exception.
-                    }
+                    NotifyModified();
                 }
             }
         }

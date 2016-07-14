@@ -115,6 +115,7 @@ namespace Authenticator_for_Windows.Views.Pages
                 code.DeleteRequested += Code_DeleteRequested;
                 code.CopyRequested += Code_CopyRequested;
                 code.Removed += Code_Removed;
+                code.Modified += Code_Modified;
 
                 accountBlocks.Add(code);
                 mappings.Add(account, code);
@@ -124,6 +125,30 @@ namespace Authenticator_for_Windows.Views.Pages
             Codes.ItemsSource = accountBlocks;
 
             CheckEntries();
+        }
+
+        private async void Code_Modified(object sender, EventArgs e)
+        {
+            try
+            {
+                await AccountStorage.Instance.SaveAsync((Account)sender);
+            }
+            catch (StaleException)
+            {
+                RevertAndReload();
+
+                MainPage.AddBanner(new Banner(BannerType.Danger, ResourceLoader.GetForCurrentView().GetString("ChangesDetectedRedoMove"), true));
+            }
+            catch (NetworkException)
+            {
+                RevertAndReload();
+
+                MainPage.AddBanner(new Banner(BannerType.Danger, ResourceLoader.GetForCurrentView().GetString("NoInternetChangesRolledBack"), true));
+            }
+            catch (Exception ex)
+            {
+                mainPage.Navigate(typeof(ErrorPage), ex);
+            }
         }
 
         private async void SynchronizationCompleted(object sender, SynchronizationResult e)
