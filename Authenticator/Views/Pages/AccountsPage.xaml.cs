@@ -98,6 +98,7 @@ namespace Authenticator_for_Windows.Views.Pages
             {
                 Synchronize.StartAnimationAndDisable();
                 Edit.IsEnabled = false;
+                ButtonUndo.IsEnabled = false;
             }
         }
 
@@ -166,7 +167,8 @@ namespace Authenticator_for_Windows.Views.Pages
 
             Edit.IsEnabled = true;
             Codes.IsEnabled = true;
-            
+            ButtonUndo.IsEnabled = true;
+
             Synchronize.StopAnimationAndEnable();
 
             firstLoad = false;
@@ -178,6 +180,7 @@ namespace Authenticator_for_Windows.Views.Pages
 
             Edit.IsEnabled = false;
             Codes.IsEnabled = false;
+            ButtonUndo.IsEnabled = false;
         }
 
         private void AccountBlocks_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -403,6 +406,7 @@ namespace Authenticator_for_Windows.Views.Pages
         {
             Edit.IsChecked = false;
             Edit.IsEnabled = false;
+            ButtonUndo.IsEnabled = false;
 
             try
             {
