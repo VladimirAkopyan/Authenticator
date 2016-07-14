@@ -89,7 +89,7 @@ namespace Authenticator_for_Windows.Views.Pages
 
             if (firstLoad && synchronize)
             {
-                await AccountStorage.Instance.UpdateLocalFromRemote();
+                UpdateLocalFromRemote();
             }
 
             if (AccountStorage.Instance.IsSynchronizing)
@@ -397,7 +397,7 @@ namespace Authenticator_for_Windows.Views.Pages
             didUndo = false;
         }
 
-        private async void Synchronize_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        private async void UpdateLocalFromRemote()
         {
             Edit.IsChecked = false;
             Edit.IsEnabled = false;
@@ -416,6 +416,11 @@ namespace Authenticator_for_Windows.Views.Pages
             {
                 mainPage.Navigate(typeof(ErrorPage), ex);
             }
+        }
+
+        private void Synchronize_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+            UpdateLocalFromRemote();
         }
     }
 }
