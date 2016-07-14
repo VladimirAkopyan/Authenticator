@@ -23,6 +23,26 @@
     </Page.Resources>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="Small">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="320" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="Navbar.DisplayMode" Value="Overlay" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="Medium">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="720" />
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <VisualState x:Name="Large">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="1024" />
+                    </VisualState.StateTriggers>
+                </VisualState>
+            </VisualStateGroup>
             <VisualStateGroup x:Name="VisualStateStatus">
                 <VisualState x:Name="ShowLoading">
                     <VisualState.Setters>
@@ -49,29 +69,6 @@
             </StackPanel>
         </Grid>
         <Grid Grid.Row="0">
-            <VisualStateManager.VisualStateGroups>
-                <VisualStateGroup>
-                    <VisualState x:Name="Small">
-                        <VisualState.StateTriggers>
-                            <AdaptiveTrigger MinWindowWidth="320" />
-                        </VisualState.StateTriggers>
-                        <VisualState.Setters>
-                            <Setter Target="Navbar.DisplayMode" Value="Overlay" />
-                        </VisualState.Setters>
-                    </VisualState>
-                    <VisualState x:Name="Medium">
-                        <VisualState.StateTriggers>
-                            <AdaptiveTrigger MinWindowWidth="720" />
-                        </VisualState.StateTriggers>
-                    </VisualState>
-                    <VisualState x:Name="Large">
-                        <VisualState.StateTriggers>
-                            <AdaptiveTrigger MinWindowWidth="1024" />
-                        </VisualState.StateTriggers>
-                    </VisualState>
-                </VisualStateGroup>
-            </VisualStateManager.VisualStateGroups>
-
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="*" />
