@@ -21,7 +21,7 @@
         <StackPanel Grid.Row="1">
             <controls:CodeCopiedNotification x:Name="CodeCopiedNotification" />
         </StackPanel>
-        <ScrollViewer Grid.Row="2" Padding="20">
+        <ScrollViewer Grid.Row="2" Padding="10">
             <StackPanel>
                 <StackPanel Name="AccountBlockPanel" Padding="0 0 0 10" Visibility="Collapsed">
 
