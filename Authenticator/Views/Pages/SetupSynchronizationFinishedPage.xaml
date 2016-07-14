@@ -14,7 +14,7 @@
         </Storyboard>
     </Page.Resources>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <ScrollViewer Padding="10">
+        <ScrollViewer Padding="10" VerticalScrollBarVisibility="Auto">
             <StackPanel>
                 <TextBlock x:Uid="ConfiguredCloudSynchronization" Text="Cloudsynchronisatie geconfigureerd" HorizontalAlignment="Center" FontSize="30" TextWrapping="Wrap" TextAlignment="Center" />
                 <Grid>

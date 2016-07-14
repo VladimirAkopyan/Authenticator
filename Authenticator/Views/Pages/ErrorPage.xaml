@@ -9,7 +9,7 @@
     Loaded="Page_Loaded">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <ScrollViewer Padding="10">
+        <ScrollViewer Padding="10" VerticalScrollBarVisibility="Auto">
             <StackPanel>
                 <TextBlock Name="ErrorTitle" Text="TITLE" HorizontalAlignment="Center" FontSize="30" TextWrapping="Wrap" TextAlignment="Center" />
                 <Grid>

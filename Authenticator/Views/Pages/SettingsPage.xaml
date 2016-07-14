@@ -40,7 +40,7 @@
         </Grid>
         <Pivot>
             <PivotItem x:Uid="SettingsGeneral" Header="Algemeen">
-                <ScrollViewer>
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <StackPanel>
                         <TextBlock x:Uid="Duration" Text="Hoe lang moet een gekopieerde code bewaard blijven op het klembord?" TextWrapping="WrapWholeWords" />
                         <ComboBox Name="ClipboardTime" SelectionChanged="ClipboardTime_SelectionChanged">
@@ -96,7 +96,7 @@
                 </ScrollViewer>
             </PivotItem>
             <PivotItem x:Uid="SettingsAbout" Header="Over">
-                <ScrollViewer>
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <StackPanel>
                         <TextBlock TextWrapping="WrapWholeWords">
                         <Run x:Uid="AboutText" Text="Authenticator for Windows is dé app voor het universele Windows-platform om al uw codes voor tweestapsauthenticatie te bewaren. De ontwikkelaa van deze app tracht een zo gebruiksvriendelijke en gemakkelijke manier om codes aan te bieden aan gebruikers. Wij nodigen u graag uit al uw suggesties en opmerkingen met ons te delen zodat wij uw ervaring nog verder kunnen verbeteren. Wij zullen u nooit storen met vervelende vragen om onze app te beoordelen. Als u tijd heeft, neemt u dan alstublieft de moeite om onze app te beoordelen in de Windows Store. Al uw suggesties en opmerkingen zijn van harte welkom!" />
