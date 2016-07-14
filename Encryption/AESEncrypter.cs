@@ -1,9 +1,11 @@
 ﻿using Encryption.Exceptions;
 using System;
 using System.Text;
+using System.Linq;
 using Windows.Security.Cryptography;
 using Windows.Security.Cryptography.Core;
 using Windows.Storage.Streams;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace Encryption
 {
@@ -36,126 +38,68 @@ namespace Encryption
             }
         }
 
-        public string Decrypt(string encryptedText)
-        {
-            try
-            {
-                byte[] encryptedBytes = StringToBytes(encryptedText);
-
-                IBuffer pwBuffer = CryptographicBuffer.ConvertStringToBinary(_password, BinaryStringEncoding.Utf8);
-                IBuffer saltBuffer = CryptographicBuffer.ConvertStringToBinary(_salt, BinaryStringEncoding.Utf16LE);
-                IBuffer cipherBuffer = CryptographicBuffer.CreateFromByteArray(encryptedBytes);
-
-                // Derive key material for password size 32 bytes for AES256 algorithm
-                KeyDerivationAlgorithmProvider keyDerivationProvider = KeyDerivationAlgorithmProvider.OpenAlgorithm("PBKDF2_SHA1");
-                // using salt and 1000 iterations
-                KeyDerivationParameters pbkdf2Parms = KeyDerivationParameters.BuildForPbkdf2(saltBuffer, 1000);
-
-                // create a key based on original key and derivation parmaters
-                CryptographicKey keyOriginal = keyDerivationProvider.CreateKey(pwBuffer);
-                IBuffer keyMaterial = CryptographicEngine.DeriveKeyMaterial(keyOriginal, pbkdf2Parms, 32);
-                CryptographicKey derivedPwKey = keyDerivationProvider.CreateKey(pwBuffer);
-
-                // derive buffer to be used for encryption salt from derived password key 
-                IBuffer saltMaterial = CryptographicEngine.DeriveKeyMaterial(derivedPwKey, pbkdf2Parms, 16);
-
-                // display the keys – because KeyDerivationProvider always gets cleared after each use, they are very similar unforunately
-                string keyMaterialString = CryptographicBuffer.EncodeToBase64String(keyMaterial);
-                string saltMaterialString = CryptographicBuffer.EncodeToBase64String(saltMaterial);
-
-                SymmetricKeyAlgorithmProvider symProvider = SymmetricKeyAlgorithmProvider.OpenAlgorithm("AES_CBC_PKCS7");
-                // create symmetric key from derived password material
-                CryptographicKey symmKey = symProvider.CreateSymmetricKey(keyMaterial);
-
-                // encrypt data buffer using symmetric key and derived salt material
-                IBuffer resultBuffer = CryptographicEngine.Decrypt(symmKey, cipherBuffer, saltMaterial);
-                string result = CryptographicBuffer.ConvertBinaryToString(BinaryStringEncoding.Utf16LE, resultBuffer);
-                return result;
-            }
-            catch
-            {
-                throw new InvalidKeyException();
-            }
-        }
-
         public string Encrypt(string unencryptedText)
         {
-            try
-            {
-                IBuffer pwBuffer = CryptographicBuffer.ConvertStringToBinary(_password, BinaryStringEncoding.Utf8);
-                IBuffer saltBuffer = CryptographicBuffer.ConvertStringToBinary(_salt, BinaryStringEncoding.Utf16LE);
-                IBuffer plainBuffer = CryptographicBuffer.ConvertStringToBinary(unencryptedText, BinaryStringEncoding.Utf16LE);
+            // Generate a key and IV from the password and salt
+            IBuffer aesKeyMaterial;
+            IBuffer iv;
+            uint iterationCount = 10000;
+            GenerateKeyMaterial(_password, _salt, iterationCount, out aesKeyMaterial, out iv);
 
-                // Derive key material for password size 32 bytes for AES256 algorithm
-                KeyDerivationAlgorithmProvider keyDerivationProvider = KeyDerivationAlgorithmProvider.OpenAlgorithm("PBKDF2_SHA1");
-                // using salt and 1000 iterations
-                KeyDerivationParameters pbkdf2Parms = KeyDerivationParameters.BuildForPbkdf2(saltBuffer, 1000);
+            IBuffer plainText = CryptographicBuffer.ConvertStringToBinary(unencryptedText, BinaryStringEncoding.Utf8);
 
-                // create a key based on original key and derivation parmaters
-                CryptographicKey keyOriginal = keyDerivationProvider.CreateKey(pwBuffer);
-                IBuffer keyMaterial = CryptographicEngine.DeriveKeyMaterial(keyOriginal, pbkdf2Parms, 32);
-                CryptographicKey derivedPwKey = keyDerivationProvider.CreateKey(pwBuffer);
+            // Setup an AES key, using AES in CBC mode and applying PKCS#7 padding on the input
+            SymmetricKeyAlgorithmProvider aesProvider = SymmetricKeyAlgorithmProvider.OpenAlgorithm(SymmetricAlgorithmNames.AesCbcPkcs7);
+            CryptographicKey aesKey = aesProvider.CreateSymmetricKey(aesKeyMaterial);
 
-                // derive buffer to be used for encryption salt from derived password key 
-                IBuffer saltMaterial = CryptographicEngine.DeriveKeyMaterial(derivedPwKey, pbkdf2Parms, 16);
-
-                // display the buffers – because KeyDerivationProvider always gets cleared after each use, they are very similar unforunately
-                string keyMaterialString = CryptographicBuffer.EncodeToBase64String(keyMaterial);
-                string saltMaterialString = CryptographicBuffer.EncodeToBase64String(saltMaterial);
-
-                SymmetricKeyAlgorithmProvider symProvider = SymmetricKeyAlgorithmProvider.OpenAlgorithm("AES_CBC_PKCS7");
-                // create symmetric key from derived password key
-                CryptographicKey symmKey = symProvider.CreateSymmetricKey(keyMaterial);
-
-                // encrypt data buffer using symmetric key and derived salt material
-                IBuffer resultBuffer = CryptographicEngine.Encrypt(symmKey, plainBuffer, saltMaterial);
-                byte[] result;
-                CryptographicBuffer.CopyToByteArray(resultBuffer, out result);
-
-                int i = 0;
-
-                StringBuilder builder = new StringBuilder();
-
-                foreach (byte b in result)
-                {
-                    builder.Append(b);
-
-                    if (i < result.Length - 1)
-                    {
-                        builder.Append(" ");
-                    }
-
-                    i++;
-                }
-
-                return builder.ToString();
-            }
-            catch
-            {
-                throw new InvalidKeyException();
-            }
+            // Encrypt the data and convert it to a Base64 string
+            IBuffer encrypted = CryptographicEngine.Encrypt(aesKey, plainText, iv);
+            return CryptographicBuffer.EncodeToBase64String(encrypted);
         }
 
-        private byte[] StringToBytes(string content)
+        public string Decrypt(string encryptedText)
         {
-            string[] parts = content.Split(' ');
-            byte[] bytes = new byte[parts.Length];
-            int index = 0;
+            // Generate a key and IV from the password and salt
+            IBuffer aesKeyMaterial;
+            IBuffer iv;
+            uint iterationCount = 10000;
+            GenerateKeyMaterial(_password, _salt, iterationCount, out aesKeyMaterial, out iv);
 
-            foreach (string part in parts)
-            {
-                if (!string.IsNullOrWhiteSpace(part))
-                {
-                    int currentNumber = int.Parse(part);
-                    byte currentPart = Convert.ToByte(currentNumber);
+            // Setup an AES key, using AES in CBC mode and applying PKCS#7 padding on the input
+            SymmetricKeyAlgorithmProvider aesProvider = SymmetricKeyAlgorithmProvider.OpenAlgorithm(SymmetricAlgorithmNames.AesCbcPkcs7);
+            CryptographicKey aesKey = aesProvider.CreateSymmetricKey(aesKeyMaterial);
 
-                    bytes[index] = currentPart;
-                }
+            // Convert the base64 input to an IBuffer for decryption
+            IBuffer ciphertext = CryptographicBuffer.DecodeFromBase64String(encryptedText);
 
-                index++;
-            }
+            // Decrypt the data and convert it back to a string
+            IBuffer decrypted = CryptographicEngine.Decrypt(aesKey, ciphertext, iv);
+            byte[] decryptedArray = decrypted.ToArray();
+            return Encoding.UTF8.GetString(decryptedArray, 0, decryptedArray.Length);
+        }
 
-            return bytes;
+        private static void GenerateKeyMaterial(string password, string salt, uint iterationCount, out IBuffer keyMaterial, out IBuffer iv)
+        {
+            // Setup KDF parameters for the desired salt and iteration count
+            IBuffer saltBuffer = CryptographicBuffer.ConvertStringToBinary(salt, BinaryStringEncoding.Utf8);
+            KeyDerivationParameters kdfParameters = KeyDerivationParameters.BuildForPbkdf2(saltBuffer, iterationCount);
+
+            // Get a KDF provider for PBKDF2, and store the source password in a Cryptographic Key
+            KeyDerivationAlgorithmProvider kdf = KeyDerivationAlgorithmProvider.OpenAlgorithm(KeyDerivationAlgorithmNames.Pbkdf2Sha256);
+            IBuffer passwordBuffer = CryptographicBuffer.ConvertStringToBinary(password, BinaryStringEncoding.Utf8);
+            CryptographicKey passwordSourceKey = kdf.CreateKey(passwordBuffer);
+
+            // Generate key material from the source password, salt, and iteration count.  Only call DeriveKeyMaterial once,
+            // since calling it twice will generate the same data for the key and IV.
+            int keySize = 256 / 8;
+            int ivSize = 128 / 8;
+            uint totalDataNeeded = (uint)(keySize + ivSize);
+            IBuffer keyAndIv = CryptographicEngine.DeriveKeyMaterial(passwordSourceKey, kdfParameters, totalDataNeeded);
+
+            // Split the derived bytes into a seperate key and IV
+            byte[] keyMaterialBytes = keyAndIv.ToArray();
+            keyMaterial = WindowsRuntimeBuffer.Create(keyMaterialBytes, 0, keySize, keySize);
+            iv = WindowsRuntimeBuffer.Create(keyMaterialBytes, keySize, ivSize, ivSize);
         }
     }
 }
