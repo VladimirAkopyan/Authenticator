@@ -385,7 +385,7 @@ Enter the displayed key in the text field below: (hyphens are added automaticall
     <value>Changes have been detected since your last synchronization and your device has been updated. Please undo the removal again.</value>
   </data>
   <data name="CheckingKey" xml:space="preserve">
-    <value>Your key is being validated...</value>
+    <value>Your personal key is being validated...</value>
   </data>
   <data name="ConfiguredCloudSynchronization.Text" xml:space="preserve">
     <value>Cloud synchronization configured</value>
