@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutText.Text" xml:space="preserve">
-    <value>Authenticator for Windows is dé app voor het universele Windows-platform om al uw accounts voor tweestapsauthenticatie te bewaren. De ontwikkelaar van deze app tracht een zo gebruiksvriendelijke en gemakkelijke manier om codes aan te bieden aan gebruikers.
+    <value>Authenticator for Windows is dé app voor het universele Windows-platform om al uw accounts voor tweestapsauthenticatie te bewaren. Met cloudsynchronisatie heeft u al uw accounts op al uw gekoppelde apparaten. De ontwikkelaar van deze app tracht een zo gebruiksvriendelijke en gemakkelijke manier om codes aan te bieden aan gebruikers.
 
 Wij nodigen u graag uit al uw suggesties en opmerkingen met ons te delen zodat wij uw ervaring nog verder kunnen verbeteren.
 

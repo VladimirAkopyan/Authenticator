@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutText.Text" xml:space="preserve">
-    <value>Authenticator for Windows is the app for the universal Windows platform to store all your accounts with two step authentication. The developer of this app tries to create the most user friendly and easy way to offer codes to his users.
+    <value>Authenticator for Windows is the app for the universal Windows platform to store all your accounts with two step authentication. With cloud synchronization, you always have all your accounts on all your connected devices. The developer of this app tries to create the most user friendly and easy way to offer codes to his users.
 
 We kindly invite you to share all your suggestions and comments with us so we can further improve your experience.
 
