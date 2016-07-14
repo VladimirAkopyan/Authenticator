@@ -97,7 +97,7 @@
                 </TextBlock>
             </Border>
         </StackPanel>
-        <ScrollViewer Grid.Row="2" Padding="0 10" VerticalScrollBarVisibility="Auto">
+        <ScrollViewer Name="ScrollViewer" Grid.Row="2" Padding="0 10" VerticalScrollBarVisibility="Auto">
             <ListView Name="Codes" AllowDrop="True" HorizontalAlignment="Stretch" SelectionMode="None">
                 <ListView.Resources>
                     <Style TargetType="controls:AccountBlock">
