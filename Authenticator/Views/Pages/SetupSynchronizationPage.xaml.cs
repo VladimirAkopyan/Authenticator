@@ -78,8 +78,7 @@ namespace Authenticator_for_Windows.Views.Pages
 
         private async void Continue_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            Status.Text = ResourceLoader.GetForCurrentView().GetString("SynchronizingAccountsWithCloud");
-            VisualStateManager.GoToState(this, ShowLoading.Name, true);
+            MainPage.ShowLoader(ResourceLoader.GetForCurrentView().GetString("SynchronizingAccountsWithCloud"));
             
             IOneDriveClient oneDriveClient = OneDriveClientExtensions.GetUniversalClient(new[] { "onedrive.appfolder" });
             AccountSession session = await oneDriveClient.AuthenticateAsync();
@@ -104,9 +103,7 @@ namespace Authenticator_for_Windows.Views.Pages
         {
             if (UserKeyToValidate.Text.Length == 23)
             {
-                Status.Text = ResourceLoader.GetForCurrentView().GetString("CheckingKey");
-
-                VisualStateManager.GoToState(this, ShowLoading.Name, true);
+                MainPage.ShowLoader(ResourceLoader.GetForCurrentView().GetString("CheckingKey"));
 
                 IEncrypter encrypter = new AESEncrypter();
                 synchronizer.SetEncrypter(encrypter, UserKeyToValidate.Text);
@@ -119,24 +116,26 @@ namespace Authenticator_for_Windows.Views.Pages
 
                     if (result)
                     {
-                        Status.Text = ResourceLoader.GetForCurrentView().GetString("SynchronizingAccountsWithCloud");
+                        MainPage.ShowLoader(ResourceLoader.GetForCurrentView().GetString("SynchronizingAccountsWithCloud"));
 
                         await AccountStorage.Instance.Synchronize();
 
                         vault.Add(new PasswordCredential(RESOURCE_NAME, USERNAME_NAME, UserKeyToValidate.Text));
 
+                        MainPage.HideLoader();
+
                         Frame.Navigate(typeof(SetupSynchronizationFinishedPage), mainPage);
                     }
                     else
                     {
-                        VisualStateManager.GoToState(this, HideLoading.Name, true);
+                        MainPage.HideLoader();
 
                         MainPage.AddBanner(new Banner(BannerType.Danger, ResourceLoader.GetForCurrentView().GetString("EnteredKeyIncorrect"), true));
                     }
                 }
                 catch (NetworkException)
                 {
-                    VisualStateManager.GoToState(this, HideLoading.Name, true);
+                    MainPage.HideLoader();
 
                     MainPage.AddBanner(new Banner(BannerType.Danger, ResourceLoader.GetForCurrentView().GetString("BannerUnableToValidateKey"), true));
                 }

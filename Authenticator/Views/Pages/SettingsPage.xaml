@@ -12,32 +12,6 @@
     Loaded="Page_Loaded">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup x:Name="VisualStateError">
-                <VisualState x:Name="ShowLoading">
-                    <VisualState.Setters>
-                        <Setter Target="LoadingGrid.(UIElement.Visibility)" Value="Visible"/>
-                    </VisualState.Setters>
-                    <Storyboard>
-                        <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" Storyboard.TargetName="LoadingGrid">
-                            <EasingColorKeyFrame KeyTime="0" Value="#00000000"/>
-                            <EasingColorKeyFrame KeyTime="0:0:0.5" Value="#E5000000"/>
-                        </ColorAnimationUsingKeyFrames>
-                    </Storyboard>
-                </VisualState>
-                <VisualState x:Name="HideLoading">
-                    <VisualState.Setters>
-                        <Setter Target="LoadingGrid.(UIElement.Visibility)" Value="Collapsed"/>
-                    </VisualState.Setters>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
-        <Grid x:Name="LoadingGrid" Background="#E5000000" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Visibility="Collapsed">
-            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                <ProgressRing Height="50" Width="50" VerticalAlignment="Center" Foreground="White" IsActive="True" />
-                <TextBlock Name="Status" Text="Uw accounts worden uit de cloud verwijderd..." RequestedTheme="Dark" FontSize="26.667" TextWrapping="Wrap" TextAlignment="Center" />
-            </StackPanel>
-        </Grid>
         <Pivot>
             <PivotItem x:Uid="SettingsGeneral" Header="Algemeen">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">

@@ -238,7 +238,7 @@ namespace Authenticator_for_Windows.Views.Pages
 
                 try
                 {
-                    VisualStateManager.GoToState(this, ShowLoading.Name, true);
+                    MainPage.ShowLoader(ResourceLoader.GetForCurrentView().GetString("AccountsAreBeingRemovedFromCloud"));
 
                     ISynchronizer synchronizer = new OneDriveSynchronizer(oneDriveClient);
                     result = await synchronizer.Remove();
@@ -266,7 +266,7 @@ namespace Authenticator_for_Windows.Views.Pages
                 await DisableSynchronization();
                 ShowInformation();
 
-                VisualStateManager.GoToState(this, HideLoading.Name, true);
+                MainPage.HideLoader();
             }
         }
 

@@ -503,4 +503,7 @@ Enter the displayed key in the text field below: (hyphens are added automaticall
     <value>Finally, all your accounts, everywhere</value>
     <comment>Must be updated when a version is important enough to show to release notes.</comment>
   </data>
+  <data name="AccountsAreBeingRemovedFromCloud" xml:space="preserve">
+    <value>Your accounts are being removed from the cloud...</value>
+  </data>
 </root>

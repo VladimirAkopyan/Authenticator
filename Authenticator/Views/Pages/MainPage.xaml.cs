@@ -57,6 +57,18 @@ namespace Authenticator_for_Windows.Views.Pages
             SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
         }
 
+        public static void ShowLoader(string status)
+        {
+            instance.Status.Text = status;
+
+            VisualStateManager.GoToState(instance, instance.ShowLoading.Name, true);
+        }
+
+        public static void HideLoader()
+        {
+            VisualStateManager.GoToState(instance, instance.HideLoading.Name, true);
+        }
+
         private void OnBackRequested(object sender, BackRequestedEventArgs e)
         {
             if (Contentframe.CanGoBack)
