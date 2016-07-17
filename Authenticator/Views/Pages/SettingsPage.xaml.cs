@@ -298,5 +298,12 @@ namespace Authenticator_for_Windows.Views.Pages
                 SettingsManager.Save(Setting.WhenToSynchronize, WhenToSynchronize.SelectedIndex);
             }
         }
+
+        private async void ButtonWebsite_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+            var uri = new Uri("http://www.authenticatorforwindows.com");
+
+            var success = await Launcher.LaunchUriAsync(uri);
+        }
     }
 }
