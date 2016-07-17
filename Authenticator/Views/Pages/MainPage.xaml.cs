@@ -1,8 +1,16 @@
 ﻿using Windows.UI.Xaml.Controls;
 using System;
+using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Core;
 using Authenticator_for_Windows.Views.UserControls;
+using System.Collections.Generic;
+using Windows.Security.Credentials;
+using Synchronization;
+using Microsoft.OneDrive.Sdk;
+using Domain.Storage;
+using Encryption;
+using Settings;
 
 namespace Authenticator_for_Windows.Views.Pages
 {
@@ -10,6 +18,14 @@ namespace Authenticator_for_Windows.Views.Pages
     {
         private static MainPage instance;
         private bool backButtonTapped;
+
+        public static MainPage Instance
+        {
+            get
+            {
+                return instance;
+            }
+        }
 
         public MainPage()
         {
@@ -20,7 +36,37 @@ namespace Authenticator_for_Windows.Views.Pages
             // Navigate to the first page
             Navigate(typeof(AccountsPage), this);
 
+            if (SettingsManager.Get<bool>(Setting.UseCloudSynchronization))
+            {
+                PasswordVault vault = new PasswordVault();
+                IReadOnlyList<PasswordCredential> credentials = vault.RetrieveAll();
+
+                if (credentials.Any())
+                {
+                    credentials[0].RetrievePassword();
+
+                    ISynchronizer synchronizer = new OneDriveSynchronizer(OneDriveClientExtensions.GetUniversalClient(new[] { "onedrive.appfolder" }));
+                    IEncrypter encrypter = new AESEncrypter();
+
+                    synchronizer.SetEncrypter(encrypter, credentials[0].Password);
+
+                    AccountStorage.Instance.SetSynchronizer(synchronizer);
+                }
+            }
+
             SystemNavigationManager.GetForCurrentView().BackRequested += OnBackRequested;
+        }
+
+        public static void ShowLoader(string status)
+        {
+            instance.Status.Text = status;
+
+            VisualStateManager.GoToState(instance, instance.ShowLoading.Name, true);
+        }
+
+        public static void HideLoader()
+        {
+            VisualStateManager.GoToState(instance, instance.HideLoading.Name, true);
         }
 
         private void OnBackRequested(object sender, BackRequestedEventArgs e)
@@ -90,6 +136,22 @@ namespace Authenticator_for_Windows.Views.Pages
 
                 SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = Contentframe.CanGoBack ? AppViewBackButtonVisibility.Visible : AppViewBackButtonVisibility.Collapsed;
             }
+        }
+
+        public void ClearBackStack()
+        {
+            Contentframe.BackStack.Clear();
+
+            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
+        }
+
+        public void NavigateToAccountsAndClearBackStack()
+        {
+            AccountsMenuItem.IsChecked = true;
+            
+            Navigate(typeof(AccountsPage), this);
+
+            ClearBackStack();
         }
 
         public void SetTitle()

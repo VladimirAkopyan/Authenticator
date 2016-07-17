@@ -8,7 +8,8 @@
     xmlns:controls="using:Authenticator_for_Windows.Views.UserControls"
     mc:Ignorable="d"
     x:Uid="AddPage"
-    Tag="Account toevoegen">
+    Tag="Account toevoegen"
+    Loaded="Page_Loaded">
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="5" />
@@ -20,7 +21,7 @@
         <StackPanel Grid.Row="1">
             <controls:CodeCopiedNotification x:Name="CodeCopiedNotification" />
         </StackPanel>
-        <ScrollViewer Grid.Row="2" Padding="20">
+        <ScrollViewer Grid.Row="2" Padding="10" VerticalScrollBarVisibility="Auto">
             <StackPanel>
                 <StackPanel Name="AccountBlockPanel" Padding="0 0 0 10" Visibility="Collapsed">
 
@@ -28,8 +29,8 @@
                 <TextBlock x:Uid="AddInformation" Text="Vul de informatie in die u hebt gekregen van de aanbieder van deze tweestapsauthenticatiedienst. Wanneer u beschikt over een camera, dan kunt u deze ook gebruiken om een eventuele QR-code te scannen." TextWrapping="Wrap" Margin="0,0,0,9" />
                 <TextBox x:Uid="Service" Name="AccountService" Header="Dienst" HorizontalAlignment="Stretch" />
                 <TextBox x:Uid="Username" Name="AccountUsername" Header="Gebruikersnaam" HorizontalAlignment="Stretch" Margin="0 15 0 0" />
-                <TextBox x:Uid="Code" Name="AccountCode" Header="Code" HorizontalAlignment="Stretch" Margin="0 15 0 0" />
-                <Button x:Uid="Save" Name="Save" Content="Opslaan" Margin="0 15 0 0" HorizontalAlignment="Stretch" Click="Save_Click" />
+                <TextBox x:Uid="Code" Name="AccountCode" Header="Code" HorizontalAlignment="Stretch" Margin="0 15 0 15" />
+                <controls:ProgressRingButton x:Name="Save" HorizontalAlignment="Stretch" Tapped="Save_Tapped" Translation="Save" />
                 <HyperlinkButton Click="OpenFlyout">
                     <HyperlinkButton.Content>
                         <TextBlock TextWrapping="WrapWholeWords">
@@ -53,8 +54,9 @@
                 </HyperlinkButton>
             </StackPanel>
         </ScrollViewer>
-        <CommandBar Grid.Row="3" Name="CommandBar" VerticalAlignment="Bottom" Visibility="Collapsed">
-            <AppBarButton x:Uid="Scan" Icon="Camera" Label="Scannen" Name="Scan" Click="Scan_Click" />
+        <CommandBar Grid.Row="3" Name="CommandBar" VerticalAlignment="Bottom">
+            <controls:SynchronizeAppBarButton x:Name="Synchronize" IsEnabled="False" Visibility="Collapsed" />
+            <AppBarButton x:Uid="Scan" Icon="Camera" Label="Scannen" Name="Scan" Visibility="Collapsed" Click="Scan_Click" />
         </CommandBar>
     </Grid>
 </Page>

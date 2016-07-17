@@ -25,7 +25,7 @@
                 </DoubleAnimationUsingKeyFrames>
             </Storyboard>
             <Storyboard x:Name="OpenUndo">
-            	<DoubleAnimation Duration="0:0:0.2" To="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="grid" d:IsOptimized="True"/>
+                <DoubleAnimation Duration="0:0:0.2" To="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="grid" d:IsOptimized="True"/>
             </Storyboard>
             <Storyboard x:Name="CloseUndo">
                 <DoubleAnimation Duration="0:0:0.2" To="40" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="grid" d:IsOptimized="True"/>
@@ -97,7 +97,7 @@
                 </TextBlock>
             </Border>
         </StackPanel>
-        <ScrollViewer Grid.Row="2" Padding="0 10" VerticalScrollBarVisibility="Auto">
+        <ScrollViewer Name="ScrollViewer" Grid.Row="2" Padding="0 10" VerticalScrollBarVisibility="Auto">
             <ListView Name="Codes" AllowDrop="True" HorizontalAlignment="Stretch" SelectionMode="None">
                 <ListView.Resources>
                     <Style TargetType="controls:AccountBlock">
@@ -178,6 +178,7 @@
             </Button>
         </Grid>
         <CommandBar Name="CommandBar" Grid.Row="3">
+            <controls:SynchronizeAppBarButton x:Name="Synchronize" Tapped="Synchronize_Tapped" Visibility="Collapsed" />
             <AppBarToggleButton x:Uid="Edit" Icon="Edit" x:Name="Edit" Label="Bewerken" Checked="Edit_Checked" Unchecked="Edit_Unchecked" />
         </CommandBar>
         <ContentDialog x:Uid="ConfirmDialog" Name="ConfirmDialog" PrimaryButtonText="Verwijderen" SecondaryButtonText="Annuleren" Title="Account verwijderen" PrimaryButtonClick="ConfirmDialog_PrimaryButtonClick">

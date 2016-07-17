@@ -10,6 +10,8 @@ using Windows.ApplicationModel.Resources;
 using Domain;
 using Authenticator_for_Windows.Views.UserControls;
 using Domain.Exceptions;
+using Synchronization.Exceptions;
+using Settings;
 
 namespace Authenticator_for_Windows.Views.Pages
 {
@@ -31,7 +33,7 @@ namespace Authenticator_for_Windows.Views.Pages
 
             if (devices.Count > 1)
             {
-                CommandBar.Visibility = Visibility.Visible;
+                Scan.Visibility = Visibility.Visible;
             }
         }
 
@@ -63,7 +65,7 @@ namespace Authenticator_for_Windows.Views.Pages
 
                             if (!string.IsNullOrWhiteSpace(AccountService.Text))
                             {
-                                Save_Click(null, null);
+                                Save_Tapped(null, null);
                             }
                         }
                         else
@@ -84,6 +86,16 @@ namespace Authenticator_for_Windows.Views.Pages
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
             MainPage.ClearBanners();
+
+            AccountStorage.Instance.SynchronizationCompleted -= SynchronizationCompleted;
+        }
+
+        private void SynchronizationCompleted(object sender, Synchronization.SynchronizationResult e)
+        {
+            Synchronize.StopAnimationAndEnable();
+            Synchronize.IsEnabled = false;
+
+            SetButtonState(true);
         }
 
         private void Scan_Click(object sender, RoutedEventArgs e)
@@ -95,8 +107,60 @@ namespace Authenticator_for_Windows.Views.Pages
             mainPage.Navigate(typeof(ScanPage));
         }
 
-        private async void Save_Click(object sender, RoutedEventArgs e)
+        private void SetButtonState(bool enabled)
         {
+            Scan.IsEnabled = enabled;
+
+            Save.IsLoading = !enabled;
+        }
+
+        private void AccountBlock_CopyRequested(object sender, EventArgs e)
+        {
+            CodeCopiedNotification.Animate();
+        }
+
+        private void OpenFlyout(object sender, RoutedEventArgs e)
+        {
+            FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);
+        }
+
+        private void TimeProgressBar_TimeElapsed(object sender, EventArgs e)
+        {
+            if (accountBlock != null)
+            {
+                accountBlock.Update();
+            }
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (SettingsManager.Get<bool>(Setting.UseCloudSynchronization) && AccountStorage.Instance.HasSynchronizer)
+            {
+                Synchronize.Visibility = Visibility.Visible;
+
+                AccountStorage.Instance.SynchronizationCompleted += SynchronizationCompleted;
+
+                if (AccountStorage.Instance.IsSynchronizing)
+                {
+                    Synchronize.StartAnimationAndDisable();
+
+                    SetButtonState(false);
+                }
+            }
+            else
+            {
+                if (Scan.Visibility == Visibility.Collapsed)
+                {
+                    CommandBar.Visibility = Visibility.Collapsed;
+                }
+            }
+        }
+
+        private async void Save_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+            Synchronize.StartAnimationAndDisable();
+            SetButtonState(false);
+
             AccountBlockPanel.Visibility = Visibility.Collapsed;
 
             MainPage.ClearBanners();
@@ -130,7 +194,7 @@ namespace Authenticator_for_Windows.Views.Pages
 
                         await AccountStorage.Instance.SaveAsync(account);
 
-                        accountBlock = new AccountBlock(account, true);
+                        accountBlock = new AccountBlock(account, true, mainPage);
                         accountBlock.CopyRequested += AccountBlock_CopyRequested;
 
                         MainPage.AddBanner(new Banner(BannerType.Success, ResourceLoader.GetForCurrentView().GetString("BannerSaved"), true));
@@ -151,29 +215,19 @@ namespace Authenticator_for_Windows.Views.Pages
                 {
                     MainPage.AddBanner(new Banner(BannerType.Danger, ResourceLoader.GetForCurrentView().GetString("BannerDuplicateAccount"), true));
                 }
+                catch (NetworkException)
+                {
+                    MainPage.AddBanner(new Banner(BannerType.Danger, ResourceLoader.GetForCurrentView().GetString("NoInternetConnection"), true));
+                }
                 catch (Exception)
                 {
                     MainPage.AddBanner(new Banner(BannerType.Danger, ResourceLoader.GetForCurrentView().GetString("BannerUnknownError"), true));
                 }
             }
-        }
 
-        private void AccountBlock_CopyRequested(object sender, EventArgs e)
-        {
-            CodeCopiedNotification.Animate();
-        }
-
-        private void OpenFlyout(object sender, RoutedEventArgs e)
-        {
-            FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);
-        }
-
-        private void TimeProgressBar_TimeElapsed(object sender, EventArgs e)
-        {
-            if (accountBlock != null)
-            {
-                accountBlock.Update();
-            }
+            SetButtonState(true);
+            Synchronize.StopAnimationAndEnable();
+            Synchronize.IsEnabled = false;
         }
     }
 }

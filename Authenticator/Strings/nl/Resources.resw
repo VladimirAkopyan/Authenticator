@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutText.Text" xml:space="preserve">
-    <value>Authenticator for Windows is dé app voor het universele Windows-platform om al uw accounts voor tweestapsauthenticatie te bewaren. De ontwikkelaar van deze app tracht een zo gebruiksvriendelijke en gemakkelijke manier om codes aan te bieden aan gebruikers.
+    <value>Authenticator for Windows is dé app voor het universele Windows-platform om al uw accounts voor tweestapsauthenticatie te bewaren. Met cloudsynchronisatie heeft u al uw accounts op al uw gekoppelde apparaten. De ontwikkelaar van deze app tracht een zo gebruiksvriendelijke en gemakkelijke manier om codes aan te bieden aan gebruikers.
 
 Wij nodigen u graag uit al uw suggesties en opmerkingen met ons te delen zodat wij uw ervaring nog verder kunnen verbeteren.
 
@@ -199,7 +199,7 @@ Wij zullen u nooit storen met vervelende vragen om onze app te beoordelen. Als u
   <data name="PrivacyDeclarationPage.Tag" xml:space="preserve">
     <value>Privacyverklaring</value>
   </data>
-  <data name="Save.Content" xml:space="preserve">
+  <data name="Save" xml:space="preserve">
     <value>Opslaan</value>
   </data>
   <data name="Scan.Label" xml:space="preserve">
@@ -334,5 +334,176 @@ Voeg een account toe via 'Nieuw account'.</value>
   </data>
   <data name="Undo.Text" xml:space="preserve">
     <value>Ongedaan maken</value>
+  </data>
+  <data name="InstructionsForUserKey.Text" xml:space="preserve">
+    <value>Het lijkt erop dat u cloudsynchronisatie al op een ander apparaat heeft ingesteld. In dat geval kunt u nu dit apparaat koppelen voor cloudsynchronisatie. U heeft hiervoor uw persoonlijke sleutel nodig. U kunt deze sleutel opvragen door op een apparaat waarop u cloudsynchronisatie al heeft ingeschakeld de volgende stappen uit te voeren:
+                            
+1. Open Authenticator for Windows
+2. Navigeer via het menu naar 'Instellingen'
+3. Ga naar het onderdeel 'Cloudsynchronisatie'
+4. Selecteer 'Persoonlijke sleutel weergeven'
+                            
+Voer de weergegeven sleutel in onderstaande tekstveld in: (streepjes worden automatisch toegevoegd)</value>
+  </data>
+  <data name="ButtonTurnOnSynchronization" xml:space="preserve">
+    <value>Cloudsynchronisatie inschakelen</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Annuleren</value>
+  </data>
+  <data name="ChangesDetectedRedoDelete" xml:space="preserve">
+    <value>Er zijn wijzigingen gedetecteerd sinds uw laatste synchronisatie en uw apparaat is bijgewerkt. Verwijder alstublieft uw account opnieuw.</value>
+  </data>
+  <data name="ChangesDetectedRedoMove" xml:space="preserve">
+    <value>Er zijn wijzigingen gedetecteerd sinds uw laatste synchronisatie en uw apparaat is bijgewerkt. Verplaats alstublieft uw account opnieuw.</value>
+  </data>
+  <data name="ChangesDetectedRedoUndo" xml:space="preserve">
+    <value>Er zijn wijzigingen gedetecteerd sinds uw laatste synchronisatie en uw apparaat is bijgewerkt. Maak het verwijderen alstublieft opnieuw ongedaan.</value>
+  </data>
+  <data name="CheckingKey" xml:space="preserve">
+    <value>Uw persoonlijke sleutel wordt gecontroleerd...</value>
+  </data>
+  <data name="ConfiguredCloudSynchronization.Text" xml:space="preserve">
+    <value>Cloudsynchronisatie geconfigureerd</value>
+  </data>
+  <data name="ConfiguredCloudSynchronizationInformation.Text" xml:space="preserve">
+    <value>Vanaf nu worden al uw accounts van dit apparaat gesynchroniseerd met uw accounts op uw andere Windows-apparaten waarop u cloudsynchronisatie heeft ingesteld. Let u er alstublieft op dat synchronisatie plaatsvindt op het moment dat u een account toevoegt, wijzigt of verplaatst van volgorde. Dit heeft als gevolg dat u iets langer moet wachten voordat uw wijzigingen zijn doorgevoerd, maar gewoonlijk duurt dit hooguit een paar seconden. Op het moment dat er synchronisatie plaatsvindt, kunt u dit rechtsonder zien aan de ronddraaiende synchronisatieknop (zoals hieronder).</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Verwijderen</value>
+  </data>
+  <data name="EnteredKeyIncorrect" xml:space="preserve">
+    <value>De ingevoerde sleutel is incorrect.</value>
+  </data>
+  <data name="InvalidPersonalKey" xml:space="preserve">
+    <value>Ongeldige persoonlijke sleutel</value>
+  </data>
+  <data name="NoInternetChangesRolledBack" xml:space="preserve">
+    <value>Het lijkt erop dat er geen werkende interverbinding beschikbaar is. Uw wijzigingen zijn ongedaan gemaakt.</value>
+  </data>
+  <data name="NoInternetConnection" xml:space="preserve">
+    <value>Het lijkt erop dat u geen werkende internetverbinding heeft. Voor cloudsynchronisatie is een werkende internetverbinding vereist.</value>
+  </data>
+  <data name="PersonalKeyChanged" xml:space="preserve">
+    <value>Uw persoonlijke sleutel is veranderd vanaf een ander apparaat. Omdat deze persoonlijke sleutel benodigd is voor het ontsleutelen van uw accounts in de cloud, is cloudsynchronisatie nu uitgeschakeld.</value>
+  </data>
+  <data name="RemovedCloudSynchronization" xml:space="preserve">
+    <value>Cloudsynchronisatie verwijderd</value>
+  </data>
+  <data name="RemovedCloudSynchronizationFromOtherDevice" xml:space="preserve">
+    <value>Cloudsynchronisatie is vanaf een ander apparaat verwijderd, daarom is cloudsynchronisatie op dit apparaat nu uitgeschakeld.</value>
+  </data>
+  <data name="RemoveSynchronizationMessage" xml:space="preserve">
+    <value>Weet u zeker dat u cloudsynchronisatie wilt uitschakelen? Dit geldt voor alle apparaten waarop u cloudsynchronisatie heeft ingeschakeld.</value>
+  </data>
+  <data name="RemoveSynchronizationTitle" xml:space="preserve">
+    <value>Cloudsynchronisatie verwijderen</value>
+  </data>
+  <data name="ShowUserKeyDialog.PrimaryButtonText" xml:space="preserve">
+    <value>Sluiten</value>
+  </data>
+  <data name="ShowUserKeyDialog.Title" xml:space="preserve">
+    <value>Uw persoonlijke sleutel</value>
+  </data>
+  <data name="SynchronizationRemoved" xml:space="preserve">
+    <value>Cloudsynchronisatie is succesvol verwijderd.</value>
+  </data>
+  <data name="SynchronizationRemovedError" xml:space="preserve">
+    <value>Cloudsynchronisatie is niet verwijderd. Controleer uw internetverbinding en probeer het later opnieuw.</value>
+  </data>
+  <data name="Synchronize.Label" xml:space="preserve">
+    <value>Synchroniseren</value>
+  </data>
+  <data name="SynchronizingAccountsWithCloud" xml:space="preserve">
+    <value>Uw accounts worden met de cloud gesynchroniseerd...</value>
+  </data>
+  <data name="TurnOff" xml:space="preserve">
+    <value>Uitschakelen</value>
+  </data>
+  <data name="TurnOffSynchronizationMessage" xml:space="preserve">
+    <value>Weet u zeker dat u cloudsynchronisatie wilt uitschakelen?</value>
+  </data>
+  <data name="TurnOffSynchronizationTitle" xml:space="preserve">
+    <value>Cloudsynchronisatie uitschakelen</value>
+  </data>
+  <data name="UnknownError" xml:space="preserve">
+    <value>Onbekende fout</value>
+  </data>
+  <data name="UnknownErrorDuringSynchronize" xml:space="preserve">
+    <value>Er is een onbekende fout opgetreden bij het synchroniseren van uw accounts met de cloud.</value>
+  </data>
+  <data name="UserKeyInformation.Text" xml:space="preserve">
+    <value>Hieronder ziet u uw persoonlijke sleutel. Deze sleutel wordt gebruikt om de opslag van uw accounts in de cloud te versleutelen en te ontsleutelen. U heeft deze sleutel nodig op uw andere apparaten waarop u cloudsynchronisatie wilt inschakelen.</value>
+  </data>
+  <data name="ViewCodes.Content" xml:space="preserve">
+    <value>Bekijk uw codes</value>
+  </data>
+  <data name="AboutCloudSynchronization.Text" xml:space="preserve">
+    <value>Met cloudsynchronisatie kunt u uw accounts synchroniseren over uw gekoppelde apparaten. Hierdoor heeft u al uw accounts altijd op al uw Windows-apparaten.</value>
+  </data>
+  <data name="AboutUserKey.Text" xml:space="preserve">
+    <value>U kunt deze sleutel opvragen wanneer u andere apparaten ook gebruik wil laten maken van cloudsynchronisatie. Deze sleutel wordt in een beveiligde omgeving opgeslagen die door Windows wordt beheerd.</value>
+  </data>
+  <data name="ButtonConnect.Content" xml:space="preserve">
+    <value>Koppelen voor cloudsynchronisatie</value>
+  </data>
+  <data name="ButtonRemoveCloudSynchronization.Content" xml:space="preserve">
+    <value>Cloudsynchronisatie verwijderen</value>
+  </data>
+  <data name="ButtonShowUserKey.Content" xml:space="preserve">
+    <value>Persoonlijke sleutel weergeven</value>
+  </data>
+  <data name="ButtonTurnOffSynchronization.Content" xml:space="preserve">
+    <value>Cloudsynchronisatie uitschakelen</value>
+  </data>
+  <data name="CloudSynchronizationTurnedOff.Text" xml:space="preserve">
+    <value>Cloudsynchronisatie is momenteel uitgeschakeld. U kunt het inschakelen als u uw accounts met dit apparaat wilt synchroniseren. Voor cloudsynchronisatie wordt gebruikgemaakt van OneDrive en u zult Authenticator for Windows toegang moeten geven tot uw OneDrive-opslag om cloudsynchronisatie in te schakelen.</value>
+  </data>
+  <data name="CloudSynchronizationTurnedOn.Text" xml:space="preserve">
+    <value>Cloudsynchronisatie is momenteel ingeschakeld. U kunt het uitschakelen als u uw accounts niet meer met dit apparaat wilt synchroniseren.</value>
+  </data>
+  <data name="Continue.Content" xml:space="preserve">
+    <value>Doorgaan</value>
+  </data>
+  <data name="InitialSetupIntro.Text" xml:space="preserve">
+    <value>U heeft ervoor gekozen om cloudsynchronisatie in te schakelen. U heeft Authenticator for Windows inmiddels toegang verleend tot uw OneDrive-opslag. De centrale opslag van uw accounts wordt vanaf het moment dat u deze stappen heeft voltooid daar opgeslagen. Omdat wij u de hoogste veiligheid willen bieden maken wij gebruik van versleuteling. De opslag wordt versleuteld met een sleutel die alleen op uw apparaten staan en niet in de cloud. Onderstaande sleutel wordt gebruikt voor de versleuteling van uw accounts in de cloud.</value>
+  </data>
+  <data name="RemoveCloudSynchronization.Text" xml:space="preserve">
+    <value>U kunt cloudsynchronisatie uitschakelen voor alle aparaten waarop het momenteel is ingeschakeld. Wanneer u geen toegang meer heeft tot uw persoonlijke sleutel bent of een nieuwe persoonlijke sleutel wilt, is dit de enige manier om opnieuw te beginnen. Cloudsynchronisatie wordt op uw andere apparaten automatisch uitgeschakeld wanneer er synchronisatie plaatsvindt.</value>
+  </data>
+  <data name="UserKeyRequired.Text" xml:space="preserve">
+    <value>U heeft uw persoonlijke sleutel nodig op uw andere apparaten om de opslag van uw accounts te ontsleutelen. U kunt uw persoonlijke sleutel weergeven door de onderstaande knop te selecteren.</value>
+  </data>
+  <data name="SettingsSynchronization.Header" xml:space="preserve">
+    <value>Cloudsynchronisatie</value>
+  </data>
+  <data name="Manually.Content" xml:space="preserve">
+    <value>Handmatig</value>
+  </data>
+  <data name="OnStart.Content" xml:space="preserve">
+    <value>Wanneer ik de app start</value>
+  </data>
+  <data name="WhenToSynchronize.Text" xml:space="preserve">
+    <value>Wanneer moet er gesynchroniseerd worden?</value>
+  </data>
+  <data name="BannerUnableToValidateKey" xml:space="preserve">
+    <value>Uw persoonlijke sleutel kon niet gecontroleerd worden. Controleer uw internetverbinding en probeer het later opnieuw.</value>
+  </data>
+  <data name="UnknownErrorWhileAuthenticating" xml:space="preserve">
+    <value>Er is een onbekende fout opgetreden tijdens uw authenticatie.</value>
+  </data>
+  <data name="ReleaseNotes.Text" xml:space="preserve">
+    <value>Deze versie introduceert cloudsynchronisatie. Dit betekent dat u al uw accounts op al uw apparaten heeft. Ga naar 'Instellingen' en vervolgens naar de sectie 'Cloudsynchronisatie' om het in te schakelen.</value>
+    <comment>Must be updated when a version is important enough to show to release notes.</comment>
+  </data>
+  <data name="ReleaseNotesDialog.PrimaryButtonText" xml:space="preserve">
+    <value>Sluiten</value>
+  </data>
+  <data name="ReleaseNotesDialog.Title" xml:space="preserve">
+    <value>Eindelijk, al uw accounts, overal</value>
+    <comment>Must be updated when a version is important enough to show to release notes.</comment>
+  </data>
+  <data name="AccountsAreBeingRemovedFromCloud" xml:space="preserve">
+    <value>Uw accounts worden uit de cloud verwijderd...</value>
   </data>
 </root>

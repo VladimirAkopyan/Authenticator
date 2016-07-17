@@ -20,6 +20,15 @@ namespace Settings
                 case Setting.NTPTimeout:
                     defaultValue = new TimeSpan(0, 0, 2);
                     break;
+                case Setting.UseCloudSynchronization:
+                    defaultValue = false;
+                    break;
+                case Setting.WhenToSynchronize:
+                    defaultValue = 0;
+                    break;
+                case Setting.LastKnownVersionNumber:
+                    defaultValue = null;
+                    break;
             }
 
             return defaultValue;

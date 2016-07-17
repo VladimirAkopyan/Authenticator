@@ -8,6 +8,8 @@ using Windows.ApplicationModel.DataTransfer;
 using Settings;
 using Domain.Utilities;
 using Domain.Storage;
+using Synchronization.Exceptions;
+using Authenticator_for_Windows.Views.Pages;
 
 namespace Authenticator_for_Windows.Views.UserControls
 {
@@ -17,6 +19,7 @@ namespace Authenticator_for_Windows.Views.UserControls
         private OTP otp;
         private bool _inEditMode;
         private DispatcherTimer timer;
+        private MainPage mainPage;
         
         private bool skipEditModeAnimation;
 
@@ -55,14 +58,14 @@ namespace Authenticator_for_Windows.Views.UserControls
 
         }
 
-        public AccountBlock(Account account, bool flash)
+        public AccountBlock(Account account, bool flash, MainPage mainPage)
         {
-            Initialize(account, flash);
+            Initialize(account, flash, mainPage);
         }
 
-        public AccountBlock(Account account)
+        public AccountBlock(Account account, MainPage mainPage)
         {
-            Initialize(account, false);
+            Initialize(account, false, mainPage);
         }
 
         public void Update()
@@ -73,11 +76,12 @@ namespace Authenticator_for_Windows.Views.UserControls
             }
         }
 
-        private void Initialize(Account account, bool flash)
+        private void Initialize(Account account, bool flash, MainPage mainPage)
         {
             InitializeComponent();
 
             this.account = account;
+            this.mainPage = mainPage;
             otp = new OTP(account.Secret);
 
             DataContext = account;
@@ -130,6 +134,7 @@ namespace Authenticator_for_Windows.Views.UserControls
         public event EventHandler<DeleteRequestEventArgs> DeleteRequested;
         public event EventHandler<EventArgs> Removed;
         public event EventHandler<EventArgs> CopyRequested;
+        public event EventHandler<EventArgs> Modified;
 
         private void NotifyDeleteRequested()
         {
@@ -152,6 +157,14 @@ namespace Authenticator_for_Windows.Views.UserControls
             if (CopyRequested != null)
             {
                 CopyRequested(this, new EventArgs());
+            }
+        }
+
+        private void NotifyModified()
+        {
+            if (Modified != null)
+            {
+                Modified(account, new EventArgs());
             }
         }
 
@@ -237,7 +250,7 @@ namespace Authenticator_for_Windows.Views.UserControls
 
                 if (dialog.IsModified)
                 {
-                    await AccountStorage.Instance.SaveAsync(account);
+                    NotifyModified();
                 }
             }
         }

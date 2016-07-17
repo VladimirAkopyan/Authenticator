@@ -11,6 +11,13 @@ using Domain.Utilities;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using Domain;
+using Synchronization;
+using System.Threading.Tasks;
+using Synchronization.Exceptions;
+using Settings;
+using Windows.ApplicationModel.Resources;
+using Windows.ApplicationModel;
+using Authenticator_for_Windows.Utilities;
 
 namespace Authenticator_for_Windows.Views.Pages
 {
@@ -24,16 +31,18 @@ namespace Authenticator_for_Windows.Views.Pages
         private AccountBlock removedAccountBlock;
         private DispatcherTimer undoTimer;
         private bool inEditMode;
+        private bool didUndo;
         private int removedIndex;
         private int reorderFrom;
         private int reorderTo;
         private const int UNDO_MESSAGE_VISIBLE_SECONDS = 5;
+        
+        private static bool firstLoad = true;
 
         public AccountsPage()
         {
             InitializeComponent();
 
-            mappings = new Dictionary<Account, AccountBlock>();
             undoTimer = new DispatcherTimer()
             {
                 Interval = new TimeSpan(0, 0, UNDO_MESSAGE_VISIBLE_SECONDS)
@@ -53,7 +62,55 @@ namespace Authenticator_for_Windows.Views.Pages
             mainPage = (MainPage)e.Parameter;
         }
 
+        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        {
+            AccountStorage.Instance.SynchronizationStarted -= SynchronizationStarted;
+            AccountStorage.Instance.SynchronizationCompleted -= SynchronizationCompleted;
+        }
+
         private async void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (ReleaseNotesManager.ShowReleaseNotes)
+            {
+                ReleaseNotesDialog dialog = new ReleaseNotesDialog();
+                await dialog.ShowAsync();
+            }
+
+            bool synchronize = false;
+
+            if (SettingsManager.Get<bool>(Setting.UseCloudSynchronization) && AccountStorage.Instance.HasSynchronizer)
+            {
+                AccountStorage.Instance.SynchronizationStarted += SynchronizationStarted;
+                AccountStorage.Instance.SynchronizationCompleted += SynchronizationCompleted;
+
+                Synchronize.Visibility = Visibility.Visible;
+
+                if (SettingsManager.Get<int>(Setting.WhenToSynchronize) == 0)
+                {
+                    synchronize = true;
+                }
+            }
+
+            await LoadAccounts();
+
+            PageGrid.Children.Remove(LoaderProgressBar);
+
+            if (firstLoad && synchronize)
+            {
+                UpdateLocalFromRemote();
+            }
+
+            firstLoad = false;
+
+            if (AccountStorage.Instance.IsSynchronizing)
+            {
+                Synchronize.StartAnimationAndDisable();
+                Edit.IsEnabled = false;
+                ButtonUndo.IsEnabled = false;
+            }
+        }
+
+        private async Task LoadAccounts()
         {
             accounts = await AccountStorage.Instance.GetAllAsync();
 
@@ -61,15 +118,15 @@ namespace Authenticator_for_Windows.Views.Pages
             TimeSpan remainingTime = new TimeSpan(TOTPUtilities.RemainingTicks);
 
             accountBlocks = new ObservableCollection<AccountBlock>();
-
-            PageGrid.Children.Remove(LoaderProgressBar);
+            mappings = new Dictionary<Account, AccountBlock>();
 
             foreach (Account account in accounts)
             {
-                AccountBlock code = new AccountBlock(account);
+                AccountBlock code = new AccountBlock(account, mainPage);
                 code.DeleteRequested += Code_DeleteRequested;
                 code.CopyRequested += Code_CopyRequested;
                 code.Removed += Code_Removed;
+                code.Modified += Code_Modified;
 
                 accountBlocks.Add(code);
                 mappings.Add(account, code);
@@ -81,27 +138,103 @@ namespace Authenticator_for_Windows.Views.Pages
             CheckEntries();
         }
 
-        private void AccountBlocks_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private async void Code_Modified(object sender, EventArgs e)
         {
-            switch (e.Action)
+            try
             {
-                case NotifyCollectionChangedAction.Remove:
-                    reorderFrom = e.OldStartingIndex;
-                    break;
-                case NotifyCollectionChangedAction.Add:
-                    reorderTo = e.NewStartingIndex;
-                    break;
+                await AccountStorage.Instance.SaveAsync((Account)sender);
+            }
+            catch (StaleException)
+            {
+                RevertAndReload();
+
+                MainPage.AddBanner(new Banner(BannerType.Danger, ResourceLoader.GetForCurrentView().GetString("ChangesDetectedRedoMove"), true));
+            }
+            catch (NetworkException)
+            {
+                RevertAndReload();
+
+                MainPage.AddBanner(new Banner(BannerType.Danger, ResourceLoader.GetForCurrentView().GetString("NoInternetChangesRolledBack"), true));
+            }
+            catch (Exception ex)
+            {
+                mainPage.Navigate(typeof(ErrorPage), ex);
+            }
+        }
+
+        private async void SynchronizationCompleted(object sender, SynchronizationResult e)
+        {
+            if (e.HasChanges)
+            {
+                await LoadAccounts();
+            }
+            else if (!e.Successful)
+            {
+                RevertAndReload();
             }
 
-            if (e.Action == NotifyCollectionChangedAction.Add)
+            Edit.IsEnabled = true;
+            Codes.IsEnabled = true;
+            ButtonUndo.IsEnabled = true;
+
+            Synchronize.StopAnimationAndEnable();
+
+            firstLoad = false;
+        }
+
+        private void SynchronizationStarted(object sender, EventArgs e)
+        {
+            Synchronize.StartAnimationAndDisable();
+
+            Edit.IsEnabled = false;
+            Codes.IsEnabled = false;
+            ButtonUndo.IsEnabled = false;
+        }
+
+        private void AccountBlocks_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            // Check if the collection was changed because of an undo. If that's the case, there's no need to do anything.
+            if (!didUndo)
             {
-                HandleReorder();
+                switch (e.Action)
+                {
+                    case NotifyCollectionChangedAction.Remove:
+                        reorderFrom = e.OldStartingIndex;
+                        break;
+                    case NotifyCollectionChangedAction.Add:
+                        reorderTo = e.NewStartingIndex;
+                        break;
+                }
+
+                if (e.Action == NotifyCollectionChangedAction.Add)
+                {
+                    HandleReorder();
+                }
             }
         }
 
         private async void HandleReorder()
         {
-            await AccountStorage.Instance.ReorderAsync(reorderFrom, reorderTo);
+            try
+            {
+                await AccountStorage.Instance.ReorderAsync(reorderFrom, reorderTo);
+            }
+            catch (StaleException)
+            {
+                RevertAndReload();
+
+                MainPage.AddBanner(new Banner(BannerType.Danger, ResourceLoader.GetForCurrentView().GetString("ChangesDetectedRedoMove"), true));
+            }
+            catch (NetworkException)
+            {
+                RevertAndReload();
+
+                MainPage.AddBanner(new Banner(BannerType.Danger, ResourceLoader.GetForCurrentView().GetString("NoInternetChangesRolledBack"), true));
+            }
+            catch (Exception e)
+            {
+                mainPage.Navigate(typeof(ErrorPage), e);
+            }
         }
 
         private void Code_Removed(object sender, EventArgs e)
@@ -128,9 +261,10 @@ namespace Authenticator_for_Windows.Views.Pages
             {
                 if (accounts.Count == 0)
                 {
-                    Codes.Visibility = Visibility.Collapsed;
+                    ScrollViewer.Visibility = Visibility.Collapsed;
                     NoAccountsGrid.Visibility = Visibility.Visible;
                     CommandBar.Visibility = Visibility.Collapsed;
+                    Edit.Visibility = Visibility.Collapsed;
 
                     mainPage.BeginAnimateAddAccount();
 
@@ -138,12 +272,18 @@ namespace Authenticator_for_Windows.Views.Pages
                 }
                 else
                 {
-                    Codes.Visibility = Visibility.Visible;
+                    ScrollViewer.Visibility = Visibility.Visible;
                     NoAccountsGrid.Visibility = Visibility.Collapsed;
                     CommandBar.Visibility = Visibility.Visible;
+                    Edit.Visibility = Visibility.Visible;
 
                     mainPage.EndAnimateAddAccount();
                 }
+            }
+
+            if (SettingsManager.Get<bool>(Setting.UseCloudSynchronization))
+            {
+                CommandBar.Visibility = Visibility.Visible;
             }
         }
 
@@ -159,13 +299,42 @@ namespace Authenticator_for_Windows.Views.Pages
             await ConfirmDialog.ShowAsync();
         }
 
+        private async void RevertAndReload()
+        {
+            await LoadAccounts();
+            
+            Codes.CanReorderItems = false;
+            Edit.IsChecked = false;
+
+            Synchronize.StopAnimationAndEnable();
+        }
+
         private async void ConfirmDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            KeyValuePair<Account, AccountBlock> account = mappings.FirstOrDefault(m => m.Key == selectedAccount);
+            try
+            {
+                KeyValuePair<Account, AccountBlock> account = mappings.FirstOrDefault(m => m.Key == selectedAccount);
 
-            await AccountStorage.Instance.RemoveAsync(account.Key);
+                await AccountStorage.Instance.RemoveAsync(account.Key);
 
-            account.Value.Remove();
+                account.Value.Remove();
+            }
+            catch (StaleException)
+            {
+                RevertAndReload();
+
+                MainPage.AddBanner(new Banner(BannerType.Danger, ResourceLoader.GetForCurrentView().GetString("ChangesDetectedRedoDelete"), true));
+            }
+            catch (NetworkException)
+            {
+                RevertAndReload();
+                
+                MainPage.AddBanner(new Banner(BannerType.Danger, ResourceLoader.GetForCurrentView().GetString("NoInternetChangesRolledBack"), true));
+            }
+            catch (Exception ex)
+            {
+                mainPage.Navigate(typeof(ErrorPage), ex);
+            }
         }
 
         private void TimeProgressBar_TimeElapsed(object sender, EventArgs e)
@@ -209,13 +378,63 @@ namespace Authenticator_for_Windows.Views.Pages
 
         private async void ButtonUndo_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
-            await AccountStorage.Instance.UndoRemoveAsync();
-            
-            removedAccountBlock.Show(inEditMode);
-            accountBlocks.Insert(removedIndex, removedAccountBlock);
+            didUndo = true;
 
-            CheckEntries();
-            CloseUndo.Begin();
+            try
+            {
+                await AccountStorage.Instance.UndoRemoveAsync();
+
+                removedAccountBlock.Show(inEditMode);
+                accountBlocks.Insert(removedIndex, removedAccountBlock);
+
+                CheckEntries();
+                CloseUndo.Begin();
+            }
+            catch (StaleException)
+            {
+                RevertAndReload();
+
+                MainPage.AddBanner(new Banner(BannerType.Danger, ResourceLoader.GetForCurrentView().GetString("ChangesDetectedRedoUndo"), true));
+            }
+            catch (NetworkException)
+            {
+                RevertAndReload();
+
+                MainPage.AddBanner(new Banner(BannerType.Danger, ResourceLoader.GetForCurrentView().GetString("NoInternetChangesRolledBack"), true));
+            }
+            catch (Exception ex)
+            {
+                mainPage.Navigate(typeof(ErrorPage), ex);
+            }
+
+            didUndo = false;
+        }
+
+        private async void UpdateLocalFromRemote()
+        {
+            Edit.IsChecked = false;
+            Edit.IsEnabled = false;
+            ButtonUndo.IsEnabled = false;
+
+            try
+            {
+                await AccountStorage.Instance.UpdateLocalFromRemote();
+            }
+            catch (NetworkException)
+            {
+                RevertAndReload();
+
+                MainPage.AddBanner(new Banner(BannerType.Danger, ResourceLoader.GetForCurrentView().GetString("NoInternetConnection"), true));
+            }
+            catch (Exception ex)
+            {
+                mainPage.Navigate(typeof(ErrorPage), ex);
+            }
+        }
+
+        private void Synchronize_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+            UpdateLocalFromRemote();
         }
     }
 }
