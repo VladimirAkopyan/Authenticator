@@ -1,0 +1,38 @@
+﻿<Page
+    x:Class="Authenticator_for_Windows.Views.Pages.SetupSynchronizationPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Authenticator_for_Windows.Views.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Authenticator_for_Windows.Views.UserControls"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <StackPanel Padding="10" Name="InitialSetupPanel" Visibility="Collapsed">
+                    <TextBlock x:Uid="InitialSetupIntro" Text="U heeft ervoor gekozen om cloudsynchronisatie in te schakelen. U heeft Authenticator for Windows inmiddels toegang verleend tot uw OneDrive-opslag. De centrale opslag van uw accounts wordt vanaf het moment dat u deze stappen heeft voltooid daar opgeslagen. Omdat wij u de hoogste veiligheid willen bieden maken wij gebruik van versleuteling. De opslag wordt versleuteld met een sleutel die alleen op uw apparaten staan en niet in de cloud. Onderstaande sleutel wordt gebruikt voor de versleuteling van uw accounts in de cloud." TextWrapping="Wrap" />
+                    <TextBlock Name="UserKey" Text="ABCDE-ABCDE-ABCDE-ABCDE" TextWrapping="Wrap" FontWeight="Bold" Margin="0,10,0,0" />
+                    <TextBlock x:Uid="AboutUserKey" Text="U kunt deze sleutel opvragen wanneer u andere apparaten ook gebruik wil laten maken van cloudsynchronisatie. Deze sleutel wordt in een beveiligde omgeving opgeslagen die door Windows wordt beheerd." TextWrapping="Wrap" Margin="0,10,0,0" />
+                    <Button Name="Continue" x:Uid="Continue" Content="Doorgaan" Margin="0,10,0,0" Tapped="Continue_Tapped" />
+                </StackPanel>
+                <StackPanel Padding="10" Name="ConnectPanel" Visibility="Collapsed">
+                    <TextBlock TextWrapping="Wrap">
+                        <Run x:Uid="InstructionsForUserKey" Text="Het lijkt erop dat u cloudsynchronisatie al op een ander apparaat heeft ingesteld. In dat geval kunt u nu dit apparaat koppelen voor cloudsynchronisatie. U heeft hiervoor uw persoonlijke sleutel nodig. U kunt deze sleutel opvragen door op een apparaat waarop u cloudsynchronisatie al heeft ingeschakeld de volgende stappen uit te voeren:
+                            
+                            1. Open Authenticator for Windows
+                            2. Navigeer via het menu naar 'Instellingen'
+                            3. Ga naar het onderdeel 'Cloudsynchronisatie'
+                            4. Selecteer 'Persoonlijke sleutel weergeven'
+                            
+                            Voer de weergegeven sleutel in onderstaande tekstveld in: (streepjes worden automatisch toegevoegd)">
+                        </Run>
+                    </TextBlock>
+                    <controls:UserKeyTextBox x:Name="UserKeyToValidate" TextChanged="UserKeyToValidate_TextChanged" IsSpellCheckEnabled="False" IsTextPredictionEnabled="False" MaxLength="23" Margin="0,10" />
+                    <Button Name="ButtonConnect" x:Uid="ButtonConnect" Content="Koppelen voor cloudsynchronisatie" IsEnabled="False" Tapped="ButtonConnect_Tapped" />
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>

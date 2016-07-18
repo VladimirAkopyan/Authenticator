@@ -1,0 +1,24 @@
+﻿<Page
+    x:Class="Authenticator_for_Windows.Views.Pages.ErrorPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Authenticator_for_Windows.Views.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Loaded="Page_Loaded">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <ScrollViewer Padding="10" VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <TextBlock Name="ErrorTitle" Text="TITLE" HorizontalAlignment="Center" FontSize="30" TextWrapping="Wrap" TextAlignment="Center" />
+                <Grid>
+                    <TextBlock Text="&#xE753;" FontFamily="Segoe MDL2 Assets" FontSize="200" HorizontalAlignment="Center" />
+                    <TextBlock Text="&#xE895;" FontFamily="Segoe MDL2 Assets" FontSize="40" HorizontalAlignment="Center" FontWeight="Bold" VerticalAlignment="Center" Foreground="Red" Margin="0,20,0,0" />
+                </Grid>
+                <TextBlock Name="ErrorMessage" Text="MESSAGE" MaxWidth="800" HorizontalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center" />
+                <Button Name="ViewCodes" x:Uid="ViewCodes" Content="Bekijk uw codes" HorizontalAlignment="Stretch" MaxWidth="400" Click="ViewCodes_Click" Margin="0,20,0,0" />
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>

@@ -11,6 +11,9 @@
     x:Uid="AccountsPage">
     <Page.Resources>
         <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles/Resources.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
             <Storyboard x:Name="ReorderOpen">
                 <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.MaxHeight)" Storyboard.TargetName="Reorder">
                     <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="82"/>
@@ -20,6 +23,12 @@
                 <DoubleAnimationUsingKeyFrames EnableDependentAnimation="True" Storyboard.TargetProperty="(FrameworkElement.MaxHeight)" Storyboard.TargetName="Reorder">
                     <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
                 </DoubleAnimationUsingKeyFrames>
+            </Storyboard>
+            <Storyboard x:Name="OpenUndo">
+                <DoubleAnimation Duration="0:0:0.2" To="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="grid" d:IsOptimized="True"/>
+            </Storyboard>
+            <Storyboard x:Name="CloseUndo">
+                <DoubleAnimation Duration="0:0:0.2" To="40" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="grid" d:IsOptimized="True"/>
             </Storyboard>
         </ResourceDictionary>
     </Page.Resources>
@@ -49,7 +58,7 @@
                         <AdaptiveTrigger MinWindowWidth="720" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        
+
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -88,7 +97,7 @@
                 </TextBlock>
             </Border>
         </StackPanel>
-        <ScrollViewer Grid.Row="2" Padding="0 10" VerticalScrollBarVisibility="Auto">
+        <ScrollViewer Name="ScrollViewer" Grid.Row="2" Padding="0 10" VerticalScrollBarVisibility="Auto">
             <ListView Name="Codes" AllowDrop="True" HorizontalAlignment="Stretch" SelectionMode="None">
                 <ListView.Resources>
                     <Style TargetType="controls:AccountBlock">
@@ -156,7 +165,20 @@
                 </ListView.ItemContainerStyle>
             </ListView>
         </ScrollViewer>
+        <Grid x:Name="grid" Grid.Row="2" Background="#FFB6222A" VerticalAlignment="Bottom" RenderTransformOrigin="0.5,0.5">
+            <Grid.RenderTransform>
+                <CompositeTransform TranslateY="40"/>
+            </Grid.RenderTransform>
+            <TextBlock x:Uid="Deleted" Text="Verwijderd" Padding="10" Foreground="White" HorizontalAlignment="Left" />
+            <Button x:Name="ButtonUndo" HorizontalAlignment="Right" VerticalAlignment="Stretch" Background="#FFB6222A" BorderThickness="0" Style="{StaticResource UndoButton}" Tapped="ButtonUndo_Tapped">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE7A7;" Foreground="White" RenderTransformOrigin="0.5,0.5" Margin="0,4,0,0" />
+                    <TextBlock x:Uid="Undo" Text="Ongedaan maken" Foreground="White" Margin="10,0,0,0" />
+                </StackPanel>
+            </Button>
+        </Grid>
         <CommandBar Name="CommandBar" Grid.Row="3">
+            <controls:SynchronizeAppBarButton x:Name="Synchronize" Tapped="Synchronize_Tapped" Visibility="Collapsed" />
             <AppBarToggleButton x:Uid="Edit" Icon="Edit" x:Name="Edit" Label="Bewerken" Checked="Edit_Checked" Unchecked="Edit_Unchecked" />
         </CommandBar>
         <ContentDialog x:Uid="ConfirmDialog" Name="ConfirmDialog" PrimaryButtonText="Verwijderen" SecondaryButtonText="Annuleren" Title="Account verwijderen" PrimaryButtonClick="ConfirmDialog_PrimaryButtonClick">

@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutText.Text" xml:space="preserve">
-    <value>Authenticator for Windows is the app for the universal Windows platform to store all your accounts with two step authentication. The developer of this app tries to create the most user friendly and easy way to offer codes to his users.
+    <value>Authenticator for Windows is the app for the universal Windows platform to store all your accounts with two step authentication. With cloud synchronization, you always have all your accounts on all your connected devices. The developer of this app tries to create the most user friendly and easy way to offer codes to his users.
 
 We kindly invite you to share all your suggestions and comments with us so we can further improve your experience.
 
@@ -199,7 +199,7 @@ We will never interrupt you with annoying questions to rate our app. If you have
   <data name="PrivacyDeclarationPage.Tag" xml:space="preserve">
     <value>Privacy declaration</value>
   </data>
-  <data name="Save.Content" xml:space="preserve">
+  <data name="Save" xml:space="preserve">
     <value>Save</value>
   </data>
   <data name="Scan.Label" xml:space="preserve">
@@ -288,7 +288,7 @@ Add an account via 'New account'.</value>
     <value>Code</value>
   </data>
   <data name="WhatToEnterWhereCodeContent.Text" xml:space="preserve">
-    <value>The code (or key) that's being used to generate a unique, temporary code. This is usually a long range of random characters.</value>
+    <value>The code (or key) that's being used to generate a unique, temporary code. This is usually a long range of random characters. You receive this code from the service that offers this two step authentication.</value>
   </data>
   <data name="WhatToEnterWhereService.Text" xml:space="preserve">
     <value>Service</value>
@@ -328,5 +328,182 @@ Add an account via 'New account'.</value>
   </data>
   <data name="RespondToReviews.Text" xml:space="preserve">
     <value>We do our very best to respond to every review. Please note that it could take several days for your feedback to become visible and we can respond.</value>
+  </data>
+  <data name="Deleted.Text" xml:space="preserve">
+    <value>Deleted</value>
+  </data>
+  <data name="Undo.Text" xml:space="preserve">
+    <value>Undo</value>
+  </data>
+  <data name="InstructionsForUserKey.Text" xml:space="preserve">
+    <value>It seems that you have already configured cloud synchronization on another device. In this case, you can now connect this device with cloud synchronization. For this, you need your personal key. You can request this key by following the following steps on a device on which you have already turned on cloud synchronization:
+
+1. Open Authenticator for Windows
+2. Navigate via the menu to 'Settings'
+3. Go to the section 'Cloud synchronization'
+4. Select 'Display personal key'
+
+Enter the displayed key in the text field below: (hyphens are added automatically)</value>
+  </data>
+  <data name="ButtonTurnOnSynchronization" xml:space="preserve">
+    <value>Turn on cloud synchronization</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="RemoveSynchronizationMessage" xml:space="preserve">
+    <value>Are you sure you want to turn off cloud synchronization? This applies to all devices on which you have enabled cloud synchronization.</value>
+  </data>
+  <data name="RemoveSynchronizationTitle" xml:space="preserve">
+    <value>Remove cloud synchronization</value>
+  </data>
+  <data name="SynchronizationRemoved" xml:space="preserve">
+    <value>Successfully removed cloud synchronization.</value>
+  </data>
+  <data name="SynchronizationRemovedError" xml:space="preserve">
+    <value>Cloud synchronization is not removed. Please check your internet connection and try again later.</value>
+  </data>
+  <data name="TurnOff" xml:space="preserve">
+    <value>Turn off</value>
+  </data>
+  <data name="TurnOffSynchronizationMessage" xml:space="preserve">
+    <value>Are you sure you want to turn off cloud synchronization?</value>
+  </data>
+  <data name="TurnOffSynchronizationTitle" xml:space="preserve">
+    <value>Turn off cloud synchronization</value>
+  </data>
+  <data name="ChangesDetectedRedoDelete" xml:space="preserve">
+    <value>Changes have been detected since your last synchronization and your device has been updated. Please delete your account again.</value>
+  </data>
+  <data name="ChangesDetectedRedoMove" xml:space="preserve">
+    <value>Changes have been detected since your last synchronization and your device has been updated. Please move your account again.</value>
+  </data>
+  <data name="ChangesDetectedRedoUndo" xml:space="preserve">
+    <value>Changes have been detected since your last synchronization and your device has been updated. Please undo the removal again.</value>
+  </data>
+  <data name="CheckingKey" xml:space="preserve">
+    <value>Your personal key is being validated...</value>
+  </data>
+  <data name="ConfiguredCloudSynchronization.Text" xml:space="preserve">
+    <value>Cloud synchronization configured</value>
+  </data>
+  <data name="ConfiguredCloudSynchronizationInformation.Text" xml:space="preserve">
+    <value>From now on, all your accounts from this device are being synchronized with your accounts on your other Windows devices on which you have configured cloud synchronization. Please note that synchronization occurs when you add, modify, delete or reorder an account. This results in a small delay before your changes are processed, but usually this takes no longer than a few seconds. When synchronization occurs, you can see this on the bottom right on the spinning synchronization button (like below).</value>
+  </data>
+  <data name="EnteredKeyIncorrect" xml:space="preserve">
+    <value>The entered key is incorrect.</value>
+  </data>
+  <data name="InvalidPersonalKey" xml:space="preserve">
+    <value>Invalid personal key</value>
+  </data>
+  <data name="NoInternetChangesRolledBack" xml:space="preserve">
+    <value>It seems there is no working internet connection available. Your changes have been undone.</value>
+  </data>
+  <data name="NoInternetConnection" xml:space="preserve">
+    <value>It seems there is no working internet connection available. Cloud synchronization requires a working internet connection.</value>
+  </data>
+  <data name="PersonalKeyChanged" xml:space="preserve">
+    <value>Your personal key is changed from another device. Because this personal key is required to decrypt your accounts from the cloud, cloud synchronization is now turned off.</value>
+  </data>
+  <data name="RemovedCloudSynchronization" xml:space="preserve">
+    <value>Removed cloud synchronization</value>
+  </data>
+  <data name="RemovedCloudSynchronizationFromOtherDevice" xml:space="preserve">
+    <value>Cloud synchronization is removed from another device, so cloud synchronization is now turned off on this device.</value>
+  </data>
+  <data name="ShowUserKeyDialog.PrimaryButtonText" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="ShowUserKeyDialog.Title" xml:space="preserve">
+    <value>Your personal key</value>
+  </data>
+  <data name="Synchronize.Label" xml:space="preserve">
+    <value>Synchronize</value>
+  </data>
+  <data name="SynchronizingAccountsWithCloud" xml:space="preserve">
+    <value>Your accounts are being synchronized with the cloud...</value>
+  </data>
+  <data name="UnknownError" xml:space="preserve">
+    <value>Unknown error</value>
+  </data>
+  <data name="UnknownErrorDuringSynchronize" xml:space="preserve">
+    <value>An unknown error occured while synchronizing your accounts with the cloud.</value>
+  </data>
+  <data name="UserKeyInformation.Text" xml:space="preserve">
+    <value>Below you'll see your personal key. This key is being used to encrypt and decrypt the storage of your accounts in the cloud. You need this key on your other devices on which you want to turn on cloud synchronization.</value>
+  </data>
+  <data name="ViewCodes.Content" xml:space="preserve">
+    <value>View your codes</value>
+  </data>
+  <data name="AboutCloudSynchronization.Text" xml:space="preserve">
+    <value>With cloud synchronization, your accounts are being synchronized between your connected devices. By using this, you always have all your accounts on all your Windows devices.</value>
+  </data>
+  <data name="AboutUserKey.Text" xml:space="preserve">
+    <value>You can request this key when you want to make use of cloud synchronization on your other devices. This key is being saved in a secure environment that's being managed by Windows.</value>
+  </data>
+  <data name="ButtonConnect.Content" xml:space="preserve">
+    <value>Connect with cloud synchronization</value>
+  </data>
+  <data name="ButtonRemoveCloudSynchronization.Content" xml:space="preserve">
+    <value>Remove cloud synchronization</value>
+  </data>
+  <data name="ButtonShowUserKey.Content" xml:space="preserve">
+    <value>Display personal key</value>
+  </data>
+  <data name="ButtonTurnOffSynchronization.Content" xml:space="preserve">
+    <value>Turn off cloud synchronization</value>
+  </data>
+  <data name="CloudSynchronizationTurnedOff.Text" xml:space="preserve">
+    <value>Cloud synchronization is currently turned off. You can turn it on if you want to synchronize your accounts with this device. Cloud synchronization uses OneDrive and you must grant Authenticator for Windows access to your OneDrive storage to turn on cloud synchronization.</value>
+  </data>
+  <data name="CloudSynchronizationTurnedOn.Text" xml:space="preserve">
+    <value>Cloud synchronization is currently turned on. You can turn it off if you don't want to synchronize your accounts with this device anymore.</value>
+  </data>
+  <data name="Continue.Content" xml:space="preserve">
+    <value>Continue</value>
+  </data>
+  <data name="InitialSetupIntro.Text" xml:space="preserve">
+    <value>You have chosen to turn on cloud synchronization. At this stage you already have granted Authenticator for Windows access to your OneDrive storage. The central storage of your accounts will be saved there after you complete these steps. Because we want to give you the highest security, we make use of encryption. The storage is being encrypted with a key that's only on your devices and not in the cloud. The key below is being used for encryption of your accounts in the cloud.</value>
+  </data>
+  <data name="RemoveCloudSynchronization.Text" xml:space="preserve">
+    <value>You can turn off cloud synchronization for all the devices on which it is currently enabled. When you no longer have access to your personal key or want a new personal key, this is the only way to start over again. Cloud synchronization will be turned off on your other devices when synchronization occurs.</value>
+  </data>
+  <data name="SettingsSynchronization.Header" xml:space="preserve">
+    <value>Cloud synchronization</value>
+  </data>
+  <data name="UserKeyRequired.Text" xml:space="preserve">
+    <value>You need your personal key on your other devices to decrypt the storage of your accounts. You can display your personal key by selecting the button below.</value>
+  </data>
+  <data name="Manually.Content" xml:space="preserve">
+    <value>Manually</value>
+  </data>
+  <data name="OnStart.Content" xml:space="preserve">
+    <value>When I start the app</value>
+  </data>
+  <data name="WhenToSynchronize.Text" xml:space="preserve">
+    <value>When should a synchronization be done?</value>
+  </data>
+  <data name="BannerUnableToValidateKey" xml:space="preserve">
+    <value>Unable to validate your personal key. Please check your internet connection and try again later.</value>
+  </data>
+  <data name="UnknownErrorWhileAuthenticating" xml:space="preserve">
+    <value>An unknown error occured while authenticating you.</value>
+  </data>
+  <data name="ReleaseNotes.Text" xml:space="preserve">
+    <value>This version introduces cloud synchronization. This means that you have all your accounts on all your devices. Go to 'Settings' and then to the section 'Cloud synchronization' to turn it on.</value>
+    <comment>Must be updated when a version is important enough to show to release notes.</comment>
+  </data>
+  <data name="ReleaseNotesDialog.PrimaryButtonText" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="ReleaseNotesDialog.Title" xml:space="preserve">
+    <value>Finally, all your accounts, everywhere</value>
+    <comment>Must be updated when a version is important enough to show to release notes.</comment>
+  </data>
+  <data name="AccountsAreBeingRemovedFromCloud" xml:space="preserve">
+    <value>Your accounts are being removed from the cloud...</value>
   </data>
 </root>

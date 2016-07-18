@@ -4,6 +4,9 @@
     {
         ClipBoardRememberType,
         UseNTP,
-        NTPTimeout
+        NTPTimeout,
+        UseCloudSynchronization,
+        WhenToSynchronize,
+        LastKnownVersionNumber
     }
 }

@@ -8,8 +8,9 @@
     xmlns:controls="using:Authenticator_for_Windows.Views.UserControls"
     mc:Ignorable="d"
     x:Uid="AddPage"
-    Tag="Account toevoegen">
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" DragEnter="Grid_DragEnter" AllowDrop="True" Drop="Grid_Drop">
+    Tag="Account toevoegen"
+    Loaded="Page_Loaded">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="5" />
             <RowDefinition Height="Auto" />
@@ -20,17 +21,16 @@
         <StackPanel Grid.Row="1">
             <controls:CodeCopiedNotification x:Name="CodeCopiedNotification" />
         </StackPanel>
-        <ScrollViewer Grid.Row="2" Padding="20">
+        <ScrollViewer Grid.Row="2" Padding="10" VerticalScrollBarVisibility="Auto">
             <StackPanel>
                 <StackPanel Name="AccountBlockPanel" Padding="0 0 0 10" Visibility="Collapsed">
 
                 </StackPanel>
-                <Image x:Name="image" HorizontalAlignment="Left" Height="30" Grid.Row="2" Width="30"/>
                 <TextBlock x:Uid="AddInformation" Text="Vul de informatie in die u hebt gekregen van de aanbieder van deze tweestapsauthenticatiedienst. Wanneer u beschikt over een camera, dan kunt u deze ook gebruiken om een eventuele QR-code te scannen." TextWrapping="Wrap" Margin="0,0,0,9" />
                 <TextBox x:Uid="Service" Name="AccountService" Header="Dienst" HorizontalAlignment="Stretch" />
-                <TextBox x:Uid="Account" Name="AccountUsername" Header="Gebruikersnaam" HorizontalAlignment="Stretch" Margin="0 15 0 0" />
-                <TextBox x:Uid="Code" Name="AccountCode" Header="Code" HorizontalAlignment="Stretch" Margin="0 15 0 0" />
-                <Button x:Uid="Save" Name="Save" Content="Opslaan" Margin="0 15 0 0" HorizontalAlignment="Stretch" Click="Save_Click" />
+                <TextBox x:Uid="Username" Name="AccountUsername" Header="Gebruikersnaam" HorizontalAlignment="Stretch" Margin="0 15 0 0" />
+                <TextBox x:Uid="Code" Name="AccountCode" Header="Code" HorizontalAlignment="Stretch" Margin="0 15 0 15" />
+                <controls:ProgressRingButton x:Name="Save" HorizontalAlignment="Stretch" Tapped="Save_Tapped" Translation="Save" />
                 <HyperlinkButton Click="OpenFlyout">
                     <HyperlinkButton.Content>
                         <TextBlock TextWrapping="WrapWholeWords">
@@ -47,15 +47,16 @@
                                 <TextBlock x:Uid="WhatToEnterWhereUsername" Text="Gebruikersnaam" FontWeight="Bold" TextWrapping="WrapWholeWords" Margin="0,10,0,0" />
                                 <TextBlock x:Uid="WhatToEnterWhereUsernameContent" Text="De gebruikersnaam van het account. Voorbeelden hiervan zijn een inlognaam of een e-mailadres." TextWrapping="WrapWholeWords" />
                                 <TextBlock x:Uid="WhatToEnterWhereCode" Text="Code" FontWeight="Bold" TextWrapping="WrapWholeWords" Margin="0,10,0,0" />
-                                <TextBlock x:Uid="WhatToEnterWhereCodeContent" Text="De code (of sleutel) die gebruikt wordt om een unieke, tijdelijke code te genereren. Dit is meestal een lange reeks willekeurige karakters." TextWrapping="WrapWholeWords" />
+                                <TextBlock x:Uid="WhatToEnterWhereCodeContent" Text="De code (of sleutel) die gebruikt wordt om een unieke, tijdelijke code te genereren. Dit is meestal een lange reeks willekeurige karakters. U ontvangt deze code van de dienst die deze tweestapsauthenticatie aanbiedt." TextWrapping="WrapWholeWords" />
                             </StackPanel>
                         </Flyout>
                     </FlyoutBase.AttachedFlyout>
                 </HyperlinkButton>
             </StackPanel>
         </ScrollViewer>
-        <CommandBar Grid.Row="3" Name="CommandBar" VerticalAlignment="Bottom" Visibility="Collapsed">
-            <AppBarButton x:Uid="Scan" Icon="Camera" Label="Scannen" Name="Scan" Click="Scan_Click" />
+        <CommandBar Grid.Row="3" Name="CommandBar" VerticalAlignment="Bottom">
+            <controls:SynchronizeAppBarButton x:Name="Synchronize" IsEnabled="False" Visibility="Collapsed" />
+            <AppBarButton x:Uid="Scan" Icon="Camera" Label="Scannen" Name="Scan" Visibility="Collapsed" Click="Scan_Click" />
         </CommandBar>
     </Grid>
 </Page>

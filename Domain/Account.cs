@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using Newtonsoft.Json;
+using System.ComponentModel;
 
 namespace Domain
 {
@@ -26,6 +27,7 @@ namespace Domain
             }
         }
 
+        [JsonIgnore]
         public bool IsModified
         {
             get

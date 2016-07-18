@@ -5,14 +5,16 @@
     xmlns:local="using:Domain"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Authenticator_for_Windows.Views.UserControls"
     mc:Ignorable="d"
     x:Uid="SettingsPage"
-    Tag="Instellingen">
+    Tag="Instellingen"
+    Loaded="Page_Loaded">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Pivot>
             <PivotItem x:Uid="SettingsGeneral" Header="Algemeen">
-                <ScrollViewer>
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <StackPanel>
                         <TextBlock x:Uid="Duration" Text="Hoe lang moet een gekopieerde code bewaard blijven op het klembord?" TextWrapping="WrapWholeWords" />
                         <ComboBox Name="ClipboardTime" SelectionChanged="ClipboardTime_SelectionChanged">
@@ -41,17 +43,44 @@
                     </StackPanel>
                 </ScrollViewer>
             </PivotItem>
+            <PivotItem x:Uid="SettingsSynchronization" Header="Cloudsynchronisatie">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+                        <TextBlock x:Uid="AboutCloudSynchronization" Text="Met cloudsynchronisatie kunt u uw accounts synchroniseren over uw gekoppelde apparaten. Hierdoor heeft u al uw accounts altijd op al uw Windows-apparaten." TextWrapping="Wrap" Margin="0,0,0,10" />
+                        <StackPanel Name="SynchronizationOn" Visibility="Collapsed">
+                            <TextBlock x:Uid="CloudSynchronizationTurnedOn" Text="Cloudsynchronisatie is momenteel ingeschakeld. U kunt het uitschakelen als u uw accounts niet meer met dit apparaat wilt synchroniseren." Foreground="Green" TextWrapping="Wrap" />
+                            <Button x:Uid="ButtonTurnOffSynchronization" Name="ButtonTurnOffSynchronization" Content="Cloudsynchronisatie uitschakelen" Margin="0,10" Tapped="ButtonTurnOffSynchronization_Tapped" />
+                            <TextBlock x:Uid="WhenToSynchronize" Text="Wanneer moet er gesynchroniseerd worden?" TextWrapping="Wrap" Margin="0,10,0,0" />
+                            <ComboBox Name="WhenToSynchronize" SelectionChanged="WhenToSynchronize_SelectionChanged" Margin="0,0,0,10">
+                                <ComboBoxItem x:Uid="OnStart" Content="Wanneer ik de app start" />
+                                <ComboBoxItem x:Uid="Manually" Content="Handmatig" />
+                            </ComboBox>
+                            <TextBlock x:Uid="UserKeyRequired" Text="U heeft uw persoonlijke sleutel nodig op uw andere apparaten om de opslag van uw accounts te ontsleutelen. U kunt uw persoonlijke sleutel weergeven door de onderstaande knop te selecteren." TextWrapping="Wrap" />
+                            <Button x:Uid="ButtonShowUserKey" Name="ShowUserKey" Content="Persoonlijke sleutel weergeven" Margin="0,10,0,0" Tapped="ShowUserKey_Tapped" />
+                        </StackPanel>
+                        <StackPanel Name="SynchronizationOff" Visibility="Collapsed">
+                            <TextBlock x:Uid="CloudSynchronizationTurnedOff" Text="Cloudsynchronisatie is momenteel uitgeschakeld. U kunt het inschakelen als u uw accounts met dit apparaat wilt synchroniseren. Voor cloudsynchronisatie wordt gebruikgemaakt van OneDrive en u zult Authenticator for Windows toegang moeten geven tot uw OneDrive-opslag om cloudsynchronisatie in te schakelen." Foreground="Blue" TextWrapping="Wrap" />
+                            <controls:ProgressRingButton x:Name="ButtonTurnOnSynchronization" Margin="0,10,0,0" Translation="ButtonTurnOnSynchronization" Tapped="ButtonTurnOnSynchronization_Tapped" />
+                        </StackPanel>
+                        <StackPanel Margin="0,10,0,0">
+                            <TextBlock x:Uid="RemoveCloudSynchronization" Text="U kunt cloudsynchronisatie uitschakelen voor alle aparaten waarop het momenteel is ingeschakeld. Wanneer u geen toegang meer heeft tot uw persoonlijke sleutel bent of een nieuwe persoonlijke sleutel wilt, is dit de enige manier om opnieuw te beginnen. Cloudsynchronisatie wordt op uw andere apparaten automatisch uitgeschakeld wanneer er synchronisatie plaatsvindt." TextWrapping="Wrap" />
+                            <Button x:Uid="ButtonRemoveCloudSynchronization" Name="ButtonRemoveCloudSynchronization" Content="Cloudsynchronisatie verwijderen" Margin="0,10" Tapped="ButtonRemoveCloudSynchronization_Tapped" />
+                        </StackPanel>
+                    </StackPanel>
+                </ScrollViewer>
+            </PivotItem>
             <PivotItem x:Uid="SettingsAbout" Header="Over">
-                <ScrollViewer>
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <StackPanel>
                         <TextBlock TextWrapping="WrapWholeWords">
                         <Run x:Uid="AboutText" Text="Authenticator for Windows is dé app voor het universele Windows-platform om al uw codes voor tweestapsauthenticatie te bewaren. De ontwikkelaa van deze app tracht een zo gebruiksvriendelijke en gemakkelijke manier om codes aan te bieden aan gebruikers. Wij nodigen u graag uit al uw suggesties en opmerkingen met ons te delen zodat wij uw ervaring nog verder kunnen verbeteren. Wij zullen u nooit storen met vervelende vragen om onze app te beoordelen. Als u tijd heeft, neemt u dan alstublieft de moeite om onze app te beoordelen in de Windows Store. Al uw suggesties en opmerkingen zijn van harte welkom!" />
                         </TextBlock>
+                        <HyperlinkButton Content="www.authenticatorforwindows.com" Margin="0,10" Name="ButtonWebsite" Tapped="ButtonWebsite_Tapped" />
                         <StackPanel Margin="0, 10, 0, 0">
                             <TextBlock x:Uid="GiveFeedback" FontWeight="Bold" Text="Feedback geven" TextWrapping="Wrap" />
                             <TextBlock x:Uid="GiveFeedbackDescription" Text="U kunt feedback geven op deze app via de Windows Store." TextWrapping="Wrap" />
                             <Button x:Uid="OpenWindowsStore" Name="OpenWindowsStore" Content="Open Windows Store" Margin="0,10,0,0" Click="OpenWindowsStore_Click" />
-                            <TextBlock x:Uid="RespondToReviews" Text="Wij doen ons uiterste best om op iedere review te reageren. Let u er alstublieft op dat het een aantal dagen kan duren voordat uw feedback zichtbaar is en wij erop kunnen reageren." TextWrapping="Wrap" FontStyle="Oblique" Margin="0,10,0,0" />
+                            <TextBlock x:Uid="RespondToReviews" Text="Wij doen ons uiterste best om op iedere review te reageren. Let u er alstublieft op dat het een aantal dagen kan duren voordat uw feedback zichtbaar is en wij erop kunnen reageren." TextWrapping="Wrap" FontStyle="Oblique" Margin="0,10" />
                         </StackPanel>
                     </StackPanel>
                 </ScrollViewer>

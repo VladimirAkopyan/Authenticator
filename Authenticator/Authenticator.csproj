@@ -99,6 +99,8 @@
     <PRIResource Include="Strings\nl\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Utilities\Properties.cs" />
+    <Compile Include="Utilities\ReleaseNotesManager.cs" />
     <Compile Include="Views\Pages\AccessDeniedDialog.xaml.cs">
       <DependentUpon>AccessDeniedDialog.xaml</DependentUpon>
     </Compile>
@@ -108,6 +110,15 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Pages\ErrorPage.xaml.cs">
+      <DependentUpon>ErrorPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\SetupSynchronizationFinishedPage.xaml.cs">
+      <DependentUpon>SetupSynchronizationFinishedPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\SetupSynchronizationPage.xaml.cs">
+      <DependentUpon>SetupSynchronizationPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\UserControls\Banner.xaml.cs">
       <DependentUpon>Banner.xaml</DependentUpon>
     </Compile>
@@ -115,7 +126,6 @@
     <Compile Include="Views\Pages\AccountsPage.xaml.cs">
       <DependentUpon>AccountsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Events\DeleteRequestedEventHandler.cs" />
     <Compile Include="Events\DeleteRequestEventArgs.cs" />
     <Compile Include="Views\UserControls\ModifyServiceDialog.xaml.cs">
       <DependentUpon>ModifyServiceDialog.xaml</DependentUpon>
@@ -142,8 +152,23 @@
     <Compile Include="Views\Pages\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\UserControls\ProgressRingButton.xaml.cs">
+      <DependentUpon>ProgressRingButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\ReleaseNotesDialog.xaml.cs">
+      <DependentUpon>ReleaseNotesDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\ShowUserKeyDialog.xaml.cs">
+      <DependentUpon>ShowUserKeyDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\SynchronizeAppBarButton.xaml.cs">
+      <DependentUpon>SynchronizeAppBarButton.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\UserControls\TimeProgressBar.xaml.cs">
       <DependentUpon>TimeProgressBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\UserKeyTextBox.xaml.cs">
+      <DependentUpon>UserKeyTextBox.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -170,11 +195,28 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Styles\Resources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
     <Page Include="Views\Pages\AccessDeniedDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Pages\AddPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\ErrorPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\SetupSynchronizationFinishedPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\SetupSynchronizationPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -222,7 +264,27 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\UserControls\ProgressRingButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\ReleaseNotesDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\ShowUserKeyDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\SynchronizeAppBarButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\UserControls\TimeProgressBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\UserKeyTextBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -243,6 +305,10 @@
       <Project>{DB694060-DEC8-4E03-A467-CE2E9E0E8502}</Project>
       <Name>Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Encryption\Encryption.csproj">
+      <Project>{77BF15E1-495C-4E1C-85D3-29074A140196}</Project>
+      <Name>Encryption</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Patches\Patches.csproj">
       <Project>{bda9d552-ddb3-43f2-be63-7ac929efbb0f}</Project>
       <Name>Patches</Name>
@@ -254,6 +320,10 @@
     <ProjectReference Include="..\Storage\Storage.csproj">
       <Project>{7629a322-667c-4595-9ae2-90e6017fc4f3}</Project>
       <Name>Storage</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Synchronization\Synchronization.csproj">
+      <Project>{9DE9CFAB-78E7-470F-97A3-8C3842E1EDEC}</Project>
+      <Name>Synchronization</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
