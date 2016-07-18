@@ -10,7 +10,7 @@
     x:Uid="AddPage"
     Tag="Account toevoegen"
     Loaded="Page_Loaded">
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" DragEnter="Grid_DragEnter" Drop="Grid_Drop">
         <Grid.RowDefinitions>
             <RowDefinition Height="5" />
             <RowDefinition Height="Auto" />
@@ -23,6 +23,7 @@
         </StackPanel>
         <ScrollViewer Grid.Row="2" Padding="10" VerticalScrollBarVisibility="Auto">
             <StackPanel>
+                <Image x:Name="image" HorizontalAlignment="Left" Height="30" Grid.Row="2" Width="30"/>
                 <StackPanel Name="AccountBlockPanel" Padding="0 0 0 10" Visibility="Collapsed">
 
                 </StackPanel>
