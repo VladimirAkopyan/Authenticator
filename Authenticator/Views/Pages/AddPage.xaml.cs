@@ -263,56 +263,21 @@ namespace Authenticator_for_Windows.Views.Pages
 
                     image.Source = bi;
 
-                    var datareader = new DataReader(stream.GetInputStreamAt(0));
-                    var bytes = new byte[stream.Size];
-                    await datareader.LoadAsync((uint)stream.Size);
-                    datareader.ReadBytes(bytes);
+                    BitmapDecoder decoder = await BitmapDecoder.CreateAsync(stream);
+                    PixelDataProvider pixelData = await decoder.GetPixelDataAsync();
 
-                    QRCodeReader reader = new QRCodeReader();
+                    byte[] bytes = pixelData.DetachPixelData();
+                    SoftwareBitmap bitmap = await decoder.GetSoftwareBitmapAsync();
 
-                    var decoder = await BitmapDecoder.CreateAsync(stream);
-                    SoftwareBitmap sfbmp = await decoder.GetSoftwareBitmapAsync();
+                    LuminanceSource ls = new SoftwareBitmapLuminanceSource(bitmap);
+                    var binarizer = new HybridBinarizer(ls);
+                    var binbitmap = new BinaryBitmap(binarizer);
 
-                    RGBLuminanceSource rgb = new RGBLuminanceSource(bytes, 200, 200);
+                    MultiFormatReader mfr = new MultiFormatReader();
 
-                    SoftwareBitmap s = new SoftwareBitmap(BitmapPixelFormat.Bgra8, sfbmp.PixelWidth, sfbmp.PixelHeight);
-                    SoftwareBitmapLuminanceSource x = new SoftwareBitmapLuminanceSource(sfbmp);
-                    HybridBinarizer binarizer = new HybridBinarizer(rgb);
-                    BinaryBitmap bb = new BinaryBitmap(binarizer.createBinarizer(x));
+                    Result x = mfr.decode(binbitmap);
 
-                    Dictionary<DecodeHintType, object> d = new Dictionary<DecodeHintType, object>();
-
-                    Result r = reader.decode(bb);
-
-                    if (r != null)
-                    {
-                        System.Diagnostics.Debug.WriteLine(r);
-                    }
-
-
-                    //QRCodeReader reader = new QRCodeReader();
-                    //MediaCapture capture = new MediaCapture();
-                    //await capture.InitializeAsync();
-                    //Result result = null;
-
-                    //VideoEncodingProperties resx = new VideoEncodingProperties();
-                    //ImageEncodingProperties iep = new ImageEncodingProperties();
-                    //iep.Height = resx.Height;
-                    //iep.Width = resx.Width;
-
-                    //WriteableBitmap wb = new WriteableBitmap((int)resx.Width, (int)resx.Height);
-
-                    //while (result == null)
-                    //{
-                    //    using (InMemoryRandomAccessStream str = new InMemoryRandomAccessStream())
-                    //    {
-                    //        await capture.CapturePhotoToStreamAsync(iep, str);
-                    //        str.Seek(0);
-
-                    //        await wb.SetSourceAsync(str);
-                    //        result = reader.decode(wb);
-                    //    }
-                    //}
+                    System.Diagnostics.Debug.WriteLine(x);
                 }
             }
         }

@@ -10,7 +10,7 @@
     x:Uid="AddPage"
     Tag="Account toevoegen"
     Loaded="Page_Loaded">
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" DragEnter="Grid_DragEnter" Drop="Grid_Drop">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" DragEnter="Grid_DragEnter" Drop="Grid_Drop" AllowDrop="True">
         <Grid.RowDefinitions>
             <RowDefinition Height="5" />
             <RowDefinition Height="Auto" />
