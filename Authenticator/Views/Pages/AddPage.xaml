@@ -10,18 +10,43 @@
     x:Uid="AddPage"
     Tag="Account toevoegen"
     Loaded="Page_Loaded">
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" DragEnter="Grid_DragEnter" Drop="Grid_Drop" AllowDrop="True">
+    <Page.Resources>
+        <Storyboard x:Name="SlideDownQRCode">
+            <DoubleAnimation Duration="0:0:0.3" To="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="stackPanel" d:IsOptimized="True"/>
+            <DoubleAnimation Duration="0:0:0.3" To="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="scrollViewer" d:IsOptimized="True"/>
+            <DoubleAnimation Duration="0:0:0.3" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="stackPanel" d:IsOptimized="True"/>
+        </Storyboard>
+        <Storyboard x:Name="SlideUpQRCode">
+            <DoubleAnimation Duration="0:0:0.3" To="-250" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="stackPanel" d:IsOptimized="True"/>
+            <DoubleAnimation Duration="0:0:0.3" To="-280" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="scrollViewer" d:IsOptimized="True"/>
+            <DoubleAnimation Duration="0:0:0.3" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="stackPanel" d:IsOptimized="True"/>
+        </Storyboard>
+    </Page.Resources>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" DragEnter="Grid_DragEnter" Drop="Grid_Drop" DragLeave="Grid_DragLeave" AllowDrop="True">
         <Grid.RowDefinitions>
             <RowDefinition Height="5" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <controls:TimeProgressBar TimeElapsed="TimeProgressBar_TimeElapsed" Grid.Row="0" Height="5" HorizontalAlignment="Stretch" />
-        <StackPanel Grid.Row="1">
+        <StackPanel x:Name="stackPanel" Grid.Row="1" Padding="20" Background="#34495e" RenderTransformOrigin="0.5,0.5" Opacity="0">
+            <StackPanel.RenderTransform>
+                <CompositeTransform TranslateY="-255"/>
+            </StackPanel.RenderTransform>
+            <TextBlock Text="Uw QR-code" Foreground="White" HorizontalAlignment="Center" FontSize="30" FontWeight="Bold" />
+            <StackPanel Background="White" HorizontalAlignment="Center" Width="150" Height="150" Margin="0,20,0,0">
+                <Image Name="QRCodeImage" Height="130" Width="130" Margin="10" />
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Grid.Row="2">
             <controls:CodeCopiedNotification x:Name="CodeCopiedNotification" />
         </StackPanel>
-        <ScrollViewer Grid.Row="2" Padding="10" VerticalScrollBarVisibility="Auto">
+        <ScrollViewer x:Name="scrollViewer" Grid.Row="3" Padding="10" VerticalScrollBarVisibility="Auto" RenderTransformOrigin="0.5,0.5">
+            <ScrollViewer.RenderTransform>
+                <CompositeTransform TranslateY="-280"/>
+            </ScrollViewer.RenderTransform>
             <StackPanel>
                 <Image x:Name="image" HorizontalAlignment="Left" Height="30" Grid.Row="2" Width="30"/>
                 <StackPanel Name="AccountBlockPanel" Padding="0 0 0 10" Visibility="Collapsed">
@@ -55,7 +80,7 @@
                 </HyperlinkButton>
             </StackPanel>
         </ScrollViewer>
-        <CommandBar Grid.Row="3" Name="CommandBar" VerticalAlignment="Bottom">
+        <CommandBar Grid.Row="4" Name="CommandBar" VerticalAlignment="Bottom">
             <controls:SynchronizeAppBarButton x:Name="Synchronize" IsEnabled="False" Visibility="Collapsed" />
             <AppBarButton x:Uid="Scan" Icon="Camera" Label="Scannen" Name="Scan" Visibility="Collapsed" Click="Scan_Click" />
         </CommandBar>

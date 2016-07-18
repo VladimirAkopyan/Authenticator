@@ -242,13 +242,10 @@ namespace Authenticator_for_Windows.Views.Pages
             Synchronize.IsEnabled = false;
         }
 
-        private void Grid_DragEnter(object sender, DragEventArgs e)
+        private async void Grid_DragEnter(object sender, DragEventArgs e)
         {
             e.AcceptedOperation = Windows.ApplicationModel.DataTransfer.DataPackageOperation.Copy;
-        }
 
-        private async void Grid_Drop(object sender, DragEventArgs e)
-        {
             var files = await e.DataView.GetStorageItemsAsync();
 
             if (files.Count == 1)
@@ -261,7 +258,26 @@ namespace Authenticator_for_Windows.Views.Pages
                     BitmapImage bi = new BitmapImage();
                     bi.SetSource(stream);
 
-                    image.Source = bi;
+                    QRCodeImage.Source = bi;
+
+                    SlideDownQRCode.Begin();
+                }
+            }
+        }
+
+        private async void Grid_Drop(object sender, DragEventArgs e)
+        {
+            SlideUpQRCode.Begin();
+
+            var files = await e.DataView.GetStorageItemsAsync();
+
+            if (files.Count == 1)
+            {
+                StorageFile file = files.FirstOrDefault() as StorageFile;
+
+                if (file != null)
+                {
+                    IRandomAccessStream stream = await file.OpenAsync(FileAccessMode.Read);
 
                     BitmapDecoder decoder = await BitmapDecoder.CreateAsync(stream);
                     PixelDataProvider pixelData = await decoder.GetPixelDataAsync();
@@ -277,9 +293,23 @@ namespace Authenticator_for_Windows.Views.Pages
 
                     Result x = mfr.decode(binbitmap);
 
+                    Account account = TOTPUtilities.UriToAccount(x.Text);
+
+                    if (account != null)
+                    {
+                        AccountUsername.Text = account.Username;
+                        AccountCode.Text = account.Secret;
+                        AccountService.Text = account.Service;
+                    }
+
                     System.Diagnostics.Debug.WriteLine(x);
                 }
             }
+        }
+
+        private void Grid_DragLeave(object sender, DragEventArgs e)
+        {
+            SlideUpQRCode.Begin();
         }
     }
 }
