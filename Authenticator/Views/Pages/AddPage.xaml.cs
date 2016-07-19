@@ -278,31 +278,27 @@ namespace Authenticator_for_Windows.Views.Pages
                 if (file != null)
                 {
                     IRandomAccessStream stream = await file.OpenAsync(FileAccessMode.Read);
-
-                    BitmapDecoder decoder = await BitmapDecoder.CreateAsync(stream);
-                    PixelDataProvider pixelData = await decoder.GetPixelDataAsync();
-
-                    byte[] bytes = pixelData.DetachPixelData();
+                    BitmapDecoder decoder = await BitmapDecoder.CreateAsync(stream);                    
                     SoftwareBitmap bitmap = await decoder.GetSoftwareBitmapAsync();
 
-                    LuminanceSource ls = new SoftwareBitmapLuminanceSource(bitmap);
-                    var binarizer = new HybridBinarizer(ls);
-                    var binbitmap = new BinaryBitmap(binarizer);
+                    LuminanceSource luminanceSource = new SoftwareBitmapLuminanceSource(bitmap);
+                    Binarizer binarizer = new HybridBinarizer(luminanceSource);
+                    BinaryBitmap binaryBitmap = new BinaryBitmap(binarizer);
+                    MultiFormatReader reader = new MultiFormatReader();
 
-                    MultiFormatReader mfr = new MultiFormatReader();
+                    Result result = reader.decode(binaryBitmap);
 
-                    Result x = mfr.decode(binbitmap);
-
-                    Account account = TOTPUtilities.UriToAccount(x.Text);
-
-                    if (account != null)
+                    if (result != null)
                     {
-                        AccountUsername.Text = account.Username;
-                        AccountCode.Text = account.Secret;
-                        AccountService.Text = account.Service;
-                    }
+                        Account account = TOTPUtilities.UriToAccount(result.Text);
 
-                    System.Diagnostics.Debug.WriteLine(x);
+                        if (account != null)
+                        {
+                            AccountUsername.Text = account.Username;
+                            AccountCode.Text = account.Secret;
+                            AccountService.Text = account.Service;
+                        }
+                    }
                 }
             }
         }
