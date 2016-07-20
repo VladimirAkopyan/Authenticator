@@ -21,6 +21,7 @@
                             <ComboBoxItem x:Uid="UntilCodeExpires" Content="Tot de code verloopt" />
                             <ComboBoxItem x:Uid="Forever" Content="Altijd" />
                         </ComboBox>
+                        <Button x:Uid="ButtonTransparentTile" Name="ButtonTransparentTile" Content="Plaats transparante tegel op Startmenu" Tapped="ButtonTransparentTile_Tapped" Margin="0,10" />
                         <ToggleSwitch x:Uid="UseNTP" x:Name="UseNTP" OnContent="Aan" OffContent="Uit" Toggled="UseNTP_Toggled" Header="Gebruik NTP om de correcte tijd op te halen" />
                         <TextBlock x:Uid="NTPTimeout" Text="Timeout-tijd voor het ophalen van de tijd via NTP" TextWrapping="WrapWholeWords" />
                         <ComboBox Name="NTPTimeout" SelectionChanged="NTPTimeout_SelectionChanged">

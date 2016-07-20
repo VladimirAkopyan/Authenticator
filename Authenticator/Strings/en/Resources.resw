@@ -509,4 +509,7 @@ Enter the displayed key in the text field below: (hyphens are added automaticall
   <data name="DropQRCode.Text" xml:space="preserve">
     <value>Your QR code</value>
   </data>
+  <data name="ButtonTransparentTile.Content" xml:space="preserve">
+    <value>Put transparent tile on Start menu</value>
+  </data>
 </root>

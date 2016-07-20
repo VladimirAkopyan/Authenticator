@@ -19,6 +19,8 @@ using Synchronization.Exceptions;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Windows.ApplicationModel.Resources;
+using Windows.UI.StartScreen;
+using Windows.UI;
 
 namespace Authenticator_for_Windows.Views.Pages
 {
@@ -304,6 +306,18 @@ namespace Authenticator_for_Windows.Views.Pages
             var uri = new Uri("http://www.authenticatorforwindows.com");
 
             var success = await Launcher.LaunchUriAsync(uri);
+        }
+
+        private async void ButtonTransparentTile_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+            Random random = new Random((int)DateTime.Now.Ticks);
+            string id = random.Next(1, 100000000).ToString();
+            SecondaryTile tile = new SecondaryTile(id, "", id, new Uri("ms-appx:///Assets/Logo-150x150-Transparent.png"), TileSize.Default);
+
+            tile.VisualElements.Wide310x150Logo = new Uri("ms-appx:///Assets/Logo-310x150-Transparent.png");
+            tile.VisualElements.BackgroundColor = Color.FromArgb(0, 255, 255, 255);
+
+            await tile.RequestCreateAsync();
         }
     }
 }

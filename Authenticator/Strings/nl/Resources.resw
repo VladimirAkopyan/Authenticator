@@ -509,4 +509,7 @@ Voer de weergegeven sleutel in onderstaande tekstveld in: (streepjes worden auto
   <data name="DropQRCode.Text" xml:space="preserve">
     <value>Uw QR-code</value>
   </data>
+  <data name="ButtonTransparentTile.Content" xml:space="preserve">
+    <value>Plaats transparante tegel op Startmenu</value>
+  </data>
 </root>
