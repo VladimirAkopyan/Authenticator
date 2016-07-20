@@ -1,3 +1,2 @@
 MainPackage=D:\Documenten\Visual Studio 2015\Projects\Authenticator for Windows\Authenticator\bin\ARM\Release\Upload\Authenticator_1.4.1.0_ARM.appx
 SymbolPackage=D:\Documenten\Visual Studio 2015\Projects\Authenticator for Windows\Authenticator\AppPackages\Authenticator_1.4.1.0\Authenticator_1.4.1.0_ARM.appxsym
-ResourcePack=D:\Documenten\Visual Studio 2015\Projects\Authenticator for Windows\Authenticator\_language-nl.appx
