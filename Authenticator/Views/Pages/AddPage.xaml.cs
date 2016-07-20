@@ -273,15 +273,15 @@ namespace Authenticator_for_Windows.Views.Pages
             }
         }
 
-        private async void Grid_Drop(object sender, DragEventArgs e)
+        private void Grid_Drop(object sender, DragEventArgs e)
         {
             VisualStateManager.GoToState(this, HideDrop.Name, true);
 
             if (dragAndDropAccount != null)
             {
-                AccountUsername.Text = dragAndDropAccount.Username;
-                AccountCode.Text = dragAndDropAccount.Secret;
-                AccountService.Text = dragAndDropAccount.Service;
+                AccountUsername.Text = !string.IsNullOrWhiteSpace(dragAndDropAccount.Username) ? dragAndDropAccount.Username : "";
+                AccountCode.Text = !string.IsNullOrWhiteSpace(dragAndDropAccount.Secret) ? dragAndDropAccount.Secret : "";
+                AccountService.Text = !string.IsNullOrWhiteSpace(dragAndDropAccount.Service) ? dragAndDropAccount.Service : "";
 
                 if (!string.IsNullOrWhiteSpace(AccountUsername.Text) && !string.IsNullOrWhiteSpace(AccountCode.Text) && !string.IsNullOrWhiteSpace(AccountService.Text))
                 {
