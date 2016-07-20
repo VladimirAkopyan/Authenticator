@@ -243,33 +243,40 @@ namespace Authenticator_for_Windows.Views.Pages
         {
             e.AcceptedOperation = Windows.ApplicationModel.DataTransfer.DataPackageOperation.Copy;
 
-            var files = await e.DataView.GetStorageItemsAsync();
-
-            if (files.Count == 1)
+            try
             {
-                StorageFile file = files.FirstOrDefault() as StorageFile;
+                var files = await e.DataView.GetStorageItemsAsync();
 
-                if (file != null)
+                if (files.Count == 1)
                 {
-                    IRandomAccessStream stream = await file.OpenAsync(FileAccessMode.Read);
-                    
-                    Result result = await Decode(stream);
+                    StorageFile file = files.FirstOrDefault() as StorageFile;
 
-                    if (result != null)
+                    if (file != null)
                     {
-                        dragAndDropAccount = TOTPUtilities.UriToAccount(result.Text);
+                        IRandomAccessStream stream = await file.OpenAsync(FileAccessMode.Read);
 
-                        if (dragAndDropAccount != null)
+                        Result result = await Decode(stream);
+
+                        if (result != null)
                         {
-                            BitmapImage bi = new BitmapImage();
-                            bi.SetSource(stream);
+                            dragAndDropAccount = TOTPUtilities.UriToAccount(result.Text);
 
-                            QRCodeImage.Source = bi;
+                            if (dragAndDropAccount != null)
+                            {
+                                BitmapImage bi = new BitmapImage();
+                                bi.SetSource(stream);
 
-                            VisualStateManager.GoToState(this, ShowDrop.Name, true);
+                                QRCodeImage.Source = bi;
+
+                                VisualStateManager.GoToState(this, ShowDrop.Name, true);
+                            }
                         }
                     }
                 }
+            }
+            catch
+            {
+                // Could not read dragged items. Since this is definitely not a QR code, ignore it.
             }
         }
 
