@@ -12,18 +12,14 @@ using Authenticator_for_Windows.Views.UserControls;
 using Domain.Exceptions;
 using Synchronization.Exceptions;
 using Settings;
-using System.Collections.Generic;
 using Windows.Storage;
 using Windows.UI.Xaml.Media.Imaging;
 using ZXing;
-using System.IO;
-using ZXing.QrCode;
 using ZXing.Common;
 using Windows.Storage.Streams;
-using Windows.Media.Capture;
-using Windows.Media.MediaProperties;
 using ZXing.Mobile;
 using Windows.Graphics.Imaging;
+using System.Threading.Tasks;
 
 namespace Authenticator_for_Windows.Views.Pages
 {
@@ -31,6 +27,7 @@ namespace Authenticator_for_Windows.Views.Pages
     {
         private static MainPage mainPage;
         private AccountBlock accountBlock;
+        private Account dragAndDropAccount;
 
         public AddPage()
         {
@@ -255,12 +252,23 @@ namespace Authenticator_for_Windows.Views.Pages
                 if (file != null)
                 {
                     IRandomAccessStream stream = await file.OpenAsync(FileAccessMode.Read);
-                    BitmapImage bi = new BitmapImage();
-                    bi.SetSource(stream);
+                    
+                    Result result = await Decode(stream);
 
-                    QRCodeImage.Source = bi;
+                    if (result != null)
+                    {
+                        dragAndDropAccount = TOTPUtilities.UriToAccount(result.Text);
 
-                    SlideDownQRCode.Begin();
+                        if (dragAndDropAccount != null)
+                        {
+                            BitmapImage bi = new BitmapImage();
+                            bi.SetSource(stream);
+
+                            QRCodeImage.Source = bi;
+
+                            SlideDownQRCode.Begin();
+                        }
+                    }
                 }
             }
         }
@@ -269,38 +277,30 @@ namespace Authenticator_for_Windows.Views.Pages
         {
             SlideUpQRCode.Begin();
 
-            var files = await e.DataView.GetStorageItemsAsync();
-
-            if (files.Count == 1)
+            if (dragAndDropAccount != null)
             {
-                StorageFile file = files.FirstOrDefault() as StorageFile;
+                AccountUsername.Text = dragAndDropAccount.Username;
+                AccountCode.Text = dragAndDropAccount.Secret;
+                AccountService.Text = dragAndDropAccount.Service;
 
-                if (file != null)
+                if (!string.IsNullOrWhiteSpace(AccountUsername.Text) && !string.IsNullOrWhiteSpace(AccountCode.Text) && !string.IsNullOrWhiteSpace(AccountService.Text))
                 {
-                    IRandomAccessStream stream = await file.OpenAsync(FileAccessMode.Read);
-                    BitmapDecoder decoder = await BitmapDecoder.CreateAsync(stream);                    
-                    SoftwareBitmap bitmap = await decoder.GetSoftwareBitmapAsync();
-
-                    LuminanceSource luminanceSource = new SoftwareBitmapLuminanceSource(bitmap);
-                    Binarizer binarizer = new HybridBinarizer(luminanceSource);
-                    BinaryBitmap binaryBitmap = new BinaryBitmap(binarizer);
-                    MultiFormatReader reader = new MultiFormatReader();
-
-                    Result result = reader.decode(binaryBitmap);
-
-                    if (result != null)
-                    {
-                        Account account = TOTPUtilities.UriToAccount(result.Text);
-
-                        if (account != null)
-                        {
-                            AccountUsername.Text = account.Username;
-                            AccountCode.Text = account.Secret;
-                            AccountService.Text = account.Service;
-                        }
-                    }
+                    Save_Tapped(null, null);
                 }
             }
+        }
+
+        private async Task<Result> Decode(IRandomAccessStream stream)
+        {
+            BitmapDecoder decoder = await BitmapDecoder.CreateAsync(stream);
+            SoftwareBitmap bitmap = await decoder.GetSoftwareBitmapAsync();
+
+            LuminanceSource luminanceSource = new SoftwareBitmapLuminanceSource(bitmap);
+            Binarizer binarizer = new HybridBinarizer(luminanceSource);
+            BinaryBitmap binaryBitmap = new BinaryBitmap(binarizer);
+            MultiFormatReader reader = new MultiFormatReader();
+
+            return reader.decode(binaryBitmap);
         }
 
         private void Grid_DragLeave(object sender, DragEventArgs e)
