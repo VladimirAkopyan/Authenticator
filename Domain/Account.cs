@@ -52,7 +52,7 @@ namespace Domain
         {
             Account account = obj as Account;
 
-            return account != null && account.Username == Username && account.Secret == Secret && account.Service == Service;
+            return account != null && account.Username == Username && account.Service == Service;
         }
     }
 }
