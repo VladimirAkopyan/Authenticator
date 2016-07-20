@@ -53,6 +53,22 @@ namespace Authenticator_for_Windows.Views.UserControls
             }
         }
 
+        private bool _editEnabled;
+
+        public bool EditEnabled
+        {
+            get
+            {
+                return _editEnabled;
+            }
+            set
+            {
+                _editEnabled = value;
+
+                Delete.IsEnabled = value;
+            }
+        }
+
         public AccountBlock()
         {
 
@@ -243,7 +259,7 @@ namespace Authenticator_for_Windows.Views.UserControls
 
         private async void EditPanel_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
-            if (InEditMode)
+            if (_editEnabled && InEditMode)
             {
                 ModifyServiceDialog dialog = new ModifyServiceDialog(account);
                 await dialog.ShowAsync();

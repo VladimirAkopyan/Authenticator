@@ -174,7 +174,7 @@ namespace Authenticator_for_Windows.Views.Pages
             }
 
             Edit.IsEnabled = true;
-            Codes.IsEnabled = true;
+            ToggleCodesEnabled(true);
             ButtonUndo.IsEnabled = true;
 
             Synchronize.StopAnimationAndEnable();
@@ -182,12 +182,20 @@ namespace Authenticator_for_Windows.Views.Pages
             firstLoad = false;
         }
 
+        private void ToggleCodesEnabled(bool enabled)
+        {
+            foreach (AccountBlock accountBlock in accountBlocks)
+            {
+                accountBlock.EditEnabled = enabled;
+            }
+        }
+
         private void SynchronizationStarted(object sender, EventArgs e)
         {
             Synchronize.StartAnimationAndDisable();
 
             Edit.IsEnabled = false;
-            Codes.IsEnabled = false;
+            ToggleCodesEnabled(false);
             ButtonUndo.IsEnabled = false;
         }
 
