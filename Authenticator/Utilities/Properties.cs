@@ -8,6 +8,6 @@ namespace Authenticator_for_Windows.Utilities
 {
     abstract class Properties
     {
-        public const bool SHOW_RELEASENOTES = true;
+        public const bool SHOW_RELEASENOTES = false;
     }
 }
