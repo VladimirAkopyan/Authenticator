@@ -266,7 +266,7 @@ namespace Authenticator_for_Windows.Views.Pages
 
                             QRCodeImage.Source = bi;
 
-                            SlideDownQRCode.Begin();
+                            VisualStateManager.GoToState(this, ShowDrop.Name, true);
                         }
                     }
                 }
@@ -275,7 +275,7 @@ namespace Authenticator_for_Windows.Views.Pages
 
         private async void Grid_Drop(object sender, DragEventArgs e)
         {
-            SlideUpQRCode.Begin();
+            VisualStateManager.GoToState(this, HideDrop.Name, true);
 
             if (dragAndDropAccount != null)
             {
@@ -305,7 +305,7 @@ namespace Authenticator_for_Windows.Views.Pages
 
         private void Grid_DragLeave(object sender, DragEventArgs e)
         {
-            SlideUpQRCode.Begin();
+            VisualStateManager.GoToState(this, HideDrop.Name, true);
         }
     }
 }
