@@ -312,7 +312,7 @@ namespace Authenticator_for_Windows.Views.Pages
         {
             Random random = new Random((int)DateTime.Now.Ticks);
             string id = random.Next(1, 100000000).ToString();
-            SecondaryTile tile = new SecondaryTile(id, "", id, new Uri("ms-appx:///Assets/Logo-150x150-Transparent.png"), TileSize.Default);
+            SecondaryTile tile = new SecondaryTile(id, "Authenticator for Windows", id, new Uri("ms-appx:///Assets/Logo-150x150-Transparent.png"), TileSize.Default);
 
             tile.VisualElements.Wide310x150Logo = new Uri("ms-appx:///Assets/Logo-310x150-Transparent.png");
             tile.VisualElements.BackgroundColor = Color.FromArgb(0, 255, 255, 255);
