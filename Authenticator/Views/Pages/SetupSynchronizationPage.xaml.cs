@@ -90,6 +90,8 @@ namespace Authenticator_for_Windows.Views.Pages
                 synchronizer.SetEncrypter(encrypter, userKey);
                 await AccountStorage.Instance.Synchronize();
 
+                MainPage.HideLoader();
+
                 Frame.Navigate(typeof(SetupSynchronizationFinishedPage), mainPage);
             }
         }

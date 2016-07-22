@@ -10,7 +10,27 @@
     x:Uid="AddPage"
     Tag="Account toevoegen"
     Loaded="Page_Loaded">
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" DragEnter="Grid_DragEnter" Drop="Grid_Drop" DragLeave="Grid_DragLeave" AllowDrop="True">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="VisualStateError">
+                <VisualState x:Name="ShowDrop">
+                    <VisualState.Setters>
+                        <Setter Target="DropGrid.(UIElement.Visibility)" Value="Visible"/>
+                    </VisualState.Setters>
+                    <Storyboard>
+                        <DoubleAnimation Duration="0:0:0.3" To="1" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="DropGrid" d:IsOptimized="True"/>
+                    </Storyboard>
+                </VisualState>
+                <VisualState x:Name="HideDrop">
+                    <VisualState.Setters>
+                        <Setter Target="DropGrid.(UIElement.Visibility)" Value="Collapsed"/>
+                    </VisualState.Setters>
+                    <Storyboard>
+                        <DoubleAnimation Duration="0:0:0.3" To="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="DropGrid" d:IsOptimized="True"/>
+                    </Storyboard>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
         <Grid.RowDefinitions>
             <RowDefinition Height="5" />
             <RowDefinition Height="Auto" />
@@ -21,12 +41,12 @@
         <StackPanel Grid.Row="1">
             <controls:CodeCopiedNotification x:Name="CodeCopiedNotification" />
         </StackPanel>
-        <ScrollViewer Grid.Row="2" Padding="10" VerticalScrollBarVisibility="Auto">
+        <ScrollViewer x:Name="scrollViewer" Grid.Row="2" Padding="10" VerticalScrollBarVisibility="Auto">
             <StackPanel>
                 <StackPanel Name="AccountBlockPanel" Padding="0 0 0 10" Visibility="Collapsed">
 
                 </StackPanel>
-                <TextBlock x:Uid="AddInformation" Text="Vul de informatie in die u hebt gekregen van de aanbieder van deze tweestapsauthenticatiedienst. Wanneer u beschikt over een camera, dan kunt u deze ook gebruiken om een eventuele QR-code te scannen." TextWrapping="Wrap" Margin="0,0,0,9" />
+                <TextBlock x:Uid="AddInformation" Text="Vul de informatie in die u hebt gekregen van de aanbieder van deze tweestapsauthenticatiedienst. Wanneer u beschikt over een camera, dan kunt u deze ook gebruiken om een eventuele QR-code te scannen. Het slepen van een QR-code van een website van een dienst in de app zal deze ook inlezen" TextWrapping="Wrap" Margin="0,0,0,9" />
                 <TextBox x:Uid="Service" Name="AccountService" Header="Dienst" HorizontalAlignment="Stretch" />
                 <TextBox x:Uid="Username" Name="AccountUsername" Header="Gebruikersnaam" HorizontalAlignment="Stretch" Margin="0 15 0 0" />
                 <TextBox x:Uid="Code" Name="AccountCode" Header="Code" HorizontalAlignment="Stretch" Margin="0 15 0 15" />
@@ -58,5 +78,13 @@
             <controls:SynchronizeAppBarButton x:Name="Synchronize" IsEnabled="False" Visibility="Collapsed" />
             <AppBarButton x:Uid="Scan" Icon="Camera" Label="Scannen" Name="Scan" Visibility="Collapsed" Click="Scan_Click" />
         </CommandBar>
+        <Grid x:Name="DropGrid" Background="#E5000000" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Visibility="Collapsed" Grid.RowSpan="4" Opacity="0">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock x:Uid="DropQRCode" Text="Uw QR-code" RequestedTheme="Dark" FontSize="26.667"  />
+                <StackPanel Background="White" HorizontalAlignment="Center" Width="150" Height="150" Margin="0,20,0,0">
+                    <Image Name="QRCodeImage" Height="130" Width="130" Margin="10" />
+                </StackPanel>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Page>

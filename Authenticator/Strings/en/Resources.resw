@@ -279,7 +279,7 @@ Add an account via 'New account'.</value>
     <value>An error occured. Please check your entered data.</value>
   </data>
   <data name="AddInformation.Text" xml:space="preserve">
-    <value>Enter the information that you received from the provider of the two step authentication service. If you have a camera available, you can also use it to scan a QR code if it's available.</value>
+    <value>Enter the information that you received from the provider of the two step authentication service. If you have a camera available, you can also use it to scan a QR code if it's available. Dragging a QR code from the website of the service into the app will also read the QR code.</value>
   </data>
   <data name="WhatToEnterWhere.Text" xml:space="preserve">
     <value>What do I enter where?</value>
@@ -505,5 +505,11 @@ Enter the displayed key in the text field below: (hyphens are added automaticall
   </data>
   <data name="AccountsAreBeingRemovedFromCloud" xml:space="preserve">
     <value>Your accounts are being removed from the cloud...</value>
+  </data>
+  <data name="DropQRCode.Text" xml:space="preserve">
+    <value>Your QR code</value>
+  </data>
+  <data name="ButtonTransparentTile.Content" xml:space="preserve">
+    <value>Put transparent tile on Start menu</value>
   </data>
 </root>

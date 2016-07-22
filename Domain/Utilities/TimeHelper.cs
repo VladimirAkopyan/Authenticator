@@ -1,5 +1,6 @@
 ﻿using Porrey.Uwp.Ntp;
 using System;
+using System.Threading.Tasks;
 
 namespace Domain.Utilities
 {
@@ -50,7 +51,7 @@ namespace Domain.Utilities
 
         }
 
-        public async void InitializeTime(bool useNTP, TimeSpan ntpTimeout)
+        public async Task InitializeTime(bool useNTP, TimeSpan ntpTimeout)
         {
             if (useNTP)
             {

@@ -179,6 +179,9 @@
   <ItemGroup>
     <None Include="Package.StoreAssociation.xml" />
     <Content Include="Assets\Arrow.png" />
+    <Content Include="Assets\Logo-150x150-Transparent.png" />
+    <Content Include="Assets\Logo-310x150-Transparent.png" />
+    <Content Include="Logo-310x150-Transparant.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />

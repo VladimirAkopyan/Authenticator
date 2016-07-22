@@ -12,6 +12,14 @@ using Authenticator_for_Windows.Views.UserControls;
 using Domain.Exceptions;
 using Synchronization.Exceptions;
 using Settings;
+using Windows.Storage;
+using Windows.UI.Xaml.Media.Imaging;
+using ZXing;
+using ZXing.Common;
+using Windows.Storage.Streams;
+using ZXing.Mobile;
+using Windows.Graphics.Imaging;
+using System.Threading.Tasks;
 
 namespace Authenticator_for_Windows.Views.Pages
 {
@@ -19,6 +27,7 @@ namespace Authenticator_for_Windows.Views.Pages
     {
         private static MainPage mainPage;
         private AccountBlock accountBlock;
+        private Account dragAndDropAccount;
 
         public AddPage()
         {
@@ -228,6 +237,82 @@ namespace Authenticator_for_Windows.Views.Pages
             SetButtonState(true);
             Synchronize.StopAnimationAndEnable();
             Synchronize.IsEnabled = false;
+        }
+
+        private async void Grid_DragEnter(object sender, DragEventArgs e)
+        {
+            e.AcceptedOperation = Windows.ApplicationModel.DataTransfer.DataPackageOperation.Copy;
+
+            try
+            {
+                var files = await e.DataView.GetStorageItemsAsync();
+
+                if (files.Count == 1)
+                {
+                    StorageFile file = files.FirstOrDefault() as StorageFile;
+
+                    if (file != null)
+                    {
+                        IRandomAccessStream stream = await file.OpenAsync(FileAccessMode.Read);
+
+                        Result result = await Decode(stream);
+
+                        if (result != null)
+                        {
+                            dragAndDropAccount = TOTPUtilities.UriToAccount(result.Text);
+
+                            if (dragAndDropAccount != null)
+                            {
+                                BitmapImage bi = new BitmapImage();
+                                bi.SetSource(stream);
+
+                                QRCodeImage.Source = bi;
+
+                                VisualStateManager.GoToState(this, ShowDrop.Name, true);
+                            }
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                // Could not read dragged items. Since this is definitely not a QR code, ignore it.
+            }
+        }
+
+        private void Grid_Drop(object sender, DragEventArgs e)
+        {
+            VisualStateManager.GoToState(this, HideDrop.Name, true);
+
+            if (dragAndDropAccount != null)
+            {
+                AccountUsername.Text = !string.IsNullOrWhiteSpace(dragAndDropAccount.Username) ? dragAndDropAccount.Username : "";
+                AccountCode.Text = !string.IsNullOrWhiteSpace(dragAndDropAccount.Secret) ? dragAndDropAccount.Secret : "";
+                AccountService.Text = !string.IsNullOrWhiteSpace(dragAndDropAccount.Service) ? dragAndDropAccount.Service : "";
+
+                if (!string.IsNullOrWhiteSpace(AccountUsername.Text) && !string.IsNullOrWhiteSpace(AccountCode.Text) && !string.IsNullOrWhiteSpace(AccountService.Text))
+                {
+                    Save_Tapped(null, null);
+                }
+            }
+        }
+
+        private async Task<Result> Decode(IRandomAccessStream stream)
+        {
+            BitmapDecoder decoder = await BitmapDecoder.CreateAsync(stream);
+            SoftwareBitmap bitmap = await decoder.GetSoftwareBitmapAsync();
+
+            LuminanceSource luminanceSource = new SoftwareBitmapLuminanceSource(bitmap);
+            Binarizer binarizer = new HybridBinarizer(luminanceSource);
+            BinaryBitmap binaryBitmap = new BinaryBitmap(binarizer);
+            MultiFormatReader reader = new MultiFormatReader();
+
+            return reader.decode(binaryBitmap);
+        }
+
+        private void Grid_DragLeave(object sender, DragEventArgs e)
+        {
+            VisualStateManager.GoToState(this, HideDrop.Name, true);
         }
     }
 }

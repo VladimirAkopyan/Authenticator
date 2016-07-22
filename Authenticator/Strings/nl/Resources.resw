@@ -279,7 +279,7 @@ Voeg een account toe via 'Nieuw account'.</value>
     <value>Er is een fout opgetreden. Controleer uw ingevulde gegevens.</value>
   </data>
   <data name="AddInformation.Text" xml:space="preserve">
-    <value>Vul de informatie in die u hebt gekregen van de aanbieder van deze tweestapsauthenticatiedienst. Wanneer u beschikt over een camera, dan kunt u deze ook gebruiken om een eventuele QR-code te scannen.</value>
+    <value>Vul de informatie in die u hebt gekregen van de aanbieder van deze tweestapsauthenticatiedienst. Wanneer u beschikt over een camera, dan kunt u deze ook gebruiken om een eventuele QR-code te scannen. Het slepen van een QR-code van een website van een dienst in de app zal deze ook inlezen</value>
   </data>
   <data name="WhatToEnterWhere.Text" xml:space="preserve">
     <value>Wat vul ik waar in?</value>
@@ -505,5 +505,11 @@ Voer de weergegeven sleutel in onderstaande tekstveld in: (streepjes worden auto
   </data>
   <data name="AccountsAreBeingRemovedFromCloud" xml:space="preserve">
     <value>Uw accounts worden uit de cloud verwijderd...</value>
+  </data>
+  <data name="DropQRCode.Text" xml:space="preserve">
+    <value>Uw QR-code</value>
+  </data>
+  <data name="ButtonTransparentTile.Content" xml:space="preserve">
+    <value>Plaats transparante tegel op Startmenu</value>
   </data>
 </root>
