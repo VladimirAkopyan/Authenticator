@@ -3,7 +3,7 @@
     "IoT.Ntp": "1.0.0",
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.1.0",
     "Microsoft.OneDriveSDK": "1.1.47",
-    "ZXing.Net.Mobile": "2.0.4.46"
+    "ZXing.Net.Mobile": "2.1.13"
   },
   "frameworks": {
     "uap10.0": {}

@@ -32,11 +32,9 @@ namespace Authenticator_for_Windows.Views.Pages
         public AddPage()
         {
             InitializeComponent();
-
-            CheckForCamera();
         }
 
-        private async void CheckForCamera()
+        private async Task CheckForCamera()
         {
             var devices = await Windows.Devices.Enumeration.DeviceInformation.FindAllAsync(Windows.Devices.Enumeration.DeviceClass.VideoCapture);
 
@@ -141,8 +139,10 @@ namespace Authenticator_for_Windows.Views.Pages
             }
         }
 
-        private void Page_Loaded(object sender, RoutedEventArgs e)
+        private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            await CheckForCamera();
+
             if (SettingsManager.Get<bool>(Setting.UseCloudSynchronization) && AccountStorage.Instance.HasSynchronizer)
             {
                 Synchronize.Visibility = Visibility.Visible;
