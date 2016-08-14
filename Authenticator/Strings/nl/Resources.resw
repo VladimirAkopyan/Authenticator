@@ -205,7 +205,7 @@ Wij zullen u nooit storen met vervelende vragen om onze app te beoordelen. Als u
   <data name="Scan.Label" xml:space="preserve">
     <value>Scannen</value>
   </data>
-  <data name="ScanPage.Tag" xml:space="preserve">
+  <data name="ScanTitle" xml:space="preserve">
     <value>QR-code scannen</value>
   </data>
   <data name="Service.Header" xml:space="preserve">

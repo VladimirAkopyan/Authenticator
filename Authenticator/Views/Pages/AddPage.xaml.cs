@@ -20,6 +20,7 @@ using Windows.Storage.Streams;
 using ZXing.Mobile;
 using Windows.Graphics.Imaging;
 using System.Threading.Tasks;
+using Windows.Media.Capture;
 
 namespace Authenticator_for_Windows.Views.Pages
 {
@@ -28,10 +29,16 @@ namespace Authenticator_for_Windows.Views.Pages
         private static MainPage mainPage;
         private AccountBlock accountBlock;
         private Account dragAndDropAccount;
+        private static Account scannedAccount;
+        private static bool didScan;
+        private MobileBarcodeScanner scanner;
 
         public AddPage()
         {
             InitializeComponent();
+
+            scanner = new MobileBarcodeScanner(Dispatcher);
+            scanner.Dispatcher = Dispatcher;
         }
 
         private async Task CheckForCamera()
@@ -44,41 +51,31 @@ namespace Authenticator_for_Windows.Views.Pages
             }
         }
 
-        protected async override void OnNavigatedTo(NavigationEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            if (ScanPage.AccessDenied)
-            {
-                AccessDeniedDialog dialog = new AccessDeniedDialog();
-                await dialog.ShowAsync();
-            }
-            else
+            object[] parameters = (object[])e.Parameter;
+            mainPage = (MainPage)parameters[0];
+
+            mainPage.SetTitle();
+
+            if (didScan)
             {
                 try
                 {
-                    object[] parameters = (object[])e.Parameter;
-                    mainPage = (MainPage)parameters[0];
-
-                    if (ScanPage.LastScanResult != null)
+                    if (scannedAccount != null)
                     {
-                        Account account = TOTPUtilities.UriToAccount(ScanPage.LastScanResult.Text);
+                        AccountUsername.Text = scannedAccount.Username;
+                        AccountCode.Text = scannedAccount.Secret;
+                        AccountService.Text = scannedAccount.Service;
 
-                        ScanPage.LastScanResult = null;
-
-                        if (account != null)
+                        if (!string.IsNullOrWhiteSpace(AccountUsername.Text) && !string.IsNullOrWhiteSpace(AccountCode.Text) && !string.IsNullOrWhiteSpace(AccountService.Text))
                         {
-                            AccountUsername.Text = account.Username;
-                            AccountCode.Text = account.Secret;
-                            AccountService.Text = account.Service;
-
-                            if (!string.IsNullOrWhiteSpace(AccountService.Text))
-                            {
-                                Save_Tapped(null, null);
-                            }
+                            Save_Tapped(null, null);
                         }
-                        else
-                        {
-                            MainPage.AddBanner(new Banner(BannerType.Danger, ResourceLoader.GetForCurrentView().GetString("BannerInvalidCode"), true));
-                        }
+                    }
+                    else
+                    {
+                        MainPage.AddBanner(new Banner(BannerType.Danger, ResourceLoader.GetForCurrentView().GetString("BannerInvalidCode"), true));
                     }
                 }
                 catch
@@ -87,7 +84,7 @@ namespace Authenticator_for_Windows.Views.Pages
                 }
             }
 
-            mainPage.SetTitle();
+            didScan = false;
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
@@ -105,13 +102,47 @@ namespace Authenticator_for_Windows.Views.Pages
             SetButtonState(true);
         }
 
-        private void Scan_Click(object sender, RoutedEventArgs e)
+        private async void Scan_Click(object sender, RoutedEventArgs e)
         {
-            ScanPage.UseCustomOverlay = true;
-            ScanPage.CustomOverlay = new CustomOverlay();
-            ScanPage.RequestAutoFocus();
+            scanner.UseCustomOverlay = true;
+            scanner.CustomOverlay = new CustomOverlay();
+            scanner.AutoFocus();
+            scanner.RootFrame = Frame;
 
-            mainPage.Navigate(typeof(ScanPage));
+            try
+            {
+                MediaCapture capture = new MediaCapture();
+                await capture.InitializeAsync(new MediaCaptureInitializationSettings
+                {
+                    StreamingCaptureMode = StreamingCaptureMode.Video
+                });
+
+                mainPage.SetTitle(ResourceLoader.GetForCurrentView().GetString("ScanTitle"));
+
+                await scanner.Scan().ContinueWith(t =>
+                {
+                    HandleScanResult(t.Result);
+
+                    didScan = true;
+                });
+            }
+            catch (UnauthorizedAccessException)
+            {
+                AccessDeniedDialog dialog = new AccessDeniedDialog();
+                await dialog.ShowAsync();
+            }
+            catch (Exception)
+            {
+
+            }
+        }
+
+        private void HandleScanResult(Result result)
+        {
+            if (result != null)
+            {
+                scannedAccount = TOTPUtilities.UriToAccount(result.Text);
+            }
         }
 
         private void SetButtonState(bool enabled)

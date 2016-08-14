@@ -205,7 +205,7 @@ We will never interrupt you with annoying questions to rate our app. If you have
   <data name="Scan.Label" xml:space="preserve">
     <value>Scan</value>
   </data>
-  <data name="ScanPage.Tag" xml:space="preserve">
+  <data name="ScanTitle" xml:space="preserve">
     <value>Scan QR code</value>
   </data>
   <data name="Service.Header" xml:space="preserve">

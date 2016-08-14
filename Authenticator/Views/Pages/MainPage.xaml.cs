@@ -154,6 +154,11 @@ namespace Authenticator_for_Windows.Views.Pages
             ClearBackStack();
         }
 
+        public void SetTitle(string title)
+        {
+            TextHeader.Text = title;
+        }
+
         public void SetTitle()
         {
             if (Contentframe.Content is Page)
