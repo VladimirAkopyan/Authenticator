@@ -64,7 +64,7 @@
                             <controls:ProgressRingButton x:Name="ButtonTurnOnSynchronization" Margin="0,10,0,0" Translation="ButtonTurnOnSynchronization" Tapped="ButtonTurnOnSynchronization_Tapped" />
                         </StackPanel>
                         <StackPanel Margin="0,10,0,0">
-                            <TextBlock x:Uid="RemoveCloudSynchronization" Text="U kunt cloudsynchronisatie uitschakelen voor alle aparaten waarop het momenteel is ingeschakeld. Wanneer u geen toegang meer heeft tot uw persoonlijke sleutel bent of een nieuwe persoonlijke sleutel wilt, is dit de enige manier om opnieuw te beginnen. Cloudsynchronisatie wordt op uw andere apparaten automatisch uitgeschakeld wanneer er synchronisatie plaatsvindt." TextWrapping="Wrap" />
+                            <TextBlock x:Uid="RemoveCloudSynchronization" Text="U kunt cloudsynchronisatie uitschakelen voor alle aparaten waarop het momenteel is ingeschakeld. Wanneer u geen toegang meer heeft tot uw persoonlijke sleutel of een nieuwe persoonlijke sleutel wilt, is dit de enige manier om opnieuw te beginnen. Cloudsynchronisatie wordt op uw andere apparaten automatisch uitgeschakeld wanneer er synchronisatie plaatsvindt." TextWrapping="Wrap" />
                             <Button x:Uid="ButtonRemoveCloudSynchronization" Name="ButtonRemoveCloudSynchronization" Content="Cloudsynchronisatie verwijderen" Margin="0,10" Tapped="ButtonRemoveCloudSynchronization_Tapped" />
                         </StackPanel>
                     </StackPanel>

@@ -279,7 +279,7 @@ Voeg een account toe via 'Nieuw account'.</value>
     <value>Er is een fout opgetreden. Controleer uw ingevulde gegevens.</value>
   </data>
   <data name="AddInformation.Text" xml:space="preserve">
-    <value>Vul de informatie in die u hebt gekregen van de aanbieder van deze tweestapsauthenticatiedienst. Wanneer u beschikt over een camera, dan kunt u deze ook gebruiken om een eventuele QR-code te scannen. Het slepen van een QR-code van een website van een dienst in de app zal deze ook inlezen</value>
+    <value>Vul de informatie in die u hebt gekregen van de aanbieder van deze tweestapsauthenticatiedienst. Wanneer u beschikt over een camera, dan kunt u deze ook gebruiken om een eventuele QR-code te scannen. Het slepen van een QR-code van een website van een dienst in de app zal deze ook inlezen.</value>
   </data>
   <data name="WhatToEnterWhere.Text" xml:space="preserve">
     <value>Wat vul ik waar in?</value>
@@ -469,7 +469,7 @@ Voer de weergegeven sleutel in onderstaande tekstveld in: (streepjes worden auto
     <value>U heeft ervoor gekozen om cloudsynchronisatie in te schakelen. U heeft Authenticator for Windows inmiddels toegang verleend tot uw OneDrive-opslag. De centrale opslag van uw accounts wordt vanaf het moment dat u deze stappen heeft voltooid daar opgeslagen. Omdat wij u de hoogste veiligheid willen bieden maken wij gebruik van versleuteling. De opslag wordt versleuteld met een sleutel die alleen op uw apparaten staan en niet in de cloud. Onderstaande sleutel wordt gebruikt voor de versleuteling van uw accounts in de cloud.</value>
   </data>
   <data name="RemoveCloudSynchronization.Text" xml:space="preserve">
-    <value>U kunt cloudsynchronisatie uitschakelen voor alle aparaten waarop het momenteel is ingeschakeld. Wanneer u geen toegang meer heeft tot uw persoonlijke sleutel bent of een nieuwe persoonlijke sleutel wilt, is dit de enige manier om opnieuw te beginnen. Cloudsynchronisatie wordt op uw andere apparaten automatisch uitgeschakeld wanneer er synchronisatie plaatsvindt.</value>
+    <value>U kunt cloudsynchronisatie uitschakelen voor alle aparaten waarop het momenteel is ingeschakeld. Wanneer u geen toegang meer heeft tot uw persoonlijke sleutel of een nieuwe persoonlijke sleutel wilt, is dit de enige manier om opnieuw te beginnen. Cloudsynchronisatie wordt op uw andere apparaten automatisch uitgeschakeld wanneer er synchronisatie plaatsvindt.</value>
   </data>
   <data name="UserKeyRequired.Text" xml:space="preserve">
     <value>U heeft uw persoonlijke sleutel nodig op uw andere apparaten om de opslag van uw accounts te ontsleutelen. U kunt uw persoonlijke sleutel weergeven door de onderstaande knop te selecteren.</value>
