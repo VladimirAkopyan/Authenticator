@@ -21,6 +21,7 @@ using ZXing.Mobile;
 using Windows.Graphics.Imaging;
 using System.Threading.Tasks;
 using Windows.Media.Capture;
+using System.Collections.Generic;
 
 namespace Authenticator_for_Windows.Views.Pages
 {
@@ -37,8 +38,15 @@ namespace Authenticator_for_Windows.Views.Pages
         {
             InitializeComponent();
 
-            scanner = new MobileBarcodeScanner(Dispatcher);
-            scanner.Dispatcher = Dispatcher;
+            try
+            {
+                scanner = new MobileBarcodeScanner(Dispatcher);
+                scanner.Dispatcher = Dispatcher;
+            }
+            catch (Exception e)
+            {
+
+            }
         }
 
         private async Task CheckForCamera()
@@ -53,38 +61,45 @@ namespace Authenticator_for_Windows.Views.Pages
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            object[] parameters = (object[])e.Parameter;
-            mainPage = (MainPage)parameters[0];
-
-            mainPage.SetTitle();
-
-            if (didScan)
+            try
             {
-                try
-                {
-                    if (scannedAccount != null)
-                    {
-                        AccountUsername.Text = scannedAccount.Username;
-                        AccountCode.Text = scannedAccount.Secret;
-                        AccountService.Text = scannedAccount.Service;
+                object[] parameters = (object[])e.Parameter;
+                mainPage = (MainPage)parameters[0];
 
-                        if (!string.IsNullOrWhiteSpace(AccountUsername.Text) && !string.IsNullOrWhiteSpace(AccountCode.Text) && !string.IsNullOrWhiteSpace(AccountService.Text))
+                mainPage.SetTitle();
+
+                if (didScan)
+                {
+                    try
+                    {
+                        if (scannedAccount != null)
                         {
-                            Save_Tapped(null, null);
+                            AccountUsername.Text = scannedAccount.Username;
+                            AccountCode.Text = scannedAccount.Secret;
+                            AccountService.Text = scannedAccount.Service;
+
+                            if (!string.IsNullOrWhiteSpace(AccountUsername.Text) && !string.IsNullOrWhiteSpace(AccountCode.Text) && !string.IsNullOrWhiteSpace(AccountService.Text))
+                            {
+                                Save_Tapped(null, null);
+                            }
+                        }
+                        else
+                        {
+                            MainPage.AddBanner(new Banner(BannerType.Danger, ResourceLoader.GetForCurrentView().GetString("BannerInvalidCode"), true));
                         }
                     }
-                    else
+                    catch
                     {
                         MainPage.AddBanner(new Banner(BannerType.Danger, ResourceLoader.GetForCurrentView().GetString("BannerInvalidCode"), true));
                     }
                 }
-                catch
-                {
-                    MainPage.AddBanner(new Banner(BannerType.Danger, ResourceLoader.GetForCurrentView().GetString("BannerInvalidCode"), true));
-                }
-            }
 
-            didScan = false;
+                didScan = false;
+            }
+            catch (Exception)
+            {
+
+            }
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
@@ -119,7 +134,13 @@ namespace Authenticator_for_Windows.Views.Pages
 
                 mainPage.SetTitle(ResourceLoader.GetForCurrentView().GetString("ScanTitle"));
 
-                await scanner.Scan().ContinueWith(t =>
+                await scanner.Scan(new MobileBarcodeScanningOptions()
+                {
+                    PossibleFormats = new List<BarcodeFormat>()
+                    {
+                        BarcodeFormat.QR_CODE
+                    }
+                }).ContinueWith(t =>
                 {
                     HandleScanResult(t.Result);
 
@@ -130,10 +151,6 @@ namespace Authenticator_for_Windows.Views.Pages
             {
                 AccessDeniedDialog dialog = new AccessDeniedDialog();
                 await dialog.ShowAsync();
-            }
-            catch (Exception)
-            {
-
             }
         }
 
