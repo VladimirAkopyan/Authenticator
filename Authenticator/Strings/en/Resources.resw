@@ -512,4 +512,52 @@ Enter the displayed key in the text field below: (hyphens are added automaticall
   <data name="ButtonTransparentTile.Content" xml:space="preserve">
     <value>Put transparent tile on Start menu</value>
   </data>
+  <data name="CloudSynchronizationOneDriveErrorMessage" xml:space="preserve">
+    <value>Cloud synchronization could not be configured, as OneDrive returned the following error</value>
+  </data>
+  <data name="CloudSynchronizationOneDriveErrorTitle" xml:space="preserve">
+    <value>OneDrive returned an error</value>
+  </data>
+  <data name="OneDriveErrorAccessDenied" xml:space="preserve">
+    <value>Access denied</value>
+  </data>
+  <data name="OneDriveErrorActivityLimitReached" xml:space="preserve">
+    <value>Activity limit reached</value>
+  </data>
+  <data name="OneDriveErrorAuthenticationFailure" xml:space="preserve">
+    <value>Authentication failure</value>
+  </data>
+  <data name="OneDriveErrorGeneralException" xml:space="preserve">
+    <value>General exception</value>
+  </data>
+  <data name="OneDriveErrorInvalidRequest" xml:space="preserve">
+    <value>Invalid request</value>
+  </data>
+  <data name="OneDriveErrorItemNotFound" xml:space="preserve">
+    <value>Item not found</value>
+  </data>
+  <data name="OneDriveErrorNameAlreadyExists" xml:space="preserve">
+    <value>Name already exists</value>
+  </data>
+  <data name="OneDriveErrorNotAllowed" xml:space="preserve">
+    <value>Not allowed</value>
+  </data>
+  <data name="OneDriveErrorQuotaLimitReached" xml:space="preserve">
+    <value>Quota limit reached</value>
+  </data>
+  <data name="OneDriveErrorResourceModified" xml:space="preserve">
+    <value>Resource modified</value>
+  </data>
+  <data name="OneDriveErrorServiceNotAvailable" xml:space="preserve">
+    <value>Service not available</value>
+  </data>
+  <data name="OneDriveErrorTimeout" xml:space="preserve">
+    <value>Timeout</value>
+  </data>
+  <data name="OneDriveErrorUnauthenticated" xml:space="preserve">
+    <value>Unauthenticated</value>
+  </data>
+  <data name="OneDriveErrorUnknown" xml:space="preserve">
+    <value>Unknown error</value>
+  </data>
 </root>

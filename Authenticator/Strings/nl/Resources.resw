@@ -512,4 +512,52 @@ Voer de weergegeven sleutel in onderstaande tekstveld in: (streepjes worden auto
   <data name="ButtonTransparentTile.Content" xml:space="preserve">
     <value>Plaats transparante tegel op Startmenu</value>
   </data>
+  <data name="CloudSynchronizationOneDriveErrorMessage" xml:space="preserve">
+    <value>Cloudsynchronisatie kon niet ingesteld worden omdat OneDrive de volgende fout heeft teruggegeven</value>
+  </data>
+  <data name="CloudSynchronizationOneDriveErrorTitle" xml:space="preserve">
+    <value>OneDrive heeft een fout teruggegeven</value>
+  </data>
+  <data name="OneDriveErrorAccessDenied" xml:space="preserve">
+    <value>Toegang geweigerd</value>
+  </data>
+  <data name="OneDriveErrorActivityLimitReached" xml:space="preserve">
+    <value>Activiteitenlimiet bereikt</value>
+  </data>
+  <data name="OneDriveErrorAuthenticationFailure" xml:space="preserve">
+    <value>Authenticatie mislukt</value>
+  </data>
+  <data name="OneDriveErrorGeneralException" xml:space="preserve">
+    <value>Algemene fout</value>
+  </data>
+  <data name="OneDriveErrorInvalidRequest" xml:space="preserve">
+    <value>Ongeldige aanvraag</value>
+  </data>
+  <data name="OneDriveErrorItemNotFound" xml:space="preserve">
+    <value>Item niet gevonden</value>
+  </data>
+  <data name="OneDriveErrorNameAlreadyExists" xml:space="preserve">
+    <value>Naam bestaat al</value>
+  </data>
+  <data name="OneDriveErrorNotAllowed" xml:space="preserve">
+    <value>Niet toegestaan</value>
+  </data>
+  <data name="OneDriveErrorQuotaLimitReached" xml:space="preserve">
+    <value>Quotalimiet bereikt</value>
+  </data>
+  <data name="OneDriveErrorResourceModified" xml:space="preserve">
+    <value>Bron aangepast</value>
+  </data>
+  <data name="OneDriveErrorServiceNotAvailable" xml:space="preserve">
+    <value>Service niet beschikbaar</value>
+  </data>
+  <data name="OneDriveErrorTimeout" xml:space="preserve">
+    <value>Time-out</value>
+  </data>
+  <data name="OneDriveErrorUnauthenticated" xml:space="preserve">
+    <value>Niet geauthenticeerd</value>
+  </data>
+  <data name="OneDriveErrorUnknown" xml:space="preserve">
+    <value>Onbekende fout</value>
+  </data>
 </root>

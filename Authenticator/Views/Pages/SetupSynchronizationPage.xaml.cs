@@ -15,6 +15,8 @@ using Domain.Storage;
 using Encryption;
 using Encryption.Exceptions;
 using Synchronization.Exceptions;
+using Windows.UI.Popups;
+using System;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -78,22 +80,45 @@ namespace Authenticator_for_Windows.Views.Pages
 
         private async void Continue_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            MainPage.ShowLoader(ResourceLoader.GetForCurrentView().GetString("SynchronizingAccountsWithCloud"));
-            
-            IOneDriveClient oneDriveClient = OneDriveClientExtensions.GetUniversalClient(new[] { "onedrive.appfolder" });
-            AccountSession session = await oneDriveClient.AuthenticateAsync();
-
-            IEncrypter encrypter = new AESEncrypter();
-
-            if (session.AccountType == AccountType.MicrosoftAccount)
+            try
             {
-                synchronizer.SetEncrypter(encrypter, userKey);
-                await AccountStorage.Instance.Synchronize();
+                MainPage.ShowLoader(ResourceLoader.GetForCurrentView().GetString("SynchronizingAccountsWithCloud"));
 
-                MainPage.HideLoader();
+                IOneDriveClient oneDriveClient = OneDriveClientExtensions.GetUniversalClient(new[] { "onedrive.appfolder" });
+                AccountSession session = await oneDriveClient.AuthenticateAsync();
 
-                Frame.Navigate(typeof(SetupSynchronizationFinishedPage), mainPage);
+                IEncrypter encrypter = new AESEncrypter();
+
+                if (session.AccountType == AccountType.MicrosoftAccount)
+                {
+                    synchronizer.SetEncrypter(encrypter, userKey);
+                    await AccountStorage.Instance.Synchronize();
+
+                    MainPage.HideLoader();
+
+                    Frame.Navigate(typeof(SetupSynchronizationFinishedPage), mainPage);
+                }
             }
+            catch (OneDriveException ex)
+            {
+                MessageDialog dialog = GetOneDriveErrorMessageDialog(ex);
+                await dialog.ShowAsync();
+            }
+        }
+
+        private MessageDialog GetOneDriveErrorMessageDialog(OneDriveException exception)
+        {
+            string error = ResourceLoader.GetForCurrentView().GetString("OneDriveError" + exception.Error.Code);
+
+            if (string.IsNullOrWhiteSpace(error))
+            {
+                error = string.Format("{0} ({1})", ResourceLoader.GetForCurrentView().GetString("OneDriveErrorUnknown"), exception.Error.Code);
+            }
+
+            string message = string.Format("{0}:{1}{2}", ResourceLoader.GetForCurrentView().GetString("CloudSynchronizationOneDriveErrorMessage"), Environment.NewLine, error);
+            MessageDialog dialog = new MessageDialog(message, ResourceLoader.GetForCurrentView().GetString("CloudSynchronizationOneDriveErrorTitle"));
+            
+            return dialog;
         }
 
         private void UserKeyToValidate_TextChanged(object sender, TextChangedEventArgs e)
@@ -120,13 +145,23 @@ namespace Authenticator_for_Windows.Views.Pages
                     {
                         MainPage.ShowLoader(ResourceLoader.GetForCurrentView().GetString("SynchronizingAccountsWithCloud"));
 
-                        await AccountStorage.Instance.Synchronize();
+                        try
+                        {
+                            await AccountStorage.Instance.Synchronize();
 
-                        vault.Add(new PasswordCredential(RESOURCE_NAME, USERNAME_NAME, UserKeyToValidate.Text));
+                            vault.Add(new PasswordCredential(RESOURCE_NAME, USERNAME_NAME, UserKeyToValidate.Text));
 
-                        MainPage.HideLoader();
-
-                        Frame.Navigate(typeof(SetupSynchronizationFinishedPage), mainPage);
+                            Frame.Navigate(typeof(SetupSynchronizationFinishedPage), mainPage);
+                        }
+                        catch (OneDriveException ex)
+                        {
+                            MessageDialog dialog = GetOneDriveErrorMessageDialog(ex);
+                            await dialog.ShowAsync();
+                        }
+                        finally
+                        {
+                            MainPage.HideLoader();
+                        }
                     }
                     else
                     {
