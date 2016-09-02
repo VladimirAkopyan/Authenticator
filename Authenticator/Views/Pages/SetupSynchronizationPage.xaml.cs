@@ -113,6 +113,11 @@ namespace Authenticator_for_Windows.Views.Pages
             if (string.IsNullOrWhiteSpace(error))
             {
                 error = string.Format("{0} ({1})", ResourceLoader.GetForCurrentView().GetString("OneDriveErrorUnknown"), exception.Error.Code);
+
+                if (exception.Error.InnerError != null)
+                {
+                    error += string.Format(" ({1})", exception.Error.InnerError.Code);
+                }
             }
 
             string message = string.Format("{0}:{1}{2}", ResourceLoader.GetForCurrentView().GetString("CloudSynchronizationOneDriveErrorMessage"), Environment.NewLine, error);
