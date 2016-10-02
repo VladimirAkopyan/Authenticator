@@ -236,7 +236,9 @@ namespace Authenticator_for_Windows.Views.Pages
             {
                 try
                 {
-                    if (!AccountCode.Text.All(char.IsLetterOrDigit))
+                    string code = new string(Array.FindAll(AccountCode.Text.ToCharArray(), (c => (char.IsLetterOrDigit(c)))));
+
+                    if (!code.All(char.IsLetterOrDigit))
                     {
                         MainPage.AddBanner(new Banner(BannerType.Danger, ResourceLoader.GetForCurrentView().GetString("BannerInvalidCharacters"), true));
 
@@ -245,9 +247,9 @@ namespace Authenticator_for_Windows.Views.Pages
 
                     if (valid)
                     {
-                        OTP otp = new OTP(AccountCode.Text);
+                        OTP otp = new OTP(code);
 
-                        Account account = new Account(AccountUsername.Text, AccountCode.Text, AccountService.Text);
+                        Account account = new Account(AccountUsername.Text, code, AccountService.Text);
 
                         await AccountStorage.Instance.SaveAsync(account);
 

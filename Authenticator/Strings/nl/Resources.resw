@@ -288,7 +288,7 @@ Voeg een account toe via 'Nieuw account'.</value>
     <value>Code</value>
   </data>
   <data name="WhatToEnterWhereCodeContent.Text" xml:space="preserve">
-    <value>De code (of sleutel) die gebruikt wordt om een unieke, tijdelijke code te genereren. Dit is meestal een lange reeks willekeurige karakters. U ontvangt deze code van de dienst die deze tweestapsauthenticatie aanbiedt.</value>
+    <value>De code (of sleutel) die gebruikt wordt om een unieke, tijdelijke code te genereren. Dit is meestal een lange reeks willekeurige karakters. U ontvangt deze code van de dienst die deze tweestapsauthenticatie aanbiedt. Eventuele spaties en andere niet-toegestane tekens worden automatisch genegeerd.</value>
   </data>
   <data name="WhatToEnterWhereService.Text" xml:space="preserve">
     <value>Dienst</value>

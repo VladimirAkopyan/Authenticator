@@ -67,7 +67,7 @@
                                 <TextBlock x:Uid="WhatToEnterWhereUsername" Text="Gebruikersnaam" FontWeight="Bold" TextWrapping="WrapWholeWords" Margin="0,10,0,0" />
                                 <TextBlock x:Uid="WhatToEnterWhereUsernameContent" Text="De gebruikersnaam van het account. Voorbeelden hiervan zijn een inlognaam of een e-mailadres." TextWrapping="WrapWholeWords" />
                                 <TextBlock x:Uid="WhatToEnterWhereCode" Text="Code" FontWeight="Bold" TextWrapping="WrapWholeWords" Margin="0,10,0,0" />
-                                <TextBlock x:Uid="WhatToEnterWhereCodeContent" Text="De code (of sleutel) die gebruikt wordt om een unieke, tijdelijke code te genereren. Dit is meestal een lange reeks willekeurige karakters. U ontvangt deze code van de dienst die deze tweestapsauthenticatie aanbiedt." TextWrapping="WrapWholeWords" />
+                                <TextBlock x:Uid="WhatToEnterWhereCodeContent" Text="De code (of sleutel) die gebruikt wordt om een unieke, tijdelijke code te genereren. Dit is meestal een lange reeks willekeurige karakters. U ontvangt deze code van de dienst die deze tweestapsauthenticatie aanbiedt. Eventuele spaties en andere niet-toegestane tekens worden automatisch genegeerd." TextWrapping="WrapWholeWords" />
                             </StackPanel>
                         </Flyout>
                     </FlyoutBase.AttachedFlyout>
