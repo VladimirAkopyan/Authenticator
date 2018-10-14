@@ -7,7 +7,7 @@ The codebase is, at the time of writing, already pretty old and could use some i
 
 Be sure to grab pieces of code that you like and use them in your own app(s).
 ## Contributing
-Pull requests will **NOT** be reviewed and merged. Therefor, unfortunately, contributing is not possible.
+If you'd like to contribute, be sure to do so and create a pull request if you'd like to. I **CANNOT** guarantee that pull requests will be reviewed and/or merged.
 ## License
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)  
 This source code is licensed under the MIT License. Be sure to read the [LICENSE.txt](LICENSE.txt) file before using the source code.
