@@ -11,3 +11,11 @@ If you'd like to contribute, be sure to do so and create a pull request if you'd
 ## License
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)  
 This source code is licensed under the MIT License. Be sure to read the [LICENSE.txt](LICENSE.txt) file before using the source code.
+
+## References: 
+Reddit thread: 
+https://www.reddit.com/r/windowsphone/comments/99d5kc/replacement_for_authenticator_for_windows/
+Sources and other: 
+https://bitbucket.org/Alphyraz/authenticator-for-windows/src/master/
+https://bitbucket.org/uhlik/authenticator-for-windows/src/master/
+https://www.microsoft.com/en-gb/p/authenticator-for-windows-2018/9nxn939qqx0n?rtc=1&activetab=pivot:overviewtab
