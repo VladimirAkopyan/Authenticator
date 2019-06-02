@@ -1,4 +1,5 @@
 # Authenticator for Windows
+<a href="https://www.microsoft.com/store/apps/9NF2RGQKX1MV?ocid=badge"><img src="https://assets.windowsphone.com/f2f77ec7-9ba9-4850-9ebe-77e366d08adc/English_Get_it_Win_10_InvariantCulture_Default.png" alt="Get it on Windows 10" height="130" width="360"/></a>
 ![Screenshot](/Images/WinOTP1.PNG)
 This repository contains the official source code of WinOTP Authenticator for Windows app.
 This source code is comes from original Authenticator app, which was written in 2016 and was a good quality app that fell out of support because original developer moved on or didn't have time to maintain it. 
