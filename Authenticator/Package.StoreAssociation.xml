@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <StoreAssociation xmlns="http://schemas.microsoft.com/appx/2010/storeassociation">
-  <Publisher>CN=FE268E0D-F5D1-4900-9C83-60A34BEB0C47</Publisher>
-  <PublisherDisplayName>Roel van de Water</PublisherDisplayName>
+  <Publisher>CN=B0F946D3-CEF2-43FD-8FF5-9317ED6F24D9</Publisher>
+  <PublisherDisplayName>Vladimir Akopyan</PublisherDisplayName>
+  <DeveloperAccountType>MSA</DeveloperAccountType>
   <GeneratePackageHash>http://www.w3.org/2001/04/xmlenc#sha256</GeneratePackageHash>
   <SupportedLocales>
     <Language Code="af" InMinimumRequirementSet="true" />
@@ -358,13 +359,13 @@
     <Language Code="zu-za" InMinimumRequirementSet="true" />
   </SupportedLocales>
   <ProductReservedInfo>
-    <MainPackageIdentityName>56672RoelvandeWater.AuthenticatorforWindows</MainPackageIdentityName>
+    <MainPackageIdentityName>34135VladimirAkopyan.WinOTPAuthenticator</MainPackageIdentityName>
     <ReservedNames>
-      <ReservedName>Authenticator for Windows</ReservedName>
+      <ReservedName>WinOTP Authenticator</ReservedName>
     </ReservedNames>
   </ProductReservedInfo>
   <AccountPackageIdentityNames>
-    <MainPackageIdentityName>56672RoelvandeWater.AvansforWindows</MainPackageIdentityName>
+    <MainPackageIdentityName>34135VladimirAkopyan.VostokAdventures</MainPackageIdentityName>
   </AccountPackageIdentityNames>
-  <PackageInfoList LandingUrl="https://dev.windows.com/dashboard/Application?appId=9NBLGGH4N8MX" />
+  <PackageInfoList LandingUrl="https://developer.microsoft.com/dashboard/Application?appId=9NF2RGQKX1MV" />
 </StoreAssociation>

@@ -85,14 +85,6 @@ namespace Authenticator_for_Windows
             applicationview.TitleBar.ButtonHoverForegroundColor = Colors.White;
             applicationview.TitleBar.ButtonPressedBackgroundColor = Color.FromArgb(0, 41, 128, 185);
 
-            // If the Windows Phone Statusbar is present, Color statusbar
-            if (Windows.Foundation.Metadata.ApiInformation.IsTypePresent("Windows.UI.ViewManagement.StatusBar"))
-            {
-                StatusBar statusBar = StatusBar.GetForCurrentView();
-                statusBar.BackgroundColor = Color.FromArgb(0, 41, 128, 185);
-                statusBar.BackgroundOpacity = 1;
-                statusBar.ForegroundColor = Colors.White;
-            }
         }
 
         /// <summary>

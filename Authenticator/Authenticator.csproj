@@ -11,16 +11,21 @@
     <AssemblyName>Authenticator for Windows</AssemblyName>
     <DefaultLanguage>en</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion>10.0.10586.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.10240.0</TargetPlatformMinVersion>
+    <TargetPlatformVersion>10.0.18362.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.15063.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <PackageCertificateKeyFile>Authenticator for Windows.pfx</PackageCertificateKeyFile>
-    <PackageCertificateThumbprint>07C83C3F03451CB62EBFCE07CC1C77D0C07EB6A0</PackageCertificateThumbprint>
+    <PackageCertificateKeyFile>
+    </PackageCertificateKeyFile>
+    <PackageCertificateThumbprint>CD1D415AF154F3C0174E0F069FB0DD4C7029C413</PackageCertificateThumbprint>
     <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
     <AppxBundle>Always</AppxBundle>
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
+    <RuntimeIdentifiers>win10-arm;win10-arm-aot;win10-x86;win10-x86-aot;win10-x64;win10-x64-aot</RuntimeIdentifiers>
+    <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
+    <AppInstallerUpdateFrequency>1</AppInstallerUpdateFrequency>
+    <AppInstallerCheckForUpdateFrequency>OnApplicationRun</AppInstallerCheckForUpdateFrequency>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -94,11 +99,14 @@
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
     <None Include="Authenticator for Windows.pfx" />
-    <None Include="project.json" />
     <PRIResource Include="Strings\en\Resources.resw" />
     <PRIResource Include="Strings\nl\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccountStorage.cs" />
+    <Compile Include="DefaultValueManager.cs" />
+    <Compile Include="Setting.cs" />
+    <Compile Include="SettingsManager.cs" />
     <Compile Include="Utilities\Properties.cs" />
     <Compile Include="Utilities\ReleaseNotesManager.cs" />
     <Compile Include="Views\Pages\AccessDeniedDialog.xaml.cs">
@@ -303,18 +311,24 @@
       <Project>{bda9d552-ddb3-43f2-be63-7ac929efbb0f}</Project>
       <Name>Patches</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Settings\Settings.csproj">
-      <Project>{d00c51ea-b212-4269-b3b5-a0297fb64d75}</Project>
-      <Name>Settings</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Storage\Storage.csproj">
-      <Project>{7629a322-667c-4595-9ae2-90e6017fc4f3}</Project>
-      <Name>Storage</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Synchronization\Synchronization.csproj">
       <Project>{9DE9CFAB-78E7-470F-97A3-8C3842E1EDEC}</Project>
       <Name>Synchronization</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="IoT.Ntp">
+      <Version>1.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
+      <Version>5.1.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.OneDriveSDK">
+      <Version>1.1.47</Version>
+    </PackageReference>
+    <PackageReference Include="ZXing.Net.Mobile">
+      <Version>2.1.13</Version>
+    </PackageReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
