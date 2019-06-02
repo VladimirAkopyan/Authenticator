@@ -6,8 +6,12 @@ I am taking over the project, it will be free and opensource. I am aiming to inc
 
 ## Roadmap
 * Re-release the applicaiton into windows store
-* Clean-up the code, update packages and remove obsolete ones 
-
+* Clean-up the code, update packages and remove obsolete ones. 
+* UI improvements
+  * Allow the user to paste QR code into the application
+  * Allow user to scan QR code with camera 
+  * Allow user to reveal the code of an account already stored inside the application as a string or as image
+* Move the applicaiton to cross-platform support using Xamarin or Uno Platform
 
 ## Code quality
 The codebase is, at the time of writing, already pretty old and could use some improvements. Still, it contains some useful pieces of code that I had to find out myself since there was not a lot to find on Google about UWP apps back then.
