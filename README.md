@@ -14,8 +14,9 @@ This source code is licensed under the MIT License. Be sure to read the [LICENSE
 
 ## References: 
 Reddit thread: 
-https://www.reddit.com/r/windowsphone/comments/99d5kc/replacement_for_authenticator_for_windows/
+* https://www.reddit.com/r/windowsphone/comments/99d5kc/replacement_for_authenticator_for_windows/
+
 Sources and other: 
-https://bitbucket.org/Alphyraz/authenticator-for-windows/src/master/
-https://bitbucket.org/uhlik/authenticator-for-windows/src/master/
-https://www.microsoft.com/en-gb/p/authenticator-for-windows-2018/9nxn939qqx0n?rtc=1&activetab=pivot:overviewtab
+* https://bitbucket.org/Alphyraz/authenticator-for-windows/src/master/
+* https://bitbucket.org/uhlik/authenticator-for-windows/src/master/
+* https://www.microsoft.com/en-gb/p/authenticator-for-windows-2018/9nxn939qqx0n?rtc=1&activetab=pivot:overviewtab
