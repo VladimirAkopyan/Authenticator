@@ -1,8 +1,10 @@
 # Authenticator for Windows
+![Screenshot](/Images/WinOTP1.PNG)
 This repository contains the official source code of WinOTP Authenticator for Windows app.
 This source code is comes from original Authenticator app, which was written in 2016 and was a good quality app that fell out of support because original developer moved on or didn't have time to maintain it. 
 
 I am taking over the project, it will be free and opensource. I am aiming to incorporate most functionality found in [WinAuth](https://github.com/winauth/winauth), which was original and excellent PowerUser's Authenticator for Windows, sadly now most of the codebase is obsolete and written for ancient version of .Net. It would have to be re-written for a modern UI stack like UWP. 
+![Screenshot](/Images/WinOTP2.PNG)
 
 ## Roadmap
 * Re-release the applicaiton into windows store
