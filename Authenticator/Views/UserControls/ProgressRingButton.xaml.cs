@@ -6,18 +6,21 @@ namespace Authenticator_for_Windows.Views.UserControls
 {
     public sealed partial class ProgressRingButton : Button
     {
-        private string _translation;
+        private string _translationCustom;
         private bool _isLoading;
 
-        public string Translation
+        /// <summary>
+        /// I think the original author meant localisation when he wrote translation
+        /// </summary>
+        public string TranslationCustom
         {
             get
             {
-                return _translation;
+                return _translationCustom;
             }
             set
             {
-                _translation = value;
+                _translationCustom = value;
 
                 Label.Text = ResourceLoader.GetForCurrentView().GetString(value);
             }

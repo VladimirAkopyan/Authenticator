@@ -1,2 +1,2 @@
-MainPackage=C:\Development\Authenticator\Authenticator\bin\x86\Release\Authenticator_1.4.9.0_x86.appx
-SymbolPackage=C:\Development\Authenticator\Authenticator\obj\x86\Release\Symbols\Authenticator_1.4.9.0_x86.appxsym
+MainPackage=C:\Development\Authenticator\Authenticator\bin\x86\Release\Authenticator_1.4.10.0_x86.appx
+SymbolPackage=C:\Development\Authenticator\Authenticator\obj\x86\Release\Symbols\Authenticator_1.4.10.0_x86.appxsym

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="34135VladimirAkopyan.WinOTPAuthenticator" Publisher="CN=B0F946D3-CEF2-43FD-8FF5-9317ED6F24D9" Version="1.4.9.0" />
+  <Identity Name="34135VladimirAkopyan.WinOTPAuthenticator" Publisher="CN=B0F946D3-CEF2-43FD-8FF5-9317ED6F24D9" Version="1.4.10.0" />
   <mp:PhoneIdentity PhoneProductId="80b4083a-1b42-4f45-ae6f-e82fa8cbf626" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>WinOTP Authenticator</DisplayName>

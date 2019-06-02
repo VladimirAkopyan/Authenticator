@@ -50,7 +50,7 @@
                 <TextBox x:Uid="Service" Name="AccountService" Header="Dienst" HorizontalAlignment="Stretch" />
                 <TextBox x:Uid="Username" Name="AccountUsername" Header="Gebruikersnaam" HorizontalAlignment="Stretch" Margin="0 15 0 0" />
                 <TextBox x:Uid="Code" Name="AccountCode" Header="Code" HorizontalAlignment="Stretch" Margin="0 15 0 15" />
-                <controls:ProgressRingButton x:Name="Save" HorizontalAlignment="Stretch" Tapped="Save_Tapped" Translation="Save" />
+                <controls:ProgressRingButton x:Name="Save" HorizontalAlignment="Stretch" Tapped="Save_Tapped" TranslationCustom="Save" />
                 <HyperlinkButton Click="OpenFlyout">
                     <HyperlinkButton.Content>
                         <TextBlock TextWrapping="WrapWholeWords">
