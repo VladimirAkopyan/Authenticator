@@ -3,7 +3,7 @@ using Windows.System;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 
-namespace Authenticator_for_Windows.Views.Pages
+namespace Authenticator.Views.Pages
 {
     public sealed partial class AccessDeniedDialog : ContentDialog
     {

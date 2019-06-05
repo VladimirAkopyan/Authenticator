@@ -8,7 +8,7 @@ using Domain.Utilities;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.ApplicationModel.Resources;
 using Domain;
-using Authenticator_for_Windows.Views.UserControls;
+using Authenticator.Views.UserControls;
 using Domain.Exceptions;
 using Synchronization.Exceptions;
 using Settings;
@@ -23,7 +23,7 @@ using System.Threading.Tasks;
 using Windows.Media.Capture;
 using System.Collections.Generic;
 
-namespace Authenticator_for_Windows.Views.Pages
+namespace Authenticator.Views.Pages
 {
     public sealed partial class AddPage : Page
     {

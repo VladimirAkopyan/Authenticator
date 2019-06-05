@@ -2,7 +2,7 @@
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace Authenticator_for_Windows.Views.UserControls
+namespace Authenticator.Views.UserControls
 {
     public sealed partial class ProgressRingButton : Button
     {

@@ -4,7 +4,7 @@
     xmlns:local="using:Domain"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    x:Class="Authenticator_for_Windows.Views.Pages.MainPage"
+    x:Class="Authenticator.Views.Pages.MainPage"
     mc:Ignorable="d">
 
     <Page.Resources>

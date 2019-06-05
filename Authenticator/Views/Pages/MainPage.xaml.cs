@@ -3,7 +3,7 @@ using System;
 using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Core;
-using Authenticator_for_Windows.Views.UserControls;
+using Authenticator.Views.UserControls;
 using System.Collections.Generic;
 using Windows.Security.Credentials;
 using Synchronization;
@@ -12,7 +12,7 @@ using Domain.Storage;
 using Encryption;
 using Settings;
 
-namespace Authenticator_for_Windows.Views.Pages
+namespace Authenticator.Views.Pages
 {
     public sealed partial class MainPage : Page
     {

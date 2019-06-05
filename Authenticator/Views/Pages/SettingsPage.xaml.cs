@@ -12,7 +12,7 @@ using Domain.Utilities;
 using Synchronization;
 using System.IO;
 using Windows.Security.Credentials;
-using Authenticator_for_Windows.Views.UserControls;
+using Authenticator.Views.UserControls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Domain.Storage;
 using Synchronization.Exceptions;
@@ -22,7 +22,7 @@ using Windows.ApplicationModel.Resources;
 using Windows.UI.StartScreen;
 using Windows.UI;
 
-namespace Authenticator_for_Windows.Views.Pages
+namespace Authenticator.Views.Pages
 {
     public sealed partial class SettingsPage : Page
     {

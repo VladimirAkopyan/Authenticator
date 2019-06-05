@@ -3,7 +3,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 
-namespace Authenticator_for_Windows.Views.UserControls
+namespace Authenticator.Views.UserControls
 {
     public sealed partial class Banner : UserControl
     {

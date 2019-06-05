@@ -3,15 +3,15 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
 using Domain;
-using Authenticator_for_Windows.Events;
+using Authenticator.Events;
 using Windows.ApplicationModel.DataTransfer;
 using Settings;
 using Domain.Utilities;
 using Domain.Storage;
 using Synchronization.Exceptions;
-using Authenticator_for_Windows.Views.Pages;
+using Authenticator.Views.Pages;
 
-namespace Authenticator_for_Windows.Views.UserControls
+namespace Authenticator.Views.UserControls
 {
     public sealed partial class AccountBlock : UserControl
     {

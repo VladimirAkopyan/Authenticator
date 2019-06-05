@@ -1,6 +1,6 @@
-﻿using Authenticator_for_Windows.Events;
+﻿using Authenticator.Events;
 using Domain.Storage;
-using Authenticator_for_Windows.Views.UserControls;
+using Authenticator.Views.UserControls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,9 +17,9 @@ using Synchronization.Exceptions;
 using Settings;
 using Windows.ApplicationModel.Resources;
 using Windows.ApplicationModel;
-using Authenticator_for_Windows.Utilities;
+using Authenticator.Utilities;
 
-namespace Authenticator_for_Windows.Views.Pages
+namespace Authenticator.Views.Pages
 {
     public sealed partial class AccountsPage : Page
     {

@@ -2,7 +2,7 @@
 using System.IO;
 using Windows.UI.Xaml.Controls;
 
-namespace Authenticator_for_Windows.Views.Pages
+namespace Authenticator.Views.Pages
 {
     public sealed partial class PrivacyDeclaration : Page
     {
