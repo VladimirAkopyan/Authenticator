@@ -7,8 +7,8 @@
     <ProjectGuid>{E2E4118A-F1F0-46F0-8CF2-303F1343B48E}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Authenticator_for_Windows</RootNamespace>
-    <AssemblyName>Authenticator for Windows</AssemblyName>
+    <RootNamespace>Authenticator</RootNamespace>
+    <AssemblyName>Authenticator</AssemblyName>
     <DefaultLanguage>en</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.18362.0</TargetPlatformVersion>
@@ -127,6 +127,9 @@
     <Compile Include="Views\Pages\SetupSynchronizationPage.xaml.cs">
       <DependentUpon>SetupSynchronizationPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Sections\About.xaml.cs">
+      <DependentUpon>About.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\UserControls\Banner.xaml.cs">
       <DependentUpon>Banner.xaml</DependentUpon>
     </Compile>
@@ -229,6 +232,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Pages\SetupSynchronizationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Sections\About.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
