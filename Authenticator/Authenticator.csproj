@@ -127,8 +127,11 @@
     <Compile Include="Views\Pages\SetupSynchronizationPage.xaml.cs">
       <DependentUpon>SetupSynchronizationPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Sections\About.xaml.cs">
+    <Compile Include="Views\About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Settings\CloudSyncSettings.xaml.cs">
+      <DependentUpon>CloudSyncSettings.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UserControls\Banner.xaml.cs">
       <DependentUpon>Banner.xaml</DependentUpon>
@@ -235,7 +238,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Sections\About.xaml">
+    <Page Include="Views\About.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Settings\CloudSyncSettings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -346,6 +353,10 @@
     <PackageReference Include="ZXing.Net.Mobile">
       <Version>2.4.1</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\OnedriveSetup\" />
+    <Folder Include="Views\Sections\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

@@ -12,6 +12,7 @@
                     <Color x:Key="SystemRevealListMediumColor">#FF2F7BAD</Color>
                     <Color x:Key="RegionColor">#FF0D2644</Color>
                     <SolidColorBrush x:Key="RegionBrush" Color="{StaticResource RegionColor}" />
+                    <Color x:Key="WarningColor">#FFFFDB26</Color>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
@@ -26,12 +27,14 @@
                     <RevealBackgroundBrush x:Key="SystemControlHighlightListLowRevealBackgroundBrush" TargetTheme="Light" Color="{ThemeResource SystemRevealListMediumColor}" FallbackColor="{ StaticResource SystemListMediumColor}" />
                     <Color x:Key="RegionColor">#FFCFEAFF</Color>
                     <SolidColorBrush x:Key="RegionBrush" Color="{StaticResource RegionColor}" />
+                    <Color x:Key="WarningColor">#FFFFDB26</Color>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
         <ResourceDictionary x:Key="HighContrast">
             <StaticResource x:Key="RegionColor" ResourceKey="SystemColorWindowColor" />
             <SolidColorBrush x:Key="RegionBrush" Color="{StaticResource RegionColor}" />
+            <Color x:Key="WarningColor">#FFFFF827</Color>
         </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>
 </ResourceDictionary>

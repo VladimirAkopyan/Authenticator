@@ -1,7 +1,7 @@
 ﻿using Windows.UI.Xaml.Controls;
 using Windows.ApplicationModel;
 
-namespace Authenticator.Views.Sections
+namespace Authenticator.Views
 {
     public sealed partial class About : UserControl
     {
