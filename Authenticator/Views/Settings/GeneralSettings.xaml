@@ -1,0 +1,24 @@
+﻿<UserControl
+    x:Class="Authenticator.Views.Settings.GeneralSettings"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <StackPanel>
+        <TextBlock Style="{StaticResource TitleTextBlockStyle}" Margin="0,0,0,28">
+            General
+        </TextBlock>
+        
+        <!-- Clipboard availability of copied code -->
+        <TextBlock FontSize="16" Margin="0,0,0,4">Remove the copied code from the clipboard</TextBlock>
+        <StackPanel Orientation="Horizontal">
+            <RadioButton Width="180"  Content="when code expires" Tag="OnExpiry" 
+                         GroupName="ClipboardAvailability" Checked="ClipboardAvailabilityChecked" IsChecked="True"/>
+            <RadioButton Content="never" Tag="Never" 
+                         GroupName="ClipboardAvailability" Checked="ClipboardAvailabilityChecked"/>
+        </StackPanel>
+        
+        <!-- Use NTP to synchronise time -->
+        <TextBlock FontSize="16" Margin="0,16,0,4">Synchronise system time using NTP</TextBlock>
+        <ToggleSwitch x:Name="enableTimeSyncToggle" Toggled="EnableTimeSyncToggled" />
+    </StackPanel>
+</UserControl>

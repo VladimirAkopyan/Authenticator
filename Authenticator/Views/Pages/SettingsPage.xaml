@@ -42,7 +42,6 @@
                                 </TextBlock>
                             </HyperlinkButton.Content>
                         </HyperlinkButton>
-                        <settings:CloudSyncSettings Margin="0,32,0,0" />
                     </StackPanel>
                 </ScrollViewer>
             </PivotItem>
@@ -75,6 +74,14 @@
             <PivotItem x:Uid="SettingsAbout" Header="Over">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <views:About />
+                </ScrollViewer>
+            </PivotItem>
+            <PivotItem Header="New Settings">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+                        <settings:GeneralSettings Margin="0,32,0,0" />
+                        <settings:CloudSyncSettings Margin="0,32,0,0" />
+                    </StackPanel>
                 </ScrollViewer>
             </PivotItem>
         </Pivot>

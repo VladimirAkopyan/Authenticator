@@ -133,6 +133,9 @@
     <Compile Include="Views\Settings\CloudSyncSettings.xaml.cs">
       <DependentUpon>CloudSyncSettings.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Settings\GeneralSettings.xaml.cs">
+      <DependentUpon>GeneralSettings.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\UserControls\Banner.xaml.cs">
       <DependentUpon>Banner.xaml</DependentUpon>
     </Compile>
@@ -243,6 +246,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Settings\CloudSyncSettings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Settings\GeneralSettings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

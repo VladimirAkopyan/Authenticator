@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <StackPanel>
-        <TextBlock Style="{StaticResource TitleTextBlockStyle}" Margin="0,0,0,36">
+        <TextBlock Style="{StaticResource TitleTextBlockStyle}" Margin="0,0,0,28">
             Sync with OneDrive
         </TextBlock>
         <TextBlock FontSize="16" Margin="0,0,0,4">
@@ -18,7 +18,7 @@
         </TextBlock>
 
         <!-- Sync settings -->
-        <StackPanel x:Name="autoSyncStackPanel" Margin="0,32,0,0" Visibility="Collapsed">
+        <StackPanel x:Name="autoSyncStackPanel" Margin="0,24,0,0" Visibility="Collapsed">
             <TextBlock FontSize="16" Margin="0,0,0,4">Automatically sync at startup</TextBlock>
             <ToggleSwitch x:Name="autoSyncToggle" Toggled="AutoSyncToggled"></ToggleSwitch>
         </StackPanel>
