@@ -1,6 +1,7 @@
 ﻿using Microsoft.OneDrive.Sdk;
 using Settings;
 using Synchronization;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,17 +12,13 @@ using Windows.UI.Xaml.Controls;
 
 namespace Authenticator.Views.Settings
 {
-    public sealed partial class CloudSyncSettings : UserControl
+    public sealed partial class Sync : UserControl
     {
-        private IOneDriveClient onedriveClient;
-        private PasswordVault vault;
+        private PasswordVault vault = new PasswordVault();
 
-        public CloudSyncSettings()
+        public Sync()
         {
             this.InitializeComponent();
-            onedriveClient = OneDriveClientExtensions.GetUniversalClient(new[] { "onedrive.appfolder" });
-            vault = new PasswordVault();
-
             if (SettingsManager.Get<bool>(Setting.UseCloudSynchronization) && vault.RetrieveAll().Any())
             {
                 this.showSyncConfiguration();
@@ -34,31 +31,19 @@ namespace Authenticator.Views.Settings
 
         private async void EnableSyncToggled(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            ToggleSwitch toggleSwitch = sender as ToggleSwitch;
-
-            if (toggleSwitch != null)
+            if (sender is ToggleSwitch toggleSwitch)
             {
                 if (toggleSwitch.IsOn == true)
                 {
-                    this.showSyncConfiguration();
-                    try
+                    SyncSetupDialog confirmation = new SyncSetupDialog();
+                    switch (await confirmation.ShowAsync())
                     {
-                        AccountSession session = await onedriveClient.AuthenticateAsync();
-                        if (session.AccountType == AccountType.MicrosoftAccount)
-                        {
-                            ISynchronizer synchronizer = new OneDriveSynchronizer(onedriveClient);
-                            await synchronizer.Setup();
-                            //mainPage.Navigate(typeof(SetupSynchronizationPage), new object[] { synchronizer, mainPage });
-                        }
-                    }
-                    catch (OneDriveException ex)
-                    {
-                        toggleSwitch.IsOn = false;
-                        this.hideSyncConfiguration();
-                        if (!ex.IsMatch(OneDriveErrorCode.Unauthenticated.ToString()) && !ex.IsMatch(OneDriveErrorCode.AccessDenied.ToString()) && !ex.IsMatch(OneDriveErrorCode.AuthenticationCancelled.ToString()) && !ex.IsMatch(OneDriveErrorCode.AuthenticationFailure.ToString()))
-                        {
-                            //MainPage.AddBanner(new Banner(BannerType.Danger, ResourceLoader.GetForCurrentView().GetString("UnknownErrorWhileAuthenticating"), true));
-                        }
+                        case ContentDialogResult.Primary:
+                            this.showSyncConfiguration();
+                            break;
+                        default:
+                            toggleSwitch.IsOn = false;
+                            break;
                     }
                 }
                 else
@@ -78,6 +63,9 @@ namespace Authenticator.Views.Settings
 
         private async Task DecommissionSyncWithOnedrive()
         {
+            IOneDriveClient onedriveClient =
+                OneDriveClientExtensions.GetUniversalClient(new[] { "onedrive.appfolder" });
+
             IReadOnlyList<PasswordCredential> credentials = vault.RetrieveAll();
             foreach (PasswordCredential credential in credentials)
             {

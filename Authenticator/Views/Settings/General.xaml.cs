@@ -1,12 +1,13 @@
 ﻿using Settings;
+using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace Authenticator.Views.Settings
 {
-    public sealed partial class GeneralSettings : UserControl
+    public sealed partial class General: UserControl
     {
-        public GeneralSettings()
+        public General()
         {
             this.InitializeComponent();
             enableTimeSyncToggle.IsOn = SettingsManager.Get<bool>(Setting.UseNTP);
@@ -26,18 +27,17 @@ namespace Authenticator.Views.Settings
 
         private void EnableTimeSyncToggled(object sender, RoutedEventArgs e)
         {
-            var toggleSwitch = sender as ToggleSwitch;
-            if (toggleSwitch != null)
+            if (sender is ToggleSwitch toggleSwitch)
             {
                 SettingsManager.Save(Setting.UseNTP, toggleSwitch.IsOn);
+                // If useNTP is on, the following timeout duration would apply
+                SettingsManager.Save(Setting.NTPTimeout, new TimeSpan(0, 0, 2));
             }
         }
 
         private void AvailabilityInClipboardChecked(object sender, RoutedEventArgs e)
         {
-            RadioButton radioButton = sender as RadioButton;
-
-            if (radioButton != null)
+            if (sender is RadioButton radioButton)
             {
                 switch (radioButton.Tag.ToString())
                 {

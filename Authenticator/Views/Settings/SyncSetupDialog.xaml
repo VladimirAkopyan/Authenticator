@@ -1,0 +1,53 @@
+﻿<ContentDialog
+    x:Class="Authenticator.Views.Settings.SyncSetupDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Sync with OneDrive"
+    PrimaryButtonText="Continue"
+    SecondaryButtonText="Cancel"
+    PrimaryButtonClick="ContinueButtonClick"
+    SecondaryButtonClick="CancelButtonClick"
+    IsPrimaryButtonEnabled="False">
+
+    <StackPanel>
+        <ProgressRing x:Name="progressRing" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+        
+        <StackPanel x:Name="onedriveErrorPanel" Visibility="Collapsed">
+            <TextBlock x:Name="onedriveErrorMessage" Style="{StaticResource SubtitleTextBlockStyle}" FontSize="16">
+                Sync with OneDrive requires access to OneDrive. Please try again.
+            </TextBlock>
+            <Button Margin="0,12,0,0" Width="120" Click="RetryOnedriveAuth">Retry</Button>
+        </StackPanel>
+
+        <StackPanel x:Name="syncInfoPanel" Visibility="Collapsed">
+            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" FontSize="16">
+                Thank you for granting access to your OneDrive. We will store the application data at
+            </TextBlock>
+            <TextBlock Margin="0,16,0,0" Style="{StaticResource SubtitleTextBlockStyle}" 
+                   FontFamily="Consolas" FontWeight="Bold" FontSize="16"
+                   Foreground="{StaticResource WarningColor}">
+                OneDrive > Apps > WinOTP Authenticator
+            </TextBlock>
+
+            <TextBlock Margin="0,16,0,0" Style="{StaticResource SubtitleTextBlockStyle}" FontSize="16">
+                We will encrypt everything using the key shown below. This key will be stored locally in a secure 
+                environment managed by Windows. You'll need this key to setup Sync with OneDrive on other devices.
+                Please keep this key safe and secret. It will not be shown again.
+            </TextBlock>
+            <TextBlock Margin="0,16,0,0" Style="{StaticResource SubtitleTextBlockStyle}" 
+                   FontFamily="Consolas" FontWeight="Bold" FontSize="16"
+                   Foreground="{StaticResource WarningColor}" 
+                   Text="{x:Bind encryptionKey}"/>
+
+            <TextBlock Margin="0,16,0,0" Style="{StaticResource SubtitleTextBlockStyle}" FontSize="16">
+                To continue setting up Sync with OneDrive, make a copy of the encryption key above and click "Continue".
+            </TextBlock>
+
+            <TextBlock Margin="0,16,0,0" Style="{StaticResource SubtitleTextBlockStyle}" FontSize="16">
+                To come back later, click "Not now". To remove Authenticator from your OneDrive, visit 
+                <Hyperlink NavigateUri="https://account.live.com/consent/Manage">account.live.com</Hyperlink>.
+            </TextBlock>
+        </StackPanel>
+    </StackPanel>
+
+</ContentDialog>
