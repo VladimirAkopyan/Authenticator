@@ -53,6 +53,8 @@ namespace Authenticator.Views.Settings
                     }
                     catch (OneDriveException ex)
                     {
+                        toggleSwitch.IsOn = false;
+                        this.hideSyncConfiguration();
                         if (!ex.IsMatch(OneDriveErrorCode.Unauthenticated.ToString()) && !ex.IsMatch(OneDriveErrorCode.AccessDenied.ToString()) && !ex.IsMatch(OneDriveErrorCode.AuthenticationCancelled.ToString()) && !ex.IsMatch(OneDriveErrorCode.AuthenticationFailure.ToString()))
                         {
                             //MainPage.AddBanner(new Banner(BannerType.Danger, ResourceLoader.GetForCurrentView().GetString("UnknownErrorWhileAuthenticating"), true));
@@ -67,9 +69,11 @@ namespace Authenticator.Views.Settings
             }
         }
 
-        private async void AutoSyncToggled(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private void AutoSyncToggled(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             ToggleSwitch toggleSwitch = sender as ToggleSwitch;
+            int setAutoSync = toggleSwitch.IsOn ? 0 : 1;
+            SettingsManager.Save(Setting.WhenToSynchronize, setAutoSync);
         }
 
         private async Task DecommissionSyncWithOnedrive()
