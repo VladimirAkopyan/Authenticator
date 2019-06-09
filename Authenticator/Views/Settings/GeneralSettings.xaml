@@ -11,10 +11,10 @@
         <!-- Clipboard availability of copied code -->
         <TextBlock FontSize="16" Margin="0,0,0,4">Remove the copied code from the clipboard</TextBlock>
         <StackPanel Orientation="Horizontal">
-            <RadioButton Width="180"  Content="when code expires" Tag="OnExpiry" 
-                         GroupName="ClipboardAvailability" Checked="ClipboardAvailabilityChecked" IsChecked="True"/>
-            <RadioButton Content="never" Tag="Never" 
-                         GroupName="ClipboardAvailability" Checked="ClipboardAvailabilityChecked"/>
+            <RadioButton x:Name="OnExpiryRadioButton" Width="180"  Content="when code expires" Tag="OnExpiry" 
+                         GroupName="AvailabilityInClipboard" Checked="AvailabilityInClipboardChecked"/>
+            <RadioButton x:Name="NeverRadioButton" Content="never" Tag="Never" 
+                         GroupName="AvailabilityInClipboard" Checked="AvailabilityInClipboardChecked"/>
         </StackPanel>
         
         <!-- Use NTP to synchronise time -->
