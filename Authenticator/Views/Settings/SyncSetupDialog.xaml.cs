@@ -77,9 +77,10 @@ namespace Authenticator.Views.Settings
                             this.vault.Remove(credential);
                         }
                     }
-                    this.vault.Add(new PasswordCredential("EncryptionKey", "Authenticator User", this.encryptionKey));
+                    this.vault.Add(new PasswordCredential("EncryptionKey", "Encryption Key", this.encryptionKey));
 
-                    this.syncInfoPanel.Visibility = Visibility.Visible;
+
+                    this.showSyncInfo();
                     this.IsPrimaryButtonEnabled = true;
                     this.DefaultButton = ContentDialogButton.Primary;
                 }
@@ -89,15 +90,29 @@ namespace Authenticator.Views.Settings
                 if (!ex.IsMatch(OneDriveErrorCode.Unauthenticated.ToString()) && !ex.IsMatch(OneDriveErrorCode.AccessDenied.ToString()) && !ex.IsMatch(OneDriveErrorCode.AuthenticationCancelled.ToString()) && !ex.IsMatch(OneDriveErrorCode.AuthenticationFailure.ToString()))
                 {
                     this.onedriveErrorMessage.Text = "Oops! We are having trouble connecting to OneDrive. Please try again.";
-                    this.onedriveErrorPanel.Visibility = Visibility.Visible;
+                    this.showOnedriveError();
                 }
                 else
                 {
-                    this.onedriveErrorPanel.Visibility = Visibility.Visible;
+                    this.showOnedriveError();
                 }
             }
 
             this.progressRing.IsActive = false;
+        }
+
+        private void showSyncInfo()
+        {
+            this.progressRing.Visibility = Visibility.Collapsed;
+            this.onedriveErrorPanel.Visibility = Visibility.Collapsed;
+            this.syncInfoPanel.Visibility = Visibility.Visible;
+        }
+
+        private void showOnedriveError()
+        {
+            this.progressRing.Visibility = Visibility.Collapsed;
+            this.onedriveErrorPanel.Visibility = Visibility.Visible;
+            this.syncInfoPanel.Visibility = Visibility.Collapsed;
         }
     }
 }

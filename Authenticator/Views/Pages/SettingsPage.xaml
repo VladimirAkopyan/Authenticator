@@ -14,6 +14,14 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Pivot>
+            <PivotItem Header="New Settings">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+                        <settings:General Margin="0,32,0,0" />
+                        <settings:Sync Margin="0,32,0,0" />
+                    </StackPanel>
+                </ScrollViewer>
+            </PivotItem>
             <PivotItem x:Uid="SettingsGeneral" Header="Algemeen">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <StackPanel>

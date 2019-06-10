@@ -10,7 +10,8 @@
     IsPrimaryButtonEnabled="False">
 
     <StackPanel>
-        <ProgressRing x:Name="progressRing" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+        <ProgressRing x:Name="progressRing" Height="60" Width="60"
+                      HorizontalAlignment="Center" VerticalAlignment="Center" />
         
         <StackPanel x:Name="onedriveErrorPanel" Visibility="Collapsed">
             <TextBlock x:Name="onedriveErrorMessage" Style="{StaticResource SubtitleTextBlockStyle}" FontSize="16">

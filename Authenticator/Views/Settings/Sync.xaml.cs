@@ -29,7 +29,7 @@ namespace Authenticator.Views.Settings
             }
         }
 
-        private async void EnableSyncToggled(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private async void EnableSyncToggled(object sender, RoutedEventArgs e)
         {
             if (sender is ToggleSwitch toggleSwitch)
             {
@@ -39,6 +39,9 @@ namespace Authenticator.Views.Settings
                     switch (await confirmation.ShowAsync())
                     {
                         case ContentDialogResult.Primary:
+                            SettingsManager.Save(Setting.UseCloudSynchronization, true);
+                            // 0 - autoSync, 1 - manual
+                            SettingsManager.Save(Setting.WhenToSynchronize, 0); 
                             this.showSyncConfiguration();
                             break;
                         default:
@@ -48,13 +51,13 @@ namespace Authenticator.Views.Settings
                 }
                 else
                 {
-                    await this.DecommissionSyncWithOnedrive();
                     this.hideSyncConfiguration();
+                    await this.DecommissionSyncWithOnedrive();
                 }
             }
         }
 
-        private void AutoSyncToggled(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private void AutoSyncToggled(object sender, RoutedEventArgs e)
         {
             ToggleSwitch toggleSwitch = sender as ToggleSwitch;
             int setAutoSync = toggleSwitch.IsOn ? 0 : 1;
