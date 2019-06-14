@@ -11,6 +11,7 @@ using Microsoft.OneDrive.Sdk;
 using Domain.Storage;
 using Encryption;
 using Settings;
+using Authenticator.Views.Settings;
 
 namespace Authenticator.Views.Pages
 {

@@ -1,5 +1,6 @@
 ﻿using Domain.Storage;
 using Domain.Utilities;
+using Encryption;
 using Microsoft.OneDrive.Sdk;
 using Synchronization;
 using System;
@@ -21,6 +22,7 @@ namespace Authenticator.Views.Settings
             OneDriveClientExtensions.GetUniversalClient(new[] { "onedrive.appfolder" });
 
         private readonly ISynchronizer synchronizer;
+        private AccountSession session;
 
         public SyncSetupDialog()
         {
@@ -41,8 +43,30 @@ namespace Authenticator.Views.Settings
 
         }
 
-        private void ContinueButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        private async void ContinueButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
+            this.progressRing.Visibility = Visibility.Visible;
+            this.progressRing.IsActive = true;
+
+            try
+            {
+                IEncrypter encrypter = new AESEncrypter();
+                if (this.session.AccountType == AccountType.MicrosoftAccount)
+                {
+                    this.synchronizer.SetEncrypter(encrypter, this.encryptionKey);
+                    await AccountStorage.Instance.Synchronize();
+                }
+            }
+            catch (Exception ex)
+            {
+                this.onedriveErrorMessage.Text = "Couldn't encrypt OneDrive storage. Please try again.";
+                this.showOnedriveError();
+            }
+            finally
+            {
+                this.progressRing.IsActive = false;
+                this.progressRing.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void CancelButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
@@ -61,8 +85,8 @@ namespace Authenticator.Views.Settings
 
             try
             {
-                AccountSession session = await this.onedriveClient.AuthenticateAsync();
-                if (session.AccountType == AccountType.MicrosoftAccount)
+                this.session = await this.onedriveClient.AuthenticateAsync();
+                if (this.session.AccountType == AccountType.MicrosoftAccount)
                 {
                     await this.synchronizer.Setup();
                     AccountStorage.Instance.SetSynchronizer(this.synchronizer);
