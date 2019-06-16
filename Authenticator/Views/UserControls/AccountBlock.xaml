@@ -58,7 +58,7 @@
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
     </UserControl.Resources>
-    <Grid x:Name="Grid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Height="108" Tapped="Grid_Tapped" RenderTransformOrigin="0.5,0.5">
+    <Grid x:Name="Grid" Background="{ThemeResource SystemChromeLowColor}" Height="108" Tapped="Grid_Tapped" RenderTransformOrigin="0.5,0.5">
         <Grid.RenderTransform>
             <CompositeTransform/>
         </Grid.RenderTransform>
@@ -79,7 +79,7 @@
                 <CompositeTransform ScaleX="0"/>
             </Button.RenderTransform>
         </Button>
-        <Viewbox Name="ServiceViewBox" Margin="10,0,0,0" VerticalAlignment="Top" d:LayoutOverrides="LeftPosition, RightPosition" Stretch="Uniform" MaxHeight="30" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="2" RenderTransformOrigin="0,0.5">
+        <Viewbox Name="ServiceViewBox" Margin="20,0,0,0" VerticalAlignment="Top" d:LayoutOverrides="LeftPosition, RightPosition" Stretch="Uniform" MaxHeight="30" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="2" RenderTransformOrigin="0,0.5">
             <Viewbox.RenderTransform>
                 <CompositeTransform TranslateX="-30"/>
             </Viewbox.RenderTransform>
@@ -96,7 +96,7 @@
                     </TextBlock.RenderTransform>
                 </TextBlock>
                 <TextBlock x:Name="AccountService" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="{Binding Service}"
-                           Typography.Capitals="AllSmallCaps" FontWeight="Medium" FontSize="12" Foreground="{ThemeResource SystemColorHighlightColor}"
+                           Typography.Capitals="AllSmallCaps" FontWeight="Medium" Margin="0,4,0,0" FontSize="14" Foreground="{ThemeResource SystemColorHighlightColor}"
                            RenderTransformOrigin="0.5,0.5" >
                     <TextBlock.RenderTransform>
                         <CompositeTransform TranslateX="-25"/>
@@ -104,7 +104,7 @@
                 </TextBlock>
             </StackPanel>
         </Viewbox>
-        <TextBlock Margin="0 20" Padding="10,2,0,0" x:Name="CurrentCode" HorizontalAlignment="Stretch" Text="123 456" 
+        <TextBlock Margin="20 24" Padding="0,2,0,0" x:Name="CurrentCode" HorizontalAlignment="Stretch" Text="123 456" 
                    FontSize="36" FontWeight="ExtraLight" Foreground="{ThemeResource SystemAccentColor}"
                    Grid.Row="1" Grid.Column="2" RenderTransformOrigin="0,0.5">
             <TextBlock.RenderTransform>
@@ -114,7 +114,7 @@
                 <RectangleGeometry Rect="0,10,400,48" />
             </TextBlock.Clip>
         </TextBlock>
-        <Viewbox Name="AccountViewBox" Margin="10 4" VerticalAlignment="Bottom" d:LayoutOverrides="LeftPosition, RightPosition" MaxHeight="30" Stretch="Uniform" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="2" RenderTransformOrigin="0.5,0.5">
+        <Viewbox Name="AccountViewBox" Margin="20 4" VerticalAlignment="Bottom" d:LayoutOverrides="LeftPosition, RightPosition" MaxHeight="30" Stretch="Uniform" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="2" RenderTransformOrigin="0.5,0.5">
             <Viewbox.RenderTransform>
                 <CompositeTransform TranslateX="-30"/>
             </Viewbox.RenderTransform>

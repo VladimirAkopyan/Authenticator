@@ -272,7 +272,6 @@ namespace Authenticator.Views.Pages
                 {
                     ScrollViewer.Visibility = Visibility.Collapsed;
                     NoAccountsGrid.Visibility = Visibility.Visible;
-                    CommandBar.Visibility = Visibility.Collapsed;
                     Edit.Visibility = Visibility.Collapsed;
 
                     mainPage.BeginAnimateAddAccount();
@@ -283,7 +282,6 @@ namespace Authenticator.Views.Pages
                 {
                     ScrollViewer.Visibility = Visibility.Visible;
                     NoAccountsGrid.Visibility = Visibility.Collapsed;
-                    CommandBar.Visibility = Visibility.Visible;
                     Edit.Visibility = Visibility.Visible;
 
                     mainPage.EndAnimateAddAccount();
