@@ -18,6 +18,7 @@ using Settings;
 using Windows.ApplicationModel.Resources;
 using Windows.ApplicationModel;
 using Authenticator.Utilities;
+using Authenticator.Views.Settings;
 
 namespace Authenticator.Views.Pages
 {
@@ -443,6 +444,29 @@ namespace Authenticator.Views.Pages
         private void Synchronize_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
             UpdateLocalFromRemote();
+        }
+
+        private void Settings_Checked(object sender, RoutedEventArgs e)
+        {
+            mainPage.Navigate(typeof(SettingsPage));
+
+        }
+
+        private void Settings_Clicked(object sender, RoutedEventArgs e)
+        {
+            mainPage.Navigate(typeof(SettingsPage));
+        }
+
+        private void About_Clicked(object sender, RoutedEventArgs e)
+        {
+            mainPage.Navigate(typeof(About));
+
+        }
+
+        private void Add_Clicked(object sender, RoutedEventArgs e)
+        {
+            mainPage.Navigate(typeof(AddPage));
+
         }
     }
 }

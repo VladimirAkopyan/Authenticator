@@ -1,4 +1,4 @@
-﻿<UserControl
+﻿<Page
     x:Class="Authenticator.Views.About"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
@@ -27,4 +27,4 @@
             </Paragraph>
         </RichTextBlock>
     </StackPanel>
-</UserControl>
+</Page>

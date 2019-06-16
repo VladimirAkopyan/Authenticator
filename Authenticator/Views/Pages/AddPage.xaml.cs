@@ -66,8 +66,6 @@ namespace Authenticator.Views.Pages
                 object[] parameters = (object[])e.Parameter;
                 mainPage = (MainPage)parameters[0];
 
-                mainPage.SetTitle();
-
                 if (didScan)
                 {
                     try
@@ -131,8 +129,6 @@ namespace Authenticator.Views.Pages
                 {
                     StreamingCaptureMode = StreamingCaptureMode.Video
                 });
-
-                mainPage.SetTitle(ResourceLoader.GetForCurrentView().GetString("ScanTitle"));
 
                 await scanner.Scan(new MobileBarcodeScanningOptions()
                 {

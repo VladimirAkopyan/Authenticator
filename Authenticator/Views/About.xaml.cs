@@ -3,7 +3,7 @@ using Windows.ApplicationModel;
 
 namespace Authenticator.Views
 {
-    public sealed partial class About : UserControl
+    public sealed partial class About : Page
     {
         public readonly string AppVersion;
 

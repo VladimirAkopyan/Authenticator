@@ -178,8 +178,15 @@
             </Button>
         </Grid>
         <CommandBar Name="CommandBar" Grid.Row="3">
+            <CommandBar.Content>
+                <StackPanel Orientation="Horizontal">
+                    <AppBarButton x:Uid="Settings" Icon="Setting" x:Name="Settings" Click="Settings_Clicked" />
+                    <AppBarButton x:Uid="About" Icon="Help" x:Name="About" Click="About_Clicked" />
+                </StackPanel>
+            </CommandBar.Content>
             <controls:SynchronizeAppBarButton x:Name="Synchronize" Tapped="Synchronize_Tapped" Visibility="Collapsed" />
             <AppBarToggleButton x:Uid="Edit" Icon="Edit" x:Name="Edit" Label="Bewerken" Checked="Edit_Checked" Unchecked="Edit_Unchecked" />
+            <AppBarButton x:Uid="Add" Icon="Add" x:Name="Add" Label="Add" Click="Add_Clicked" />
         </CommandBar>
         <ContentDialog x:Uid="ConfirmDialog" Name="ConfirmDialog" PrimaryButtonText="Verwijderen" SecondaryButtonText="Annuleren" Title="Account verwijderen" PrimaryButtonClick="ConfirmDialog_PrimaryButtonClick">
             <StackPanel>
