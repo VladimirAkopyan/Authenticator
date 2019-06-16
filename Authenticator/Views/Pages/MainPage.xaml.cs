@@ -150,12 +150,12 @@ namespace Authenticator.Views.Pages
 
         public void BeginAnimateAddAccount()
         {
-            AddAccountFlash.Begin();
+            //AddAccountFlash.Begin();
         }
 
         public void EndAnimateAddAccount()
         {
-            AddAccountFlash.Stop();
+            //AddAccountFlash.Stop();
         }
     }
 }
