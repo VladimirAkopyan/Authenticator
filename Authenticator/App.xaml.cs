@@ -1,4 +1,4 @@
-﻿using Authenticator_for_Windows.Views.Pages;
+﻿using Authenticator.Views.Pages;
 using Domain.Utilities;
 using Patches;
 using Settings;
@@ -11,7 +11,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
-namespace Authenticator_for_Windows
+namespace Authenticator
 {
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.

@@ -1,6 +1,6 @@
-﻿using Authenticator_for_Windows.Events;
+﻿using Authenticator.Events;
 using Domain.Storage;
-using Authenticator_for_Windows.Views.UserControls;
+using Authenticator.Views.UserControls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,9 +17,10 @@ using Synchronization.Exceptions;
 using Settings;
 using Windows.ApplicationModel.Resources;
 using Windows.ApplicationModel;
-using Authenticator_for_Windows.Utilities;
+using Authenticator.Utilities;
+using Authenticator.Views.Settings;
 
-namespace Authenticator_for_Windows.Views.Pages
+namespace Authenticator.Views.Pages
 {
     public sealed partial class AccountsPage : Page
     {
@@ -271,7 +272,6 @@ namespace Authenticator_for_Windows.Views.Pages
                 {
                     ScrollViewer.Visibility = Visibility.Collapsed;
                     NoAccountsGrid.Visibility = Visibility.Visible;
-                    CommandBar.Visibility = Visibility.Collapsed;
                     Edit.Visibility = Visibility.Collapsed;
 
                     mainPage.BeginAnimateAddAccount();
@@ -282,7 +282,6 @@ namespace Authenticator_for_Windows.Views.Pages
                 {
                     ScrollViewer.Visibility = Visibility.Visible;
                     NoAccountsGrid.Visibility = Visibility.Collapsed;
-                    CommandBar.Visibility = Visibility.Visible;
                     Edit.Visibility = Visibility.Visible;
 
                     mainPage.EndAnimateAddAccount();
@@ -443,6 +442,29 @@ namespace Authenticator_for_Windows.Views.Pages
         private void Synchronize_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
             UpdateLocalFromRemote();
+        }
+
+        private void Settings_Checked(object sender, RoutedEventArgs e)
+        {
+            mainPage.Navigate(typeof(SettingsPage));
+
+        }
+
+        private void Settings_Clicked(object sender, RoutedEventArgs e)
+        {
+            mainPage.Navigate(typeof(SettingsPage));
+        }
+
+        private void About_Clicked(object sender, RoutedEventArgs e)
+        {
+            mainPage.Navigate(typeof(About));
+
+        }
+
+        private void Add_Clicked(object sender, RoutedEventArgs e)
+        {
+            mainPage.Navigate(typeof(AddPage));
+
         }
     }
 }

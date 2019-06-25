@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Resources;
 
-namespace Authenticator_for_Windows.Utilities
+namespace Authenticator.Utilities
 {
     class ReleaseNotesManager
     {

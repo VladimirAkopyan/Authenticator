@@ -8,7 +8,7 @@ using Domain.Utilities;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.ApplicationModel.Resources;
 using Domain;
-using Authenticator_for_Windows.Views.UserControls;
+using Authenticator.Views.UserControls;
 using Domain.Exceptions;
 using Synchronization.Exceptions;
 using Settings;
@@ -23,7 +23,7 @@ using System.Threading.Tasks;
 using Windows.Media.Capture;
 using System.Collections.Generic;
 
-namespace Authenticator_for_Windows.Views.Pages
+namespace Authenticator.Views.Pages
 {
     public sealed partial class AddPage : Page
     {
@@ -65,8 +65,6 @@ namespace Authenticator_for_Windows.Views.Pages
             {
                 object[] parameters = (object[])e.Parameter;
                 mainPage = (MainPage)parameters[0];
-
-                mainPage.SetTitle();
 
                 if (didScan)
                 {
@@ -131,8 +129,6 @@ namespace Authenticator_for_Windows.Views.Pages
                 {
                     StreamingCaptureMode = StreamingCaptureMode.Video
                 });
-
-                mainPage.SetTitle(ResourceLoader.GetForCurrentView().GetString("ScanTitle"));
 
                 await scanner.Scan(new MobileBarcodeScanningOptions()
                 {

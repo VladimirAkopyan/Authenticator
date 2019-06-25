@@ -9,7 +9,7 @@ using Windows.UI.Xaml.Input;
 using System.Linq;
 using Windows.UI.Xaml.Navigation;
 using System.Text.RegularExpressions;
-using Authenticator_for_Windows.Views.UserControls;
+using Authenticator.Views.UserControls;
 using Windows.ApplicationModel.Resources;
 using Domain.Storage;
 using Encryption;
@@ -20,7 +20,7 @@ using System;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace Authenticator_for_Windows.Views.Pages
+namespace Authenticator.Views.Pages
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.

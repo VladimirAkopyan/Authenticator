@@ -3,7 +3,7 @@ using System;
 using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Core;
-using Authenticator_for_Windows.Views.UserControls;
+using Authenticator.Views.UserControls;
 using System.Collections.Generic;
 using Windows.Security.Credentials;
 using Synchronization;
@@ -11,8 +11,9 @@ using Microsoft.OneDrive.Sdk;
 using Domain.Storage;
 using Encryption;
 using Settings;
+using Authenticator.Views.Settings;
 
-namespace Authenticator_for_Windows.Views.Pages
+namespace Authenticator.Views.Pages
 {
     public sealed partial class MainPage : Page
     {
@@ -77,26 +78,7 @@ namespace Authenticator_for_Windows.Views.Pages
 
                 Contentframe.GoBack();
 
-                SetTitle();
-
                 backButtonTapped = true;
-
-                if (Contentframe.Content.GetType() == typeof(AccountsPage))
-                {
-                    AccountsMenuItem.IsChecked = true;
-                }
-                else if (Contentframe.Content.GetType() == typeof(AddPage))
-                {
-                    AddMenuItem.IsChecked = true;
-                }
-                else if (Contentframe.Content.GetType() == typeof(SettingsPage))
-                {
-                    SettingsMenuItem.IsChecked = true;
-                }
-                else if (Contentframe.Content.GetType() == typeof(PrivacyDeclaration))
-                {
-                    SettingsMenuItem.IsChecked = true;
-                }
 
                 backButtonTapped = false;
 
@@ -109,11 +91,6 @@ namespace Authenticator_for_Windows.Views.Pages
             instance.Bannerbar.Children.Clear();
         }
 
-        private void OnMenuButtonClicked(object sender, RoutedEventArgs e)
-        {
-            Navbar.IsPaneOpen = !Navbar.IsPaneOpen;
-        }
-
         public static void AddBanner(Banner banner)
         {
             instance.Bannerbar.Children.Add(banner);
@@ -121,8 +98,6 @@ namespace Authenticator_for_Windows.Views.Pages
 
         public void Navigate(Type navigatepage, object parameter = null, bool addToBackStack = true)
         {
-            Navbar.IsPaneOpen = false;
-
             if (Contentframe != null)
             {
                 Contentframe.Navigate(navigatepage, parameter);
@@ -131,8 +106,6 @@ namespace Authenticator_for_Windows.Views.Pages
                 {
                     Contentframe.BackStack.RemoveAt(Contentframe.BackStackDepth - 1);
                 }
-
-                SetTitle();
 
                 SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = Contentframe.CanGoBack ? AppViewBackButtonVisibility.Visible : AppViewBackButtonVisibility.Collapsed;
             }
@@ -146,30 +119,9 @@ namespace Authenticator_for_Windows.Views.Pages
         }
 
         public void NavigateToAccountsAndClearBackStack()
-        {
-            AccountsMenuItem.IsChecked = true;
-            
+        {            
             Navigate(typeof(AccountsPage), this);
-
             ClearBackStack();
-        }
-
-        public void SetTitle(string title)
-        {
-            TextHeader.Text = title;
-        }
-
-        public void SetTitle()
-        {
-            if (Contentframe.Content is Page)
-            {
-                Page page = (Page)Contentframe.Content;
-
-                if (page.Tag != null && page.Tag.GetType() == typeof(string))
-                {
-                    TextHeader.Text = page.Tag.ToString();
-                }
-            }
         }
 
         private void AccountsMenuItem_Checked(object sender, RoutedEventArgs e)
@@ -198,12 +150,12 @@ namespace Authenticator_for_Windows.Views.Pages
 
         public void BeginAnimateAddAccount()
         {
-            AddAccountFlash.Begin();
+            //AddAccountFlash.Begin();
         }
 
         public void EndAnimateAddAccount()
         {
-            AddAccountFlash.Stop();
+            //AddAccountFlash.Stop();
         }
     }
 }

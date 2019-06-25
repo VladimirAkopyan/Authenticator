@@ -1,0 +1,27 @@
+﻿<UserControl
+    x:Class="Authenticator.Views.Settings.Sync"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:settings="using:Authenticator.Views.Settings">
+
+    <StackPanel>
+        <TextBlock Style="{StaticResource TitleTextBlockStyle}" Margin="0,0,0,28">
+            Sync with OneDrive
+        </TextBlock>
+        <TextBlock FontSize="16" Margin="0,0,0,4">
+            Use your OneDrive storage to synchronise settings across your devices
+        </TextBlock>
+        <ToggleSwitch x:Name="enableSyncToggle" Toggled="EnableSyncToggled" />
+        <TextBlock x:Name="warningTextBlock" FontSize="16" 
+                   Foreground="{StaticResource WarningColor}" Margin="0,4,0,0"
+                   Visibility="Collapsed">
+            Turning off sync will reset your personal key.
+        </TextBlock>
+
+        <!-- Sync settings -->
+        <StackPanel x:Name="autoSyncStackPanel" Margin="0,24,0,0" Visibility="Collapsed">
+            <TextBlock FontSize="16" Margin="0,0,0,4">Automatically sync at startup</TextBlock>
+            <ToggleSwitch x:Name="autoSyncToggle" Toggled="AutoSyncToggled"></ToggleSwitch>
+        </StackPanel>
+    </StackPanel>
+</UserControl>
