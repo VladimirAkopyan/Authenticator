@@ -1,4 +1,4 @@
-﻿using Domain.Protocols;
+using Domain.Protocols;
 using System;
 
 namespace Domain.Utilities
@@ -6,8 +6,9 @@ namespace Domain.Utilities
     public class TOTPUtilities
     {
         private const string PREFIX = "otpauth://totp/";
-        private const string SECRET_SPLITTER = "?secret=";
-        private const string SERVICE_SPLITTER = ":";
+        private const string SECRET_KEY = "secret";
+        private const string ISSUER_KEY = "issuer";
+        private const string DIGITS_KEY = "digits";
 
         public static int RemainingSeconds
         {
@@ -47,6 +48,11 @@ namespace Domain.Utilities
 
         public static Account UriToAccount(string input)
         {
+            if (string.IsNullOrWhiteSpace(input))
+            {
+                return null;
+            }
+
             input = Uri.UnescapeDataString(input);
             Account account = null;
 
@@ -61,11 +67,12 @@ namespace Domain.Utilities
                     if (parts.Length == 2)
                     {
                         string name = parts[0];
-                        string secret = GetValue("secret", parts[1]);
-                        string service = GetValue("issuer", parts[1]);
+                        string secret = GetValue(SECRET_KEY, parts[1]);
+                        string service = GetValue(ISSUER_KEY, parts[1]);
+                        byte digits = GetByteValue(DIGITS_KEY, parts[1], TOTP.DEFAULT_DIGITS);
 
                         // Remove possibly prepended service (issuer) name
-                        if (name.StartsWith(service + ":"))
+                        if (!string.IsNullOrWhiteSpace(service) && name.StartsWith(service + ":"))
                         {
                             name = name.Substring(service.Length + 1);
                         }
@@ -81,7 +88,7 @@ namespace Domain.Utilities
                             }
                         }
 
-                        account = new Account(name, secret, service);
+                        account = new Account(name, secret, service, digits);
                     }
                 }
             }
@@ -102,7 +109,7 @@ namespace Domain.Utilities
 
                 if (part.Contains("="))
                 {
-                    string[] keyValue = part.Split('=');
+                    string[] keyValue = part.Split(new[] { '=' }, 2);
 
                     if (keyValue.Length == 2 && keyValue[0] == key)
                     {
@@ -111,6 +118,19 @@ namespace Domain.Utilities
                 }
 
                 index++;
+            }
+
+            return value;
+        }
+
+        private static byte GetByteValue(string key, string input, byte defaultValue)
+        {
+            string rawValue = GetValue(key, input);
+            byte value;
+
+            if (!byte.TryParse(rawValue, out value) || value < TOTP.MIN_DIGITS || value > TOTP.MAX_DIGITS)
+            {
+                return defaultValue;
             }
 
             return value;

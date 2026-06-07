@@ -1,4 +1,5 @@
-﻿using System;
+using System;
+using System.Collections.Generic;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
@@ -10,6 +11,9 @@ using Domain.Utilities;
 using Domain.Storage;
 using Synchronization.Exceptions;
 using Authenticator.Views.Pages;
+using Windows.System;
+using Windows.UI.Core;
+using Windows.UI.Xaml.Input;
 
 namespace Authenticator.Views.UserControls
 {
@@ -98,7 +102,7 @@ namespace Authenticator.Views.UserControls
 
             this.account = account;
             this.mainPage = mainPage;
-            otp = new OTP(account.Secret);
+            otp = new OTP(account.Secret, account.Digits);
 
             DataContext = account;
 
@@ -117,10 +121,26 @@ namespace Authenticator.Views.UserControls
 
         private void DisplayCodeFormatted()
         {
-            string firstPart = otp.Code.Substring(0, 3);
-            string secondPart = otp.Code.Substring(3, 3);
+            CurrentCode.Text = FormatCode(otp.Code);
+        }
 
-            CurrentCode.Text = string.Format("{0} {1}", firstPart, secondPart);
+        private static string FormatCode(string code)
+        {
+            if (string.IsNullOrWhiteSpace(code) || code.Length <= 4)
+            {
+                return code;
+            }
+
+            int groupSize = code.Length % 3 == 0 ? 3 : 4;
+            List<string> groups = new List<string>();
+
+            for (int index = 0; index < code.Length; index += groupSize)
+            {
+                int remaining = code.Length - index;
+                groups.Add(code.Substring(index, Math.Min(groupSize, remaining)));
+            }
+
+            return string.Join(" ", groups);
         }
 
         public void Remove()
@@ -184,20 +204,44 @@ namespace Authenticator.Views.UserControls
             }
         }
 
-        private void Grid_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        private void Grid_Tapped(object sender, TappedRoutedEventArgs e)
         {
             if (!InEditMode)
             {
-                if (Flash.GetCurrentState() != ClockState.Stopped)
-                {
-                    Flash.Stop();
-                }
-
-                Flash.Begin();
-
-                CopyCode();
-                NotifyCopyRequested();
+                CopyCodeAndNotify();
             }
+        }
+
+        private void Grid_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            if (InEditMode)
+            {
+                return;
+            }
+
+            CoreVirtualKeyStates controlKeyState = Window.Current.CoreWindow.GetKeyState(VirtualKey.Control);
+            bool controlDown = (controlKeyState & CoreVirtualKeyStates.Down) == CoreVirtualKeyStates.Down;
+            bool copyShortcut = controlDown && (e.Key == VirtualKey.C || e.Key == VirtualKey.Insert);
+            bool activationKey = e.Key == VirtualKey.Enter || e.Key == VirtualKey.Space;
+
+            if (copyShortcut || activationKey)
+            {
+                CopyCodeAndNotify();
+                e.Handled = true;
+            }
+        }
+
+        private void CopyCodeAndNotify()
+        {
+            if (Flash.GetCurrentState() != ClockState.Stopped)
+            {
+                Flash.Stop();
+            }
+
+            Flash.Begin();
+
+            CopyCode();
+            NotifyCopyRequested();
         }
 
         private void CopyCode()
@@ -257,7 +301,7 @@ namespace Authenticator.Views.UserControls
             }
         }
 
-        private async void EditPanel_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        private async void EditPanel_Tapped(object sender, TappedRoutedEventArgs e)
         {
             if (_editEnabled && InEditMode)
             {

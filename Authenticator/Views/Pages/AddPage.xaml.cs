@@ -1,10 +1,11 @@
-﻿using Domain.Storage;
+using Domain.Storage;
 using System;
 using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using Domain.Utilities;
+using Domain.Protocols;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.ApplicationModel.Resources;
 using Domain;
@@ -32,6 +33,7 @@ namespace Authenticator.Views.Pages
         private Account dragAndDropAccount;
         private static Account scannedAccount;
         private static bool didScan;
+        private byte accountDigits = TOTP.DEFAULT_DIGITS;
         private MobileBarcodeScanner scanner;
 
         public AddPage()
@@ -72,6 +74,7 @@ namespace Authenticator.Views.Pages
                     {
                         if (scannedAccount != null)
                         {
+                            accountDigits = scannedAccount.Digits;
                             AccountUsername.Text = scannedAccount.Username;
                             AccountCode.Text = scannedAccount.Secret;
                             AccountService.Text = scannedAccount.Service;
@@ -83,11 +86,13 @@ namespace Authenticator.Views.Pages
                         }
                         else
                         {
+                            accountDigits = TOTP.DEFAULT_DIGITS;
                             MainPage.AddBanner(new Banner(BannerType.Danger, ResourceLoader.GetForCurrentView().GetString("BannerInvalidCode"), true));
                         }
                     }
                     catch
                     {
+                        accountDigits = TOTP.DEFAULT_DIGITS;
                         MainPage.AddBanner(new Banner(BannerType.Danger, ResourceLoader.GetForCurrentView().GetString("BannerInvalidCode"), true));
                     }
                 }
@@ -243,9 +248,9 @@ namespace Authenticator.Views.Pages
 
                     if (valid)
                     {
-                        OTP otp = new OTP(code);
+                        OTP otp = new OTP(code, accountDigits);
 
-                        Account account = new Account(AccountUsername.Text, code, AccountService.Text);
+                        Account account = new Account(AccountUsername.Text, code, AccountService.Text, accountDigits);
 
                         await AccountStorage.Instance.SaveAsync(account);
 
@@ -260,6 +265,7 @@ namespace Authenticator.Views.Pages
                         AccountService.Text = "";
                         AccountUsername.Text = "";
                         AccountCode.Text = "";
+                        accountDigits = TOTP.DEFAULT_DIGITS;
                     }
                 }
                 catch (ArgumentException)
@@ -332,6 +338,7 @@ namespace Authenticator.Views.Pages
 
             if (dragAndDropAccount != null)
             {
+                accountDigits = dragAndDropAccount.Digits;
                 AccountUsername.Text = !string.IsNullOrWhiteSpace(dragAndDropAccount.Username) ? dragAndDropAccount.Username : "";
                 AccountCode.Text = !string.IsNullOrWhiteSpace(dragAndDropAccount.Secret) ? dragAndDropAccount.Secret : "";
                 AccountService.Text = !string.IsNullOrWhiteSpace(dragAndDropAccount.Service) ? dragAndDropAccount.Service : "";
