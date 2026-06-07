@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Windows.Security.Cryptography;
 using Windows.Security.Cryptography.Core;
 using Windows.Storage.Streams;
@@ -11,9 +11,12 @@ namespace Domain
     public class OTP
     {
         private CryptographicKey cKey;
+        private byte digits;
 
-        public OTP(string key)
+        public OTP(string key, byte digits = TOTP.DEFAULT_DIGITS)
         {
+            this.digits = NormalizeDigits(digits);
+
             MacAlgorithmProvider provider = MacAlgorithmProvider.OpenAlgorithm(MacAlgorithmNames.HmacSha1);
 
             IBuffer keyMaterial = CryptographicBuffer.CreateFromByteArray(key.ToBytesBase32());
@@ -26,8 +29,6 @@ namespace Domain
 
             IBuffer data = CryptographicBuffer.CreateFromByteArray(value);
             IBuffer buffer = CryptographicEngine.Sign(cKey, data);
-
-            string signature = CryptographicBuffer.EncodeToHexString(buffer);
 
             CryptographicBuffer.CopyToByteArray(buffer, out hash);
             return hash;
@@ -50,7 +51,7 @@ namespace Domain
 
         public bool IsValid(string totp)
         {
-            return totp.Equals(Generate());
+            return string.Equals(totp, Generate(), StringComparison.Ordinal);
         }
 
         private string Generate()
@@ -74,16 +75,25 @@ namespace Domain
 
             uint fullcode = BitConverter.ToUInt32(bytes, 0) & 0x7fffffff;
 
-            // we use the last x DIGITS of this code in radix 10
-            uint codemask = (uint)Math.Pow(10, TOTP.DIGITS);
+            // we use the last x digits of this code in radix 10
+            uint codemask = (uint)Math.Pow(10, digits);
 
             string totp = (fullcode % codemask).ToString();
 
-            // .NETmf has no required format string
-            while (totp.Length != TOTP.DIGITS)
+            while (totp.Length < digits)
                 totp = "0" + totp;
 
             return totp;
+        }
+
+        private static byte NormalizeDigits(byte digits)
+        {
+            if (digits < TOTP.MIN_DIGITS || digits > TOTP.MAX_DIGITS)
+            {
+                return TOTP.DEFAULT_DIGITS;
+            }
+
+            return digits;
         }
     }
 }
