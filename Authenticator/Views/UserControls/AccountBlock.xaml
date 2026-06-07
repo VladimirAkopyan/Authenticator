@@ -1,4 +1,4 @@
-﻿<UserControl x:Name="userControl"
+<UserControl x:Name="userControl"
     x:Class="Authenticator.Views.UserControls.AccountBlock"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -7,6 +7,11 @@
     xmlns:domain="using:Domain"
     mc:Ignorable="d"
     Height="110"
+    IsTabStop="True"
+    TabIndex="0"
+    KeyDown="Grid_KeyDown"
+    AutomationProperties.Name="{Binding Service}"
+    AutomationProperties.HelpText="Press Enter, Space, Ctrl+C, or Ctrl+Insert to copy the current code."
     d:DesignHeight="300"
     d:DesignWidth="400"
     DataContext="domain:Account">
