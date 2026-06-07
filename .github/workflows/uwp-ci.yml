@@ -48,8 +48,15 @@ jobs:
       - name: Show Visual Studio and SDK inventory
         shell: pwsh
         run: |
-          & "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products * -requires Microsoft.Component.MSBuild -format table
-          Get-ChildItem 'C:\Program Files (x86)\Windows Kits\10\Platforms\UAP' -ErrorAction SilentlyContinue | Select-Object -ExpandProperty Name
+          $vswhere = Join-Path ${env:ProgramFiles(x86)} 'Microsoft Visual Studio\Installer\vswhere.exe'
+          if (Test-Path $vswhere) {
+            & $vswhere -latest -products '*' -requires Microsoft.Component.MSBuild -format table
+          }
+
+          $uapPlatformRoot = 'C:\Program Files (x86)\Windows Kits\10\Platforms\UAP'
+          if (Test-Path $uapPlatformRoot) {
+            Get-ChildItem $uapPlatformRoot | Select-Object -ExpandProperty Name
+          }
 
       - name: Restore NuGet packages
         shell: pwsh
@@ -80,8 +87,8 @@ jobs:
       - name: Run UWP unit tests
         shell: pwsh
         run: |
-          $vswhere = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe"
-          $vsInstall = & $vswhere -latest -products * -requires Microsoft.Component.MSBuild -property installationPath
+          $vswhere = Join-Path ${env:ProgramFiles(x86)} 'Microsoft Visual Studio\Installer\vswhere.exe'
+          $vsInstall = & $vswhere -latest -products '*' -requires Microsoft.Component.MSBuild -property installationPath
           if ([string]::IsNullOrWhiteSpace($vsInstall)) {
             throw "Visual Studio installation with MSBuild was not found."
           }
