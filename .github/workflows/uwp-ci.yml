@@ -1,0 +1,126 @@
+name: UWP CI
+
+on:
+  pull_request:
+    branches:
+      - master
+  push:
+    branches:
+      - master
+      - 'codex/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: uwp-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-test:
+    name: Build and test (${{ matrix.platform }})
+    runs-on: windows-2022
+    timeout-minutes: 45
+
+    strategy:
+      fail-fast: false
+      matrix:
+        platform:
+          - x86
+          - x64
+
+    env:
+      SOLUTION_PATH: Authenticator for Windows.sln
+      BUILD_CONFIGURATION: Debug
+      # The repository targets 10.0.18362.0, but the hosted windows-2022 image
+      # currently has newer Windows SDKs installed. Override the CI build to an
+      # installed SDK while keeping the app's minimum target unchanged.
+      CI_TARGET_PLATFORM_VERSION: 10.0.19041.0
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Add MSBuild to PATH
+        uses: microsoft/setup-msbuild@v3
+
+      - name: Show Visual Studio and SDK inventory
+        shell: pwsh
+        run: |
+          & "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products * -requires Microsoft.Component.MSBuild -format table
+          Get-ChildItem 'C:\Program Files (x86)\Windows Kits\10\Platforms\UAP' -ErrorAction SilentlyContinue | Select-Object -ExpandProperty Name
+
+      - name: Restore NuGet packages
+        shell: pwsh
+        run: |
+          msbuild "${env:SOLUTION_PATH}" `
+            /t:Restore `
+            /p:Platform=${{ matrix.platform }} `
+            /p:Configuration=${env:BUILD_CONFIGURATION} `
+            /p:TargetPlatformVersion=${env:CI_TARGET_PLATFORM_VERSION}
+
+      - name: Build app and test project
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path artifacts | Out-Null
+
+          msbuild "${env:SOLUTION_PATH}" `
+            /m `
+            /restore `
+            /p:Platform=${{ matrix.platform }} `
+            /p:Configuration=${env:BUILD_CONFIGURATION} `
+            /p:TargetPlatformVersion=${env:CI_TARGET_PLATFORM_VERSION} `
+            /p:AppxPackageSigningEnabled=false `
+            /p:GenerateAppxPackageOnBuild=false `
+            /p:AppxBundle=Never `
+            /p:DeployOnBuild=false `
+            /bl:artifacts\msbuild-${{ matrix.platform }}.binlog
+
+      - name: Run UWP unit tests
+        shell: pwsh
+        run: |
+          $vswhere = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe"
+          $vsInstall = & $vswhere -latest -products * -requires Microsoft.Component.MSBuild -property installationPath
+          if ([string]::IsNullOrWhiteSpace($vsInstall)) {
+            throw "Visual Studio installation with MSBuild was not found."
+          }
+
+          $vstest = Join-Path $vsInstall 'Common7\IDE\CommonExtensions\Microsoft\TestWindow\vstest.console.exe'
+          if (!(Test-Path $vstest)) {
+            throw "vstest.console.exe was not found at '$vstest'."
+          }
+
+          $testRoot = Join-Path 'Unit Tests\bin\${{ matrix.platform }}' $env:BUILD_CONFIGURATION
+          if (!(Test-Path $testRoot)) {
+            throw "Expected UWP test output directory was not found: '$testRoot'."
+          }
+
+          $testArtifact = Get-ChildItem -Path $testRoot -Recurse -Include '*.build.appxrecipe', '*.appx' |
+            Select-Object -First 1
+
+          if ($null -eq $testArtifact) {
+            Get-ChildItem -Path $testRoot -Recurse | Select-Object FullName
+            throw "No UWP test artifact was found under '$testRoot'."
+          }
+
+          New-Item -ItemType Directory -Force -Path TestResults | Out-Null
+
+          & $vstest $testArtifact.FullName `
+            /Framework:FrameworkUap10 `
+            /Logger:"trx;LogFileName=unit-tests-${{ matrix.platform }}.trx" `
+            /ResultsDirectory:TestResults
+
+          if ($LASTEXITCODE -ne 0) {
+            exit $LASTEXITCODE
+          }
+
+      - name: Upload build logs and test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: uwp-ci-${{ matrix.platform }}
+          if-no-files-found: ignore
+          path: |
+            artifacts/**
+            TestResults/**
