@@ -47,21 +47,18 @@ jobs:
 
       - name: Restore NuGet packages
         shell: pwsh
+        timeout-minutes: 10
         run: |
-          msbuild "${env:SOLUTION_PATH}" `
-            /t:Restore `
-            /p:Platform=${{ matrix.platform }} `
-            /p:Configuration=${env:BUILD_CONFIGURATION} `
-            /p:TargetPlatformVersion=${env:CI_TARGET_PLATFORM_VERSION}
+          nuget restore "${env:SOLUTION_PATH}" -NonInteractive -Verbosity normal
 
       - name: Build app and test project
         shell: pwsh
+        timeout-minutes: 25
         run: |
           New-Item -ItemType Directory -Force -Path artifacts | Out-Null
 
           msbuild "${env:SOLUTION_PATH}" `
             /m `
-            /restore `
             /p:Platform=${{ matrix.platform }} `
             /p:Configuration=${env:BUILD_CONFIGURATION} `
             /p:TargetPlatformVersion=${env:CI_TARGET_PLATFORM_VERSION} `
@@ -73,6 +70,7 @@ jobs:
 
       - name: Run UWP unit tests
         shell: pwsh
+        timeout-minutes: 10
         run: |
           $vswhere = 'C:\Program Files (x86)\Microsoft Visual Studio\Installer\vswhere.exe'
           $vsInstall = & $vswhere -latest -products '*' -requires Microsoft.Component.MSBuild -property installationPath
